@@ -9,3 +9,5 @@ bin/
 .idea
 
 .settings
+
+.vscode
