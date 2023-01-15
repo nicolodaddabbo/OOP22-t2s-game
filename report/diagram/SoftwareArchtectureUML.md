@@ -6,21 +6,37 @@ GameEngine --> Scene
 Game --o  State
 Game --o World
 World --* GameObject
-GameObject --* GameComponent
+GameObject --> InputComponent
+GameObject --> PhysicComponent
+GameObject --> GraphicsComponent
+Scene --> Graphics
+GraphicsComponent --> Graphics
 
 %% Rapresenting the MVC's "Model"
 %% Every thing in the model is a GameObject
 class GameObject{
     <<interface>>
-    update() void
+    updateInput() void
+    updatePhysic() void
+    render() void
     notifyComponent() void
 }
-%% We can add domain, in a decouple way, to a GameObject
-class GameComponent{
+%%
+class InputComponent{
     <<interface>>
-    update() void
-    receive(ID message) void
+    update(GameObject object)
 }
+%%
+class PhysicComponent{
+    <<interface>>
+    update(GameObject object);
+}
+%%
+class GraphicsComponent{
+    <<interface>>
+    update(GameObject object, Graphic g) void
+}
+%%
 %% Rapresenting the MVC's "Controller"
 class GameEngine{
     <<interface>>
@@ -49,4 +65,13 @@ class Scene{
     <<interface>>
     render() void
 }
+%% 
+class Graphics{
+    <<interface>>
+    drawPlayer(GameObject object) void
+    drawEnemies(GameObject object) void
+}
+%% 
+
+
 ```
