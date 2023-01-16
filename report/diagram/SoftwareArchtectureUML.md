@@ -9,8 +9,9 @@ World --* GameObject
 GameObject --> InputComponent
 GameObject --> PhysicComponent
 GameObject --> GraphicsComponent
+InputComponent --> InputController
 Scene --> Graphics
-GraphicsComponent --> Graphics
+Graphics <-- GraphicsComponent
 
 %% Rapresenting the MVC's "Model"
 %% Every thing in the model is a GameObject
@@ -24,17 +25,21 @@ class GameObject{
 %%
 class InputComponent{
     <<interface>>
-    update(GameObject object)
+    update(GameObject object, InputController ic)
 }
 %%
 class PhysicComponent{
     <<interface>>
-    update(GameObject object);
+    update(GameObject object, World w);
 }
 %%
 class GraphicsComponent{
     <<interface>>
     update(GameObject object, Graphic g) void
+}
+%%
+class InputController{
+    <<interface>>
 }
 %%
 %% Rapresenting the MVC's "Controller"
