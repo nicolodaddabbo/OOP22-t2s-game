@@ -6,46 +6,40 @@ GameEngine --> Scene
 Game --o  State
 Game --o World
 World --* GameObject
-GameObject --> InputComponent
-GameObject --> PhysicComponent
-GameObject --> GraphicsComponent
-InputComponent --> InputController
+GameObject --> GameComponent
+GameComponent <|-- GraphicsComponent
 Scene --> Graphics
+GraphicsComponent <-- GameObject
 Graphics <-- GraphicsComponent
 
 %% Rapresenting the MVC's "Model"
 %% Every thing in the model is a GameObject
 class GameObject{
     <<interface>>
-    updateInput() void
-    updatePhysic() void
+    getInputController() Optional~InputController~
+    getGameComponents() List~GameComponents~
+    getGraphicsComponent() Optional~GraphicsComponent~
+    update() void
     render() void
     notifyComponent() void
+
 }
 %%
-class InputComponent{
+class GameComponent{
     <<interface>>
-    update(GameObject object, InputController ic)
+    update(GameObject object);
 }
 %%
-class PhysicComponent{
-    <<interface>>
-    update(GameObject object, World w);
-}
 %%
 class GraphicsComponent{
     <<interface>>
-    update(GameObject object, Graphic g) void
-}
-%%
-class InputController{
-    <<interface>>
+    update(GameObject object) void
 }
 %%
 %% Rapresenting the MVC's "Controller"
 class GameEngine{
     <<interface>>
-    run() void
+    run() 
 }
 %% Rapresenting the current game of the player
 class Game{
