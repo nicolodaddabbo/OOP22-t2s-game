@@ -106,32 +106,61 @@ Le difficoltà che il progetto si porta dietro sono:
 
 
 \chapter{Design}
-
-In questo capitolo si spiegano le strategie messe in campo per soddisfare i requisiti identificati nell'analisi.
-
-Si parte da una visione architetturale, il cui scopo è informare il lettore di quale sia il funzionamento dell'applicativo realizzato ad alto livello.
-%
-In particolare, è necessario descrivere accuratamente in che modo i componenti principali del sistema si coordinano fra loro.
-%
-A seguire, si dettagliano alcune parti del design, quelle maggiormente rilevanti al fine di chiarificare la logica con cui sono stati affrontati i principali aspetti dell'applicazione.
-
 \section{Architettura}
-
-Questa sezione spiega come le componenti principali del software interagiscono fra loro.
+T2S è stato sviluppato adottando un pattern architetturale che mantenesse una simile struttura MVC, quindi con i suoi vantaggi, contaminandola però attraverso l’utilizzo del pattern Component.
+\\
+Il pattern Component permette ad una singola entità di estendersi su domini multipli senza accorparli in unica classe.
+\\
+Applicandolo al dominio dell’applicazione (Model), avremo che ogni entità risulta essere un GameObject.
+\\
+Tale GameObject viene adornato con dei GameComponent, ognuno dei quali appartiene ad un dominio (Input,Fisica,Stato,Grafica …) particolare.
+\\
+Ogni GameComponent è responsabile per l’aggiornamento del GameObject nel rispettivo dominio.
+\\
+Tuttavia, pur appartenendo a domini diversi, i diversi GameComponents potrebbero aver bisogno di comunicare tra di loro.
+\\
+Sfruttando come “container” il GameObject stesso è stato messo a disposizione dei GameComponents un semplice ma funzionale sistema di messaggistica.
+\\
+L’utilizzo di questi componenti porta ad importanti vantaggi:
+\begin{itemize}
+	\item \textbf{Stroncamento di un albero di ereditarietà troppo complesso e lungo}:
+	Per rappresentare entità con diversi comportamenti si utilizza la composizione di GameComponent che implementino quei comportamenti, senza nessun utilizzo dell’ereditarietà.
+	%
+	\item Eliminazione del problema \textbf{Deadly Diamond of Death}
+	%
+	\item \textbf{Riduzione al minimo delle ripetizioni di codice} dovuto alla creazione di componenti altamente riutilizzabili
+\end{itemize}
+Dal punto di vista del pattern architetturale Model-View-Controller, i rispettivi moduli sono rappresentati da:
+\begin{itemize}
+	\item \textbf{Model}:
+	Viene seguito il seguente mantra “Everything is a GameObject”		
+Difatti ogni entità del dominio viene rappresentata e astratta grazie all’utilizzo 	dell’interfaccia GameObject, la quale svolge il ruolo di “container” di GameComponents.
+	%
+	\item \textbf{Controller}:
+ Questo ruolo viene affidato all’interfaccia GameEngine, la quale ha il compito di gestire l’aggiornamento di ogni GameObject e dei suoi componenti e la renderizzazione sulla View.
+	%
+	\item \textbf{View}:
+ Il ruolo della view viene demandato a due interfacce ben connesse tra di loro: Scene  e Graphics.
+L’interfaccia Scene astrae il concetto di “Scena” di gioco
+L’interfaccia Graphics ha il compito di saper “disegnare” i diversi GameObjects con la 
+tecnologia grafica dipesa dall’implementazione e fornita dall'implementazione di Scene.
+\end{itemize}
+Dal diagramma delle classi, qui sotto fornito, è possibile notare un elemento di differenza rispetto ad una classica architettura MVC: un componente di spicco,denominato GraphicsComponent, risulta avere dei riferimenti alla parte di view e di model, creando un collegamento che a prima vista potrebbe risultare problematico.
 %
-In particolare, qui va spiegato \textbf{se} e \textbf{come} è stato utilizzato il pattern
-architetturale model-view-controller (e/o alcune sue declinazioni specifiche, come entity-control-boundary).
-
-Se non è stato utilizzato MVC, va spiegata in maniera molto accurata l'architettura scelta, giustificandola in modo appropriato.
-
-Se è stato scelto MVC, vanno identificate con precisione le interfacce e classi che rappresentano i punti d'ingresso per modello, view, e controller.
-Raccomandiamo di sfruttare la definizione del dominio fatta in fase di analisi per capire quale sia l'entry point del model, e di non realizzare un'unica macro-interfaccia che, spesso, finisce con l'essere il prodromo ad una ``God class''.
+La modularità di M.V.C. non viene però attaccata: volendo, come esempio, cambiare la tecnologia di sviluppo per quanto riguarda la grafica si modificherà esclusivamente la parte di View dell'applicazione, senza ripercussioni in nessun altro modulo del programma.
 %
-Consigliamo anche di separare bene controller e model, facendo attenzione a non includere nel secondo strategie d'uso che appartengono al primo.
-
-In questa sezione vanno descritte, per ciascun componente architetturale che ruoli ricopre (due o tre ruoli al massimo), ed in che modo interagisce (ossia, scambia informazioni) con gli altri componenti dell'architettura.
+L’ipotetico passaggio da JavaFx e Swing, dunque, non risulta essere problematico: 
 %
-Raccomandiamo di porre particolare attenzione al design dell'interazione fra view e controller: se ben progettato, sostituire in blocco la view non dovrebbe causare alcuna modifica nel controller (tantomeno nel model).
+si dovranno sostituire le implementazioni di JavaFx delle interfacce Graphics e Scene con delle nuove implementazioni che utilizzino Swing.
+
+\begin{figure}[H]
+\centering{}
+\includegraphics[width=1\textwidth]{img/SoftwareArchitectureUML.pdf}
+\caption{Schema UML architetturale di T2S.}
+\label{img:analysis}
+\end{figure}
+	
+
 
 \subsection*{Elementi positivi}
 \begin{itemize}
