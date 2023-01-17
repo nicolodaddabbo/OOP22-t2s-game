@@ -1,6 +1,6 @@
 package it.unibo.t2sgame.core.api;
 /**
- * A GameEngine AbstractFactory to produce GameEngine instance.
+ * A GameEngine Factory to produce GameEngine instance.
  */
 public interface GameEngineFactory {
     /**
