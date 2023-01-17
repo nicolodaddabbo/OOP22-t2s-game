@@ -9,16 +9,28 @@ import java.util.Optional;
 public interface Entity {
     
     /**
+     * 
      * @return list of components of the entity
      */
     List<Component> getComponents();
-
     /**
+     * 
      * @return Optional containing the Graphic Component if present,
-     * otherwise returns an Optional.empty()
+     * otherwise returns an empty Optional
      */
     Optional<GraphicComponent> getGraphicComponent();
-
+    /**
+     * 
+     * @return Optional containing the Input Component if present,
+     * otherwise returns an empty Optional
+     */
+    Optional<Component> getInputComponent();
+    /**
+     * 
+     * @return Optional containing the Physic Component if present,
+     * otherwise returns an empty Optional
+     */
+    Optional<Component> getPhysicComponent();
     /**
      * 
      */
