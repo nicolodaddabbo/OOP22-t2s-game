@@ -14,7 +14,8 @@ public interface Entity {
     List<Component> getComponents();
 
     /**
-     * @return optional of the GraphicComponent of the entity
+     * @return Optional containing the Graphic Component if present,
+     * otherwise returns an Optional.empty()
      */
     Optional<GraphicComponent> getGraphicComponent();
 
