@@ -66,24 +66,22 @@ Con survival shoot ‘em up si intende un genere di videogioco nella quale l’o
 \end{itemize}
 \newpage
 \section{Analisi e modello del dominio}
-Quando il giocatore inizia una partita di Time2Survive si ritroverà catapultato nel mondo di gioco.
+T2S mette a disposizione del giocatore la possibilità di giocare una nuova partita.
 \\
-Una partita (\textbf{Game}) gestisce il proprio stato (\textbf{State}) e il mondo di gioco di T2S.
-%
-Il mondo (\textbf{World}) di T2S è l'arena dove i diversi personaggi (\textbf{Character}) si affrontano.
+Una partita gestisce il proprio stato e il mondo di gioco di T2S.
 \\
-Al giocatore sarà data la possibilità di controllare (\textbf{CharacterController}) un personaggio (\textbf{Player}).
+Il mondo di T2S è l’arena dove le diverse entità interagiscono fra di loro.
 \\
-Durante la partita verranno generate ondate (\textbf{Wave}), ovvero un gruppo di nemici che il giocatore dovrà affrontare.
-%
-Un nemico (\textbf{Enemy}) è un personaggio comandato da un'intelligenza artificiale con il compito di attaccare e uccidere il player.
+Al giocatore sarà data la possibilità di controllare una di queste entità, il quale sarà l’avatar del giocatore nella partita.
 \\
-Per combattere i nemici, il player avrà la possibilità di sparare dei proiettili (\textbf{Projectile}) che possono essere migliorati tramite potenziamenti (\textbf{Power up}).
+Durante lo svolgimento della partita verranno generate delle ondate di entità controllate da un’intelligenza artificiale con il compito di attaccare e uccidere l’avatar del giocatore.
+\\
+Per combattere questi nemici, l’avatar avrà la possibilità di sparare dei proiettili che possono essere migliorati tramite potenziamenti.
 \\
 Una volta sconfitta un’ondata viene aggiornato lo stato della partita incrementando il numero di round alla quale si è sopravvissuti e viene generata una nuova ondata di maggiore difficoltà.
 \\
-All’inizio della partita al player verranno assegnati dei proiettili di default e un determinato numero di punti vita.
-%
+All’inizio della partita all’avatar verranno assegnati dei proiettili di default e un determinato numero di punti vita.
+\\
 Una volta subito un danno, a seconda della sua entità, verrà detratta una certa quantità dalla vita corrente.
 \\
 La partita termina quando il giocatore ha perso tutti i suoi punti vita.
