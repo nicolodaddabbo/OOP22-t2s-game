@@ -5,37 +5,31 @@ GameEngine --o Game
 GameEngine --> Scene
 Game --o  State
 Game --o World
-World --* GameObject
-GameObject --> GameComponent
-GameComponent <|-- GraphicsComponent
-Scene --> Graphics
-GraphicsComponent <-- GameObject
-Graphics <-- GraphicsComponent
+World --* Entity
+Entity --> Component
+Component <|-- GraphicComponent
+Scene --> Graphic
+GraphicComponent <-- Entity
+Graphic <-- GraphicComponent
 
 %% Rapresenting the MVC's "Model"
-%% Every thing in the model is a GameObject
-class GameObject{
+%% Every thing in the model is a Entity
+class Entity{
     <<interface>>
-    getInputController() Optional~InputController~
-    getGameComponents() List~GameComponents~
-    getGraphicsComponent() Optional~GraphicsComponent~
-    update() void
-    render() void
+    getComponents() List~Component~
+    getGraphicComponent() Optional~GraphicComponent~
     notifyComponent() void
-
 }
 %%
-class GameComponent{
+class Component{
     <<interface>>
-    update(GameObject object);
+    update(Entity object);
 }
 %%
-%%
-class GraphicsComponent{
+class GraphicComponent{
     <<interface>>
-    update(GameObject object) void
+    update(Entity object) void
 }
-%%
 %% Rapresenting the MVC's "Controller"
 class GameEngine{
     <<interface>>
@@ -53,10 +47,10 @@ class State{
     getScore() int
     isOver() boolean
 }
-%% Basically a "Container" for all GameObjects
+%% Basically a "Container" for all Entitys
 class World{
     <<interface>>
-    getGameObject() List of GameObject
+    getEntity() List~Entity~
     updateWorld() void
 }
 %% Rapresenting the MVC's "View" 
@@ -65,12 +59,10 @@ class Scene{
     render() void
 }
 %% 
-class Graphics{
+class Graphic{
     <<interface>>
-    drawPlayer(GameObject object) void
-    drawEnemies(GameObject object) void
+    drawPlayer(Entity object) void
+    drawEnemies(Entity object) void
 }
 %% 
-
-
 ```
