@@ -1,4 +1,6 @@
 package it.unibo.t2sgame.model.api;
+import it.unibo.t2sgame.input.api.InputComponent;
+import it.unibo.t2sgame.physic.api.PhysicComponent;
 import it.unibo.t2sgame.view.api.GraphicComponent;
 import java.util.List;
 import java.util.Optional;
@@ -24,13 +26,13 @@ public interface Entity {
      * @return Optional containing the Input Component if present,
      * otherwise returns an empty Optional
      */
-    Optional<Component> getInputComponent();
+    Optional<InputComponent> getInputComponent();
     /**
      * 
      * @return Optional containing the Physic Component if present,
      * otherwise returns an empty Optional
      */
-    Optional<Component> getPhysicComponent();
+    Optional<PhysicComponent> getPhysicComponent();
     /**
      * 
      */
