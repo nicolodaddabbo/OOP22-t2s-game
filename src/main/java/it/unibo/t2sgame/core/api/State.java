@@ -10,6 +10,11 @@ public interface State {
     boolean isOver();
     /**
      * 
+     * @return true if there aren't survived elements, otherwise false
+     */
+    boolean isWaveOver();
+    /**
+     * 
      * @return an integer rappresenting the number of the current round
      */
     int getRound();
