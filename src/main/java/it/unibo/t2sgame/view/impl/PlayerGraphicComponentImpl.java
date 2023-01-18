@@ -6,15 +6,15 @@ import it.unibo.t2sgame.view.api.GraphicComponent;
 
 public class PlayerGraphicComponentImpl implements GraphicComponent{
 
-    private Graphic gr;
+    private Graphic graphic;
     @Override
     public void update(Entity entity) {
-        this.gr.drawPlayer(entity);
+        this.graphic.drawPlayer(entity);
     }
 
     @Override
     public void setGraphics(Graphic graphic) {
-        this.gr = graphic;
+        this.graphic = graphic;
     }
     
     @Override
