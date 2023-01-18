@@ -14,5 +14,11 @@ public interface EntityFactory {
      * @return Entity instance representing the "Projectile"
      */
     Entity createProjectile();
+
+    /**
+     * 
+     * @return Entity instance representing a basic "Enemy"
+     */
+    Entity createBaseEnemy();
     
 }
