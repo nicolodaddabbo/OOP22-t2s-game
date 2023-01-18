@@ -5,6 +5,7 @@ package it.unibo.t2sgame.model.api;
  */
 
 import java.util.Collection;
+import java.util.List;
 
 public interface World {
     /**
@@ -16,10 +17,10 @@ public interface World {
      * 
      * @return an entity rappresenting the "player" 
      */
-    Entity getPlayer();
+    List<Entity> getPlayers();
     /**
      * 
      * @return a collection of entities in the world
      */
-    Collection<Entity> getEntities();
+    List<Entity> getEntities();
 }
