@@ -17,6 +17,12 @@ public interface Entity {
     List<Component> getComponents();
     /**
      * 
+     * @return Optional containing the specified Component if present,
+     * otherwise returns an empty Optional
+     */
+    <T extends Component> Optional<T> getComponent(Class<T> componentClass);
+    /**
+     * 
      * @return Optional containing the Graphic Component if present,
      * otherwise returns an empty Optional
      */
