@@ -70,7 +70,7 @@ public class EntityImpl implements Entity {
     
     @Override
     public Entity clone(){
-        return new EntityImpl(this);
+        return new EntityImpl();
     }
     
 }
