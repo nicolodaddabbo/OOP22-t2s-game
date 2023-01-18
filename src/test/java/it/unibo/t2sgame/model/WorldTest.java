@@ -18,7 +18,7 @@ public class WorldTest {
         // Creating the world
         var world = this.factory.createBasicWorld();
         // Check if getPlayer return an entity with an PlayerInputComponent
-        assertTrue(world.getPlayer().getComponent(InputComponent.class).isPresent());
+        assertTrue(world.getPlayers().get(0).getComponent(InputComponent.class).isPresent());
         // Check if getCurrentWave returns a set of entity with an AIInputComponent
         assertTrue(world.getCurrentWave().getEnemies().stream().map(e -> e.getComponent(InputComponent.class).isPresent()).reduce((r1,r2) -> (r1 && r2)).get());
     }
