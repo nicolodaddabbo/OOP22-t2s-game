@@ -9,7 +9,7 @@ public class BaseEnemyGraphicComponentImpl implements GraphicComponent{
     private Graphic graphic;
     @Override
     public void update(Entity entity) {
-        graphic.drawBaseEnemy(entity);        
+        this.graphic.drawBaseEnemy(entity);        
     }
 
     @Override
