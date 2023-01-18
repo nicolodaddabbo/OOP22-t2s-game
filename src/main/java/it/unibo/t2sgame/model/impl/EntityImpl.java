@@ -74,5 +74,22 @@ public class EntityImpl implements Entity {
         this.components.forEach(component -> entity.addComponent(component));
         return entity;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        EntityImpl other = (EntityImpl) obj;
+        if (components == null) {
+            if (other.components != null)
+                return false;
+        } else if (!components.equals(other.components))
+            return false;
+        return true;
+    }
     
 }
