@@ -21,39 +21,6 @@ public interface Entity {
      */
     <T extends Component> Optional<Component> getComponent(Class<T> componentClass);
     /**
-     * 
-     * @return Optional containing the Graphic Component if present,
-     * otherwise returns an empty Optional
-     */
-    Optional<GraphicComponent> getGraphicComponent();
-    /**
-     * 
-     * @return Optional containing the Input Component if present,
-     * otherwise returns an empty Optional
-     */
-    Optional<InputComponent> getInputComponent();
-    /**
-     * 
-     * @return Optional containing the Physic Component if present,
-     * otherwise returns an empty Optional
-     */
-    Optional<PhysicComponent> getPhysicComponent();
-    /**
-     * 
-     * @param graphicComponent sets entity graphic component to the specified graphic component
-     */
-    void setGraphicComponent(GraphicComponent graphicComponent);
-    /**
-     * 
-     * @param inputComponent sets entity input component to the specified input component
-     */
-    void setInputComponent(InputComponent inputComponent);
-    /**
-     * 
-     * @param physicComponent sets entity physic component to the specified physic component
-     */
-    void setPhysicComponent(PhysicComponent physicComponent);
-    /**
      * This method is used to add components to the entity.
      * @param component adds specified component to the set of components of the entity
      */

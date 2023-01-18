@@ -11,9 +11,6 @@ import java.util.Set;
 public class EntityImpl implements Entity {
 
     private Set<Component> components = new HashSet<>();
-    private Optional<GraphicComponent> graphicComponent = Optional.empty();
-    private Optional<InputComponent> inputComponent = Optional.empty();
-    private Optional<PhysicComponent> physicComponent = Optional.empty();
 
     @Override
     public Set<Component> getComponents() {
@@ -23,38 +20,8 @@ public class EntityImpl implements Entity {
     @Override
     public <T extends Component> Optional<Component> getComponent(Class<T> componentClass){
         return this.components.stream()
-                .filter(c -> componentClass.isAssignableFrom(c.getClass()))
-                .findFirst();
-    }
-
-    @Override
-    public Optional<GraphicComponent> getGraphicComponent() {
-        return this.graphicComponent;
-    }
-
-    @Override
-    public Optional<InputComponent> getInputComponent() {
-        return this.inputComponent;
-    }
-
-    @Override
-    public Optional<PhysicComponent> getPhysicComponent() {
-        return this.physicComponent;
-    }
-
-    @Override
-    public void setGraphicComponent(GraphicComponent graphicComponent) {
-        this.graphicComponent = Optional.of(graphicComponent);
-    }
-
-    @Override
-    public void setInputComponent(InputComponent inputComponent) {
-        this.inputComponent = Optional.of(inputComponent);
-    }
-
-    @Override
-    public void setPhysicComponent(PhysicComponent physicComponent) {
-        this.physicComponent = Optional.of(physicComponent);
+            .filter(c -> componentClass.isAssignableFrom(c.getClass()))
+            .findFirst();
     }
 
     @Override
