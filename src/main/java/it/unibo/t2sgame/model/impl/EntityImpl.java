@@ -65,6 +65,12 @@ public class EntityImpl implements Entity {
     }
 
     @Override
+    public Entity addComponent(Component component) {
+        this.components.add(component);
+        return this;
+    }
+
+    @Override
     public void notifyComponent() {
         
     }
