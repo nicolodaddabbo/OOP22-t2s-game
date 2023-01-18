@@ -59,4 +59,9 @@ public interface Entity {
      */
     void notifyComponent();
 
+    /**
+     * Method used to apply the Prototype pattern
+     * @return an exact copy of the Entity
+     */
+    Entity clone();
 }
