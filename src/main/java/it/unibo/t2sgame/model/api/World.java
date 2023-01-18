@@ -1,12 +1,11 @@
 package it.unibo.t2sgame.model.api;
+
+import java.util.List;
+
 /**
  * Rapresenting the "World" of T2S game.
  * The World is like a "container" of different entities involved in the game.
  */
-
-import java.util.Collection;
-import java.util.List;
-
 public interface World {
     /**
      * 
@@ -23,4 +22,14 @@ public interface World {
      * @return a collection of entities in the world
      */
     List<Entity> getEntities();
+    /**
+     * Set the next wave
+     */
+    void setWave(Wave next);
+
+    /**
+     * Add an entity to the World
+     * @param e Entity to be added to the world
+     */
+    void addEntity(Entity e);
 }
