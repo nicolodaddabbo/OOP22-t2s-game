@@ -1,21 +1,21 @@
 package it.unibo.t2sgame.model.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import it.unibo.t2sgame.input.api.InputComponent;
 import it.unibo.t2sgame.model.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.physic.api.PhysicComponent;
 import it.unibo.t2sgame.view.api.GraphicComponent;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 public class EntityImpl implements Entity {
 
     private List<Component> components = new ArrayList<>();
-    private Optional<GraphicComponent> gc = Optional.empty();
-    private Optional<InputComponent> ic = Optional.empty();
-    private Optional<PhysicComponent> pc = Optional.empty();
+    private Optional<GraphicComponent> graphicComponent = Optional.empty();
+    private Optional<InputComponent> inputComponent = Optional.empty();
+    private Optional<PhysicComponent> physicComponent = Optional.empty();
 
     @Override
     public List<Component> getComponents() {
@@ -32,17 +32,32 @@ public class EntityImpl implements Entity {
 
     @Override
     public Optional<GraphicComponent> getGraphicComponent() {
-        return this.gc;
+        return this.graphicComponent;
     }
 
     @Override
     public Optional<InputComponent> getInputComponent() {
-        return this.ic;
+        return this.inputComponent;
     }
 
     @Override
     public Optional<PhysicComponent> getPhysicComponent() {
-        return this.pc;
+        return this.physicComponent;
+    }
+
+    @Override
+    public void setGraphicComponent(GraphicComponent graphicComponent) {
+        this.graphicComponent = Optional.of(graphicComponent);
+    }
+
+    @Override
+    public void setInputComponent(InputComponent inputComponent) {
+        this.inputComponent = Optional.of(inputComponent);
+    }
+
+    @Override
+    public void setPhysicComponent(PhysicComponent physicComponent) {
+        this.physicComponent = Optional.of(physicComponent);
     }
 
     @Override
