@@ -12,7 +12,7 @@ import it.unibo.t2sgame.model.api.WorldFactory;
 
 public class WorldFactoryImpl implements WorldFactory{
 
-    private World createWorldWith(List<Entity> players){
+    private World createWorldWith(final List<Entity> players){
         return new World() {
             @Override
             public Wave getCurrentWave() {
