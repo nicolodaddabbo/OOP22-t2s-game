@@ -1,7 +1,6 @@
 package it.unibo.t2sgame.view.api;
 
-public interface SceneFactoy {
-    
+public interface SceneFactory {
     /**
      * 
      * @return a created Scene
