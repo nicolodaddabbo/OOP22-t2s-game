@@ -1,25 +1,19 @@
 package it.unibo.t2sgame.model.impl;
-
 import it.unibo.t2sgame.input.api.InputComponent;
 import it.unibo.t2sgame.model.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.physic.api.PhysicComponent;
 import it.unibo.t2sgame.view.api.GraphicComponent;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 public class EntityImpl implements Entity {
 
-    private List<Component> components = new ArrayList<>();
+    private Set<Component> components = new HashSet<>();
     private Optional<GraphicComponent> graphicComponent = Optional.empty();
     private Optional<InputComponent> inputComponent = Optional.empty();
     private Optional<PhysicComponent> physicComponent = Optional.empty();
-
-    EntityImpl(){
-
-    }
     
     private EntityImpl(Entity entity){
         this.components = entity.getComponents();
@@ -29,15 +23,14 @@ public class EntityImpl implements Entity {
     }
 
     @Override
-    public List<Component> getComponents() {
+    public Set<Component> getComponents() {
         return this.components;
     }
 
     @Override
-    public <T extends Component> Optional<T> getComponent(Class<T> componentClass){
+    public <T extends Component> Optional<Component> getComponent(Class<T> componentClass){
         return this.components.stream()
                 .filter(c -> componentClass.isAssignableFrom(c.getClass()))
-                .map(componentClass::cast)
                 .findFirst();
     }
 
@@ -80,4 +73,5 @@ public class EntityImpl implements Entity {
     public Entity clone(){
         return new EntityImpl(this);
     }
+    
 }
