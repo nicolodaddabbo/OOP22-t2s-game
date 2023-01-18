@@ -41,6 +41,21 @@ public interface Entity {
     Optional<PhysicComponent> getPhysicComponent();
     /**
      * 
+     * @param graphicComponent sets entity graphic component to the specified graphic component
+     */
+    void setGraphicComponent(GraphicComponent graphicComponent);
+    /**
+     * 
+     * @param inputComponent sets entity input component to the specified input component
+     */
+    void setInputComponent(InputComponent inputComponent);
+    /**
+     * 
+     * @param physicComponent sets entity physic component to the specified physic component
+     */
+    void setPhysicComponent(PhysicComponent physicComponent);
+    /**
+     * 
      */
     void notifyComponent();
 
