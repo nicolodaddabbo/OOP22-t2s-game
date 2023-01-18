@@ -17,6 +17,17 @@ public class EntityImpl implements Entity {
     private Optional<InputComponent> inputComponent = Optional.empty();
     private Optional<PhysicComponent> physicComponent = Optional.empty();
 
+    EntityImpl(){
+
+    }
+    
+    private EntityImpl(Entity entity){
+        this.components = entity.getComponents();
+        this.graphicComponent = entity.getGraphicComponent();
+        this.inputComponent = entity.getInputComponent();
+        this.physicComponent = entity.getPhysicComponent();
+    }
+
     @Override
     public List<Component> getComponents() {
         return this.components;
@@ -65,4 +76,8 @@ public class EntityImpl implements Entity {
         
     }
     
+    @Override
+    public Entity clone(){
+        return new EntityImpl(this);
+    }
 }
