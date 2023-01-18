@@ -1,6 +1,8 @@
 package it.unibo.t2sgame.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,6 +18,7 @@ import it.unibo.t2sgame.model.impl.EntityImpl;
 import it.unibo.t2sgame.physic.api.PhysicComponent;
 import it.unibo.t2sgame.view.api.Graphic;
 import it.unibo.t2sgame.view.api.GraphicComponent;
+import it.unibo.t2sgame.view.impl.GraphicComponentFactoryImpl;
 import it.unibo.t2sgame.input.api.InputComponent;;
 
 public class EntityTest {
@@ -39,4 +42,15 @@ public class EntityTest {
         assertFalse(componentOptional.isPresent());
     }
 
+    @Test
+    void testCloneComponent(){
+        var entity = new EntityImpl();
+        entity.addComponent(new GraphicComponentFactoryImpl().getPlayerGraphicComponent());
+
+        var clonedEntity = entity.clone();
+        assertEquals(entity, clonedEntity);
+        var nonClonedEntity = new EntityImpl();
+        nonClonedEntity.addComponent(new GraphicComponentFactoryImpl().getBaseEnemyGraphicComponent());
+        assertNotEquals(nonClonedEntity, entity);
+    }
 }
