@@ -70,7 +70,9 @@ public class EntityImpl implements Entity {
     
     @Override
     public Entity clone(){
-        return new EntityImpl();
+        var entity = new EntityImpl();
+        this.components.forEach(component -> entity.addComponent(component));
+        return entity;
     }
     
 }
