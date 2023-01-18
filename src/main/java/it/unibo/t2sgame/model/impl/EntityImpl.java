@@ -71,7 +71,7 @@ public class EntityImpl implements Entity {
     @Override
     public Entity clone(){
         var entity = new EntityImpl();
-        this.components.forEach(component -> entity.addComponent(component));
+        this.components.forEach(entity::addComponent);
         return entity;
     }
 
