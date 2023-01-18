@@ -14,13 +14,6 @@ public class EntityImpl implements Entity {
     private Optional<GraphicComponent> graphicComponent = Optional.empty();
     private Optional<InputComponent> inputComponent = Optional.empty();
     private Optional<PhysicComponent> physicComponent = Optional.empty();
-    
-    private EntityImpl(Entity entity){
-        this.components = entity.getComponents();
-        this.graphicComponent = entity.getGraphicComponent();
-        this.inputComponent = entity.getInputComponent();
-        this.physicComponent = entity.getPhysicComponent();
-    }
 
     @Override
     public Set<Component> getComponents() {
