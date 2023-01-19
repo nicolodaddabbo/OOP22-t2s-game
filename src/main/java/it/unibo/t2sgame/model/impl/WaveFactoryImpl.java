@@ -12,7 +12,7 @@ import it.unibo.t2sgame.model.api.Wave;
 import it.unibo.t2sgame.model.api.WaveFactory;
 
 public class WaveFactoryImpl implements WaveFactory {
-    private EntityFactory entityFactory;
+    private EntityFactory entityFactory = new EntityFactoryImpl();
 
     private Wave createWaveFromEnemies(final List<Entity> enemies) {
         return new Wave() {
