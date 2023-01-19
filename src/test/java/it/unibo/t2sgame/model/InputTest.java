@@ -31,7 +31,7 @@ public class InputTest {
     void keyboardCommandTest() {
         var keyboardInputController = new KeyboardInputController();
         assertEquals(Optional.empty(), keyboardInputController.getCommand());
-        keyboardInputController.notifyKeyPressed(38);
+        keyboardInputController.notifyKeyPressed(87);
         assertTrue(keyboardInputController.getCommand().get() instanceof MoveUp);
     }
 
