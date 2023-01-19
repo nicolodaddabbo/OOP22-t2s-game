@@ -36,6 +36,15 @@ public class Vector2D {
      * @param vector the vector to sum
      * @return the resulting vector
      */
+    public Vector2D sum(final double x, final double y) {
+        return new Vector2D(this.x+x, this.y+y);
+    }
+
+    /**
+     * This method sums the current vector with the given vector and returns the new vector.
+     * @param vector the vector to sum
+     * @return the resulting vector
+     */
     public Vector2D sum(final Vector2D vector) {
         return new Vector2D(this.x+vector.x, this.y+vector.y);
     }
@@ -45,7 +54,7 @@ public class Vector2D {
      * @param scalar the value to multiply
      * @return the resulting vector
      */
-    public Vector2D mul(double scalar) {
+    public Vector2D mul(final double scalar) {
         return new Vector2D(this.x*scalar, this.y*scalar);
     }
 
@@ -54,8 +63,17 @@ public class Vector2D {
      * @param point the point to sum
      * @return the resulting distance
      */
-    public double distance(final Vector2D vector) {
-        return Math.sqrt(Math.pow(vector.x-this.x, 2)+Math.pow(vector.y-this.y, 2));
+    public double distance(final double x, final double y) {
+        return Math.sqrt(Math.pow(x-this.x, 2)+Math.pow(y-this.y, 2));
+    }
+
+    /**
+     * This method returns the distance between the current point and the given point.
+     * @param point the point to sum
+     * @return the resulting distance
+     */
+    public double distance(final Vector2D point) {
+        return Math.sqrt(Math.pow(point.x-this.x, 2)+Math.pow(point.y-this.y, 2));
     }
 
 }
