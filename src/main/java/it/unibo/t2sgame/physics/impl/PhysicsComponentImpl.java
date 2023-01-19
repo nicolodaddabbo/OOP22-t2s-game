@@ -15,10 +15,6 @@ public class PhysicsComponentImpl implements PhysicsComponent {
         this.velocity = velocity;
     }
 
-    /**
-     * Updates the position of the passed entity if it has one.
-     * @param entity the entity to update
-     */
     @Override
     public void update(Entity entity) {
         entity.getPosition().ifPresent(p -> {
