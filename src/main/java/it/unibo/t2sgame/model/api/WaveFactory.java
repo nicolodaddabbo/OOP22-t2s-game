@@ -9,5 +9,5 @@ public interface WaveFactory {
      * 
      * @return a basic wave that depends on the state of the game
      */
-    Wave createBasicWave();
+    Wave createBasicWave(int round);
 }
