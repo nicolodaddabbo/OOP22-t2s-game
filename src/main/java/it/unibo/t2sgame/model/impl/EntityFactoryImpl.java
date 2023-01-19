@@ -21,7 +21,9 @@ public class EntityFactoryImpl implements EntityFactory {
 
     @Override
     public Entity createBaseEnemy() {
-        return null;
+        var entity = new EntityImpl();
+        entity.setPosition(new Vector2D(0, 0));
+        return entity.addComponent(new InputComponentFactoryImpl().createKeyboardInputComponent());
     }
     
 }
