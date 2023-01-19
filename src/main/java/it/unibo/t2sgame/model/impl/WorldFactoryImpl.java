@@ -40,17 +40,23 @@ public class WorldFactoryImpl implements WorldFactory{
             public void setWave(final Wave next) {
                 this.currentWave = next;
                 /* Adding all enemies to the entities */
-                this.currentWave.getEnemies().forEach(entities::add);
+                this.currentWave.getEnemies().forEach(this.entities::add);
             }
             
             
         };
     }
 
+    private final EntityFactory entityFactory = null;
+
     @Override
-    public World createBasicWorld() {
-        EntityFactory entityFactory =  /* new EntityFactory(); */ null;
-        return worldWith(List.of(entityFactory.createPlayer()));
+    public World createWorldWithOnePlayer() {
+        return worldWith(List.of(this.entityFactory.createPlayer()));
+    }
+
+    @Override
+    public World createWorldWithMorePlayer(final List<Entity> players) {
+        return worldWith(players);
     }
     
 }
