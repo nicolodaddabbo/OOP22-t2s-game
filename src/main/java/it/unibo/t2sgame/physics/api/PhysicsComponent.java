@@ -1,7 +1,7 @@
-package it.unibo.t2sgame.physic.api;
+package it.unibo.t2sgame.physics.api;
 
 import it.unibo.t2sgame.model.api.Component;
 
-public interface PhysicComponent extends Component {
+public interface PhysicsComponent extends Component {
     
 }

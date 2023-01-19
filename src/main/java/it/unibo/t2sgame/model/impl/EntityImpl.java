@@ -2,7 +2,7 @@ package it.unibo.t2sgame.model.impl;
 import it.unibo.t2sgame.input.api.InputComponent;
 import it.unibo.t2sgame.model.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
-import it.unibo.t2sgame.physic.api.PhysicComponent;
+import it.unibo.t2sgame.physics.api.PhysicsComponent;
 import it.unibo.t2sgame.view.api.GraphicComponent;
 import java.util.HashSet;
 import java.util.Optional;

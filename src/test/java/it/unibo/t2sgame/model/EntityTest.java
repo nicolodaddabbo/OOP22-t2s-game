@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import it.unibo.t2sgame.model.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.impl.EntityImpl;
-import it.unibo.t2sgame.physic.api.PhysicComponent;
+import it.unibo.t2sgame.physics.api.PhysicsComponent;
 import it.unibo.t2sgame.view.api.Graphic;
 import it.unibo.t2sgame.view.api.GraphicComponent;
 import it.unibo.t2sgame.view.impl.GraphicComponentFactoryImpl;
@@ -25,7 +25,7 @@ public class EntityTest {
     
     @Test void testGetEntityComponent() {
         var entity = new EntityImpl();
-        entity.addComponent(new PhysicComponent() {
+        entity.addComponent(new PhysicsComponent() {
             @Override
             public void update(Entity entity) { 
             }
@@ -33,9 +33,9 @@ public class EntityTest {
             public void receive() {
             }
         });
-        var componentOptional = entity.getComponent(PhysicComponent.class);
+        var componentOptional = entity.getComponent(PhysicsComponent.class);
         assertTrue(componentOptional.isPresent());
-        assertTrue(PhysicComponent.class.isAssignableFrom(componentOptional.get().getClass()));
+        assertTrue(PhysicsComponent.class.isAssignableFrom(componentOptional.get().getClass()));
         componentOptional = entity.getComponent(InputComponent.class);
         assertFalse(componentOptional.isPresent());
         componentOptional = entity.getComponent(GraphicComponent.class);
