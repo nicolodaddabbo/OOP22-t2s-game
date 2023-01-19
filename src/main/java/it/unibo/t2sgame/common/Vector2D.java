@@ -19,7 +19,7 @@ public class Vector2D {
      * 
      * @return coordinate of the vector in x axis
      */
-    public double getX(){
+    public double getX() {
         return this.x;
     }
 
@@ -27,7 +27,7 @@ public class Vector2D {
      * 
      * @return coordinate of the vector in y axis
      */
-    public double getY(){
+    public double getY() {
         return this.y;
     }
 
@@ -42,11 +42,20 @@ public class Vector2D {
 
     /**
      * This method multiply the current vector with the given value and returns the new vector.
-     * @param value the value to multiply
+     * @param scalar the value to multiply
      * @return the resulting vector
      */
-    public Vector2D mul(double value) {
-        return new Vector2D(this.x*value, this.y*value);
+    public Vector2D mul(double scalar) {
+        return new Vector2D(this.x*scalar, this.y*scalar);
+    }
+
+    /**
+     * This method returns the distance between the current point and the given point.
+     * @param point the point to sum
+     * @return the resulting distance
+     */
+    public double distance(final Vector2D vector) {
+        return Math.sqrt(Math.pow(vector.x-this.x, 2)+Math.pow(vector.y-this.y, 2));
     }
 
 }

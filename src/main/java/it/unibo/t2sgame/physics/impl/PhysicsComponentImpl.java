@@ -1,5 +1,4 @@
 package it.unibo.t2sgame.physics.impl;
-import it.unibo.t2sgame.common.Point2D;
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.physics.api.PhysicsComponent;
@@ -23,7 +22,7 @@ public class PhysicsComponentImpl implements PhysicsComponent {
     @Override
     public void update(Entity entity) {
         entity.getPosition().ifPresent(p -> {
-            Point2D position = p;
+            Vector2D position = p;
             entity.setPosition(position.sum(velocity));
         });
     }

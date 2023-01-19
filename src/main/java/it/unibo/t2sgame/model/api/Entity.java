@@ -1,5 +1,6 @@
 package it.unibo.t2sgame.model.api;
-import it.unibo.t2sgame.common.Point2D;
+import it.unibo.t2sgame.common.Vector2D;
+
 import java.util.Optional;
 import java.util.Set;
 
@@ -28,12 +29,12 @@ public interface Entity {
      * @return Optional containing the entity position if present,
      * otherwise returns an empty Optional
      */
-    Optional<Point2D> getPosition();
+    Optional<Vector2D> getPosition();
     /**
      * Sets the entity position to the given position.
      * @param position the position to set
      */
-    void setPosition(Point2D position);
+    void setPosition(Vector2D position);
     /**
      * 
      */
