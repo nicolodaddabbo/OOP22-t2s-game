@@ -1,4 +1,10 @@
 package it.unibo.t2sgame.core.api;
+
+import java.util.List;
+
+import it.unibo.t2sgame.model.api.Entity;
+import it.unibo.t2sgame.model.api.Wave;
+
 /**
  * Rapresent the current state of a Game
  */
@@ -7,12 +13,12 @@ public interface State {
      * 
      * @return true if logics determines the end of the game, otherwise false
      */
-    boolean isOver();
+    boolean isOver(List<Entity> players);
     /**
      * 
      * @return true if there aren't survived elements, otherwise false
      */
-    boolean isWaveOver();
+    boolean isWaveOver(Wave w);
     /**
      * 
      * @return an integer rappresenting the number of the current round
