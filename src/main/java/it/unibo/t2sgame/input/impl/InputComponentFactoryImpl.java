@@ -28,7 +28,7 @@ public class InputComponentFactoryImpl implements InputComponentFactory {
 
     @Override
     public InputComponent createBasicEnemyAIInputComponent() {
-        return null;
+        return new InputComponentImpl(new BasicEnemyAIInputController());
     }
 
     @Override
