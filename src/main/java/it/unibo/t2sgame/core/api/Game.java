@@ -15,4 +15,8 @@ public interface Game {
      * @return the world of the current game
      */
     World getWorld();
+    /**
+     * Generating a new wave
+     */
+    void nextWave();
 }
