@@ -13,7 +13,7 @@ public class WorldFactoryImpl implements WorldFactory{
 
     private World worldWith(final List<Entity> players){
         return new World() {
-            private final List<Entity> entities = new ArrayList<>(); 
+            private final List<Entity> entities = new ArrayList<>(players); 
             private Wave currentWave;
 
             @Override
@@ -47,7 +47,7 @@ public class WorldFactoryImpl implements WorldFactory{
         };
     }
 
-    private final EntityFactory entityFactory = null;
+    private final EntityFactory entityFactory = new EntityFactoryImpl();
 
     @Override
     public World createWorldWithOnePlayer() {
