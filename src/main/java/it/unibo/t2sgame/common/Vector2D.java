@@ -46,7 +46,7 @@ public class Vector2D {
      * @return the resulting vector
      */
     public Vector2D sum(final Vector2D vector) {
-        return this.sum(vector.getX(), vector.getY());
+        return this.sum(vector.x, vector.y);
     }
 
     /**
@@ -65,7 +65,7 @@ public class Vector2D {
      * @return the resulting vector
      */
     public Vector2D sub(final Vector2D vector) {
-        return this.sub(vector.getX(), vector.getY());
+        return this.sub(vector.x, vector.y);
     }
 
     /**
@@ -93,7 +93,7 @@ public class Vector2D {
      * @return the resulting distance
      */
     public double distance(final Vector2D point) {
-        return this.distance(point.getX(), point.getY());
+        return this.distance(point.x, point.y);
     }
 
     @Override
