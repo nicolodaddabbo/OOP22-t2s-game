@@ -22,8 +22,7 @@ public class PhysicsComponentImpl implements PhysicsComponent {
     @Override
     public void update(Entity entity) {
         entity.getPosition().ifPresent(p -> {
-            Vector2D position = p;
-            entity.setPosition(position.sum(velocity));
+            entity.setPosition(p.sum(this.velocity));
         });
     }
 
