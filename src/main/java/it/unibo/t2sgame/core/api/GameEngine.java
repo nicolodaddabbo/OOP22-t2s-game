@@ -11,4 +11,9 @@ public interface GameEngine {
      * current GameEngine implementation.
      */
     void run();
+    /**
+     * Set the a new Game to be reproduced 
+     * @param g the new game
+     */
+    void setGame(Game g);
 }
