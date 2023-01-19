@@ -7,8 +7,8 @@ public class Vector2D {
 
     /**
      * 
-     * @param x coordinate of the point in x axis
-     * @param y coordinate of the point in y axis
+     * @param x coordinate of the vector in x axis
+     * @param y coordinate of the vector in y axis
      */
     public Vector2D(final double x, final double y) {
         this.x = x;
@@ -33,7 +33,8 @@ public class Vector2D {
 
     /**
      * This method sums the current vector with the given vector and returns the new vector.
-     * @param vector the vector to sum
+     * @param x coordinate of the vector in x axis
+     * @param y coordinate of the vector in y axis
      * @return the resulting vector
      */
     public Vector2D sum(final double x, final double y) {
@@ -60,7 +61,8 @@ public class Vector2D {
 
     /**
      * This method returns the distance between the current point and the given point.
-     * @param point the point to sum
+     * @param x coordinate of the point in x axis
+     * @param y coordinate of the point in y axis
      * @return the resulting distance
      */
     public double distance(final double x, final double y) {
@@ -69,7 +71,7 @@ public class Vector2D {
 
     /**
      * This method returns the distance between the current point and the given point.
-     * @param point the point to sum
+     * @param point the point
      * @return the resulting distance
      */
     public double distance(final Vector2D point) {
