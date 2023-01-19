@@ -12,5 +12,5 @@ public interface InputComponentFactory {
     /**
      * @return an InputComponent that gets input from an AI
      */
-    InputComponent createAIInputComponent();
+    InputComponent createBasicEnemyAIInputComponent();
 }
