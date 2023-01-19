@@ -1,7 +1,6 @@
 package it.unibo.t2sgame.common;
 
 public class Vector2D {
-    
     private final double x;
     private final double y;
 
@@ -43,7 +42,7 @@ public class Vector2D {
 
     /**
      * This method sums the current vector with the given vector and returns the new vector.
-     * @param vector the vector to sum
+     * @param vector the vector
      * @return the resulting vector
      */
     public Vector2D sum(final Vector2D vector) {
@@ -51,7 +50,26 @@ public class Vector2D {
     }
 
     /**
-     * This method multiply the current vector with the given value and returns the new vector.
+     * This method subtracts the current vector with the given vector and returns the new vector.
+     * @param x coordinate of the vector in x axis
+     * @param y coordinate of the vector in y axis
+     * @return the resulting vector
+     */
+    public Vector2D sub(final double x, final double y) {
+        return new Vector2D(this.x-x, this.y-y);
+    }
+
+    /**
+     * This method subtracts the current vector with the given vector and returns the new vector.
+     * @param vector the vector
+     * @return the resulting vector
+     */
+    public Vector2D sub(final Vector2D vector) {
+        return new Vector2D(this.x-vector.x, this.y-vector.y);
+    }
+
+    /**
+     * This method multiplies the current vector with the given value and returns the new vector.
      * @param scalar the value to multiply
      * @return the resulting vector
      */
