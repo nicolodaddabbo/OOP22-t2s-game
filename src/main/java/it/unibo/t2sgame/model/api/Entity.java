@@ -1,7 +1,5 @@
 package it.unibo.t2sgame.model.api;
-import it.unibo.t2sgame.input.api.InputComponent;
-import it.unibo.t2sgame.physics.api.PhysicsComponent;
-import it.unibo.t2sgame.view.api.GraphicComponent;
+import it.unibo.t2sgame.common.Point2D;
 import java.util.Optional;
 import java.util.Set;
 
@@ -27,9 +25,19 @@ public interface Entity {
     Entity addComponent(Component component);
     /**
      * 
+     * @return Optional containing the entity position if present,
+     * otherwise returns an empty Optional
+     */
+    Optional<Point2D> getPosition();
+    /**
+     * Sets the entity position to the given position.
+     * @param position the position to set
+     */
+    void setPosition(Point2D position);
+    /**
+     * 
      */
     void notifyComponent();
-
     /**
      * Method used to apply the Prototype pattern
      * @return an exact copy of the Entity

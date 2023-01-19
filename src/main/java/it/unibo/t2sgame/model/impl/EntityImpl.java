@@ -1,9 +1,7 @@
 package it.unibo.t2sgame.model.impl;
-import it.unibo.t2sgame.input.api.InputComponent;
+import it.unibo.t2sgame.common.Point2D;
 import it.unibo.t2sgame.model.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
-import it.unibo.t2sgame.physics.api.PhysicsComponent;
-import it.unibo.t2sgame.view.api.GraphicComponent;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -11,6 +9,7 @@ import java.util.Set;
 public class EntityImpl implements Entity {
 
     private Set<Component> components = new HashSet<>();
+    private Optional<Point2D> position = Optional.empty();
 
     @Override
     public Set<Component> getComponents() {
@@ -28,6 +27,16 @@ public class EntityImpl implements Entity {
     public Entity addComponent(Component component) {
         this.components.add(component);
         return this;
+    }
+
+    @Override
+    public Optional<Point2D> getPosition() {
+        return this.position;
+    }
+
+    @Override
+    public void setPosition(final Point2D position) {
+        this.position = Optional.of(position);
     }
 
     @Override
