@@ -1,4 +1,7 @@
 package it.unibo.t2sgame.core.api;
+
+import java.util.Optional;
+
 /**
  * This interface abstracts the concept of a "Game engine". 
  * A game engine is the core of a game software architecture, which allows us
@@ -14,6 +17,13 @@ public interface GameEngine {
     /**
      * Set the a new Game to be reproduced 
      * @param g the new game
+     * 
+     * @return this 
      */
-    void setGame(Game g);
+    GameEngine setGame(Game g);
+    /**
+     * 
+     * @return the current game played
+     */
+    Optional<Game> getGame();
 }
