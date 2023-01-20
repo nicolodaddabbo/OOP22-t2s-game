@@ -52,4 +52,14 @@ public class GameSceneJavaFXImpl extends Application implements GameScene{
         gc.setGraphics(new GraphicJavaFXImpl(this.gContext));
         gc.update(entity);
     }
+
+    @Override
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    @Override
+    public void setKeyboardInputController(KeyboardInputController keyInController) {
+        this.keyInController = keyInController;
+    }
 }
