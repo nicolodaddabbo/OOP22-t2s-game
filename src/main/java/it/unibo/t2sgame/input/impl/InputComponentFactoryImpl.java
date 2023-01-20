@@ -25,6 +25,11 @@ public class InputComponentFactoryImpl implements InputComponentFactory {
             this.inputController.getCommand().ifPresent(c -> c.execute(entity));
         }
 
+        @Override
+        public InputController getInputController() {
+            return this.inputController;
+        }
+
     }
 
     @Override
