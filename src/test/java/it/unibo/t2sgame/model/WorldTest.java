@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.input.api.InputComponent;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.EntityFactory;
@@ -36,7 +37,7 @@ public class WorldTest {
         w.setWave(wave);
         assertEquals(wave,w.getCurrentWave());
         // Checking add a new entity
-        Entity e = new EntityImpl();
+        Entity e = new EntityImpl(new Vector2D(0, 0));
         w.addEntity(e);
         assertTrue(w.getEntities().contains(e));
     }
@@ -53,7 +54,7 @@ public class WorldTest {
 
     @Test
     void testWorldWithMorePlayer(){
-        var players = List.of(this.entityFactory.createPlayer(), this.entityFactory.createPlayer());
+        var players = List.of(this.entityFactory.createPlayer(new Vector2D(0, 0)), this.entityFactory.createPlayer(new Vector2D(0, 0)));
         var world = this.worldFactory.createWorldWithMorePlayer(players);
         // Check if world contains more then one players
         assertTrue(world.getPlayers().size() > 1);

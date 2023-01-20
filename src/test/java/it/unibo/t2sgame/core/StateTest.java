@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.impl.StateImpl;
 import it.unibo.t2sgame.model.api.EntityFactory;
 import it.unibo.t2sgame.model.api.Wave;
@@ -21,8 +22,8 @@ public class StateTest {
     @Test
     void testStateBasicImpl(){
         var state = new StateImpl();
-        var alivePlayer = this.entityFactory.createPlayer();
-        var deathPlayer = this.entityFactory.createPlayer();
+        var alivePlayer = this.entityFactory.createPlayer(new Vector2D(0, 0));
+        var deathPlayer = this.entityFactory.createPlayer(new Vector2D(0, 0));
         Wave waveWithAliveEnemy = this.waveFactory.createBasicWave(1);
         Wave emptyWave = this.waveFactory.createBasicWave(0);
         // Checking round

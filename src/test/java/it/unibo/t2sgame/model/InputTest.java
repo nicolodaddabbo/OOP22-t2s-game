@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.input.api.InputComponentFactory;
 import it.unibo.t2sgame.input.impl.InputComponentFactoryImpl;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
@@ -23,7 +24,7 @@ public class InputTest {
     @Test
     void keyboardInputTest() {
         var keyboardInputComponent = this.factory.createKeyboardInputComponent();
-        var entity = new EntityImpl();
+        var entity = new EntityImpl(new Vector2D(0, 0));
         keyboardInputComponent.update(entity);
     }
 
