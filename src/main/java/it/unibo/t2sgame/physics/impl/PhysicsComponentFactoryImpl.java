@@ -12,7 +12,7 @@ public class PhysicsComponentFactoryImpl implements PhysicsComponentFactory {
     private PhysicsComponent createPhysicsComponentWith(final BoundingBox bound){
         return new PhysicsComponent() {
 
-            private Vector2D velocity;
+            private Vector2D velocity = new Vector2D(0, 0);
         
             @Override
             public void update(final Entity entity) {
