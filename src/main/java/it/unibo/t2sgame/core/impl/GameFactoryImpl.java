@@ -2,6 +2,7 @@ package it.unibo.t2sgame.core.impl;
 
 import java.util.List;
 
+import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.api.Game;
 import it.unibo.t2sgame.core.api.GameFactory;
 import it.unibo.t2sgame.core.api.State;
@@ -47,7 +48,11 @@ public class GameFactoryImpl implements GameFactory {
 
     @Override
     public Game createMultiPlayerGame() {
-        return gameFrom(new StateImpl(),this.worldFactory.createWorldWithMorePlayer(List.of(this.entityFactory.createPlayer(), this.entityFactory.createPlayer())));
+        return gameFrom(new StateImpl(),
+        this.worldFactory.createWorldWithMorePlayer(
+            List.of(
+                this.entityFactory.createPlayer(new Vector2D(0, 0)),
+                this.entityFactory.createPlayer(new Vector2D(0, 0)))));
     }
     
 }
