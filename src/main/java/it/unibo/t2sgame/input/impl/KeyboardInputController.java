@@ -7,11 +7,16 @@ import it.unibo.t2sgame.input.api.Command;
 import it.unibo.t2sgame.input.api.InputController;
 
 public class KeyboardInputController implements InputController {
+    private final static int MOVE_UP_CODE = 87;
+    private final static int MOVE_RIGHT_CODE = 68;
+    private final static int MOVE_DOWN_CODE = 83;
+    private final static int MOVE_LEFT_CODE = 65;
+
     private static final Map<Integer, Command> MOVESET = Map.of(
-        87, new MoveUp(),
-        68, new MoveRight(),
-        83, new MoveDown(),
-        65, new MoveLeft()
+        MOVE_UP_CODE, new MoveUp(),
+        MOVE_RIGHT_CODE, new MoveRight(),
+        MOVE_DOWN_CODE, new MoveDown(),
+        MOVE_LEFT_CODE, new MoveLeft()
     );
 
     private Optional<Command> command = Optional.empty();
