@@ -26,10 +26,9 @@ public interface Entity {
     Entity addComponent(Component component);
     /**
      * 
-     * @return Optional containing the entity position if present,
-     * otherwise returns an empty Optional
+     * @return the entity position
      */
-    Optional<Vector2D> getPosition();
+    Vector2D getPosition();
     /**
      * Sets the entity position to the given position.
      * @param position the position to set

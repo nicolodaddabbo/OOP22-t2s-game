@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.api.Game;
 import it.unibo.t2sgame.core.api.State;
 import it.unibo.t2sgame.model.api.Entity;
@@ -31,7 +32,7 @@ public class WaveFactoryImpl implements WaveFactory {
    
     @Override
     public Wave createBasicWave(final int round) {
-        return createWaveFromEnemies(new ArrayList<>(Collections.nCopies(round, entityFactory.createBaseEnemy())));
+        return createWaveFromEnemies(new ArrayList<>(Collections.nCopies(round, entityFactory.createBaseEnemy(new Vector2D(0, 0)))));
     }
 
 }

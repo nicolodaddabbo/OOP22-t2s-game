@@ -2,6 +2,8 @@ package it.unibo.t2sgame.model.impl;
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.model.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
+import it.unibo.t2sgame.model.api.Message;
+
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -9,7 +11,11 @@ import java.util.Set;
 public class EntityImpl implements Entity {
 
     private Set<Component> components = new HashSet<>();
-    private Optional<Vector2D> position = Optional.empty();
+    private Vector2D position;
+
+    public EntityImpl(final Vector2D position) {
+        this.position = position;
+    }
 
     @Override
     public Set<Component> getComponents() {
@@ -30,23 +36,23 @@ public class EntityImpl implements Entity {
     }
 
     @Override
-    public Optional<Vector2D> getPosition() {
+    public Vector2D getPosition() {
         return this.position;
     }
 
     @Override
     public void setPosition(final Vector2D position) {
-        this.position = Optional.of(position);
+        this.position = position;
     }
 
     @Override
-    public void notifyComponent() {
+    public <T extends Component, S> void notifyComponent(Class<T> type, Message<S> message) {
         
     }
     
     @Override
     public Entity clone(){
-        var entity = new EntityImpl();
+        var entity = new EntityImpl(this.position);
         this.components.forEach(entity::addComponent);
         return entity;
     }

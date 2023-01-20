@@ -3,6 +3,7 @@ package it.unibo.t2sgame.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.EntityFactory;
 import it.unibo.t2sgame.model.api.Wave;
@@ -51,7 +52,7 @@ public class WorldFactoryImpl implements WorldFactory{
 
     @Override
     public World createWorldWithOnePlayer() {
-        return worldWith(List.of(this.entityFactory.createPlayer()));
+        return worldWith(List.of(this.entityFactory.createPlayer(new Vector2D(0, 0))));
     }
 
     @Override

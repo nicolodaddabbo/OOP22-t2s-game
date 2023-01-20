@@ -8,22 +8,18 @@ import it.unibo.t2sgame.model.api.EntityFactory;
 public class EntityFactoryImpl implements EntityFactory {
 
     @Override
-    public Entity createPlayer() {
-        var entity = new EntityImpl();
-        entity.setPosition(new Vector2D(0, 0));
-        return entity.addComponent(new InputComponentFactoryImpl().createKeyboardInputComponent());
+    public Entity createPlayer(final Vector2D position) {
+        return new EntityImpl(position).addComponent(new InputComponentFactoryImpl().createKeyboardInputComponent());
     }
 
     @Override
-    public Entity createProjectile() {
+    public Entity createProjectile(final Vector2D position) {
         return null;
     }
 
     @Override
-    public Entity createBaseEnemy() {
-        var entity = new EntityImpl();
-        entity.setPosition(new Vector2D(0, 0));
-        return entity.addComponent(new InputComponentFactoryImpl().createKeyboardInputComponent());
+    public Entity createBaseEnemy(final Vector2D position) {
+        return new EntityImpl(position).addComponent(new InputComponentFactoryImpl().createKeyboardInputComponent());
     }
     
 }

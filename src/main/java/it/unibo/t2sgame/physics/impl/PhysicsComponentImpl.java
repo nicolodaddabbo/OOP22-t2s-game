@@ -1,6 +1,7 @@
 package it.unibo.t2sgame.physics.impl;
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.model.api.Entity;
+import it.unibo.t2sgame.model.api.Message;
 import it.unibo.t2sgame.physics.api.PhysicsComponent;
 
 public class PhysicsComponentImpl implements PhysicsComponent {
@@ -17,11 +18,11 @@ public class PhysicsComponentImpl implements PhysicsComponent {
 
     @Override
     public void update(Entity entity) {
-        entity.getPosition().ifPresent(p -> entity.setPosition(p.sum(this.velocity)));
+        entity.setPosition(entity.getPosition().sum(this.velocity));
     }
 
     @Override
-    public void receive() {
+    public <T> void receive(Message<T> message) {
         
     }
     
