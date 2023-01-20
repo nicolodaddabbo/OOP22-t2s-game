@@ -30,11 +30,15 @@ public class GameSceneJavaFXImpl extends Application implements GameScene{
     } 
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void init() throws Exception{
         this.root = new Group();
-        this.scene = new Scene(this.root, 500, 500, Color.BLACK);
         this.canvas = new Canvas(500, 500);
         this.gContext = this.canvas.getGraphicsContext2D();
+    }
+    
+    @Override
+    public void start(Stage stage) throws Exception {
+        this.scene = new Scene(this.root, 500, 500, Color.BLACK);
         this.scene.setOnKeyPressed(event -> keyInController.notifyKeyPressed(event.getCode().getCode()));
         this.scene.setOnKeyReleased(event -> keyInController.notifyKeyReleased(event.getCode().getCode()));
 
