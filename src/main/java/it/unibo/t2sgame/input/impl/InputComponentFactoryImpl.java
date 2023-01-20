@@ -4,6 +4,7 @@ import it.unibo.t2sgame.input.api.InputComponent;
 import it.unibo.t2sgame.input.api.InputComponentFactory;
 import it.unibo.t2sgame.input.api.InputController;
 import it.unibo.t2sgame.model.api.Entity;
+import it.unibo.t2sgame.model.api.Message;
 
 public class InputComponentFactoryImpl implements InputComponentFactory {
 
