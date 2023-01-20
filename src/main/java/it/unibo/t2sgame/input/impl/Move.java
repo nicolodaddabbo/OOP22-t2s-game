@@ -5,6 +5,10 @@ import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.physics.api.PhysicsComponent;
 
+/**
+ * This class is used to handle all kind of move related commands
+ * which differs only in the direction of the movement
+ */
 public class Move implements Command {
     private final Directions direction;
 
@@ -12,6 +16,9 @@ public class Move implements Command {
         this.direction = direction;
     }
 
+    /**
+     * Notify the entity's Physic component comunicating the direction of the movement
+     */
     @Override
     public void execute(final Entity entity) {
         entity.notifyComponent(PhysicsComponent.class, () -> this.direction);
