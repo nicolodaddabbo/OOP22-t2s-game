@@ -3,6 +3,7 @@ package it.unibo.t2sgame.view.impl;
 import java.util.function.BiConsumer;
 
 import it.unibo.t2sgame.model.api.Entity;
+import it.unibo.t2sgame.model.api.Message;
 import it.unibo.t2sgame.view.api.Graphic;
 import it.unibo.t2sgame.view.api.GraphicComponent;
 import it.unibo.t2sgame.view.api.GraphicComponentFactory;
