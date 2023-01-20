@@ -23,6 +23,7 @@ import it.unibo.t2sgame.input.api.InputComponent;;
 
 public class EntityTest {
     
+
     @Test void testGetEntityComponent() {
         var entity = new EntityImpl();
         entity.addComponent(new PhysicsComponent() {
@@ -30,7 +31,7 @@ public class EntityTest {
             public void update(Entity entity) { 
             }
             @Override
-            public void receive() {
+            public <T> void receive(it.unibo.t2sgame.model.api.Message<T> message) {
             }
         });
         var componentOptional = entity.getComponent(PhysicsComponent.class);

@@ -14,6 +14,6 @@ public interface Component {
     /**
      * 
      */
-    void receive();
+    <T> void receive(Message<T> messagge);
 
 }

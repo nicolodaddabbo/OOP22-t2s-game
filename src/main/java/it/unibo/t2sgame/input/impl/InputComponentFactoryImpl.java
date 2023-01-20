@@ -15,7 +15,7 @@ public class InputComponentFactoryImpl implements InputComponentFactory {
         }
 
         @Override
-        public void receive() {
+        public <T> void receive(Message<T> message) {
             // TODO Auto-generated method stub
         }
 

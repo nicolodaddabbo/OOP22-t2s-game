@@ -38,7 +38,7 @@ public interface Entity {
     /**
      * 
      */
-    void notifyComponent();
+    <T extends Component, S> void  notifyComponent(Class<T> type, Message<S> message);
     /**
      * Method used to apply the Prototype pattern
      * @return an exact copy of the Entity

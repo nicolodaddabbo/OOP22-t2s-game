@@ -2,6 +2,7 @@ package it.unibo.t2sgame.physics.api;
 
 import it.unibo.t2sgame.model.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
+import it.unibo.t2sgame.model.api.Message;
 
 public interface PhysicsComponent extends Component {
 
@@ -13,6 +14,6 @@ public interface PhysicsComponent extends Component {
     void update(Entity entity);
 
     @Override
-    void receive();
+    <T> void receive(Message<T> message);
 
 }

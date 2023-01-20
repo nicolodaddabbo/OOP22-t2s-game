@@ -21,7 +21,7 @@ public class GraphicComponentFactoryImpl implements GraphicComponentFactory{
                 this.graphic = graphic;   
             }
             @Override
-            public void receive() {
+            public <T> void receive(Message<T> messge) {
                 
             }
         };
