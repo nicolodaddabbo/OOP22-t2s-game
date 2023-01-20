@@ -7,7 +7,7 @@ import it.unibo.t2sgame.physics.api.PhysicsComponent;
 public class MoveLeft implements Command {
 
     @Override
-    public void execute(Entity entity) {
+    public void execute(final Entity entity) {
         entity.notifyComponent(PhysicsComponent.class, () -> this);
     }
     
