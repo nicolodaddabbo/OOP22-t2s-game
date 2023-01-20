@@ -4,6 +4,7 @@ import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.input.impl.InputComponentFactoryImpl;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.EntityFactory;
+import it.unibo.t2sgame.physics.impl.PhysicsComponentFactoryImpl;
 import it.unibo.t2sgame.view.impl.GraphicComponentFactoryImpl;
 
 public class EntityFactoryImpl implements EntityFactory {
@@ -12,14 +13,14 @@ public class EntityFactoryImpl implements EntityFactory {
     public Entity createPlayer(final Vector2D position) {
         return new EntityImpl(position)
             .addComponent(new InputComponentFactoryImpl().createKeyboardInputComponent())
-            .addComponent(null)
+            .addComponent(new PhysicsComponentFactoryImpl().createCirclePhyisicsComponent(1))
             .addComponent(new GraphicComponentFactoryImpl().getPlayerGraphicComponent());
     }
 
     @Override
     public Entity createProjectile(final Vector2D position) {
         return new EntityImpl(position)
-            .addComponent(null)
+            .addComponent(new PhysicsComponentFactoryImpl().createCirclePhyisicsComponent(1))
             .addComponent(new GraphicComponentFactoryImpl().getProjectileGraphicComponent());
     }
 
@@ -27,7 +28,7 @@ public class EntityFactoryImpl implements EntityFactory {
     public Entity createBaseEnemy(final Vector2D position) {
         return new EntityImpl(position)
             .addComponent(new InputComponentFactoryImpl().createBasicEnemyAIInputComponent())
-            .addComponent(null)
+            .addComponent(new PhysicsComponentFactoryImpl().createCirclePhyisicsComponent(1))
             .addComponent(new GraphicComponentFactoryImpl().getBaseEnemyGraphicComponent());
     }
     
