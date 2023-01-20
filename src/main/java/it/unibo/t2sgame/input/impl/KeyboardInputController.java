@@ -8,10 +8,10 @@ import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
 
 public class KeyboardInputController implements InputController {
-    private final static int MOVE_UP_CODE = 87;
-    private final static int MOVE_RIGHT_CODE = 68;
-    private final static int MOVE_DOWN_CODE = 83;
-    private final static int MOVE_LEFT_CODE = 65;
+    private static final int MOVE_UP_CODE = 87;
+    private static final int MOVE_RIGHT_CODE = 68;
+    private static final int MOVE_DOWN_CODE = 83;
+    private static final int MOVE_LEFT_CODE = 65;
 
     private static final Map<Integer, Command> MOVESET = Map.of(
         MOVE_UP_CODE, new Move(Directions.UP),
