@@ -5,7 +5,7 @@ public interface SceneFactory {
      * 
      * @return a created Scene
      */
-    Scene createScene();
+    GameScene createScene();
 
     /**
      * 

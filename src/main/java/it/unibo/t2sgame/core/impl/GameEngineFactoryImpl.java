@@ -9,7 +9,7 @@ import it.unibo.t2sgame.core.api.GameEngineFactory;
 import it.unibo.t2sgame.input.api.InputComponent;
 import it.unibo.t2sgame.model.api.Component;
 import it.unibo.t2sgame.physics.api.PhysicsComponent;
-import it.unibo.t2sgame.view.api.Scene;
+import it.unibo.t2sgame.view.api.GameScene;
 
 public class GameEngineFactoryImpl implements GameEngineFactory {
 
@@ -19,7 +19,7 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
         return new GameEngine() {
             private static final int MS_PER_UPDATE = 7000;
             private Optional<Game> game = Optional.empty();
-            private Optional<Scene> scene = Optional.empty();
+            private Optional<GameScene> scene = Optional.empty();
             private long lag = 0;
 
             @Override
