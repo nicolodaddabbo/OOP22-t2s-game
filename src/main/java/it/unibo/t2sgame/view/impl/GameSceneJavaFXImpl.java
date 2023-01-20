@@ -7,6 +7,7 @@ import it.unibo.t2sgame.view.api.GameScene;
 import it.unibo.t2sgame.view.api.Graphic;
 import it.unibo.t2sgame.view.api.GraphicComponent;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,26 +17,28 @@ import javafx.stage.Stage;
 
 public class GameSceneJavaFXImpl extends Application implements GameScene{
 
-    private Canvas root;
+    private Group root;
     private Scene scene;
+    private Canvas canvas;
     private KeyboardInputController keyInController;
     private Game game;
     private GraphicsContext gContext;
 
     @Override
     public void initialize() {
-        Application.launch(" ");
+        Application.launch(GameSceneJavaFXImpl.class, " ");
     } 
 
     @Override
     public void start(Stage stage) throws Exception {
-        this.root = new Canvas();
-        this.gContext = this.root.getGraphicsContext2D();
-        this.scene = new Scene(new StackPane(this.root), 500, 500);
-        this.scene.setFill(Color.BLACK);
+        this.root = new Group();
+        this.scene = new Scene(this.root, 500, 500, Color.BLACK);
+        this.canvas = new Canvas(500, 500);
+        this.gContext = this.canvas.getGraphicsContext2D();
         this.scene.setOnKeyPressed(event -> keyInController.notifyKeyPressed(event.getCode().getCode()));
         this.scene.setOnKeyReleased(event -> keyInController.notifyKeyReleased(event.getCode().getCode()));
 
+        this.root.getChildren().add(this.canvas);
         stage.setScene(this.scene);
         stage.setTitle("T2S-game");
         stage.show();
