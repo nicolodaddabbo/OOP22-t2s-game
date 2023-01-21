@@ -1,6 +1,7 @@
 package it.unibo.t2sgame.physics.impl;
 
 import it.unibo.t2sgame.common.Vector2D;
+import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.Message;
 import it.unibo.t2sgame.physics.api.BoundingBox;
@@ -22,7 +23,32 @@ public class PhysicsComponentFactoryImpl implements PhysicsComponentFactory {
 
             @Override
             public <T> void receive(Message<T> message) {
-                
+                try{
+                    Directions d = (Directions)message.getMessage();
+                    this.receiveDirection(d);
+                }catch(ClassCastException e){
+                    e.printStackTrace();
+                }
+            }
+
+            private void receiveDirection(Directions direction) {
+                switch(direction){
+                    case UP:
+                        this.velocity = new Vector2D(0, -1);
+                        break;
+                    case DOWN:
+                        this.velocity = new Vector2D(0, 1);
+                        break;
+                    case LEFT:
+                        this.velocity = new Vector2D(-1, 0);
+                        break;
+                    case RIGHT:
+                        this.velocity = new Vector2D(1, 0);
+                        break;
+                    default:
+                        this.velocity = new Vector2D(0, 0);
+                        break;
+                }
             }
 
             @Override
