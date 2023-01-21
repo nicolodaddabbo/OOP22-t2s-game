@@ -13,11 +13,12 @@ public class PhysicsComponentFactoryImpl implements PhysicsComponentFactory {
     private PhysicsComponent createPhysicsComponentWith(final BoundingBox bound){
         return new PhysicsComponent() {
 
+            private static final double CONVERSION = 0.001;
             private Vector2D velocity = new Vector2D(0, 0);
         
             @Override
             public void update(final Entity entity) {
-                entity.setPosition(entity.getPosition().sum(this.velocity));
+                entity.setPosition(entity.getPosition().sum(this.velocity.mul(CONVERSION)));
                 bound.setCenter(entity.getPosition());
             }
 
