@@ -13,11 +13,11 @@ import it.unibo.t2sgame.view.api.GameScene;
 
 public class GameEngineFactoryImpl implements GameEngineFactory {
 
-    private static final int FRAME_PERIOD = 7000;
+    private static final int MS_FRAME_PERIOD = 7;
 
     private GameEngine engineFrom(final GameScene scene,final BiConsumer<Long, Long> waitForNextFrame) {
         return new GameEngine() {
-            private static final int MS_PER_UPDATE = 7000;
+            private static final int MS_PER_UPDATE = 7;
             private Optional<Game> game = Optional.empty();
             private long lag = 0;
 
@@ -86,8 +86,8 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
         return engineFrom(scene, (t1, t2) -> {
             var dt = t1 - t2;
             try {
-                if(FRAME_PERIOD - dt > 0){
-                    Thread.sleep(FRAME_PERIOD - dt);
+                if( - dt > 0){
+                    Thread.sleep(MS_FRAME_PERIOD - dt);
                 }
             } catch (Exception e) {
                 // TODO: handle exception
