@@ -25,9 +25,10 @@ public class EntityImpl implements Entity {
     }
 
     @Override
-    public <T extends Component> Optional<Component> getComponent(Class<T> componentClass){
+    public <T extends Component> Optional<T> getComponent(Class<T> componentClass){
         return this.components.stream()
-            .filter(c -> componentClass.isAssignableFrom(c.getClass()))
+            .filter(componentClass::isInstance)
+            .map(componentClass::cast)
             .findFirst();
     }
 

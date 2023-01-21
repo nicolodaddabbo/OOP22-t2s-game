@@ -15,10 +15,12 @@ public interface Entity {
     Set<Component> getComponents();
     /**
      * 
+     * @param <T> type of the requested component
+     * @param componentClass the class of the requested component
      * @return Optional containing the specified Component if present,
      * otherwise returns an empty Optional
      */
-    <T extends Component> Optional<Component> getComponent(Class<T> componentClass);
+    <T extends Component> Optional<T> getComponent(Class<T> componentClass);
     /**
      * This method is used to add components to the entity.
      * @param component adds specified component to the set of components of the entity
