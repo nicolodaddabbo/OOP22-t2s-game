@@ -23,7 +23,7 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
 
             @Override
             public void run() {
-                long previous = System.nanoTime();
+                long previous = System.currentTimeMillis();
                 long current;
                 long elapsed;
                 if(this.game.isEmpty()){
@@ -31,7 +31,7 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
                 }
                 scene.setGame(this.game.get());
                 while(!this.isGameOver()){
-                    current = System.nanoTime();
+                    current = System.currentTimeMillis();
                     elapsed = current - previous;
                     this.lag = this.lag + elapsed;
                     // Process Input
@@ -44,7 +44,7 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
                     // Render Graphics
                     scene.render();
                     // Waiting function
-                    waitForNextFrame.accept(System.nanoTime(), current);
+                    waitForNextFrame.accept(System.currentTimeMillis(), current);
                     previous = current;
                 }
             }
