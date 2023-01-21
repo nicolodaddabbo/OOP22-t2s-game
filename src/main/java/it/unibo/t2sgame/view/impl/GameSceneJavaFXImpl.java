@@ -15,7 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class GameSceneJavaFXImpl extends Application implements GameScene{
+public class GameSceneJavaFXImpl implements GameScene{
 
     private Group root;
     private Scene scene;
@@ -26,18 +26,10 @@ public class GameSceneJavaFXImpl extends Application implements GameScene{
 
     @Override
     public void initialize() {
-        Application.launch(GameSceneJavaFXImpl.class, " ");
-    } 
-
-    @Override
-    public void init() throws Exception{
+        Stage stage = new Stage();
         this.root = new Group();
         this.canvas = new Canvas(500, 500);
         this.gContext = this.canvas.getGraphicsContext2D();
-    }
-    
-    @Override
-    public void start(Stage stage) throws Exception {
         this.scene = new Scene(this.root, 500, 500, Color.BLACK);
         this.scene.setOnKeyPressed(event -> keyInController.notifyKeyPressed(event.getCode().getCode()));
         this.scene.setOnKeyReleased(event -> keyInController.notifyKeyReleased(event.getCode().getCode()));
@@ -46,7 +38,7 @@ public class GameSceneJavaFXImpl extends Application implements GameScene{
         stage.setScene(this.scene);
         stage.setTitle("T2S-game");
         stage.show();
-    }
+    } 
 
     @Override
     public void render() {
