@@ -13,7 +13,9 @@ public interface Component {
 
     /**
      * 
+     * @param <T> the type of message
+     * @param message the message to receive
      */
-    <T> void receive(Message<T> messagge);
+    <T> void receive(Message<T> message);
 
 }
