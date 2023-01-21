@@ -15,11 +15,10 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
 
     private static final int FRAME_PERIOD = 7000;
 
-    private GameEngine engineFrom(final BiConsumer<Long, Long> waitForNextFrame) {
+    private GameEngine engineFrom(final GameScene scene,final BiConsumer<Long, Long> waitForNextFrame) {
         return new GameEngine() {
             private static final int MS_PER_UPDATE = 7000;
             private Optional<Game> game = Optional.empty();
-            private Optional<GameScene> scene = Optional.empty();
             private long lag = 0;
 
             @Override
@@ -27,7 +26,7 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
                 long previous = System.nanoTime();
                 long current;
                 long elapsed;
-                if(this.game.isEmpty() || this.scene.isEmpty()){
+                if(this.game.isEmpty()){
                     return;
                 }
                 while(!this.isGameOver()){
@@ -42,7 +41,7 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
                         this.lag = this.lag - MS_PER_UPDATE;
                     }
                     // Render Graphics
-                    this.scene.get().render();
+                    scene.render();
                     // Waiting function
                     waitForNextFrame.accept(System.nanoTime(), current);
                     previous = current;
@@ -77,13 +76,13 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
     }
 
     @Override
-    public GameEngine createEngine() {
-        return engineFrom((t1, t2) -> {/* Do nothing */});
+    public GameEngine createEngine(final GameScene scene) {
+        return engineFrom(scene, (t1, t2) -> {/* Do nothing */});
     }
 
     @Override
-    public GameEngine createGameEngineWithFpsLock() {
-        return engineFrom((t1, t2) -> {
+    public GameEngine createGameEngineWithFpsLock(final GameScene scene) {
+        return engineFrom(scene, (t1, t2) -> {
             var dt = t1 - t2;
             try {
                 if(FRAME_PERIOD - dt > 0){
