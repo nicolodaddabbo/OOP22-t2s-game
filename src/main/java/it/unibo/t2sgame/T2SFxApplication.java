@@ -1,7 +1,9 @@
 package it.unibo.t2sgame;
 
+import it.unibo.t2sgame.core.api.Game;
 import it.unibo.t2sgame.core.impl.GameEngineFactoryImpl;
 import it.unibo.t2sgame.core.impl.GameFactoryImpl;
+import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.view.impl.SceneFactoryImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -13,7 +15,7 @@ public class T2SFxApplication extends Application {
         var scene = new SceneFactoryImpl().createJavaFXScene(); 
         var engine = new GameEngineFactoryImpl().createGameEngineWithFpsLock(scene);
         // Needing to set the observer view
-        //scene.setObserver(engine);
+        scene.setEngine(engine);
         scene.initialize();
         /*
          * Letting the JavaFx Thread to be free in order to handle the GUI.
