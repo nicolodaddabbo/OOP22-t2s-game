@@ -48,7 +48,8 @@ public class GameSceneJavaFXImpl implements GameScene{
     } 
 
     @Override
-    public void render() {
+    public void render() {   
+        this.gContext.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
         this.gameEngine.getGame().get().getWorld().getEntities().forEach(entity -> entity
             .getComponent(GraphicComponent.class)
             .ifPresent(gc -> this.draw((GraphicComponent) gc, entity)));
@@ -56,7 +57,6 @@ public class GameSceneJavaFXImpl implements GameScene{
 
     private void draw(GraphicComponent gc, Entity entity){
         gc.setGraphics(new GraphicJavaFXImpl(this.gContext));
-        this.gContext.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
         gc.update(entity);
     }
 
