@@ -20,7 +20,7 @@ public class T2SFxApplication extends Application {
          * Not creating a new thread to handle game loop would JavaFx Thread
          * to be used in the loop causing the crash of the GUI 
          */
-        new Thread(() -> engine.setGame(new GameFactoryImpl().createSinglePlayerGame()).run());
+        new Thread(() -> engine.setGame(new GameFactoryImpl().createSinglePlayerGame()).run()).start();
     }
     
 }
