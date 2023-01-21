@@ -37,10 +37,10 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
                     // Process Input
                     this.updateComponent(InputComponent.class);
                     // Process Physics
-                    //while(!this.isSync()){
+                    while(!this.isSync()){
                         this.updateComponent(PhysicsComponent.class);
-                      //  this.lag = this.lag - MS_PER_UPDATE;
-                    //}
+                        this.lag = this.lag - MS_PER_UPDATE;
+                    }
                     // Render Graphics
                     scene.render();
                     // Waiting function
