@@ -29,6 +29,7 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
                 if(this.game.isEmpty()){
                     return;
                 }
+                scene.setGame(this.game.get());
                 while(!this.isGameOver()){
                     current = System.nanoTime();
                     elapsed = current - previous;
