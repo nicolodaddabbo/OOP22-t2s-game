@@ -1,6 +1,7 @@
 package it.unibo.t2sgame.view.api;
 
 import it.unibo.t2sgame.core.api.Game;
+import it.unibo.t2sgame.core.api.GameEngine;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 /**
  * Interface representing a GameScene of the game 
@@ -25,4 +26,10 @@ public interface GameScene {
      *                        user on a keyboard
      */
     void setKeyboardInputController(KeyboardInputController keyInController);
+
+    /**
+     * 
+     * @param gameEngine
+     */
+    void setEngine(GameEngine gameEngine);
 }
