@@ -35,9 +35,9 @@ public class GameSceneJavaFXImpl implements GameScene{
     public void initialize() {
         Stage stage = new Stage();
         this.root = new Group();
-        this.canvas = new Canvas(500, 500);
+        this.canvas = new Canvas(1080, 720);
         this.gContext = this.canvas.getGraphicsContext2D();
-        this.scene = new Scene(this.root, 500, 500, Color.BLACK);
+        this.scene = new Scene(this.root, 1080, 720, Color.BLACK);
         this.scene.setOnKeyPressed(event -> keyInController.notifyKeyPressed(event.getCode().getCode()));
         this.scene.setOnKeyReleased(event -> keyInController.notifyKeyReleased(event.getCode().getCode()));
 
@@ -55,6 +55,7 @@ public class GameSceneJavaFXImpl implements GameScene{
     }
 
     private void draw(GraphicComponent gc, Entity entity){
+        this.gContext.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
         gc.setGraphics(new GraphicJavaFXImpl(this.gContext));
         gc.update(entity);
     }
