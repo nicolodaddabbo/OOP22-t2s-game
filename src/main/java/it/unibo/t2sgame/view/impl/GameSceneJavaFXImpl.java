@@ -49,6 +49,10 @@ public class GameSceneJavaFXImpl implements GameScene{
         stage.setResizable(false);
         stage.setScene(this.scene);
         stage.setTitle("T2S-game");
+        stage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
         stage.show();
     } 
 
