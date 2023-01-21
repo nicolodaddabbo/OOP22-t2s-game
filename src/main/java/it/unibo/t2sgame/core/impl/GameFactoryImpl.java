@@ -34,7 +34,7 @@ public class GameFactoryImpl implements GameFactory {
                 s.incrementRound();
                 var wave = new WaveFactoryImpl().createBasicWave(s.getRound());
                 wave.getEnemies().forEach(e -> e.setWorld(w));
-                w.setWave(new WaveFactoryImpl().createBasicWave(s.getRound()));                
+                w.setWave(wave);                
             }
             
         };
