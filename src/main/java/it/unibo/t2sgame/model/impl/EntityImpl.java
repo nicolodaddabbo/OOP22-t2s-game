@@ -53,8 +53,8 @@ public class EntityImpl implements Entity {
     }
 
     @Override
-    public <T extends Component, S> void notifyComponent(Class<T> type, Message<S> message) {
-        
+    public <T extends Component, S> void notifyComponent(Class<T> receiver, Message<S> message) {
+        this.getComponent(receiver).ifPresent(c -> c.receive(message));
     }
     
     @Override
