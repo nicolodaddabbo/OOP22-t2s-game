@@ -11,6 +11,8 @@ import it.unibo.t2sgame.view.api.GameScene;
 import it.unibo.t2sgame.view.api.Graphic;
 import it.unibo.t2sgame.view.api.GraphicComponent;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -30,18 +32,21 @@ public class GameSceneJavaFXImpl implements GameScene{
     private Game game;
     private GraphicsContext gContext;
     private GameEngine gameEngine;
-
+    private GraphicJavaFXImpl graphic;
     @Override
     public void initialize() {
         Stage stage = new Stage();
         this.root = new Group();
-        this.canvas = new Canvas(1080, 720);
+        this.canvas = new Canvas(1200, 600);
         this.gContext = this.canvas.getGraphicsContext2D();
-        this.scene = new Scene(this.root, 1080, 720, Color.BLACK);
+        
+        this.graphic = new GraphicJavaFXImpl(this.gContext);
+        this.scene = new Scene(this.root, 1200, 600, Color.BLACK);
         this.scene.setOnKeyPressed(event -> keyInController.notifyKeyPressed(event.getCode().getCode()));
         this.scene.setOnKeyReleased(event -> keyInController.notifyKeyReleased(event.getCode().getCode()));
 
         this.root.getChildren().add(this.canvas);
+        stage.setResizable(false);
         stage.setScene(this.scene);
         stage.setTitle("T2S-game");
         stage.show();
@@ -49,14 +54,16 @@ public class GameSceneJavaFXImpl implements GameScene{
 
     @Override
     public void render() {   
-        this.gContext.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
-        this.gameEngine.getGame().get().getWorld().getEntities().forEach(entity -> entity
-            .getComponent(GraphicComponent.class)
-            .ifPresent(gc -> this.draw((GraphicComponent) gc, entity)));
+        Platform.runLater(() -> {
+            gContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            gameEngine.getGame().get().getWorld().getEntities().forEach(entity -> entity
+                .getComponent(GraphicComponent.class)
+                .ifPresent(gc -> draw((GraphicComponent) gc, entity)));     
+        });
     }
 
     private void draw(GraphicComponent gc, Entity entity){
-        gc.setGraphics(new GraphicJavaFXImpl(this.gContext));
+        gc.setGraphics(graphic);
         gc.update(entity);
     }
 
