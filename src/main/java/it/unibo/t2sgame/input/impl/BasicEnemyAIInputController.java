@@ -43,16 +43,14 @@ public class BasicEnemyAIInputController implements InputController {
 
     private Directions findDirectionGivenAngle(final Double angle) {
         final var absAngle = Math.abs(angle);
-        if (absAngle < 45) {
+        if (absAngle <= 45) {
             return Directions.RIGHT;
-        } else if (absAngle > 135) {
+        } else if (absAngle >= 135) {
             return Directions.LEFT;
         } else if (absAngle > 45 && absAngle < 135 && angle < 0) {
             return Directions.UP;
-        } else if (absAngle > 45 && absAngle < 135 && angle > 0) {
-            return Directions.DOWN;
         } else {
-            return Directions.STAY;
+            return Directions.DOWN;
         }
     }
 
