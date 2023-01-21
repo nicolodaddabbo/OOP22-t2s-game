@@ -9,8 +9,7 @@ public class HealthComponentImpl implements HealthComponent{
     private int health;
     @Override
     public void update(Entity entity) {
-        entity.getComponent(HealthComponent.class)
-            .ifPresent(component -> ((HealthComponent) component).setHealth(this.health));
+        
     }
 
     @Override
