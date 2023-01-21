@@ -37,10 +37,10 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
                     // Process Input
                     this.updateComponent(InputComponent.class);
                     // Process Physics
-                    while(!this.isSync()){
+                    //while(!this.isSync()){
                         this.updateComponent(PhysicsComponent.class);
-                        this.lag = this.lag - MS_PER_UPDATE;
-                    }
+                      //  this.lag = this.lag - MS_PER_UPDATE;
+                    //}
                     // Render Graphics
                     scene.render();
                     // Waiting function
@@ -86,7 +86,7 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
         return engineFrom(scene, (t1, t2) -> {
             var dt = t1 - t2;
             try {
-                if( - dt > 0){
+                if(MS_FRAME_PERIOD - dt > 0){
                     Thread.sleep(MS_FRAME_PERIOD - dt);
                 }
             } catch (Exception e) {
