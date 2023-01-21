@@ -29,7 +29,11 @@ public class GraphicJavaFXImpl implements Graphic{
 
     @Override
     public void drawBaseEnemy(Entity enemy) {
-        
+        var enemy_x = enemy.getPosition().getX();
+        var enemy_y = enemy.getPosition().getY();
+
+        gc.setFill(Color.RED);
+        gc.fillRect(enemy_x, enemy_y, 60, 80);
     }
     
 }
