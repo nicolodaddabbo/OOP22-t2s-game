@@ -48,6 +48,11 @@ public class EntityImpl implements Entity {
     }
 
     @Override
+    public Optional<World> getWorld() {
+        return this.world;
+    }
+
+    @Override
     public void setWorld(World world) {
         this.world = Optional.of(world);        
     }
@@ -80,5 +85,7 @@ public class EntityImpl implements Entity {
             return false;
         return true;
     }
+
+    
     
 }

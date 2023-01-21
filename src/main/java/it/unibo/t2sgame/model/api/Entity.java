@@ -38,6 +38,11 @@ public interface Entity {
      * 
      * @param world the world where the entity is placed
      */
+    Optional<World> getWorld();
+    /**
+     * 
+     * @param world the world where the entity is placed
+     */
     void setWorld(World world);
     /**
      * This method is used to notify the components of the entity.
