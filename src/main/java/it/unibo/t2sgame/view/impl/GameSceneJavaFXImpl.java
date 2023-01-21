@@ -55,8 +55,8 @@ public class GameSceneJavaFXImpl implements GameScene{
     }
 
     private void draw(GraphicComponent gc, Entity entity){
-        this.gContext.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
         gc.setGraphics(new GraphicJavaFXImpl(this.gContext));
+        this.gContext.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
         gc.update(entity);
     }
 

@@ -13,7 +13,7 @@ public class PhysicsComponentFactoryImpl implements PhysicsComponentFactory {
     private PhysicsComponent createPhysicsComponentWith(final BoundingBox bound){
         return new PhysicsComponent() {
 
-            private static final double CONVERSION = 0.001;
+            private static final double CONVERSION = 3;
             private Vector2D velocity = new Vector2D(0, 0);
         
             @Override
