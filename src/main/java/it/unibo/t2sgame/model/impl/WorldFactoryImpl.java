@@ -34,7 +34,8 @@ public class WorldFactoryImpl implements WorldFactory{
 
             @Override
             public void addEntity(Entity e) {
-                this.entities.add(e);                
+                this.entities.add(e);       
+                e.setWorld(this);
             }
 
             @Override
@@ -52,12 +53,17 @@ public class WorldFactoryImpl implements WorldFactory{
 
     @Override
     public World createWorldWithOnePlayer() {
-        return worldWith(List.of(this.entityFactory.createPlayer(new Vector2D(0, 0))));
+        var player = this.entityFactory.createPlayer(new Vector2D(0, 0));
+        var world = worldWith(List.of(player));
+        player.setWorld(world);
+        return world;
     }
 
     @Override
     public World createWorldWithMorePlayer(final List<Entity> players) {
-        return worldWith(players);
+        var world = worldWith(players);
+        players.forEach(p -> p.setWorld(world));
+        return world;
     }
     
 }

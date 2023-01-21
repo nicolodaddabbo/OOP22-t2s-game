@@ -32,6 +32,8 @@ public class GameFactoryImpl implements GameFactory {
             @Override
             public void nextWave() {
                 s.incrementRound();
+                var wave = new WaveFactoryImpl().createBasicWave(s.getRound());
+                wave.getEnemies().forEach(e -> e.setWorld(w));
                 w.setWave(new WaveFactoryImpl().createBasicWave(s.getRound()));                
             }
             

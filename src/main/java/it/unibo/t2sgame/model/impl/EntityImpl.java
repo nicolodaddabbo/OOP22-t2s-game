@@ -3,6 +3,7 @@ import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.model.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.Message;
+import it.unibo.t2sgame.model.api.World;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import java.util.Set;
 public class EntityImpl implements Entity {
 
     private Set<Component> components = new HashSet<>();
+    private Optional<World> world = Optional.empty();
     private Vector2D position;
 
     public EntityImpl(final Vector2D position) {
@@ -43,6 +45,11 @@ public class EntityImpl implements Entity {
     @Override
     public void setPosition(final Vector2D position) {
         this.position = position;
+    }
+
+    @Override
+    public void setWorld(World world) {
+        this.world = Optional.of(world);        
     }
 
     @Override

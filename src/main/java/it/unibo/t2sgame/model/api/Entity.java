@@ -36,6 +36,11 @@ public interface Entity {
     void setPosition(Vector2D position);
     /**
      * 
+     * @param world the world where the entity is placed
+     */
+    void setWorld(World world);
+    /**
+     * 
      */
     <T extends Component, S> void  notifyComponent(Class<T> type, Message<S> message);
     /**
