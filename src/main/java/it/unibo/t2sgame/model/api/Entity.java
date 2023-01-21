@@ -40,7 +40,11 @@ public interface Entity {
      */
     void setWorld(World world);
     /**
-     * 
+     * This method is used to notify the components of the entity.
+     * @param <T> T is the type of the receiver 
+     * @param <S> S is the type of the message 
+     * @param receiver the component class that will receive the message
+     * @param message the message to send
      */
     <T extends Component, S> void  notifyComponent(Class<T> receiver, Message<S> message);
     /**
