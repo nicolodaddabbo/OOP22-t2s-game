@@ -3,6 +3,7 @@ package it.unibo.t2sgame.physics.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.HealthComponent;
 import it.unibo.t2sgame.model.api.Message;
@@ -17,15 +18,24 @@ public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
             
             private Set<CollisionComponent> collisions = new HashSet<>();
             private boolean canCheck = true;
-
+            
             @Override
             public <T> void receive(Message<T> message) {
                 try {
-                    this.canCheck = (boolean)message.getMessage();
+                    Vector2D pos = (Vector2D)message.getMessage();
+                    receiveFromPhysicComponent(pos);
                 } catch (Exception e) {
-                    // TODO: handle exception
+                    e.printStackTrace();
+                    System.exit(1);
                 }
-               
+            }
+
+            private void receiveFromPhysicComponent(final Vector2D pos){
+                s.setCenter(pos);
+            }
+
+            private void receiveFromHealthComponent(final boolean checkStatus){
+
             }
 
             @Override
