@@ -14,7 +14,8 @@ public class EntityFactoryImpl implements EntityFactory {
         return new EntityImpl(position)
             .addComponent(new InputComponentFactoryImpl().createKeyboardInputComponent())
             .addComponent(new PhysicsComponentFactoryImpl().createCirclePhyisicsComponent(1))
-            .addComponent(new GraphicComponentFactoryImpl().getPlayerGraphicComponent());
+            .addComponent(new GraphicComponentFactoryImpl().getPlayerGraphicComponent())
+            .addComponent(new HealthComponentImpl(3));
     }
 
     @Override
