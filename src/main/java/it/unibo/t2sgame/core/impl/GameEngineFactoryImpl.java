@@ -34,6 +34,7 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
                     current = System.currentTimeMillis();
                     elapsed = current - previous;
                     this.lag = this.lag + elapsed;
+                    this.updateState();
                     // Process Input
                     this.updateComponent(InputComponent.class);
                     // Process Physics
@@ -60,6 +61,14 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
 
             private <T extends Component> void updateComponent(final Class<T> type){
                 this.game.get().getWorld().getEntities().forEach(e -> e.getComponent(type).ifPresent(c -> c.update(e)));
+            }
+            
+            private void updateState(){
+                this.getGame().ifPresent(g -> {
+                    if(g.getState().isWaveOver(g.getWorld().getCurrentWave())){
+                        g.nextWave();
+                    }
+                });
             }
 
             @Override

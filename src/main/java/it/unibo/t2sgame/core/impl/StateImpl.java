@@ -1,6 +1,7 @@
 package it.unibo.t2sgame.core.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.t2sgame.core.api.State;
 import it.unibo.t2sgame.model.api.Entity;
@@ -16,8 +17,8 @@ public class StateImpl implements State{
     }
 
     @Override
-    public boolean isWaveOver(Wave w) {
-        return w.getEnemies().isEmpty();
+    public boolean isWaveOver(Optional<Wave> w) {
+        return w.isEmpty() || w.get().getEnemies().isEmpty();
     }
 
     @Override
