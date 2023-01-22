@@ -8,6 +8,7 @@ import it.unibo.t2sgame.core.api.GameEngine;
 import it.unibo.t2sgame.core.api.GameEngineFactory;
 import it.unibo.t2sgame.input.api.InputComponent;
 import it.unibo.t2sgame.model.api.Component;
+import it.unibo.t2sgame.physics.api.CollisionComponent;
 import it.unibo.t2sgame.physics.api.PhysicsComponent;
 import it.unibo.t2sgame.view.api.GameScene;
 
@@ -40,6 +41,7 @@ public class GameEngineFactoryImpl implements GameEngineFactory {
                     // Process Physics
                     while(!this.isSync()){
                         this.updateComponent(PhysicsComponent.class);
+                        this.updateComponent(CollisionComponent.class);
                         this.lag = this.lag - MS_PER_UPDATE;
                     }
                     // Render Graphics
