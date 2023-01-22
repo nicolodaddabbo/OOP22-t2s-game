@@ -2,7 +2,10 @@ package it.unibo.t2sgame.view.impl;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import it.unibo.t2sgame.core.api.Game;
 import it.unibo.t2sgame.core.api.GameEngine;
@@ -38,7 +41,7 @@ public class GameSceneJavaFXImpl implements GameScene{
     private GraphicsContext gContext, healthContext;
     private GameEngine gameEngine;
     private GraphicJavaFXImpl graphic;
-    private Image image;
+    private Map<String, Image> cachedSprites;
     @Override
     public void initialize() {
         Stage stage = new Stage();
@@ -64,13 +67,18 @@ public class GameSceneJavaFXImpl implements GameScene{
             Platform.exit();
             System.exit(0);
         });
+        storeSprites();
+        stage.show();
+    } 
+
+    private void storeSprites() {
+        cachedSprites = new HashMap<>();
         try {
-            this.image = new Image(new FileInputStream("src/main/resources/heart_darker.png"));
+            this.cachedSprites.put("full_heart", new Image(new FileInputStream("src/main/resources/heart_darker.png")));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        stage.show();
-    } 
+    }
 
     @Override
     public void render() {
@@ -81,11 +89,10 @@ public class GameSceneJavaFXImpl implements GameScene{
                 .ifPresent(gc -> this.draw(gc, entity)));     
            
             healthContext.clearRect(0, 0, healthCanvas.getWidth(), healthCanvas.getHeight());
-            var player = this.game.getWorld().getPlayers().get(0);
-            var health = (player.getComponent(HealthComponent.class).get()).getHealth();
-            for(int i = 0; i < health; i++){
-                this.healthContext.drawImage(image, 50*i, 0, 40, 40);
-            }
+            var health = (this.game.getWorld().getPlayers().get(0).getComponent(HealthComponent.class).get()).getHealth();
+            Stream.iterate(0, i -> i + 1)
+                .limit(health)
+                .forEach(n -> this.healthContext.drawImage(cachedSprites.get("full_heart"), 50*n, 0, 40, 40));
         });
     }
 
