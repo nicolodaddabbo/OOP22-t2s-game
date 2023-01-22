@@ -76,7 +76,7 @@ public class GameSceneJavaFXImpl implements GameScene{
         });
 
         var player = this.game.getWorld().getPlayers().get(0);
-        var health = /*((HealthComponent)player.getComponent(HealthComponent.class).get()).getHealth()*/ 3;
+        var health = (player.getComponent(HealthComponent.class).get()).getHealth();
         for(int i = 0; i < health; i++){
             try {
                 this.healthContext.drawImage(new Image(new FileInputStream("src/main/resources/heart_darker.png")), 50*i, 0, 40, 40);
