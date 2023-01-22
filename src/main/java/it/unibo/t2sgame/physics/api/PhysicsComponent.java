@@ -13,13 +13,4 @@ public interface PhysicsComponent extends Component {
     @Override
     void update(Entity entity);
 
-    @Override
-    <T> void receive(Message<T> message);
-
-    /**
-     * 
-     * @return the physics component bounding box
-     */
-    BoundingBox getBoundingBox();
-
 }
