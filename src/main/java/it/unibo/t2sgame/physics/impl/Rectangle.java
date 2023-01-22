@@ -5,41 +5,48 @@ import it.unibo.t2sgame.physics.api.Shape;
 
 public class Rectangle implements Shape{
     private Vector2D center;
-    private Vector2D size;
-    private Vector2D min;
-    private Vector2D max;
+    private double width;
+    private double height;
 
-    public Rectangle(final Vector2D min, final Vector2D max){
-        this.min = min;
-        this.max = max;
-        this.center = min.sum(max).mul(0.5);
-        this.size = max.sub(min);
+    public Rectangle(final double width, final double height){
+        this.width = width;
+        this.height = height;
     }
 
     public Vector2D getCenter() {
         return this.center;
     }
 
-    public void setCenter(Vector2D center) {
+    @Override
+    public void setCenter(final Vector2D center) {
         this.center = center;
     }
 
-    public Vector2D getMin(){
-        return this.min;
+    public double getWidth() {
+        return this.width;
     }
 
-    public Vector2D getMax(){
-        return this.max;
+    public void setWidth(final double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return this.height;
+    }
+
+    public void setHeight(final double height) {
+        this.height = height;
     }
 
     @Override
-    public boolean isColliding(Circle circle) {
+    public boolean isColliding(final Circle circle) {
         return false;
     }
 
     @Override
-    public boolean isColliding(Rectangle rectangle) {
-        return false;
+    public boolean isColliding(final Rectangle rectangle) {
+        return Math.abs(this.center.getX()-rectangle.getCenter().getX()) < (this.width + rectangle.getWidth())/2 
+            && Math.abs(this.center.getY()-rectangle.getCenter().getY()) < (this.height + rectangle.getHeight())/2;
     }
     
 }
