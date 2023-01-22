@@ -39,6 +39,11 @@ public class Rectangle implements Shape{
     }
 
     @Override
+    public boolean isColliding(final Shape shape) {
+        return shape.isColliding(this);
+    }
+
+    @Override
     public boolean isColliding(final Circle circle) {
         return false;
     }

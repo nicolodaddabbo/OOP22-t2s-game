@@ -28,6 +28,11 @@ public class Circle implements Shape {
     }
 
     @Override
+    public boolean isColliding(final Shape shape) {
+        return shape.isColliding(this);
+    }
+
+    @Override
     public boolean isColliding(Circle circle) {
         return this.center.distance(circle.getCenter()) <= this.radius+circle.getRadius();
     }

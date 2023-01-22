@@ -19,9 +19,7 @@ public interface Shape {
      * @param shape the other shape to check if the current is colliding
      * @return true if collision has been detected, otherwise false
      */
-    default boolean isColliding(Shape shape){
-        return shape.isColliding(this);
-    }
+    boolean isColliding(Shape shape);
     /**
      * Checking if the current shape is colliding with the given circle
      * @param circle the other circle to check if the current is colliding
