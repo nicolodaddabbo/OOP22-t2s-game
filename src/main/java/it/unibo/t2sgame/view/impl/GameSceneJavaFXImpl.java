@@ -1,5 +1,7 @@
 package it.unibo.t2sgame.view.impl;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Optional;
 
 import it.unibo.t2sgame.core.api.Game;
@@ -7,6 +9,7 @@ import it.unibo.t2sgame.core.api.GameEngine;
 import it.unibo.t2sgame.input.api.InputComponent;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.model.api.Entity;
+import it.unibo.t2sgame.model.api.HealthComponent;
 import it.unibo.t2sgame.view.api.GameScene;
 import it.unibo.t2sgame.view.api.Graphic;
 import it.unibo.t2sgame.view.api.GraphicComponent;
@@ -18,6 +21,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -28,9 +32,10 @@ public class GameSceneJavaFXImpl implements GameScene{
     private Group root;
     private Scene scene;
     private Canvas canvas;
+    private Canvas healthCanvas;
     private KeyboardInputController keyInController;
     private Game game;
-    private GraphicsContext gContext;
+    private GraphicsContext gContext, healthContext;
     private GameEngine gameEngine;
     private GraphicJavaFXImpl graphic;
     @Override
@@ -39,13 +44,18 @@ public class GameSceneJavaFXImpl implements GameScene{
         this.root = new Group();
         this.canvas = new Canvas(1200, 600);
         this.gContext = this.canvas.getGraphicsContext2D();
-        
+        this.healthCanvas = new Canvas(1200, 50);
+        this.healthCanvas.toFront();
         this.graphic = new GraphicJavaFXImpl(this.gContext);
         this.scene = new Scene(this.root, 1200, 600, Color.BLACK);
         this.scene.setOnKeyPressed(event -> keyInController.notifyKeyPressed(event.getCode().getCode()));
         this.scene.setOnKeyReleased(event -> keyInController.notifyKeyReleased(event.getCode().getCode()));
 
+        this.healthCanvas = new Canvas(300, 50);
+        this.healthContext = this.healthCanvas.getGraphicsContext2D();
+        this.root.getChildren().add(this.healthCanvas);
         this.root.getChildren().add(this.canvas);
+        this.canvas.toBack();
         stage.setResizable(false);
         stage.setScene(this.scene);
         stage.setTitle("T2S-game");
@@ -57,13 +67,23 @@ public class GameSceneJavaFXImpl implements GameScene{
     } 
 
     @Override
-    public void render() {   
+    public void render() {
         Platform.runLater(() -> {
             gContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            gameEngine.getGame().get().getWorld().getEntities().forEach(entity -> entity
+            this.game.getWorld().getEntities().forEach(entity -> entity
                 .getComponent(GraphicComponent.class)
-                .ifPresent(gc -> draw((GraphicComponent) gc, entity)));     
+                .ifPresent(gc -> this.draw(gc, entity)));     
         });
+
+        var player = this.game.getWorld().getPlayers().get(0);
+        var health = /*((HealthComponent)player.getComponent(HealthComponent.class).get()).getHealth()*/ 3;
+        for(int i = 0; i < health; i++){
+            try {
+                this.healthContext.drawImage(new Image(new FileInputStream("src/main/resources/heart_darker.png")), 50*i, 0, 40, 40);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void draw(GraphicComponent gc, Entity entity){
@@ -79,7 +99,7 @@ public class GameSceneJavaFXImpl implements GameScene{
          */
         this.game.getWorld().getPlayers().get(0)
             .getComponent(InputComponent.class)
-            .ifPresent(c -> this.keyInController = (KeyboardInputController)((InputComponent)c).getInputController());
+            .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController());
     }
 
     @Override
