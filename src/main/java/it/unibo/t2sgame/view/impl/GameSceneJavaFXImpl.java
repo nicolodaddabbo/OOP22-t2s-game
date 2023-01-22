@@ -38,6 +38,7 @@ public class GameSceneJavaFXImpl implements GameScene{
     private GraphicsContext gContext, healthContext;
     private GameEngine gameEngine;
     private GraphicJavaFXImpl graphic;
+    private Image image;
     @Override
     public void initialize() {
         Stage stage = new Stage();
@@ -63,6 +64,11 @@ public class GameSceneJavaFXImpl implements GameScene{
             Platform.exit();
             System.exit(0);
         });
+        try {
+            this.image = new Image(new FileInputStream("src/main/resources/heart_darker.png"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         stage.show();
     } 
 
@@ -73,16 +79,12 @@ public class GameSceneJavaFXImpl implements GameScene{
             this.game.getWorld().getEntities().forEach(entity -> entity
                 .getComponent(GraphicComponent.class)
                 .ifPresent(gc -> this.draw(gc, entity)));     
-
-                
+           
+            healthContext.clearRect(0, 0, healthCanvas.getWidth(), healthCanvas.getHeight());
             var player = this.game.getWorld().getPlayers().get(0);
             var health = (player.getComponent(HealthComponent.class).get()).getHealth();
             for(int i = 0; i < health; i++){
-                try {
-                    this.healthContext.drawImage(new Image(new FileInputStream("src/main/resources/heart_darker.png")), 50*i, 0, 40, 40);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                this.healthContext.drawImage(image, 50*i, 0, 40, 40);
             }
         });
     }
