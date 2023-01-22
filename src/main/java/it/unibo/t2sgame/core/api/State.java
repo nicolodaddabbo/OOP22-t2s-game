@@ -1,6 +1,7 @@
 package it.unibo.t2sgame.core.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.Wave;
@@ -18,7 +19,7 @@ public interface State {
      * 
      * @return true if there aren't survived elements, otherwise false
      */
-    boolean isWaveOver(Wave w);
+    boolean isWaveOver(Optional<Wave> w);
     /**
      * 
      * @return an integer rappresenting the number of the current round

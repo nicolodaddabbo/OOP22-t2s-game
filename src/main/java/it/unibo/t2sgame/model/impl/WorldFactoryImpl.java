@@ -2,6 +2,7 @@ package it.unibo.t2sgame.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.model.api.Entity;
@@ -15,10 +16,10 @@ public class WorldFactoryImpl implements WorldFactory{
     private World worldWith(final List<Entity> players){
         return new World() {
             private final List<Entity> entities = new ArrayList<>(players); 
-            private Wave currentWave;
+            private Optional<Wave> currentWave = Optional.empty();
 
             @Override
-            public Wave getCurrentWave() {
+            public Optional<Wave> getCurrentWave() {
                 return this.currentWave;
             }
 
@@ -40,9 +41,9 @@ public class WorldFactoryImpl implements WorldFactory{
 
             @Override
             public void setWave(final Wave next) {
-                this.currentWave = next;
+                this.currentWave = Optional.of(next);
                 /* Adding all enemies to the entities */
-                this.currentWave.getEnemies().forEach(this.entities::add);
+                next.getEnemies().forEach(this.entities::add);
             }
             
             
