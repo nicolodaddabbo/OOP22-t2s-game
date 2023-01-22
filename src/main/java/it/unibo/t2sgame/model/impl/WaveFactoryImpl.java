@@ -3,6 +3,10 @@ package it.unibo.t2sgame.model.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.api.Game;
@@ -14,6 +18,7 @@ import it.unibo.t2sgame.model.api.WaveFactory;
 
 public class WaveFactoryImpl implements WaveFactory {
     private EntityFactory entityFactory = new EntityFactoryImpl();
+    private Random random = new Random(); 
 
     private Wave createWaveFromEnemies(final List<Entity> enemies) {
         return new Wave() {
@@ -32,7 +37,11 @@ public class WaveFactoryImpl implements WaveFactory {
    
     @Override
     public Wave createBasicWave(final int round) {
-        return createWaveFromEnemies(new ArrayList<>(Collections.nCopies(round, entityFactory.createBaseEnemy(new Vector2D(0, 0)))));
+        List<Entity> enemies;
+        enemies = Stream.generate(() -> entityFactory.createBaseEnemy(new Vector2D(random.nextDouble(1000), random.nextDouble(1000))))
+            .limit(round)
+            .collect(Collectors.toList());
+        return createWaveFromEnemies(enemies);
     }
 
 }
