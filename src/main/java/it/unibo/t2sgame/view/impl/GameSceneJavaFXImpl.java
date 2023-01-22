@@ -73,17 +73,18 @@ public class GameSceneJavaFXImpl implements GameScene{
             this.game.getWorld().getEntities().forEach(entity -> entity
                 .getComponent(GraphicComponent.class)
                 .ifPresent(gc -> this.draw(gc, entity)));     
-        });
 
-        var player = this.game.getWorld().getPlayers().get(0);
-        var health = (player.getComponent(HealthComponent.class).get()).getHealth();
-        for(int i = 0; i < health; i++){
-            try {
-                this.healthContext.drawImage(new Image(new FileInputStream("src/main/resources/heart_darker.png")), 50*i, 0, 40, 40);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                
+            var player = this.game.getWorld().getPlayers().get(0);
+            var health = (player.getComponent(HealthComponent.class).get()).getHealth();
+            for(int i = 0; i < health; i++){
+                try {
+                    this.healthContext.drawImage(new Image(new FileInputStream("src/main/resources/heart_darker.png")), 50*i, 0, 40, 40);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        });
     }
 
     private void draw(GraphicComponent gc, Entity entity){
