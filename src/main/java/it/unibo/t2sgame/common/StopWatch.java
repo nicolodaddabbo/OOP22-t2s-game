@@ -33,6 +33,15 @@ public class StopWatch {
     }
 
     /**
+     * This method <strong>restarts</strong> the stopwatch.
+     * @throws IllegalStateException if the stopwatch is not running
+     */
+    public void restart() throws IllegalStateException {
+        this.stop();
+        this.start();
+    }
+
+    /**
      * This method is used to get the elapsed time.
      * If it's called while the stopwatch is running 
      * it will return the elapsed time from 
