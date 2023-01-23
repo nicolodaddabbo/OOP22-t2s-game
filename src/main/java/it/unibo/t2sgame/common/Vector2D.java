@@ -1,5 +1,8 @@
 package it.unibo.t2sgame.common;
 
+/**
+ * This class represents a vector in a two-dimensional space.
+ */
 public class Vector2D {
     private final double x;
     private final double y;
@@ -35,6 +38,7 @@ public class Vector2D {
      * @param x coordinate of the vector in x axis
      * @param y coordinate of the vector in y axis
      * @return the resulting vector
+     * @see {@link #sum(vector)}
      */
     public Vector2D sum(final double x, final double y) {
         return new Vector2D(this.x+x, this.y+y);
@@ -44,6 +48,7 @@ public class Vector2D {
      * This method sums the current vector with the given vector and returns the new vector.
      * @param vector the vector
      * @return the resulting vector
+     * @see {@link #sum(x, y)}
      */
     public Vector2D sum(final Vector2D vector) {
         return this.sum(vector.x, vector.y);
@@ -54,6 +59,7 @@ public class Vector2D {
      * @param x coordinate of the vector in x axis
      * @param y coordinate of the vector in y axis
      * @return the resulting vector
+     * @see {@link #sub(vector)}
      */
     public Vector2D sub(final double x, final double y) {
         return new Vector2D(this.x-x, this.y-y);
@@ -63,6 +69,7 @@ public class Vector2D {
      * This method subtracts the current vector with the given vector and returns the new vector.
      * @param vector the vector
      * @return the resulting vector
+     * @see {@link #sub(x, y)}
      */
     public Vector2D sub(final Vector2D vector) {
         return this.sub(vector.x, vector.y);
@@ -82,6 +89,7 @@ public class Vector2D {
      * @param x coordinate of the point in x axis
      * @param y coordinate of the point in y axis
      * @return the resulting distance
+     * @see {@link #distance(vector)}
      */
     public double distance(final double x, final double y) {
         return Math.sqrt(Math.pow(x-this.x, 2)+Math.pow(y-this.y, 2));
@@ -91,6 +99,7 @@ public class Vector2D {
      * This method returns the distance between the current point and the given point.
      * @param point the point
      * @return the resulting distance
+     * @see {@link #distance(x, y)}
      */
     public double distance(final Vector2D point) {
         return this.distance(point.x, point.y);
