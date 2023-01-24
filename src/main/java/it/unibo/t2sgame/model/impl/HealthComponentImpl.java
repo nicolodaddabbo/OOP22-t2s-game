@@ -19,8 +19,12 @@ public class HealthComponentImpl implements HealthComponent{
 
     @Override
     public <T> void receive(Message<T> message) {
-        var dmg = (int)message.getMessage();
-        this.health = this.health - dmg >= 0 ? this.health - dmg : 0;
+        try {
+            var dmg = (int)message.getMessage();
+            this.health = this.health - dmg >= 0 ? this.health - dmg : 0;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        } 
     }
 
     @Override
