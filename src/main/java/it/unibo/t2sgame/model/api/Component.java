@@ -7,15 +7,24 @@ public interface Component {
     
     /**
      * This method updates the domain of the component of specified entity.
-     * @param entity 
      */
-    void update(Entity entity);
-
+    void update();
     /**
      * 
      * @param <T> the type of message
      * @param message the message to receive
      */
     <T> void receive(Message<T> message);
+    /**
+     * 
+     * @param entity
+     * @return
+     */
+    Entity getEntity();
+    /**
+     * Adding the related entity to the component
+     * @param entity
+     */
+    void setEntity(Entity entity);
 
 }
