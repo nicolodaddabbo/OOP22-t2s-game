@@ -16,33 +16,31 @@ import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.view.api.GameScene;
 
 public class GameEngineImpl implements GameEngine {
-    /**
-     * Using the static initializer in order to create and
-     * starting the timers
-     */
-    {
-        this.syncTimer = new StopWatch().start();
-        this.renderTimer = new StopWatch().start();
-    }
 
     /*
      * This long indicates the period of frame creation in nanoseconds
      */
-    private final static long FRAME_PERIOD = (long) (7 * 1E6);
+    private static final long FRAME_PERIOD = (long) (7 * 1E6);
     /*
      * This long indicates the perod of updating the states systems in nanoseconds
      */
-    private final static long UPDATE_PERDIOD = (long) (7 * 1E6);
+    private static final long UPDATE_PERDIOD = (long) (7 * 1E6);
     /*
-     * 
+     * These systems are related to those which gives information usefull for
+     * states systems.
+     * These systems has to be called once during a game loop's cycle
      */
-    private List<GameSystem> initializers = new ArrayList<>();
+    private final List<GameSystem> initializers = new ArrayList<>();
     /*
-     * 
+     * These systems are related to those which updates the game time.
+     * These systems would be called more times in a game loop's cycle, due to
+     * the absence of a delta time step variable. 
      */
-    private List<GameSystem> states = new ArrayList<>();
+    private final List<GameSystem> states = new ArrayList<>();
     /*
-     * 
+     * This systems are related to the systems which has to be called after
+     * updates the state of the entities.
+     * In these field would be entered all related graphics domain systems.
      */
     private List<GameSystem> terminals = new ArrayList<>();
     // A list of entities contained in the engine
@@ -51,11 +49,10 @@ public class GameEngineImpl implements GameEngine {
     private GameSystemFactory systemFactory = new GameSystemFactoryImpl(); 
     // The scene where the GraphicsSystem has to render
     private Optional<GameScene> scene = Optional.empty();
+    /* Represent the "gap" between game time and real time */
     private long lag = 0;
-    private StopWatch syncTimer;
-    private StopWatch renderTimer;
-
-   
+    /*  Usefull to synchronize states systems and to wait for next frame */ 
+    private StopWatch timer = new StopWatch().start();
 
     /**
      * Creating a new istance of Engine class.
@@ -78,22 +75,23 @@ public class GameEngineImpl implements GameEngine {
 
     @Override
     public void update() {
-        this.renderTimer.restart();
-        this.lag = this.lag + this.syncTimer.getElapsedNanos();
-        this.syncTimer.restart();
+        this.lag = this.lag + this.timer.getElapsedNanos();
+        this.timer.restart();
         this.initializers.forEach(GameSystem::update); 
         /**
-         *  This loop substitutes the usage of a delta time
-         *  to procede the game time.
+         *  This loop substitutes the usage of a delta time step 
+         *  variabile to procede the game time.
          *  Using a delta time causes a non deterministic game
-         *  due to the different number of calls of update which differs.
+         *  due to the number of update's calls which which
+         *  would be different based on the cpu / gpu "speed" of 
+         *  the computer that is running the engine.
          *  */    
         while(!this.isSync()){
             this.states.forEach(GameSystem::update);
             this.lag = this.lag - UPDATE_PERDIOD;
         }
         this.terminals.forEach(GameSystem::update);
-        this.scene.ifPresent(s -> s.render());
+        this.scene.ifPresent(GameScene::render);
         this.waitForNextFrame();
     }
 
@@ -129,11 +127,11 @@ public class GameEngineImpl implements GameEngine {
     }
 
     private void waitForNextFrame(){
-        var dt = this.renderTimer.getElapsedNanos();
+        var dt = this.timer.getElapsedNanos();
         if(FRAME_PERIOD - dt > 0){
             try {
                 Thread.sleep((long) ((FRAME_PERIOD - dt) / 1E6));
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
                 System.exit(1);
             }
