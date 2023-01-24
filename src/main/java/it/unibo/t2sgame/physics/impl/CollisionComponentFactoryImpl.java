@@ -15,7 +15,8 @@ public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
 
     private CollisionComponent collisionWith(final Shape s, final int damage){
         return new CollisionComponent() {
-            
+
+            private Entity e;
             private Set<CollisionComponent> collisions = new HashSet<>();
             private boolean canCheck = true;
             
@@ -39,13 +40,16 @@ public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
             }
 
             @Override
-            public void update(Entity entity) {
+            public void update() {
                 if(this.canCheck){
                     this.collisions.stream()
                     // Filtering each collision which has been checked as true
                     .filter(collision -> s.isColliding(collision.getShape()))
                     // Notify to the health component every collision which has been checked as true
-                    .forEach(collision -> entity.notifyComponent(HealthComponent.class, () -> collision.getDamage()));
+                    .forEach(collision -> {
+                        collision.getEntity().notifyComponent(HealthComponent.class, () -> this.getDamage());
+                        this.e.notifyComponent(HealthComponent.class, () -> collision.getDamage());
+                        });
                 }
               
             }
@@ -74,6 +78,16 @@ public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
             @Override
             public int getDamage() {
                 return damage;
+            }
+
+            @Override
+            public void setEntity(Entity entity) {
+                this.e = entity;                
+            }
+
+            @Override
+            public Entity getEntity() {
+                return this.e;
             }   
             
         };
