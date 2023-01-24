@@ -1,8 +1,6 @@
 package it.unibo.t2sgame.physics.api;
 
 import it.unibo.t2sgame.model.api.Component;
-import it.unibo.t2sgame.model.api.Entity;
-import it.unibo.t2sgame.model.api.Message;
 
 public interface PhysicsComponent extends Component {
 
@@ -11,6 +9,6 @@ public interface PhysicsComponent extends Component {
      * @param entity the entity to update
      */
     @Override
-    void update(Entity entity);
+    void update();
 
 }

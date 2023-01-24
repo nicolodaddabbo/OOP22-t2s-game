@@ -9,6 +9,7 @@ import it.unibo.t2sgame.physics.api.PhysicsComponent;
 
 public class PhysicsComponentImpl implements PhysicsComponent {
     private static final double CONVERSION = 2;
+    private Entity entity;
     private double speed;
     private Vector2D velocity = new Vector2D(0, 0);
 
@@ -17,7 +18,7 @@ public class PhysicsComponentImpl implements PhysicsComponent {
     }
 
     @Override
-    public void update(final Entity entity) {
+    public void update() {
         entity.setPosition(entity.getPosition().sum(this.velocity.mul(CONVERSION*speed)));
         entity.notifyComponent(CollisionComponent.class, entity::getPosition);
     }
@@ -50,6 +51,16 @@ public class PhysicsComponentImpl implements PhysicsComponent {
                 this.velocity = new Vector2D(0, 0);
                 break;
         }
+    }
+
+    @Override
+    public Entity getEntity() {
+        return this.entity;
+    }
+
+    @Override
+    public void setEntity(final Entity entity) {
+        this.entity = entity;
     }
     
 }
