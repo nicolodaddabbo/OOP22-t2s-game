@@ -12,12 +12,13 @@ public class StopWatch {
      * This method <strong>starts</strong> the stopwatch.
      * @throws IllegalStateException if the stopwatch is already running
      */
-    public void start() throws IllegalStateException{
+    public StopWatch start() throws IllegalStateException{
         if(this.isRunning){
             throw new IllegalStateException("Stopwatch is already running");
         }
         this.startTime = System.nanoTime();
         this.isRunning = true;
+        return this;
     }
 
     /**
