@@ -1,29 +1,26 @@
 package it.unibo.t2sgame.core.api;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-/**
- * This interface abstracts the concept of a "Game engine". 
- * A game engine is the core of a game software architecture, which allows us
- * to synchronize differents domain of the game, such as Input's handling with the 
- * Physic's handling.
- */
+import it.unibo.t2sgame.model.api.Component;
+import it.unibo.t2sgame.model.api.Entity;
+import it.unibo.t2sgame.view.api.GameScene;
+
 public interface GameEngine {
-    /**
-     * This method rapresent the game loop of the
-     * current GameEngine implementation.
-     */
-    void run();
-    /**
-     * Set the a new Game to be reproduced 
-     * @param g the new game
-     * 
-     * @return this 
-     */
-    GameEngine setGame(Game g);
-    /**
-     * 
-     * @return the current game played
-     */
-    Optional<Game> getGame();
+    
+    void update(); 
+    
+    List<Entity> getEntities();
+
+    GameEngine addEntity(Entity e);
+
+    GameEngine removeEntity(Entity e);
+
+    Set<GameSystem> getSystems();
+
+    <T extends Component> Optional<GameSystem> getSystem(Class<T> clazz); 
+
+    void setScene(GameScene scene);    
 }
