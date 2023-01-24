@@ -23,6 +23,4 @@ public interface CollisionComponent extends Component{
 
     void setCollisions(Set<CollisionComponent> collisions);
 
-    int getDamage();
-
 }

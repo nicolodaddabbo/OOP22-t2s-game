@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import it.unibo.t2sgame.common.Vector2D;
+import it.unibo.t2sgame.model.api.DamageComponent;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.HealthComponent;
 import it.unibo.t2sgame.model.api.Message;
@@ -13,7 +14,7 @@ import it.unibo.t2sgame.physics.api.Shape;
 
 public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
 
-    private CollisionComponent collisionWith(final Shape shape, final int damage){
+    private CollisionComponent collisionWith(final Shape shape){
         return new CollisionComponent() {
 
             private Entity entity;
@@ -47,8 +48,20 @@ public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
                     .filter(collision -> shape.isColliding(collision.getShape()))
                     // Notify to the health component every collision which has been checked as true
                     .forEach(collision -> {
-                        collision.getEntity().notifyComponent(HealthComponent.class, () -> this.getDamage());
-                        this.entity.notifyComponent(HealthComponent.class, () -> collision.getDamage());
+                        //Remove health to the touched entity
+                        this.entity.getComponent(DamageComponent.class)
+                            .ifPresent(c -> {
+                                if(c.canDamage()){
+                                    collision.getEntity().notifyComponent(HealthComponent.class, c::getDamage);
+                                }
+                            });
+                        //Remove health to this entity
+                        collision.getEntity().getComponent(DamageComponent.class)
+                            .ifPresent(c -> {
+                                if(c.canDamage()){
+                                    this.entity.notifyComponent(HealthComponent.class, c::getDamage);
+                                }
+                            });
                         });
                 }
               
@@ -76,11 +89,6 @@ public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
             }
 
             @Override
-            public int getDamage() {
-                return damage;
-            }
-
-            @Override
             public void setEntity(Entity entity) {
                 this.entity = entity;                
             }
@@ -94,13 +102,13 @@ public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
     }
 
     @Override
-    public CollisionComponent collisionWithCirlceShape(final Circle circle, final int damage) {
-        return collisionWith(circle, damage);
+    public CollisionComponent collisionWithCirlceShape(final Circle circle) {
+        return collisionWith(circle);
     }
 
     @Override
-    public CollisionComponent collisionWithRectangleShape(final Rectangle rectangle,final int damage) {
-        return  collisionWith(rectangle, damage);
+    public CollisionComponent collisionWithRectangleShape(final Rectangle rectangle) {
+        return  collisionWith(rectangle);
     }
     
 }

@@ -9,18 +9,14 @@ public interface CollisionComponentFactory {
     /**
      * 
      * @param circle the given shape for the collision
-     * @param damage the damage inflicted to other entity when the collision has been checked
-     * 
-     * @return A CollisionComponent with a cirlce shape and the given damage
+     * @return A CollisionComponent with a cirlce shape
      */
-    CollisionComponent collisionWithCirlceShape(Circle circle, int damage);
+    CollisionComponent collisionWithCirlceShape(Circle circle);
     /**
      * 
      * @param rectangle the given shape for the collision
-     * @param damage the damage inflicted to other entity when the collision has been checked
-     * 
-     * @return A CollisionComponent with a rectangle shape and the given damage
+     * @return A CollisionComponent with a rectangle shape
      */
-    CollisionComponent collisionWithRectangleShape(Rectangle rectangle, int damage);
+    CollisionComponent collisionWithRectangleShape(Rectangle rectangle);
 
 }
