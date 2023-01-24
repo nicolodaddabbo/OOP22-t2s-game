@@ -76,12 +76,13 @@ public class GameSceneJavaFXImpl implements GameScene{
     @Override
     public void render() {
         Platform.runLater(() -> {
+            var game = this.gameEngine.getEntities();
             gContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            this.game.getWorld().getEntities().forEach(entity -> entity
+            game.forEach(entity -> entity
                 .getComponent(GraphicComponent.class)
                 .ifPresent(gc -> this.draw(gc, entity)));     
            
-            var health = (this.game.getWorld().getPlayers().get(0).getComponent(HealthComponent.class).get()).getHealth();
+            var health = (game.get(0).getWorld().get().getPlayers().get(0).getComponent(HealthComponent.class).get()).getHealth();
             Stream.iterate(0, i -> i + 1)
                 .limit(health)
                 .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 50*n, 0, 40, 40));
@@ -90,7 +91,7 @@ public class GameSceneJavaFXImpl implements GameScene{
 
     private void draw(GraphicComponent gc, Entity entity){
         gc.setGraphics(graphic);
-        gc.update(entity);
+        gc.update();
     }
 
     @Override
