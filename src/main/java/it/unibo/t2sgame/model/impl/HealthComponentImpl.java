@@ -19,7 +19,8 @@ public class HealthComponentImpl implements HealthComponent{
 
     @Override
     public <T> void receive(Message<T> message) {
-        this.health = this.health > 0 ? this.health - 1 : 0;
+        var dmg = (int)message.getMessage();
+        this.health = this.health - dmg >= 0 ? this.health - dmg : 0;
     }
 
     @Override
