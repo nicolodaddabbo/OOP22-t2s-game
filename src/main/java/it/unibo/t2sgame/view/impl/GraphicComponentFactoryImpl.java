@@ -13,8 +13,9 @@ public class GraphicComponentFactoryImpl implements GraphicComponentFactory{
     private GraphicComponent fromGraphicFunction(BiConsumer<Graphic, Entity> graphConsumer){
         return new GraphicComponent() {
             private Graphic graphic;
+            private Entity entity;
             @Override
-            public void update(Entity entity) {
+            public void update() {
                 graphConsumer.accept(this.graphic, entity);
             }
             @Override
@@ -24,6 +25,14 @@ public class GraphicComponentFactoryImpl implements GraphicComponentFactory{
             @Override
             public <T> void receive(Message<T> messge) {
                 
+            }
+            @Override
+            public Entity getEntity() {
+                return this.entity;
+            }
+            @Override
+            public void setEntity(Entity entity) {
+                this.entity = entity;     
             }
         };
     }
