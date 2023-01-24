@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.core.api.Engine;
+import it.unibo.t2sgame.core.api.GameEngine;
 import it.unibo.t2sgame.core.api.Game;
 import it.unibo.t2sgame.core.api.GameFactory;
 import it.unibo.t2sgame.core.api.State;
@@ -23,7 +23,7 @@ public class GameFactoryImpl implements GameFactory {
         return new Game() {
             private Optional<GameScene> scene = Optional.empty();
 
-            private Engine engine = new EngineImpl();
+            private GameEngine engine = new GameEngineImpl();
 
             @Override
             public State getState() {
