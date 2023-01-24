@@ -10,7 +10,7 @@ public interface CollisionComponent extends Component{
      * 
      */
     @Override
-    void update(Entity entity);
+    void update();
     /**
      * 
      * @return
