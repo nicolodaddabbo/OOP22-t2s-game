@@ -43,15 +43,32 @@ public class GameSystemFactoryImpl implements GameSystemFactory{
             
             @Override
             public GameSystem addEntity(Entity entity){
-                assert this.isMember(entity);
                 this.entities.add(entity);
-                this.addComponent(entity.getComponent(clazz).get());
+                /**
+                 * Automatically add the component to the GameSystem
+                 */
+                this.addComponent(entity.getComponent(this.getType()).orElseThrow());
+                return this;
+            }
+
+            @Override
+            public GameSystem removeEntity(Entity entity) {
+                this.entities.remove(entity);
+                /**
+                 * Automatically remove the component from the GameSystem
+                 */
+                this.removeComponent(entity.getComponent(this.getType()).orElseThrow());
                 return this;
             }
 
             private void addComponent(Component component) {
                 this.components.add(component);
             }
+            
+            private void removeComponent(Component component){
+                this.components.remove(component);
+            }
+
             
         };
     }
