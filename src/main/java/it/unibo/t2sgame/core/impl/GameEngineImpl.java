@@ -99,15 +99,15 @@ public class GameEngineImpl implements GameEngine {
     public GameEngine addEntity(Entity e) {
         this.entities.add(e);
         // Add the entity to the corresponding systems
-        this.getSystems().stream()
-            .filter(s -> s.isMember(e))
-            .forEach(s -> s.addEntity(e));
+        this.getSystemsOf(e).forEach(s -> s.addEntity(e));
         return this;
     }
 
     @Override
     public GameEngine removeEntity(Entity e) {
         this.entities.remove(e);
+        // Remove the entity from the corresponding system
+        this.getSystemsOf(e).forEach(s -> s.removeEntity(e));
         return this;
     }
 
@@ -120,6 +120,21 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public <T extends Component> Optional<GameSystem> getSystem(Class<T> clazz) {
         return this.getSystems().stream().filter(null).findFirst();
+    }
+
+
+    @Override
+    public List<Entity> getEntities() {
+        return this.entities;
+    }
+
+    @Override
+    public void setScene(GameScene scene) {
+        this.scene = Optional.of(scene);        
+    }
+
+    private Set<GameSystem> getSystemsOf(Entity e){
+        return this.getSystems().stream().filter(s -> s.isMember(e)).collect(Collectors.toSet());
     }
 
     private boolean isSync(){
@@ -138,14 +153,5 @@ public class GameEngineImpl implements GameEngine {
         }
     }
 
-    @Override
-    public List<Entity> getEntities() {
-        return this.entities;
-    }
-
-    @Override
-    public void setScene(GameScene scene) {
-        this.scene = Optional.of(scene);        
-    }
     
 }
