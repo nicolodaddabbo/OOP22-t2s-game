@@ -1,5 +1,7 @@
 package it.unibo.t2sgame.core.api;
 
+import java.util.Optional;
+
 import it.unibo.t2sgame.components.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
 /**
@@ -48,7 +50,7 @@ public interface GameSystem {
      * 
      * @return this
      */
-     GameSystem addEntity(Entity entity);
+     GameSystem addComponent(Optional<? extends Component> component);
     /**
      * Remove the entity to the current system.
      * The domain componnet related to the GameSystem is 
@@ -57,5 +59,5 @@ public interface GameSystem {
      * @param entity the entity to remove from the GameSystem
      * @return
      */
-    GameSystem removeEntity(Entity entity);
+    GameSystem removeComponent(Optional<? extends Component> component);
 }

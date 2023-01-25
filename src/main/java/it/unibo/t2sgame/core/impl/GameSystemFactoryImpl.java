@@ -1,7 +1,7 @@
 package it.unibo.t2sgame.core.impl;
 
 import java.util.HashSet;
-import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import it.unibo.t2sgame.components.api.CollisionComponent;
@@ -18,12 +18,11 @@ public class GameSystemFactoryImpl implements GameSystemFactory{
     private <T extends Component> GameSystem sytemWith(Class<T> clazz){
         return new GameSystem() {
 
-            private final Set<Entity> entities = new HashSet<>();
             private final Set<Component> components = new HashSet<>();
             
             @Override
             public void update() {
-                this.components.forEach(c -> c.update());
+                this.components.forEach(Component::update);
             }
 
             @Override
@@ -42,31 +41,15 @@ public class GameSystemFactoryImpl implements GameSystemFactory{
             }
             
             @Override
-            public GameSystem addEntity(Entity entity){
-                this.entities.add(entity);
-                /**
-                 * Automatically add the component to the GameSystem
-                 */
-                this.addComponent(entity.getComponent(this.getType()).orElseThrow());
+            public GameSystem addComponent(Optional<? extends Component> component) {
+                component.ifPresent(this.components::add);
                 return this;
-            }
-
-            @Override
-            public GameSystem removeEntity(Entity entity) {
-                this.entities.remove(entity);
-                /**
-                 * Automatically remove the component from the GameSystem
-                 */
-                this.removeComponent(entity.getComponent(this.getType()).orElseThrow());
-                return this;
-            }
-
-            private void addComponent(Component component) {
-                this.components.add(component);
             }
             
-            private void removeComponent(Component component){
-                this.components.remove(component);
+            @Override
+            public GameSystem removeComponent(Optional<? extends Component> component){
+                component.ifPresent(this.components::remove);
+                return this;
             }
 
             
