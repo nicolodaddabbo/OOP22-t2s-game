@@ -1,6 +1,7 @@
 package it.unibo.t2sgame.model.impl;
 
 import it.unibo.t2sgame.common.Vector2D;
+import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputComponentFactory;
 import it.unibo.t2sgame.input.impl.InputComponentFactoryImpl;
 import it.unibo.t2sgame.model.api.Entity;
@@ -29,9 +30,9 @@ public class EntityFactoryImpl implements EntityFactory {
     }
 
     @Override
-    public Entity createProjectile(final Vector2D position) {
+    public Entity createProjectile(final Vector2D position, final Directions direction) {
         return new EntityImpl(position)
-            .addComponent(new PhysicsComponentImpl(1.5))
+            .addComponent(new PhysicsComponentImpl(1.5, direction))
             .addComponent(this.graphicFactory.getProjectileGraphicComponent());
     }
 

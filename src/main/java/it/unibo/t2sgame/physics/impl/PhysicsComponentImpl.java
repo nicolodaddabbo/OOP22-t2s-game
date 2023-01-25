@@ -13,8 +13,22 @@ public class PhysicsComponentImpl implements PhysicsComponent {
     private double speed;
     private Vector2D velocity = new Vector2D(0, 0);
 
+    /**
+     * 
+     * @param speed the speed of the entity
+     */
     public PhysicsComponentImpl(final double speed){
         this.speed = speed;
+    }
+
+    /**
+     * 
+     * @param speed the speed of the entity
+     * @param direction the starting direction of the entity
+     */
+    public PhysicsComponentImpl(final double speed, final Directions direction) {
+        this.speed = speed;
+        this.receiveDirection(direction);
     }
 
     @Override

@@ -21,7 +21,8 @@ public class ShootComponentImpl implements ShootComponent {
     @Override
     public void update() {
         if(this.timer.getElapsedSeconds() >= this.fireRate){
-            this.projectileFactory.createProjectile(this.entity.getPosition());
+            //For now the object is created in the compoenent it will be handled by an event
+            this.projectileFactory.createProjectile(this.entity.getPosition(), this.shotDirection);
             //SPAWN THE PROJECTILE IN THE WORLD
             this.timer.restart();
         }
