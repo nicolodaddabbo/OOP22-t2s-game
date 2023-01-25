@@ -10,7 +10,7 @@ public class DamageComponentImpl implements DamageComponent {
     private Entity entity;
     private int damage;
     private double cooldown;
-    private final StopWatch stopwatch = new StopWatch().start();
+    private final StopWatch timer = new StopWatch().start();
 
     public DamageComponentImpl(int damage, double cooldown) {
         this.damage = damage;
@@ -29,8 +29,8 @@ public class DamageComponentImpl implements DamageComponent {
 
     @Override
     public boolean canDamage() {
-        if(this.stopwatch.getElapsedSeconds() >= this.cooldown){
-            this.stopwatch.restart();
+        if(this.timer.getElapsedSeconds() >= this.cooldown){
+            this.timer.restart();
             return true;
         }
         return false;

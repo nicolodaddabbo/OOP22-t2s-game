@@ -30,8 +30,8 @@ public class ShootComponentImpl implements ShootComponent {
     @Override
     public <T> void receive(final Message<T> message) {
         try {
-            Directions shotDirection = (Directions)message.getMessage();
-            this.shotDirection = shotDirection;
+            var shtDir = (Directions)message.getMessage();
+            this.shotDirection = shtDir;
             this.update();
         } catch (ClassCastException e) {
             e.printStackTrace();
