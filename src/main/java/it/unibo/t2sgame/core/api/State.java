@@ -7,7 +7,7 @@ import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.Wave;
 
 /**
- * Rapresent the current state of a Game
+ * Rapresent the state and the logics of a Game
  */
 public interface State {
     /**
@@ -17,7 +17,7 @@ public interface State {
     boolean isOver(List<Entity> players);
     /**
      * 
-     * @return true if there aren't survived elements, otherwise false
+     * @return true if there aren't survived enemies, otherwise false
      */
     boolean isWaveOver(Optional<Wave> w);
     /**

@@ -8,6 +8,11 @@ import it.unibo.t2sgame.model.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.view.api.GameScene;
 
+/**
+ * The core part of Entity-Component-Systems architecture
+ * The GameEngine allows to handle and update all the systems
+ * which it contains.
+ */
 public interface GameEngine {
     /**
      * Update all the systems contained in the engine.

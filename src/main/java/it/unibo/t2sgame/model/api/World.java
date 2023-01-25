@@ -15,12 +15,12 @@ public interface World {
     Optional<Wave> getCurrentWave();
     /**
      * 
-     * @return an entity rappresenting the "player" 
+     * @return a list of entities rappresenting the "players" 
      */
     List<Entity> getPlayers();
     /**
      * 
-     * @return a collection of entities in the world
+     * @return a list of entities in the world
      */
     List<Entity> getEntities();
     /**
