@@ -6,12 +6,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import it.unibo.t2sgame.common.Vector2D;
+import it.unibo.t2sgame.components.api.CollisionComponent;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.EntityFactory;
 import it.unibo.t2sgame.model.api.Wave;
 import it.unibo.t2sgame.model.api.World;
 import it.unibo.t2sgame.model.api.WorldFactory;
-import it.unibo.t2sgame.physics.api.CollisionComponent;
 
 public class WorldFactoryImpl implements WorldFactory{
 

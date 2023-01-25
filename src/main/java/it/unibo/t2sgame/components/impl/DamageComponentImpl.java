@@ -1,7 +1,7 @@
-package it.unibo.t2sgame.model.impl;
+package it.unibo.t2sgame.components.impl;
 
 import it.unibo.t2sgame.common.StopWatch;
-import it.unibo.t2sgame.model.api.DamageComponent;
+import it.unibo.t2sgame.components.api.DamageComponent;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.Message;
 

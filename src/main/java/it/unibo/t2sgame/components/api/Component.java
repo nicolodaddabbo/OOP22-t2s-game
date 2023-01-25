@@ -1,4 +1,7 @@
-package it.unibo.t2sgame.model.api;
+package it.unibo.t2sgame.components.api;
+
+import it.unibo.t2sgame.model.api.Entity;
+import it.unibo.t2sgame.model.api.Message;
 
 /**
  * This interface represents the components of the entities.

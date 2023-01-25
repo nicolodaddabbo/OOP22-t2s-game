@@ -1,7 +1,7 @@
-package it.unibo.t2sgame.physics.api;
+package it.unibo.t2sgame.components.api;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.model.api.Component;
+
 
 public interface PhysicsComponent extends Component {
 

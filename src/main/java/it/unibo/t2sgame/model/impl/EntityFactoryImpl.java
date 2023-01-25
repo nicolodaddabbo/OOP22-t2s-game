@@ -1,17 +1,19 @@
 package it.unibo.t2sgame.model.impl;
 
 import it.unibo.t2sgame.common.Vector2D;
+import it.unibo.t2sgame.components.api.CollisionComponentFactory;
+import it.unibo.t2sgame.components.api.GraphicComponentFactory;
+import it.unibo.t2sgame.components.api.InputComponentFactory;
+import it.unibo.t2sgame.components.impl.CollisionComponentFactoryImpl;
+import it.unibo.t2sgame.components.impl.DamageComponentImpl;
+import it.unibo.t2sgame.components.impl.GraphicComponentFactoryImpl;
+import it.unibo.t2sgame.components.impl.HealthComponentImpl;
+import it.unibo.t2sgame.components.impl.InputComponentFactoryImpl;
+import it.unibo.t2sgame.components.impl.PhysicsComponentImpl;
 import it.unibo.t2sgame.input.api.Directions;
-import it.unibo.t2sgame.input.api.InputComponentFactory;
-import it.unibo.t2sgame.input.impl.InputComponentFactoryImpl;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.EntityFactory;
-import it.unibo.t2sgame.physics.api.CollisionComponentFactory;
-import it.unibo.t2sgame.physics.impl.CollisionComponentFactoryImpl;
-import it.unibo.t2sgame.physics.impl.PhysicsComponentImpl;
 import it.unibo.t2sgame.physics.impl.Rectangle;
-import it.unibo.t2sgame.view.api.GraphicComponentFactory;
-import it.unibo.t2sgame.view.impl.GraphicComponentFactoryImpl;
 
 public class EntityFactoryImpl implements EntityFactory {
 

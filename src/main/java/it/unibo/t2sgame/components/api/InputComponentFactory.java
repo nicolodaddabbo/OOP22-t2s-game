@@ -1,4 +1,4 @@
-package it.unibo.t2sgame.input.api;
+package it.unibo.t2sgame.components.api;
 
 /**
  * An InputComponent Factory to produce InputComponent instance.

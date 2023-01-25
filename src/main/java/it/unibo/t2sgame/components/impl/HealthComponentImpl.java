@@ -1,14 +1,14 @@
-package it.unibo.t2sgame.model.impl;
+package it.unibo.t2sgame.components.impl;
 
+import it.unibo.t2sgame.components.api.HealthComponent;
 import it.unibo.t2sgame.model.api.Entity;
-import it.unibo.t2sgame.model.api.HealthComponent;
 import it.unibo.t2sgame.model.api.Message;
 
 public class HealthComponentImpl implements HealthComponent{
 
     private int health;
     private Entity entity;
-    HealthComponentImpl(final int health){
+    public HealthComponentImpl(final int health){
         this.health = health;
     }
 

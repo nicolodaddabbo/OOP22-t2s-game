@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import it.unibo.t2sgame.components.api.GraphicComponent;
+import it.unibo.t2sgame.components.api.HealthComponent;
+import it.unibo.t2sgame.components.api.InputComponent;
 import it.unibo.t2sgame.core.api.Game;
 import it.unibo.t2sgame.core.api.GameEngine;
-import it.unibo.t2sgame.input.api.InputComponent;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.model.api.Entity;
-import it.unibo.t2sgame.model.api.HealthComponent;
 import it.unibo.t2sgame.view.api.GameScene;
-import it.unibo.t2sgame.view.api.GraphicComponent;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;

@@ -1,12 +1,12 @@
-package it.unibo.t2sgame.view.impl;
+package it.unibo.t2sgame.components.impl;
 
 import java.util.function.BiConsumer;
 
+import it.unibo.t2sgame.components.api.GraphicComponent;
+import it.unibo.t2sgame.components.api.GraphicComponentFactory;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.Message;
 import it.unibo.t2sgame.view.api.Graphic;
-import it.unibo.t2sgame.view.api.GraphicComponent;
-import it.unibo.t2sgame.view.api.GraphicComponentFactory;
 
 public class GraphicComponentFactoryImpl implements GraphicComponentFactory{
 

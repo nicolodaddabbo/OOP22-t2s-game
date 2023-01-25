@@ -4,14 +4,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import it.unibo.t2sgame.components.api.CollisionComponent;
+import it.unibo.t2sgame.components.api.Component;
+import it.unibo.t2sgame.components.api.GraphicComponent;
+import it.unibo.t2sgame.components.api.InputComponent;
+import it.unibo.t2sgame.components.api.PhysicsComponent;
 import it.unibo.t2sgame.core.api.GameSystem;
 import it.unibo.t2sgame.core.api.GameSystemFactory;
-import it.unibo.t2sgame.input.api.InputComponent;
-import it.unibo.t2sgame.model.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
-import it.unibo.t2sgame.physics.api.CollisionComponent;
-import it.unibo.t2sgame.physics.api.PhysicsComponent;
-import it.unibo.t2sgame.view.api.GraphicComponent;
 
 public class GameSystemFactoryImpl implements GameSystemFactory{
 

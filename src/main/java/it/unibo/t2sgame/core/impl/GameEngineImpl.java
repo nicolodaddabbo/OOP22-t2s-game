@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import it.unibo.t2sgame.common.StopWatch;
+import it.unibo.t2sgame.components.api.Component;
 import it.unibo.t2sgame.core.api.GameEngine;
 import it.unibo.t2sgame.core.api.GameSystem;
 import it.unibo.t2sgame.core.api.GameSystemFactory;
-import it.unibo.t2sgame.model.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.view.api.GameScene;
 

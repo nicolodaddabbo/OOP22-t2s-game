@@ -1,11 +1,11 @@
-package it.unibo.t2sgame.physics.impl;
-
+package it.unibo.t2sgame.components.impl;
 import it.unibo.t2sgame.common.Vector2D;
+import it.unibo.t2sgame.components.api.CollisionComponent;
+import it.unibo.t2sgame.components.api.PhysicsComponent;
 import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.Message;
-import it.unibo.t2sgame.physics.api.CollisionComponent;
-import it.unibo.t2sgame.physics.api.PhysicsComponent;
+
 
 public class PhysicsComponentImpl implements PhysicsComponent {
     private static final double CONVERSION = 2;

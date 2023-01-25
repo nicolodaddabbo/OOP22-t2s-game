@@ -1,5 +1,6 @@
 package it.unibo.t2sgame.model.api;
 import it.unibo.t2sgame.common.Vector2D;
+import it.unibo.t2sgame.components.api.Component;
 
 import java.util.Optional;
 import java.util.Set;

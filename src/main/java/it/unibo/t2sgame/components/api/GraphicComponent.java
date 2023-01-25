@@ -1,6 +1,6 @@
-package it.unibo.t2sgame.view.api;
+package it.unibo.t2sgame.components.api;
 
-import it.unibo.t2sgame.model.api.Component;
+import it.unibo.t2sgame.view.api.Graphic;
 
 public interface GraphicComponent extends Component {
     

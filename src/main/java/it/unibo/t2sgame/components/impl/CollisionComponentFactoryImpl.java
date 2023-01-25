@@ -1,17 +1,19 @@
-package it.unibo.t2sgame.physics.impl;
+package it.unibo.t2sgame.components.impl;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.model.api.DamageComponent;
+import it.unibo.t2sgame.components.api.CollisionComponent;
+import it.unibo.t2sgame.components.api.CollisionComponentFactory;
+import it.unibo.t2sgame.components.api.DamageComponent;
+import it.unibo.t2sgame.components.api.HealthComponent;
+import it.unibo.t2sgame.components.api.PhysicsComponent;
 import it.unibo.t2sgame.model.api.Entity;
-import it.unibo.t2sgame.model.api.HealthComponent;
 import it.unibo.t2sgame.model.api.Message;
-import it.unibo.t2sgame.physics.api.CollisionComponent;
-import it.unibo.t2sgame.physics.api.CollisionComponentFactory;
-import it.unibo.t2sgame.physics.api.PhysicsComponent;
 import it.unibo.t2sgame.physics.api.Shape;
+import it.unibo.t2sgame.physics.impl.Circle;
+import it.unibo.t2sgame.physics.impl.Rectangle;
 
 public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
 
@@ -99,7 +101,7 @@ public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
             @Override
             public Entity getEntity() {
                 return this.entity;
-            }   
+            }
             
         };
     }

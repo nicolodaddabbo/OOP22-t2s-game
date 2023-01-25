@@ -1,6 +1,6 @@
 package it.unibo.t2sgame.core.api;
 
-import it.unibo.t2sgame.model.api.Component;
+import it.unibo.t2sgame.components.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
 /**
  * A GameSystem represent the "System" in a Entity-Component-System 

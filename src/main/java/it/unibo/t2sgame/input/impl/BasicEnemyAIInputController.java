@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.t2sgame.components.api.PhysicsComponent;
 import it.unibo.t2sgame.input.api.Command;
 import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
-import it.unibo.t2sgame.physics.api.PhysicsComponent;
 
 public class BasicEnemyAIInputController implements InputController {
     private final List<Command> availableCommands;

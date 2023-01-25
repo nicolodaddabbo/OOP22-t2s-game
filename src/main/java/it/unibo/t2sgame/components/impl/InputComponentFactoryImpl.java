@@ -1,8 +1,10 @@
-package it.unibo.t2sgame.input.impl;
+package it.unibo.t2sgame.components.impl;
 
-import it.unibo.t2sgame.input.api.InputComponent;
-import it.unibo.t2sgame.input.api.InputComponentFactory;
+import it.unibo.t2sgame.components.api.InputComponent;
+import it.unibo.t2sgame.components.api.InputComponentFactory;
 import it.unibo.t2sgame.input.api.InputController;
+import it.unibo.t2sgame.input.impl.BasicEnemyAIInputController;
+import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.Message;
 

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import it.unibo.t2sgame.model.api.Component;
+import it.unibo.t2sgame.components.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.view.api.GameScene;
 

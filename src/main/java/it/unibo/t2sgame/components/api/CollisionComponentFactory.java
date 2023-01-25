@@ -1,4 +1,4 @@
-package it.unibo.t2sgame.physics.api;
+package it.unibo.t2sgame.components.api;
 
 import java.util.Set;
 

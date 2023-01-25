@@ -1,4 +1,4 @@
-package it.unibo.t2sgame.model.api;
+package it.unibo.t2sgame.components.api;
 
 public interface ShootComponent extends Component {
     

@@ -1,6 +1,6 @@
 package it.unibo.t2sgame.model.impl;
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.model.api.Component;
+import it.unibo.t2sgame.components.api.Component;
 import it.unibo.t2sgame.model.api.Entity;
 import it.unibo.t2sgame.model.api.Message;
 import it.unibo.t2sgame.model.api.World;
