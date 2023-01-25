@@ -18,7 +18,7 @@ public class PhysicsComponentImpl implements PhysicsComponent {
      * @param speed the speed of the entity
      */
     public PhysicsComponentImpl(final double speed){
-        this.speed = speed;
+        this.setSpeed(speed);
     }
 
     /**
@@ -27,13 +27,13 @@ public class PhysicsComponentImpl implements PhysicsComponent {
      * @param direction the starting direction of the entity
      */
     public PhysicsComponentImpl(final double speed, final Directions direction) {
-        this.speed = speed;
+        this.setSpeed(speed);
         this.receiveDirection(direction);
     }
 
     @Override
     public void update() {
-        entity.setPosition(entity.getPosition().sum(this.velocity.mul(CONVERSION*speed)));
+        entity.setPosition(entity.getPosition().sum(this.velocity.mul(this.getConvertedSpeed())));
         entity.notifyComponent(CollisionComponent.class, entity::getPosition);
     }
 
@@ -50,19 +50,19 @@ public class PhysicsComponentImpl implements PhysicsComponent {
     private void receiveDirection(Directions direction) {
         switch(direction){
             case UP:
-                this.velocity = new Vector2D(0, -1);
+                this.setVelocity(new Vector2D(0, -1));
                 break;
             case DOWN:
-                this.velocity = new Vector2D(0, 1);
+                this.setVelocity(new Vector2D(0, 1));
                 break;
             case LEFT:
-                this.velocity = new Vector2D(-1, 0);
+                this.setVelocity(new Vector2D(-1, 0));
                 break;
             case RIGHT:
-                this.velocity = new Vector2D(1, 0);
+                this.setVelocity(new Vector2D(1, 0));
                 break;
             default:
-                this.velocity = new Vector2D(0, 0);
+                this.setVelocity(new Vector2D(0, 0));
                 break;
         }
     }
@@ -75,6 +75,31 @@ public class PhysicsComponentImpl implements PhysicsComponent {
     @Override
     public void setEntity(final Entity entity) {
         this.entity = entity;
+    }
+
+    @Override
+    public double getConvertedSpeed() {
+        return CONVERSION*speed;
+    }
+
+    @Override
+    public Vector2D getVelocity() {
+        return this.velocity;
+    }
+
+    @Override
+    public void setVelocity(Vector2D velocity) {
+        this.velocity = velocity;        
+    }
+
+    @Override
+    public double getSpeed() {
+        return this.speed;
+    }
+
+    @Override
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
     
 }
