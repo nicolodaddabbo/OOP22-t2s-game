@@ -26,7 +26,7 @@ public class EntityFactoryImpl implements EntityFactory {
         return new EntityImpl(position)
             .addComponent(this.inputFactory.createKeyboardInputComponent())
             .addComponent(new PhysicsComponentImpl(1))
-            .addComponent(this.collisionFactory.collisionWithRectangleShape(new Rectangle(60, 80)))
+            .addComponent(this.collisionFactory.collisionWithRectangleShape(new Rectangle(position, 60, 80)))
             .addComponent(this.graphicFactory.getPlayerGraphicComponent())
             .addComponent(new HealthComponentImpl(3));
     }
@@ -43,7 +43,7 @@ public class EntityFactoryImpl implements EntityFactory {
         return new EntityImpl(position)
             .addComponent(this.inputFactory.createBasicEnemyAIInputComponent())
             .addComponent(new PhysicsComponentImpl(0.25))
-            .addComponent(this.collisionFactory.collisionWithRectangleShape(new Rectangle(60, 80)))
+            .addComponent(this.collisionFactory.collisionWithRectangleShape(new Rectangle(position, 60, 80)))
             .addComponent(new DamageComponentImpl(1, 1))
             .addComponent(this.graphicFactory.getBaseEnemyGraphicComponent());
     }

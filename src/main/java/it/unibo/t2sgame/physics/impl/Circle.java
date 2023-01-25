@@ -7,7 +7,8 @@ public class Circle implements Shape {
     private Vector2D center;
     private double radius;
 
-    public Circle(final double radius) {
+    public Circle(final Vector2D center, final double radius) {
+        this.center = center;
         this.radius = radius;
     }
 

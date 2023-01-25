@@ -8,7 +8,8 @@ public class Rectangle implements Shape{
     private double width;
     private double height;
 
-    public Rectangle(final double width, final double height){
+    public Rectangle(final Vector2D center, final double width, final double height){
+        this.center = center;
         this.width = width;
         this.height = height;
     }
