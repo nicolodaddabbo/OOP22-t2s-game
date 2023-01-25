@@ -33,13 +33,24 @@ public class Circle implements Shape {
     }
 
     @Override
-    public boolean isColliding(Circle circle) {
+    public boolean isColliding(final Circle circle) {
         return this.center.distance(circle.getCenter()) <= this.radius+circle.getRadius();
     }
 
+    /**
+     * @see <a>The formula to check intersection has been taken from 
+     * https://yal.cc/rectangle-circle-intersection-test/comment-page-1/</a>
+     */
     @Override
-    public boolean isColliding(Rectangle r) {
-        return false;
+    public boolean isColliding(final Rectangle rectangle) {
+        var rectangleCenter = rectangle.getCenter();
+        var deltaX = this.calcDelta(this.center.getX(), rectangleCenter.getX(), rectangle.getWidth());
+        var deltaY = this.calcDelta(this.center.getY(), rectangleCenter.getY(), rectangle.getHeight());
+        return Math.pow(deltaX, 2) + Math.pow(deltaY, 2) < Math.pow(this.radius, 2);
+    }
+
+    private double calcDelta(final double circleCenterAxis, final double rectangleCenterAxis, final double rectangleSide){
+        return circleCenterAxis - Math.max(rectangleCenterAxis-rectangleSide/2, Math.min(circleCenterAxis, rectangleCenterAxis + rectangleSide/2));
     }
     
 }
