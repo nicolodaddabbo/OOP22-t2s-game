@@ -51,8 +51,14 @@ public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
                     .filter(collision -> shape.isColliding(collision.getShape()))
                     // Notify to the health component every collision which has been checked as true
                     .forEach(collision -> {
-                        collision.getEntity().getComponent(PhysicsComponent.class).ifPresent(pc -> collision.getEntity().setPosition(collision.getEntity().getPosition().sum(pc.getVelocity().mul(-1.5))));
-                        this.entity.getComponent(PhysicsComponent.class).ifPresent(pc -> this.entity.setPosition(this.entity.getPosition().sum(pc.getVelocity().mul(-1.5))));
+                        collision.getEntity().getComponent(PhysicsComponent.class).ifPresent(pc1 -> 
+                            this.entity.getComponent(PhysicsComponent.class).ifPresent(pc2 -> {
+                                collision.getEntity()
+                                    .setPosition(collision.getEntity().getPosition().sum(pc2.getVelocity().mul(pc1.getConvertedSpeed())));
+                                this.entity
+                                    .setPosition(this.entity.getPosition().sum(pc1.getVelocity().mul(pc2.getConvertedSpeed())));
+                            })
+                        );
                         //Remove health to the touched entity
                         this.entity.getComponent(DamageComponent.class)
                             .ifPresent(c -> {
