@@ -6,7 +6,7 @@ import it.unibo.t2sgame.core.components.api.CollisionComponentFactory;
 import it.unibo.t2sgame.core.components.api.GraphicComponentFactory;
 import it.unibo.t2sgame.core.components.api.InputComponentFactory;
 import it.unibo.t2sgame.core.components.impl.CollisionComponentFactoryImpl;
-import it.unibo.t2sgame.core.components.impl.DamageComponentImpl;
+import it.unibo.t2sgame.core.components.impl.DamageComponent;
 import it.unibo.t2sgame.core.components.impl.GraphicComponentFactoryImpl;
 import it.unibo.t2sgame.core.components.impl.HealthComponentImpl;
 import it.unibo.t2sgame.core.components.impl.InputComponentFactoryImpl;
@@ -45,7 +45,7 @@ public class EntityFactoryImpl implements EntityFactory {
             .addComponent(this.inputFactory.createBasicEnemyAIInputComponent())
             .addComponent(new PhysicsComponentImpl(0.25))
             .addComponent(this.collisionFactory.collisionWithRectangleShape(new Rectangle(position, 60, 80)))
-            .addComponent(new DamageComponentImpl(1, 1))
+            .addComponent(new DamageComponent(1, 1))
             .addComponent(this.graphicFactory.getBaseEnemyGraphicComponent());
     }
     

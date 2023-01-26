@@ -1,18 +1,16 @@
 package it.unibo.t2sgame.core.components.impl;
 
 import it.unibo.t2sgame.common.StopWatch;
-import it.unibo.t2sgame.core.components.api.DamageComponent;
+import it.unibo.t2sgame.core.components.api.AbstractComponent;
 import it.unibo.t2sgame.core.components.api.Message;
-import it.unibo.t2sgame.core.entity.api.Entity;
 
-public class DamageComponentImpl implements DamageComponent {
+public class DamageComponent extends AbstractComponent {
 
-    private Entity entity;
     private int damage;
     private double cooldown;
     private final StopWatch timer = new StopWatch().start();
 
-    public DamageComponentImpl(int damage, double cooldown) {
+    public DamageComponent(int damage, double cooldown) {
         this.damage = damage;
         this.cooldown = cooldown;
     }
@@ -27,7 +25,10 @@ public class DamageComponentImpl implements DamageComponent {
         
     }
 
-    @Override
+    /**
+     * 
+     * @return true if the cooldown period is over, otherwise returns false
+     */
     public boolean canDamage() {
         if(this.timer.getElapsedSeconds() >= this.cooldown){
             this.timer.restart();
@@ -36,22 +37,18 @@ public class DamageComponentImpl implements DamageComponent {
         return false;
     }
 
-    @Override
-    public Entity getEntity() {
-        return this.entity;
-    }
-
-    @Override
-    public void setEntity(Entity entity) {
-        this.entity = entity;
-    }
-
-    @Override
+    /**
+     * 
+     * @return the damage if the entity
+     */
     public int getDamage() {
         return this.damage;
     }
 
-    @Override
+    /**
+     * 
+     * @param damage the damage to set
+     */
     public void setDamage(int damage) {
         this.damage = damage;
     }

@@ -9,7 +9,6 @@ import it.unibo.t2sgame.common.shapes.Circle;
 import it.unibo.t2sgame.common.shapes.Rectangle;
 import it.unibo.t2sgame.core.components.api.CollisionComponent;
 import it.unibo.t2sgame.core.components.api.CollisionComponentFactory;
-import it.unibo.t2sgame.core.components.api.DamageComponent;
 import it.unibo.t2sgame.core.components.api.HealthComponent;
 import it.unibo.t2sgame.core.components.api.Message;
 import it.unibo.t2sgame.core.components.api.PhysicsComponent;
