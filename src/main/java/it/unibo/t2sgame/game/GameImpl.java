@@ -69,7 +69,6 @@ public class GameImpl implements Game {
     @Override
     public void initSettings() {
         this.scene.ifPresent(s -> s.setEngine(this.engine));
-        this.scene.ifPresent(s -> s.setGame(this));
         this.engine.setScene(this.scene.get());
     }
 
