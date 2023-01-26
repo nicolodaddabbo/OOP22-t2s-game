@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.components.api.CollisionComponent;
+import it.unibo.t2sgame.core.engine.api.GameEngine;
+import it.unibo.t2sgame.core.engine.impl.GameEngineImpl;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
 import it.unibo.t2sgame.game.model.api.Wave;
@@ -17,7 +19,17 @@ public class WorldFactoryImpl implements WorldFactory{
 
     private World worldWith(final List<Entity> players){
         return new World() {
+            /*
+             * Creating the engine where all the entity will be updated
+             */
+            private GameEngine engine = new GameEngineImpl();
+            /*
+             * The lisf of entities in the world 
+             */
             private final List<Entity> entities = new ArrayList<>(players); 
+            /**
+             * An Optional containing the current wave if present
+             */
             private Optional<Wave> currentWave = Optional.empty();
 
             @Override
@@ -37,7 +49,11 @@ public class WorldFactoryImpl implements WorldFactory{
 
             @Override
             public void addEntity(Entity e) {
+                // Adding the entity to the current world
                 this.entities.add(e);       
+                // Adding the entity in the engine to be updated
+                this.engine.addEntity(e);
+                // Setting the world where the entity is placed to the entity
                 e.setWorld(this);
             }
 
@@ -51,7 +67,22 @@ public class WorldFactoryImpl implements WorldFactory{
                             .map(p -> p.getComponent(CollisionComponent.class).get())
                             .collect(Collectors.toSet())));
                 /* Adding all enemies to the entities */
-                next.getEnemies().forEach(this.entities::add);
+                next.getEnemies().forEach(this::addEntity);
+            }
+
+            @Override
+            public void update() {
+                /*
+                 * Before updating the engine, the world should check
+                 * if any events occours, in order to add or remove entities
+                 * in the world and in the engine
+                 */
+                this.engine.update();  
+            }
+
+            @Override
+            public GameEngine getEngine() {
+                return this.engine;
             }
             
             

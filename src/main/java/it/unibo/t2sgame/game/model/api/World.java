@@ -3,6 +3,7 @@ package it.unibo.t2sgame.game.model.api;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.core.entity.api.Entity;
 
 /**
@@ -35,4 +36,17 @@ public interface World {
      * @param e Entity to be added to the world
      */
     void addEntity(Entity e);
+    /**
+     * Update the world instance.
+     * This method should be called once in every game loop cycle
+     */
+    void update();
+    /**
+     * 
+     * @return the engine istance where all the entities are updated
+     */
+    GameEngine getEngine();
+
+    
+    
 }
