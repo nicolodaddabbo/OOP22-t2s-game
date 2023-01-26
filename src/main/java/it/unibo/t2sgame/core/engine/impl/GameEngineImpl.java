@@ -100,7 +100,7 @@ public class GameEngineImpl implements GameEngine {
     public GameEngine addEntity(Entity e) {
         this.entities.add(e);
         // Add the entity to the corresponding systems
-        this.getSystemsOf(e).forEach(s -> s.addEntity(e));
+        this.getSystemsOf(e).forEach(s -> s.addComponent(e.getComponent(s.getType())));
         return this;
     }
 
@@ -108,7 +108,7 @@ public class GameEngineImpl implements GameEngine {
     public GameEngine removeEntity(Entity e) {
         this.entities.remove(e);
         // Remove the entity from the corresponding system
-        this.getSystemsOf(e).forEach(s -> s.removeEntity(e));
+        this.getSystemsOf(e).forEach(s -> s.removeComponent(e.getComponent(s.getType())));
         return this;
     }
 
