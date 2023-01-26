@@ -5,5 +5,7 @@ public interface SceneFactory {
      * 
      * @return a created Scene
      */
-    GameScene createJavaFXScene();
+    GameScene createGameScene();
+
+    BaseScene createMenuScene();
 }

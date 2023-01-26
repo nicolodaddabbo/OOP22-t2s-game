@@ -25,7 +25,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class GameSceneJavaFXImpl implements GameScene{
+public class GameSceneJavaFXImpl implements GameScene {
 
     private Group root;
     private Scene scene;
@@ -36,9 +36,14 @@ public class GameSceneJavaFXImpl implements GameScene{
     private GameEngine gameEngine;
     private GraphicJavaFXImpl graphic;
     private Map<String, Image> cachedSprites;
+    private final Stage stage;
+    
+    public GameSceneJavaFXImpl(Stage stage) {
+        this.stage = stage;
+    }
+
     @Override
     public void initialize() {
-        Stage stage = new Stage();
         this.root = new Group();
         this.canvas = new Canvas(1200, 800);
         this.gContext = this.canvas.getGraphicsContext2D();
@@ -75,12 +80,23 @@ public class GameSceneJavaFXImpl implements GameScene{
 
     @Override
     public void render() {
+        
+        /**
+         * This code is here just for testing purposes
+         */
+        this.gameEngine.getEntities().get(0).getWorld().get().getPlayers().get(0)
+            .getComponent(InputComponent.class)
+            .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController());
+            
         Platform.runLater(() -> {
             var game = this.gameEngine.getEntities();
             gContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             game.forEach(entity -> entity
                 .getComponent(GraphicComponent.class)
-                .ifPresent(gc -> this.draw(gc, entity)));     
+                .ifPresent(gc -> {
+                    gc.setGraphics(graphic);
+                    gc.update();
+                }));     
            
             var health = (game.get(0).getWorld().get().getPlayers().get(0).getComponent(HealthComponent.class).get()).getHealth();
             Stream.iterate(0, i -> i + 1)
@@ -88,28 +104,7 @@ public class GameSceneJavaFXImpl implements GameScene{
                 .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 50*n, 0, 40, 40));
         });
     }
-
-    private void draw(GraphicComponent gc, Entity entity){
-        gc.setGraphics(graphic);
-        gc.update();
-    }
-
-    @Override
-    public void setGame(Game game) {
-        this.game = game;
-        /**
-         * This is a code only used to test the correct functionlaity it will be changed
-         */
-        this.game.getWorld().getPlayers().get(0)
-            .getComponent(InputComponent.class)
-            .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController());
-    }
-
-    @Override
-    public void setKeyboardInputController(KeyboardInputController keyInController) {
-        this.keyInController = keyInController;
-    }
-
+    
     @Override
     public void setEngine(GameEngine gameEngine) {
         this.gameEngine =  gameEngine;
