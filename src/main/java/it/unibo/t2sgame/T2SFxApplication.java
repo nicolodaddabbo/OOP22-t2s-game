@@ -1,7 +1,7 @@
 package it.unibo.t2sgame;
 
-import it.unibo.t2sgame.core.api.Game;
-import it.unibo.t2sgame.core.impl.GameFactoryImpl;
+import it.unibo.t2sgame.game.Game;
+import it.unibo.t2sgame.game.GameFactoryImpl;
 import it.unibo.t2sgame.view.impl.SceneFactoryImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;

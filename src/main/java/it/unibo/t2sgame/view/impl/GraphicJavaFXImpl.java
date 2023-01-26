@@ -1,6 +1,6 @@
 package it.unibo.t2sgame.view.impl;
 
-import it.unibo.t2sgame.model.api.Entity;
+import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.view.api.Graphic;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

@@ -1,9 +1,9 @@
 package it.unibo.t2sgame.input.impl;
 
-import it.unibo.t2sgame.components.api.PhysicsComponent;
+import it.unibo.t2sgame.core.components.api.PhysicsComponent;
+import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.input.api.Command;
 import it.unibo.t2sgame.input.api.Directions;
-import it.unibo.t2sgame.model.api.Entity;
 
 /**
  * This class is used to handle all kind of move related commands
