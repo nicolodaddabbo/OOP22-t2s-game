@@ -35,10 +35,10 @@ public class KeyboardInputController implements InputController {
         SHOOT_LEFT_CODE, new Shoot(Directions.LEFT)
     );
 
-    private EntityState<Integer> moveState = new EntityStateImpl<>(WALK_MOVESET);
-    private EntityState<Integer> shootState = new EntityStateImpl<>(SHOOT_MOVESET);
-    private Queue<Command> commandsQueue = new LinkedList<>();
-    private List<EntityState<Integer>> states = List.of(this.moveState, this.shootState);
+    private final EntityState<Integer> moveState = new EntityStateImpl<>(WALK_MOVESET);
+    private final EntityState<Integer> shootState = new EntityStateImpl<>(SHOOT_MOVESET);
+    private final Queue<Command> commandsQueue = new LinkedList<>();
+    private final List<EntityState<Integer>> states = List.of(this.moveState, this.shootState);
 
     public void notifyKeyPressed(final int keyCode) {
         this.states.forEach(s -> s.notifyInput(keyCode));
