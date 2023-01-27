@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.t2sgame.core.components.api.PhysicsComponent;
+import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.input.api.Command;
 import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
