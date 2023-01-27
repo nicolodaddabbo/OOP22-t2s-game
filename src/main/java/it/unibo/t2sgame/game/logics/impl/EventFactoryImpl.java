@@ -8,7 +8,7 @@ import it.unibo.t2sgame.game.model.impl.EntityFactoryImpl;
 import it.unibo.t2sgame.input.api.Directions;
 
 public class EventFactoryImpl implements EventFactory {
-    EntityFactory entityFactory = new EntityFactoryImpl();
+    private final EntityFactory entityFactory = new EntityFactoryImpl();
     
     public Event onShootEvent(final Entity shooter, final Directions direction) {
         return world -> world.addEntity(entityFactory.createProjectile(shooter.getPosition(), direction));
