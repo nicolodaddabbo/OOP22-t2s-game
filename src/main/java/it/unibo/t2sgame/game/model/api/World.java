@@ -38,6 +38,11 @@ public interface World {
      */
     void addEntity(Entity e);
     /**
+     * Adding a player to the list of players in the world
+     * @param e the player to be addeed
+     */
+    void addPlayer(Entity player);
+    /**
      * Update the world instance.
      * This method should be called once in every game loop cycle
      */
@@ -47,6 +52,7 @@ public interface World {
      * @return the engine istance where all the entities are updated
      */
     GameEngine getEngine();
+
 
     /**
      * Add the event to the World event queue
