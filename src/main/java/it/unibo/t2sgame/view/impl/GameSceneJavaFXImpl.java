@@ -83,7 +83,7 @@ public class GameSceneJavaFXImpl implements GameScene {
         /**
          * This code is here just for testing purposes
          */
-        this.gameEngine.getEntities().get(0).getWorld().get().getPlayers().get(0)
+        this.game.getWorld().getPlayers().get(0)
             .getComponent(InputComponent.class)
             .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController());
             
