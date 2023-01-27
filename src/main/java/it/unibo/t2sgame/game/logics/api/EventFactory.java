@@ -13,4 +13,9 @@ public interface EventFactory {
      * @return an onShoot event
      */
     public Event onShootEvent(Entity shooter, Directions direction);
+    /**
+     * @param entity to remove
+     * @return an onDeath event
+     */
+    public Event onDeathEvent(Entity entity);
 }

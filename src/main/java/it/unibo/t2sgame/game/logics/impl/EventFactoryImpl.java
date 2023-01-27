@@ -11,7 +11,12 @@ public class EventFactoryImpl implements EventFactory {
     private final EntityFactory entityFactory = new EntityFactoryImpl();
     
     public Event onShootEvent(final Entity shooter, final Directions direction) {
-        return world -> world.addEntity(entityFactory.createProjectile(shooter.getPosition(), direction));
+        return world -> world.addEntity(this.entityFactory.createProjectile(shooter.getPosition(), direction));
+    }
+
+    @Override
+    public Event onDeathEvent(final Entity entity) {
+        return world -> world.removeEntity(entity);
     }
 
 }
