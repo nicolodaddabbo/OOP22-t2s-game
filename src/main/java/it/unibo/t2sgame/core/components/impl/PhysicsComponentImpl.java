@@ -1,6 +1,5 @@
 package it.unibo.t2sgame.core.components.impl;
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.core.components.api.CollisionComponent;
 import it.unibo.t2sgame.core.components.api.Message;
 import it.unibo.t2sgame.core.components.api.PhysicsComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;

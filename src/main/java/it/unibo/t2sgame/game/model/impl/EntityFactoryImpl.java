@@ -1,12 +1,10 @@
 package it.unibo.t2sgame.game.model.impl;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.common.shapes.Circle;
 import it.unibo.t2sgame.common.shapes.Rectangle;
-import it.unibo.t2sgame.core.components.api.CollisionComponentFactory;
 import it.unibo.t2sgame.core.components.api.GraphicComponentFactory;
 import it.unibo.t2sgame.core.components.api.InputComponentFactory;
-import it.unibo.t2sgame.core.components.impl.CollisionComponentFactoryImpl;
+import it.unibo.t2sgame.core.components.impl.CollisionComponent;
 import it.unibo.t2sgame.core.components.impl.DamageComponent;
 import it.unibo.t2sgame.core.components.impl.GraphicComponentFactoryImpl;
 import it.unibo.t2sgame.core.components.impl.HealthComponentImpl;
@@ -21,7 +19,6 @@ import it.unibo.t2sgame.input.api.Directions;
 public class EntityFactoryImpl implements EntityFactory {
 
     private final InputComponentFactory inputFactory = new InputComponentFactoryImpl();
-    private final CollisionComponentFactory collisionFactory = new CollisionComponentFactoryImpl();
     private final GraphicComponentFactory graphicFactory = new GraphicComponentFactoryImpl();
 
     @Override
@@ -29,7 +26,7 @@ public class EntityFactoryImpl implements EntityFactory {
         return new EntityImpl(position)
             .addComponent(this.inputFactory.createKeyboardInputComponent())
             .addComponent(new PhysicsComponentImpl(1))
-            .addComponent(this.collisionFactory.createCollision(new Rectangle(position, 60, 80)))
+            .addComponent(new CollisionComponent(new Rectangle(position, 60, 80), false))
             .addComponent(this.graphicFactory.getPlayerGraphicComponent())
             .addComponent(new HealthComponentImpl(3))
             .addComponent(new ShootComponentImpl(1));
@@ -39,7 +36,7 @@ public class EntityFactoryImpl implements EntityFactory {
     public Entity createProjectile(final Vector2D position, final Directions direction) {
         return new EntityImpl(position)
             .addComponent(new PhysicsComponentImpl(1.5, direction))
-            .addComponent(this.collisionFactory.createCollision(new Circle(position, 30)))
+            .addComponent(new CollisionComponent(new Rectangle(position, 60, 80), false))
             .addComponent(this.graphicFactory.getProjectileGraphicComponent())
             .addComponent(new DamageComponent(1, 1));
     }
@@ -49,7 +46,7 @@ public class EntityFactoryImpl implements EntityFactory {
         return new EntityImpl(position)
             .addComponent(this.inputFactory.createBasicEnemyAIInputComponent())
             .addComponent(new PhysicsComponentImpl(0.25))
-            .addComponent(this.collisionFactory.createCollision(new Rectangle(position, 60, 80)))
+            .addComponent(new CollisionComponent(new Rectangle(position, 60, 80), false))
             .addComponent(new DamageComponent(1, 1))
             .addComponent(this.graphicFactory.getBaseEnemyGraphicComponent());
     }
