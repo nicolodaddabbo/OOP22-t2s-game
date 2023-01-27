@@ -81,6 +81,7 @@ public class WorldFactoryImpl implements WorldFactory{
                  * if any events occours, in order to add or remove entities
                  * in the world and in the engine
                  */
+                handleEvents();
                 this.engine.update();  
             }
 
@@ -91,7 +92,6 @@ public class WorldFactoryImpl implements WorldFactory{
 
             @Override
             public void notifyEvent(final Event event) {
-                System.out.println("event");
                 this.eventQueue.add(event);
             }
 
