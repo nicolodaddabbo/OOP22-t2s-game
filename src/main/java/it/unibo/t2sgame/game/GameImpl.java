@@ -11,7 +11,6 @@ import it.unibo.t2sgame.view.api.GameScene;
 
 public class GameImpl implements Game {
     private Optional<GameScene> scene = Optional.empty();
-    private final GameEngine engine = new GameEngineImpl();
     private final State state;
     private final World world;
 
@@ -36,7 +35,7 @@ public class GameImpl implements Game {
         var wave = new WaveFactoryImpl().createBasicWave(this.state.getRound());
         wave.getEnemies().forEach(e -> {
             e.setWorld(world);
-            this.engine.addEntity(e);
+            this.world.addEntity(e);
         });
         this.world.setWave(wave);
     }
@@ -45,7 +44,7 @@ public class GameImpl implements Game {
     public void start() {
         while (!this.isOver()) {
             this.addWaveIfOver();
-            this.engine.update();
+            this.world.update();
         }
 
     }
@@ -68,13 +67,13 @@ public class GameImpl implements Game {
 
     @Override
     public void initSettings() {
-        this.scene.ifPresent(s -> s.setEngine(this.engine));
-        this.engine.setScene(this.scene.get());
+        this.scene.ifPresent(s -> s.setGame(this));
+        this.world.getEngine().setScene(this.scene.get());
     }
 
     @Override
     public void initGame() {
-        this.world.getEntities().forEach(this.engine::addEntity);
+        //this.world.getEntities().forEach(this.engine::addEntity);
     }
 
 }
