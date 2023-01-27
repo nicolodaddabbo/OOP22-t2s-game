@@ -5,8 +5,6 @@ import java.util.Set;
 
 import it.unibo.t2sgame.common.Shape;
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.common.shapes.Circle;
-import it.unibo.t2sgame.common.shapes.Rectangle;
 import it.unibo.t2sgame.core.components.api.CollisionComponent;
 import it.unibo.t2sgame.core.components.api.CollisionComponentFactory;
 import it.unibo.t2sgame.core.components.api.HealthComponent;
@@ -16,12 +14,11 @@ import it.unibo.t2sgame.core.entity.api.Entity;
 
 public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
 
-    private CollisionComponent collisionWith(final Shape shape){
+    private CollisionComponent collisionWith(final Shape shape, final boolean isRigid){
         return new CollisionComponent() {
 
             private Entity entity;
             private Set<CollisionComponent> collisions = new HashSet<>();
-            private boolean canCheck = true;
             
             @Override
             public <T> void receive(Message<T> message) {
@@ -38,48 +35,52 @@ public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
                 shape.setCenter(pos);
             }
 
-            private void receiveFromHealthComponent(final boolean checkStatus){
-
-            }
-
             @Override
             public void update() {
-                if(this.canCheck){
-                    this.collisions.stream()
-                    // Filtering each collision which has been checked as true
-                    .filter(collision -> shape.isColliding(collision.getShape()))
-                    // Notify to the health component every collision which has been checked as true
-                    .forEach(collision -> {
-                        collision.getEntity().getComponent(PhysicsComponent.class).ifPresent(pc1 -> 
-                            this.entity.getComponent(PhysicsComponent.class).ifPresent(pc2 -> {
-                                collision.getEntity()
-                                    .setPosition(collision.getEntity().getPosition().sum(pc2.getVelocity().mul(pc1.getConvertedSpeed())));
-                                this.entity
-                                    .setPosition(this.entity.getPosition().sum(pc1.getVelocity().mul(pc2.getConvertedSpeed())));
-                            })
-                        );
-                        //Remove health to the touched entity
-                        this.entity.getComponent(DamageComponent.class)
-                            .ifPresent(c -> {
-                                if(c.canDamage()){
-                                    collision.getEntity().notifyComponent(HealthComponent.class, c::getDamage);
-                                }
-                            });
-                        //Remove health to this entity
-                        collision.getEntity().getComponent(DamageComponent.class)
-                            .ifPresent(c -> {
-                                if(c.canDamage()){
-                                    this.entity.notifyComponent(HealthComponent.class, c::getDamage);
-                                }
-                            });
-                        });
-                }
-              
+                this.collisions.stream()
+                // Filtering each collision which has been checked as true
+                .filter(collision -> shape.isColliding(collision.getShape()))
+                // Notify to the health component every collision which has been checked as true
+                .forEach(collision -> {
+                    if(isRigid || collision.isRigid()){
+                        this.knockBack(collision.getEntity());
+                    }
+                    //Remove health to the touched entity
+                    this.entity.getComponent(DamageComponent.class)
+                        .ifPresent(c -> {
+                            if(c.canDamage()){
+                                collision.getEntity().notifyComponent(HealthComponent.class, c::getDamage);
+                            }
+                        }
+                    );
+                    //Remove health to this entity
+                    collision.getEntity().getComponent(DamageComponent.class)
+                        .ifPresent(c -> {
+                            if(c.canDamage()){
+                                this.entity.notifyComponent(HealthComponent.class, c::getDamage);
+                            }
+                        }
+                    );
+                });
+            }
+
+            private void knockBack(Entity collisionEntity){
+                collisionEntity.getComponent(PhysicsComponent.class).ifPresent(phycmp -> 
+                    collisionEntity.setPosition(collisionEntity.getPosition().sub(phycmp.getVelocity().mul(phycmp.getConvertedSpeed())))
+                );
+                this.entity.getComponent(PhysicsComponent.class).ifPresent(phycmp -> 
+                    this.entity.setPosition(this.entity.getPosition().sub(phycmp.getVelocity().mul(phycmp.getConvertedSpeed())))
+                );
             }
 
             @Override
             public Shape getShape() {
                 return shape;
+            }
+
+            @Override
+            public boolean isRigid() {
+                return isRigid;
             }
 
             @Override
@@ -112,13 +113,13 @@ public class CollisionComponentFactoryImpl implements CollisionComponentFactory{
     }
 
     @Override
-    public CollisionComponent collisionWithCirlceShape(final Circle circle) {
-        return collisionWith(circle);
+    public CollisionComponent createRigidCollision(final Shape shape) {
+        return collisionWith(shape, true);
     }
 
     @Override
-    public CollisionComponent collisionWithRectangleShape(final Rectangle rectangle) {
-        return  collisionWith(rectangle);
+    public CollisionComponent createCollision(final Shape shape) {
+        return  collisionWith(shape, false);
     }
     
 }

@@ -17,6 +17,12 @@ public interface CollisionComponent extends Component{
      */
     Shape getShape();
 
+    /**
+     * 
+     * @return
+     */
+    boolean isRigid();
+
     Set<CollisionComponent> getCollisions();
     
     void addCollision(CollisionComponent collision);
