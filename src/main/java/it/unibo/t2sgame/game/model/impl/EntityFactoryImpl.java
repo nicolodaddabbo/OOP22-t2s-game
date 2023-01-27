@@ -9,7 +9,7 @@ import it.unibo.t2sgame.core.components.impl.DamageComponent;
 import it.unibo.t2sgame.core.components.impl.GraphicComponentFactoryImpl;
 import it.unibo.t2sgame.core.components.impl.HealthComponent;
 import it.unibo.t2sgame.core.components.impl.InputComponentFactoryImpl;
-import it.unibo.t2sgame.core.components.impl.PhysicsComponentImpl;
+import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.core.components.impl.ShootComponentImpl;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.core.entity.impl.EntityImpl;
@@ -25,7 +25,7 @@ public class EntityFactoryImpl implements EntityFactory {
     public Entity createPlayer(final Vector2D position) {
         return new EntityImpl(position)
             .addComponent(this.inputFactory.createKeyboardInputComponent())
-            .addComponent(new PhysicsComponentImpl(1))
+            .addComponent(new PhysicsComponent(1))
             .addComponent(new CollisionComponent(new Rectangle(position, 60, 80), false))
             .addComponent(this.graphicFactory.getPlayerGraphicComponent())
             .addComponent(new HealthComponent(3))
@@ -35,7 +35,7 @@ public class EntityFactoryImpl implements EntityFactory {
     @Override
     public Entity createProjectile(final Vector2D position, final Directions direction) {
         return new EntityImpl(position)
-            .addComponent(new PhysicsComponentImpl(1.5, direction))
+            .addComponent(new PhysicsComponent(1.5, direction))
             .addComponent(new CollisionComponent(new Rectangle(position, 60, 80), false))
             .addComponent(this.graphicFactory.getProjectileGraphicComponent())
             .addComponent(new DamageComponent(1, 1));
@@ -45,7 +45,7 @@ public class EntityFactoryImpl implements EntityFactory {
     public Entity createBaseEnemy(final Vector2D position) {
         return new EntityImpl(position)
             .addComponent(this.inputFactory.createBasicEnemyAIInputComponent())
-            .addComponent(new PhysicsComponentImpl(0.25))
+            .addComponent(new PhysicsComponent(0.25))
             .addComponent(new CollisionComponent(new Rectangle(position, 60, 80), false))
             .addComponent(new DamageComponent(1, 1))
             .addComponent(this.graphicFactory.getBaseEnemyGraphicComponent());

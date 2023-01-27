@@ -1,14 +1,13 @@
 package it.unibo.t2sgame.core.components.impl;
 import it.unibo.t2sgame.common.Vector2D;
+import it.unibo.t2sgame.core.components.api.AbstractComponent;
 import it.unibo.t2sgame.core.components.api.Message;
-import it.unibo.t2sgame.core.components.api.PhysicsComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.input.api.Directions;
 
 
-public class PhysicsComponentImpl implements PhysicsComponent {
+public class PhysicsComponent extends AbstractComponent {
     private static final double CONVERSION = 2;
-    private Entity entity;
     private double speed;
     private Vector2D velocity = new Vector2D(0, 0);
 
@@ -16,7 +15,7 @@ public class PhysicsComponentImpl implements PhysicsComponent {
      * 
      * @param speed the speed of the entity
      */
-    public PhysicsComponentImpl(final double speed){
+    public PhysicsComponent(final double speed){
         this.setSpeed(speed);
     }
 
@@ -25,7 +24,7 @@ public class PhysicsComponentImpl implements PhysicsComponent {
      * @param speed the speed of the entity
      * @param direction the starting direction of the entity
      */
-    public PhysicsComponentImpl(final double speed, final Directions direction) {
+    public PhysicsComponent(final double speed, final Directions direction) {
         this.setSpeed(speed);
         this.receiveDirection(direction);
     }
@@ -76,27 +75,22 @@ public class PhysicsComponentImpl implements PhysicsComponent {
         this.entity = entity;
     }
 
-    @Override
     public double getConvertedSpeed() {
         return CONVERSION*speed;
     }
 
-    @Override
     public Vector2D getVelocity() {
         return this.velocity;
     }
 
-    @Override
     public void setVelocity(Vector2D velocity) {
         this.velocity = velocity;        
     }
 
-    @Override
     public double getSpeed() {
         return this.speed;
     }
 
-    @Override
     public void setSpeed(double speed) {
         this.speed = speed;
     }
