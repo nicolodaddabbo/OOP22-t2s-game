@@ -83,21 +83,21 @@ public class GameSceneJavaFXImpl implements GameScene {
         /**
          * This code is here just for testing purposes
          */
-        this.gameEngine.getEntities().get(0).getWorld().get().getPlayers().get(0)
+        this.game.getWorld().getPlayers().get(0)
             .getComponent(InputComponent.class)
             .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController());
             
         Platform.runLater(() -> {
-            var game = this.gameEngine.getEntities();
+
             gContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            game.forEach(entity -> entity
+            this.game.getWorld().getEntities().forEach(entity -> entity
                 .getComponent(GraphicComponent.class)
                 .ifPresent(gc -> {
                     gc.setGraphics(graphic);
                     gc.update();
                 }));     
            
-            var health = (game.get(0).getWorld().get().getPlayers().get(0).getComponent(HealthComponent.class).get()).getHealth();
+            var health = (game.getWorld().getPlayers().get(0).getComponent(HealthComponent.class).get()).getHealth();
             Stream.iterate(0, i -> i + 1)
                 .limit(health)
                 .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 50*n, 0, 40, 40));
@@ -107,6 +107,10 @@ public class GameSceneJavaFXImpl implements GameScene {
     @Override
     public void setEngine(GameEngine gameEngine) {
         this.gameEngine =  gameEngine;
+    }
+
+    public void setGame(Game game){
+        this.game = game;
     }
 
     private void close(){

@@ -13,7 +13,7 @@ public interface ComponentFactory {
      * @param ic the InputController linked to the component
      * @return an Input component based on {@link ic} InputController
      */
-    Component creteaInputComponentFrom(InputController ic);
+    Component createInputComponentFrom(InputController inputController);
     /**
      * @return a physics component based on {@link speed}.
      */

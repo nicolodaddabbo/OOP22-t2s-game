@@ -9,7 +9,6 @@ import it.unibo.t2sgame.input.api.Directions;
 public class ShootComponent extends AbstractComponent {
 
     private double fireRate;
-    private Directions shotDirection;
     private final EventFactoryImpl eventFactory = new EventFactoryImpl();
     private final StopWatch timer = new StopWatch().start();
 
@@ -19,20 +18,23 @@ public class ShootComponent extends AbstractComponent {
 
     @Override
     public void update() {
-        if(this.timer.getElapsedSeconds() >= this.fireRate){
-            this.eventFactory.onShootEvent(this.entity, this.shotDirection);
-            this.timer.restart();
-        }
+        
     }
 
     @Override
     public <T> void receive(final Message<T> message) {
         try {
-            var shtDir = (Directions)message.getMessage();
-            this.shotDirection = shtDir;
-            this.update();
+            var shotDirection = (Directions)message.getMessage();
+            this.shoot(shotDirection);
         } catch (ClassCastException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void shoot(final Directions shotDirection){
+        if(this.timer.getElapsedSeconds() >= this.fireRate){
+            this.eventFactory.onShootEvent(this.entity, shotDirection);
+            this.timer.restart();
         }
     }
 
