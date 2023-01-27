@@ -27,5 +27,13 @@ public interface EntityFactory {
      * @return Entity instance representing a basic "Enemy"
      */
     Entity createBaseEnemy(Vector2D position);
+    /**
+     * 
+     * @param position the position to be placed (the position will be the center of the wall)
+     * @param width the wall width
+     * @param height the wall height
+     * @return Entity instance representing a "Wall"
+     */
+    Entity createWall(Vector2D position, double width, double height);
     
 }

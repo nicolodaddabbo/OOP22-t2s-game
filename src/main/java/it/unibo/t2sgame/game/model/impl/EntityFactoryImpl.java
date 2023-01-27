@@ -55,5 +55,11 @@ public class EntityFactoryImpl implements EntityFactory {
             .addComponent(this.componentFactory.createDamageComponentFrom(1, 1))
             .addComponent(this.graphicFactory.getBaseEnemyGraphicComponent());
     }
+
+    @Override
+    public Entity createWall(Vector2D position, double width, double height) {
+        return new EntityImpl(position)
+            .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, width, height), true));
+    }
     
 }
