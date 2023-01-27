@@ -1,14 +1,13 @@
 package it.unibo.t2sgame.core.components.impl;
 
-import it.unibo.t2sgame.core.components.api.HealthComponent;
+import it.unibo.t2sgame.core.components.api.AbstractComponent;
 import it.unibo.t2sgame.core.components.api.Message;
-import it.unibo.t2sgame.core.entity.api.Entity;
 
-public class HealthComponentImpl implements HealthComponent{
+public class HealthComponent extends AbstractComponent{
 
     private int health;
-    private Entity entity;
-    public HealthComponentImpl(final int health){
+
+    public HealthComponent(final int health){
         this.health = health;
     }
 
@@ -27,18 +26,8 @@ public class HealthComponentImpl implements HealthComponent{
         } 
     }
 
-    @Override
     public int getHealth() {
         return this.health;
     }
 
-    @Override
-    public Entity getEntity() {
-        return this.entity;
-    }
-
-    @Override
-    public void setEntity(Entity entity) {
-        this.entity = entity;
-    }
 }
