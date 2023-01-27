@@ -1,12 +1,14 @@
 package it.unibo.t2sgame.input.impl;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Queue;
 
 import it.unibo.t2sgame.input.api.Command;
 import it.unibo.t2sgame.input.api.Directions;
+import it.unibo.t2sgame.input.api.EntityState;
 import it.unibo.t2sgame.input.api.InputController;
 
 public class KeyboardInputController implements InputController {
@@ -33,22 +35,24 @@ public class KeyboardInputController implements InputController {
         SHOOT_LEFT_CODE, new Shoot(Directions.LEFT)
     );
 
-    private Optional<Command> moveState = Optional.empty();
-    private Optional<Command> shootState = Optional.empty();
+    private EntityState<Integer> moveState = new EntityStateImpl<>(WALK_MOVESET);
+    private EntityState<Integer> shootState = new EntityStateImpl<>(SHOOT_MOVESET);
     private Queue<Command> commandsQueue = new LinkedList<>();
+    private List<EntityState<Integer>> states = List.of(this.moveState, this.shootState);
 
     public void notifyKeyPressed(final int keyCode) {
-        this.moveState = WALK_MOVESET.containsKey(keyCode) ? Optional.of(WALK_MOVESET.get(keyCode)) : this.moveState;
-        this.shootState = SHOOT_MOVESET.containsKey(keyCode) ? Optional.of(SHOOT_MOVESET.get(keyCode)) : Optional.empty();
-        this.moveState.ifPresent(this.commandsQueue::add);
-        this.shootState.ifPresent(this.commandsQueue::add);
+        this.states.forEach(s -> s.notifyInput(keyCode));
+        addCommandsToQueue();
     }
 
     public void notifyKeyReleased(final int keyCode) {
-        if (this.moveState.isPresent()) {
-            this.moveState = this.moveState.get().equals(WALK_MOVESET.get(keyCode)) ? Optional.of(new Move(Directions.STAY)) : this.moveState;
-            this.moveState.ifPresent(this.commandsQueue::add);
-        }
+        this.moveState.notifyInputRelease(keyCode, Optional.of(new Move(Directions.STAY)));
+        this.shootState.notifyInputRelease(keyCode, Optional.empty());
+        addCommandsToQueue();
+    }
+
+    private void addCommandsToQueue() {
+        this.commandsQueue.addAll(this.states.stream().filter(s -> s.getCurrentCommand().isPresent()).map(s -> s.getCurrentCommand().get()).toList());
     }
 
     @Override
