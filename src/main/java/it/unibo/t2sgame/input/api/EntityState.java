@@ -18,5 +18,9 @@ public interface EntityState<I> {
      * @param releaseCommandValue optional of the command to execute when the input is released
      */
     void notifyInputRelease(I input, Optional<Command> releaseCommandValue);
+
+    /**
+     * @return the currentCommand of the entity state
+     */
     Optional<Command> getCurrentCommand();
 }
