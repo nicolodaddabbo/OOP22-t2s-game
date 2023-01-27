@@ -63,6 +63,12 @@ public class WorldFactoryImpl implements WorldFactory{
         }
 
         @Override
+        public void removeEntity(Entity e) {
+            this.entities.remove(e);       
+            this.engine.removeEntity(e);
+        }
+
+        @Override
         public void addPlayer(Entity player) {
             this.players.add(player);
             this.addEntity(player);
