@@ -1,8 +1,10 @@
 package it.unibo.t2sgame.game.model.impl;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.stream.Collectors;
 
 import it.unibo.t2sgame.common.Vector2D;
@@ -10,6 +12,7 @@ import it.unibo.t2sgame.core.components.api.CollisionComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.core.engine.impl.GameEngineImpl;
 import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.logics.api.Event;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
 import it.unibo.t2sgame.game.model.api.Wave;
 import it.unibo.t2sgame.game.model.api.World;
@@ -31,6 +34,7 @@ public class WorldFactoryImpl implements WorldFactory{
              * An Optional containing the current wave if present
              */
             private Optional<Wave> currentWave = Optional.empty();
+            private final Queue<Event> eventQueue = new LinkedList<>();
 
             @Override
             public Optional<Wave> getCurrentWave() {
@@ -84,7 +88,18 @@ public class WorldFactoryImpl implements WorldFactory{
             public GameEngine getEngine() {
                 return this.engine;
             }
-            
+
+            @Override
+            public void notifyEvent(final Event event) {
+                System.out.println("event");
+                this.eventQueue.add(event);
+            }
+
+            @Override
+            public void handleEvents() {
+                this.eventQueue.forEach(e -> e.execute(this));
+                this.eventQueue.clear();
+            }
             
         };
     }
