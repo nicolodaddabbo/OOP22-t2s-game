@@ -7,17 +7,21 @@ import it.unibo.t2sgame.input.api.Command;
 import it.unibo.t2sgame.input.api.EntityState;
 
 public class EntityStateImpl<I> implements EntityState<I> {
-    private final Map<I, Command> moveset;
+    /**
+     * Every state is a Command, and this Map is useful for 
+     * associate to every Input a state (i.e. command)
+     */
+    private final Map<I, Command> states;
     private Optional<Command> currentCommand;
 
-    public EntityStateImpl(final Map<I, Command> moveset) {
-        this.moveset = moveset;
+    public EntityStateImpl(final Map<I, Command> states) {
+        this.states = states;
         this.currentCommand = Optional.empty();
     }
 
     @Override
     public void notifyInput(final I input) {
-        this.currentCommand = this.moveset.containsKey(input) ? Optional.of(this.moveset.get(input)) : this.currentCommand;
+        this.currentCommand = this.states.containsKey(input) ? Optional.of(this.states.get(input)) : this.currentCommand;
     }
 
     @Override
@@ -25,7 +29,7 @@ public class EntityStateImpl<I> implements EntityState<I> {
         if (this.currentCommand.isEmpty()) {
             return;
         }
-        this.currentCommand = this.moveset.get(input) == this.currentCommand.get() ? releaseCommandValue : this.currentCommand;
+        this.currentCommand = this.states.get(input) == this.currentCommand.get() ? releaseCommandValue : this.currentCommand;
     }
 
     @Override
