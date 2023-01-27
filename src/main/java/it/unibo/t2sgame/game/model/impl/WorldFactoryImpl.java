@@ -1,6 +1,7 @@
 package it.unibo.t2sgame.game.model.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -43,12 +44,12 @@ public class WorldFactoryImpl implements WorldFactory{
 
         @Override
         public List<Entity> getPlayers() {
-            return this.players;
+            return new ArrayList<>(this.players);
         }
 
         @Override
         public List<Entity> getEntities() {
-            return this.entities;
+            return new ArrayList<>(this.entities);
         }
 
         @Override
