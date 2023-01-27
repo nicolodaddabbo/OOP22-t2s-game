@@ -10,7 +10,7 @@ import it.unibo.t2sgame.core.components.impl.GraphicComponentFactoryImpl;
 import it.unibo.t2sgame.core.components.impl.HealthComponent;
 import it.unibo.t2sgame.core.components.impl.InputComponentFactoryImpl;
 import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
-import it.unibo.t2sgame.core.components.impl.ShootComponentImpl;
+import it.unibo.t2sgame.core.components.impl.ShootComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.core.entity.impl.EntityImpl;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
@@ -29,7 +29,7 @@ public class EntityFactoryImpl implements EntityFactory {
             .addComponent(new CollisionComponent(new Rectangle(position, 60, 80), false))
             .addComponent(this.graphicFactory.getPlayerGraphicComponent())
             .addComponent(new HealthComponent(3))
-            .addComponent(new ShootComponentImpl(1));
+            .addComponent(new ShootComponent(1));
     }
 
     @Override
