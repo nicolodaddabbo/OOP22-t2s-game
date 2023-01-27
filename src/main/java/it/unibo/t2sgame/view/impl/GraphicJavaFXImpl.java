@@ -24,7 +24,11 @@ public class GraphicJavaFXImpl implements Graphic{
 
     @Override
     public void drawProjectile(Entity projectile) {
+        var projectile_x = projectile.getPosition().getX();         
+        var projectile_y = projectile.getPosition().getY();          
         
+        gc.setFill(Color.WHITE);         
+        gc.fillOval(projectile_x, projectile_y, 30, 30);
     }
 
     @Override
