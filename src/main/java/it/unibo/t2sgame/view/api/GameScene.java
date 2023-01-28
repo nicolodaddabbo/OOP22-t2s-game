@@ -21,4 +21,6 @@ public interface GameScene extends BaseScene{
      * @param game
      */
     void setGame(Game game);
+
+    Graphic getGraphic();
 }

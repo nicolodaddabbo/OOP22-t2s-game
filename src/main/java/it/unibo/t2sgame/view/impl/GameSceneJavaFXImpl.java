@@ -2,6 +2,7 @@ package it.unibo.t2sgame.view.impl;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -13,6 +14,7 @@ import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.view.api.GameScene;
+import it.unibo.t2sgame.view.api.Graphic;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -78,17 +80,8 @@ public class GameSceneJavaFXImpl implements GameScene {
     }
 
     @Override
-    public void render() {
-        
-        /**
-         * This code is here just for testing purposes
-         */
-        this.game.getWorld().getPlayers().get(0)
-            .getComponent(InputComponent.class)
-            .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController());
-            
+    public void render() {    
         Platform.runLater(() -> {
-
             gContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             this.game.getWorld().getEntities().forEach(entity -> entity
                 .getComponent(GraphicComponent.class)
@@ -111,10 +104,21 @@ public class GameSceneJavaFXImpl implements GameScene {
 
     public void setGame(Game game){
         this.game = game;
+
+        /**
+         * This code is here just for testing purposes
+         */
+        this.game.getWorld().getPlayers().get(0)
+            .getComponent(InputComponent.class)
+            .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController());
     }
 
     private void close(){
         Platform.exit();
         System.exit(0);
+    }
+
+    public Graphic getGraphic(){
+        return this.graphic;
     }
 }
