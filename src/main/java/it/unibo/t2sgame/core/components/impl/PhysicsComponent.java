@@ -2,7 +2,6 @@ package it.unibo.t2sgame.core.components.impl;
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.components.api.AbstractComponent;
 import it.unibo.t2sgame.core.components.api.Message;
-import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.input.api.Directions;
 
 
@@ -63,16 +62,6 @@ public class PhysicsComponent extends AbstractComponent {
                 this.setVelocity(new Vector2D(0, 0));
                 break;
         }
-    }
-
-    @Override
-    public Entity getEntity() {
-        return this.entity;
-    }
-
-    @Override
-    public void setEntity(final Entity entity) {
-        this.entity = entity;
     }
 
     public double getConvertedSpeed() {
