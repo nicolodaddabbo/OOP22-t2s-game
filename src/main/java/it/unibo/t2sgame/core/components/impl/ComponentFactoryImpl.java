@@ -9,8 +9,8 @@ import it.unibo.t2sgame.input.api.InputController;
 public class ComponentFactoryImpl implements ComponentFactory {
 
     @Override
-    public Component createInputComponentFrom(InputController inputController) {
-        return null;
+    public Component createInputComponentFrom(final InputController inputController) {
+        return new InputComponent(inputController);
     }
 
     @Override

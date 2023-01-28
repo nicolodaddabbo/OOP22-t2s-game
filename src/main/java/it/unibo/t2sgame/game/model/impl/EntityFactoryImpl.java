@@ -5,23 +5,22 @@ import it.unibo.t2sgame.common.shapes.Circle;
 import it.unibo.t2sgame.common.shapes.Rectangle;
 import it.unibo.t2sgame.core.components.api.ComponentFactory;
 import it.unibo.t2sgame.core.components.api.GraphicComponentFactory;
-import it.unibo.t2sgame.core.components.api.InputComponentFactory;
 import it.unibo.t2sgame.core.components.impl.CollisionComponent;
 import it.unibo.t2sgame.core.components.impl.ComponentFactoryImpl;
 import it.unibo.t2sgame.core.components.impl.DamageComponent;
 import it.unibo.t2sgame.core.components.impl.GraphicComponentFactoryImpl;
 import it.unibo.t2sgame.core.components.impl.HealthComponent;
-import it.unibo.t2sgame.core.components.impl.InputComponentFactoryImpl;
 import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.core.components.impl.ShootComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.core.entity.impl.EntityImpl;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
 import it.unibo.t2sgame.input.api.Directions;
+import it.unibo.t2sgame.input.impl.BasicEnemyAIInputController;
+import it.unibo.t2sgame.input.impl.KeyboardInputController;
 
 public class EntityFactoryImpl implements EntityFactory {
 
-    private final InputComponentFactory inputFactory = new InputComponentFactoryImpl();
     private final GraphicComponentFactory graphicFactory = new GraphicComponentFactoryImpl();
 
     private final ComponentFactory componentFactory = new ComponentFactoryImpl();
@@ -29,7 +28,7 @@ public class EntityFactoryImpl implements EntityFactory {
     @Override
     public Entity createPlayer(final Vector2D position) {
         return new EntityImpl(position)
-            .addComponent(this.inputFactory.createKeyboardInputComponent())
+            .addComponent(this.componentFactory.createInputComponentFrom(new KeyboardInputController()))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(1))
             .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 80), false))
             .addComponent(this.componentFactory.createHealthComponentFrom(3))
@@ -49,7 +48,7 @@ public class EntityFactoryImpl implements EntityFactory {
     @Override
     public Entity createBaseEnemy(final Vector2D position) {
         return new EntityImpl(position)
-            .addComponent(this.inputFactory.createBasicEnemyAIInputComponent())
+            .addComponent(this.componentFactory.createInputComponentFrom(new BasicEnemyAIInputController()))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(0.25))
             .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 80), false))
             .addComponent(this.componentFactory.createDamageComponentFrom(1, 1))
