@@ -35,7 +35,7 @@ public class Circle implements Shape {
 
     @Override
     public boolean isColliding(final Circle circle) {
-        return this.center.distance(circle.getCenter()) <= this.radius+circle.getRadius();
+        return this.center.distance(circle.getCenter()) < this.radius+circle.getRadius();
     }
 
     /**
