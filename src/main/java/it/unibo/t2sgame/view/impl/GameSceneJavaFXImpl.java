@@ -108,9 +108,9 @@ public class GameSceneJavaFXImpl implements GameScene {
         /**
          * This code is here just for testing purposes
          */
-        this.game.getWorld().getPlayers().get(0)
+        /*this.game.getWorld().getPlayers().get(0)
             .getComponent(InputComponent.class)
-            .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController());
+            .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController()); */
     }
 
     private void close(){
@@ -120,5 +120,9 @@ public class GameSceneJavaFXImpl implements GameScene {
 
     public Graphic getGraphic(){
         return this.graphic;
+    }
+
+    public void setInputController(KeyboardInputController keyInController){
+        this.keyInController = keyInController;
     }
 }

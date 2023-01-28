@@ -23,4 +23,6 @@ public interface GameScene extends BaseScene{
     void setGame(Game game);
 
     Graphic getGraphic();
+
+    void setInputController(KeyboardInputController keyInController);
 }
