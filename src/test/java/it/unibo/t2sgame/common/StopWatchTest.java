@@ -8,36 +8,54 @@ import org.junit.jupiter.api.Test;
 public class StopWatchTest {
 
     @Test
-    void testStopWatch() {
+    void testElapsedSeconds() {
         StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-        //Testing making the stopwatch pass 1 second
         double elapsed;
-        while((elapsed = stopWatch.getElapsedSeconds()) < 1){}
-        assertEquals(1, elapsed);
-        stopWatch.restart();
-        //Testing making the stopwatch pass 500 millisecond
-        while((elapsed = stopWatch.getElapsedMillis()) < 500){}
-        assertEquals(500, elapsed);
-        stopWatch.restart();
-        //Testing making the stopwatch pass 500000 nanosecond
-        while((elapsed = stopWatch.getElapsedNanos()) < 500000){}
-        assertEquals(500000, elapsed);
+        double seconds = 1;
+        stopWatch.start();
+        while((elapsed = stopWatch.getElapsedSeconds()) < seconds){}
+        assertEquals(seconds, elapsed);
     }
 
     @Test
-    void testStopWatchExceptions() {
+    void testElapsedMilliseconds() {
+        StopWatch stopWatch = new StopWatch();
+        double elapsed;
+        double milliseconds = 500;
+        stopWatch.start();
+        while((elapsed = stopWatch.getElapsedMillis()) < milliseconds){}
+        assertEquals(milliseconds, elapsed);
+    }
+
+    @Test
+    void testElapsedNanoseconds() {
+        StopWatch stopWatch = new StopWatch();
+        long elapsed;
+        long nanoseconds = 500000;
+        stopWatch.start();
+        while((elapsed = stopWatch.getElapsedNanos()) < nanoseconds){}
+        assertEquals(nanoseconds, elapsed);
+    }
+
+    @Test
+    void testStartingStopwatchWhileRunningThrowsException() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        //Testing if starting the stopwatch while already running throws expected exception
         Exception exception = assertThrows(IllegalStateException.class, () -> stopWatch.start());
         assertEquals("Stopwatch is already running", exception.getMessage());
-        stopWatch.stop();
-        //Testing if stopping the stopwatch while not running throws expected exception
-        exception = assertThrows(IllegalStateException.class, () -> stopWatch.stop());
+    }
+
+    @Test
+    void testStoppingStopwatchWhileNotRunningThrowsException() {
+        StopWatch stopWatch = new StopWatch();
+        Exception exception = assertThrows(IllegalStateException.class, () -> stopWatch.stop());
         assertEquals("Stopwatch is not running", exception.getMessage());
-        //Testing if restarting the stopwatch while not running throws expected exception
-        exception = assertThrows(IllegalStateException.class, () -> stopWatch.restart());
+    }
+
+    @Test
+    void testRestartingStopwatchWhileNotRunningThrowsException() {
+        StopWatch stopWatch = new StopWatch();
+        Exception exception = assertThrows(IllegalStateException.class, () -> stopWatch.restart());
         assertEquals("Stopwatch is not running", exception.getMessage());
     }
     
