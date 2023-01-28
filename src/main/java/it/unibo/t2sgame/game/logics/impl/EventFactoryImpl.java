@@ -16,7 +16,10 @@ public class EventFactoryImpl implements EventFactory {
 
     @Override
     public Event onDeathEvent(final Entity entity) {
-        return world -> world.removeEntity(entity);
+        return world -> {
+            world.removeEntity(entity);
+            world.getCurrentWave().ifPresent(w -> w.getEnemies().remove(entity));
+        };
     }
 
 }
