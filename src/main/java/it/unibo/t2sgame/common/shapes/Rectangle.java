@@ -8,6 +8,12 @@ public class Rectangle implements Shape{
     private double width;
     private double height;
 
+    /**
+     * 
+     * @param center the center of the rectangle
+     * @param width the width of the rectangle
+     * @param height the height of the rectangle
+     */
     public Rectangle(final Vector2D center, final double width, final double height){
         this.center = center;
         this.width = width;
@@ -24,18 +30,34 @@ public class Rectangle implements Shape{
         this.center = center;
     }
 
+    /**
+     * 
+     * @return width of the rectangle
+     */
     public double getWidth() {
         return this.width;
     }
 
+    /**
+     * 
+     * @param width the new width of the rectangle
+     */
     public void setWidth(final double width) {
         this.width = width;
     }
 
+    /**
+     * 
+     * @return height of the rectangle
+     */
     public double getHeight() {
         return this.height;
     }
 
+    /**
+     * 
+     * @param height the new height of the rectangle
+     */
     public void setHeight(final double height) {
         this.height = height;
     }

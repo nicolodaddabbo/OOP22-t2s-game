@@ -7,6 +7,11 @@ public class Circle implements Shape {
     private Vector2D center;
     private double radius;
 
+    /**
+     * 
+     * @param center the center of the circle
+     * @param radius the radius of the circle
+     */
     public Circle(final Vector2D center, final double radius) {
         this.center = center;
         this.radius = radius;
@@ -22,10 +27,18 @@ public class Circle implements Shape {
         this.center = center;
     }
 
+    /**
+     * 
+     * @return the radius of the circle
+     */
     public double getRadius() {
         return this.radius;
     }
 
+    /**
+     * 
+     * @param radius the new radius of the circle
+     */
     public void setRadius(final double radius) {
         this.radius = radius;
     }

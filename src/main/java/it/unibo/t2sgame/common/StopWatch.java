@@ -10,6 +10,7 @@ public class StopWatch {
 
     /**
      * This method <strong>starts</strong> the stopwatch.
+     * @return this started stopwatch
      * @throws IllegalStateException if the stopwatch is already running
      */
     public StopWatch start() throws IllegalStateException{
