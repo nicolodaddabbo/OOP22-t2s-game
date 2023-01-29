@@ -12,10 +12,12 @@ public class Circle implements Shape {
         this.radius = radius;
     }
 
+    @Override
     public Vector2D getCenter() {
         return this.center;
     }
 
+    @Override
     public void setCenter(final Vector2D center) {
         this.center = center;
     }

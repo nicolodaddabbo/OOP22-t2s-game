@@ -14,6 +14,7 @@ public class Rectangle implements Shape{
         this.height = height;
     }
 
+    @Override
     public Vector2D getCenter() {
         return this.center;
     }

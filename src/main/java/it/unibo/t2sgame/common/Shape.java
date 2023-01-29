@@ -9,10 +9,14 @@ import it.unibo.t2sgame.common.shapes.Rectangle;
 public interface Shape {
     /**
      * 
+     * @return the center of the shape
+     */
+    Vector2D getCenter();
+    /**
+     * 
      * @param pos the new center's position
      */
     void setCenter(Vector2D pos);
-
     /**
      * Checking if the current shape is colliding with the given shape
      * @param shape the other shape to check if the current is colliding
