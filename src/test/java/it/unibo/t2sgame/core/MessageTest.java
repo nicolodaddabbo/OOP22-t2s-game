@@ -19,36 +19,32 @@ public class MessageTest {
 
     private ComponentFactory componentFactory = new ComponentFactoryImpl();
 
-    private Entity createEntityWithPhysics(){
-        Entity entity = new EntityImpl(new Vector2D(0,0));
-        entity.addComponent(this.componentFactory.createPhysicsComponentFrom(1));
+    private Entity entityWithPhysics(){
+        Entity entity = new EntityImpl(new Vector2D(0,0)).addComponent(this.componentFactory.createPhysicsComponentFrom(1));
         return entity;
     }
 
-    private Entity createEntityWithCollision(){
+    private Entity entityWithCollision(){
         var pos = new Vector2D(0,0);
-        Entity entity = new EntityImpl(pos);
-        entity.addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(pos, 0, 0), false));
+        Entity entity = new EntityImpl(pos).addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(pos, 0, 0), false));
         return entity;
     }
 
-    private Entity createEntityWithPhysicsAndCollision(){
+    private Entity entityWithPhysicsAndCollision(){
         var pos = new Vector2D(0,0);
-        Entity entity = new EntityImpl(pos);
-        entity.addComponent(this.componentFactory.createPhysicsComponentFrom(1))
+        Entity entity = new EntityImpl(pos).addComponent(this.componentFactory.createPhysicsComponentFrom(1))
             .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(pos, 0, 0), false));
         return entity;
     }
-    
-    private Entity createEntityWithHealth(){
-        Entity entity = new EntityImpl(new Vector2D(0,0));
-        entity.addComponent(this.componentFactory.createHealthComponentFrom(3));
+
+    private Entity entityWithHealth(){
+        Entity entity = new EntityImpl(new Vector2D(0,0)).addComponent(this.componentFactory.createHealthComponentFrom(3));
         return entity;
     }
 
     @Test
     void testPhysicsReceiveDirection(){
-        var entity = createEntityWithPhysics();
+        var entity = entityWithPhysics();
         entity.notifyComponent(PhysicsComponent.class, () -> Directions.UP);
         var physComponent = entity.getComponent(PhysicsComponent.class).get();
         physComponent.update();
@@ -57,7 +53,7 @@ public class MessageTest {
 
     @Test
     void testCollisionReceivePosition(){
-        var entity = createEntityWithCollision();
+        var entity = entityWithCollision();
         var pos = new Vector2D(5, 5);
         entity.notifyComponent(CollisionComponent.class, () -> pos);
         var collComponent = entity.getComponent(CollisionComponent.class).get();
@@ -66,7 +62,7 @@ public class MessageTest {
 
     @Test
     void testHealthReceiveDamage(){
-        var entity = createEntityWithHealth();
+        var entity = entityWithHealth();
         entity.notifyComponent(HealthComponent.class, () -> 2);
         var hpComponent = entity.getComponent(HealthComponent.class).get();
         assertEquals(1, hpComponent.getHealth());
@@ -74,7 +70,7 @@ public class MessageTest {
 
     @Test
     void testComunicationPhysicsWithCollision(){
-        var entity = createEntityWithPhysicsAndCollision();
+        var entity = entityWithPhysicsAndCollision();
         entity.notifyComponent(PhysicsComponent.class, () -> Directions.UP);
         var physComponent = entity.getComponent(PhysicsComponent.class).get();
         physComponent.update();
