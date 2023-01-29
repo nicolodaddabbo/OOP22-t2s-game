@@ -9,13 +9,13 @@ import it.unibo.t2sgame.core.components.api.AbstractComponent;
 import it.unibo.t2sgame.core.components.api.Message;
 import it.unibo.t2sgame.core.entity.api.Entity;
 
-public class CollisionComponent extends AbstractComponent {
+public abstract class CollisionComponent extends AbstractComponent {
 
-    private Set<CollisionComponent> collisions = new HashSet<>();
-    private final Shape shape;
-    private boolean isRigid;
+    protected Set<CollisionComponent> collisions = new HashSet<>();
+    protected final Shape shape;
+    protected boolean isRigid;
 
-    public CollisionComponent(Shape shape, boolean isRigid) {
+    protected CollisionComponent(Shape shape, boolean isRigid) {
         this.shape = shape;
         this.isRigid = isRigid;
     }
@@ -45,21 +45,25 @@ public class CollisionComponent extends AbstractComponent {
             if (isRigid || collision.isRigid()) {
                 this.knockBack(collision.getEntity());
             }
-            // Remove health to the touched entity
-            this.entity.getComponent(DamageComponent.class)
-                    .ifPresent(c -> {
-                        if (c.canDamage()) {
-                            collision.getEntity().notifyComponent(HealthComponent.class, c::getDamage);
-                        }
-                    });
-            // Remove health to this entity
-            collision.getEntity().getComponent(DamageComponent.class)
-                    .ifPresent(c -> {
-                        if (c.canDamage()) {
-                            this.entity.notifyComponent(HealthComponent.class, c::getDamage);
-                        }
-                    });
+            this.collisionAction(collision.getEntity());
         });
+    }
+
+    protected void collisionAction(Entity collisionEntity){
+        // Remove health to the touched entity
+        this.entity.getComponent(DamageComponent.class)
+            .ifPresent(c -> {
+                if (c.canDamage()) {
+                    collisionEntity.notifyComponent(HealthComponent.class, c::getDamage);
+                }
+            });
+        // Remove health to this entity
+        collisionEntity.getComponent(DamageComponent.class)
+            .ifPresent(c -> {
+                if (c.canDamage()) {
+                    this.entity.notifyComponent(HealthComponent.class, c::getDamage);
+                }
+            });
     }
 
     private void knockBack(Entity collisionEntity) {

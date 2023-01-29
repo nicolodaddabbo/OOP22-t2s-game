@@ -40,7 +40,7 @@ public class EntityFactoryImpl implements EntityFactory {
     public Entity createProjectile(final Vector2D position, final Directions direction) {
         return new EntityImpl(position)
             .addComponent(this.componentFactory.createPhysicsComponentFrom(1.5, direction))
-            .addComponent(this.componentFactory.createCollisionComponentFrom(new Circle(position, 30), false))
+            .addComponent(this.componentFactory.createProjectileCollisionComponentFrom(new Circle(position, 30), false))
             .addComponent(this.componentFactory.createDamageComponentFrom(1, 1))
             .addComponent(this.graphicFactory.getProjectileGraphicComponent());
     }

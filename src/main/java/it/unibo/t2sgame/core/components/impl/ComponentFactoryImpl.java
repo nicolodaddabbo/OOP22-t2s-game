@@ -25,7 +25,12 @@ public class ComponentFactoryImpl implements ComponentFactory {
 
     @Override
     public Component createCollisionComponentFrom(Shape shape, boolean isRigid) {
-        return new CollisionComponent(shape, isRigid);
+        return new BaseCollisionComponent(shape, isRigid);
+    }
+
+    @Override
+    public Component createProjectileCollisionComponentFrom(Shape shape, boolean isRigid) {
+        return new ProjectileCollisionComponent(shape, isRigid);
     }
 
     @Override

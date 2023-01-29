@@ -32,6 +32,13 @@ public interface ComponentFactory {
      */
     Component createCollisionComponentFrom(Shape shape, boolean isRigid);
     /**
+     * @param shape the shape of the bounding box
+     * @param isRigid a boolean representing the fact the entity is an solid form, so the entities 
+     *                which collide with it can't go through its body
+     * @return a collision component based on {@link shape} and {@link isRigid} wich destroys the entity on collision
+     */
+    Component createProjectileCollisionComponentFrom(Shape shape, boolean isRigid);
+    /**
      * @param health an integer represents the heal-points of the player
      * @return an health component based on {@link health} heal-points.
      */
