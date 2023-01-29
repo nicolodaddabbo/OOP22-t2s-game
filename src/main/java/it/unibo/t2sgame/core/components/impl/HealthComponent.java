@@ -33,6 +33,10 @@ public class HealthComponent extends AbstractComponent{
         return this.health;
     }
 
+    public void setHealth(final int health){
+        this.health = health;
+    }
+    
     private void notifyIfDead(){
         if(this.health == 0){
             this.entity.getWorld().ifPresent(world -> world.notifyEvent(this.eventFactory.onDeathEvent(this.entity)));
