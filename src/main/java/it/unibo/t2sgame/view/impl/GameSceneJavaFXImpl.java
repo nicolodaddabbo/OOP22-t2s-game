@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import it.unibo.t2sgame.core.components.api.GraphicComponent;
-import it.unibo.t2sgame.core.components.impl.HealthComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.game.Game;
+import it.unibo.t2sgame.game.components.HealthComponent;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.view.api.GameScene;
 import it.unibo.t2sgame.view.api.Graphic;

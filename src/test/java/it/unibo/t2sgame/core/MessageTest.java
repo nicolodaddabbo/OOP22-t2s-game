@@ -9,10 +9,10 @@ import it.unibo.t2sgame.common.shapes.Rectangle;
 import it.unibo.t2sgame.core.components.api.ComponentFactory;
 import it.unibo.t2sgame.core.components.impl.CollisionComponent;
 import it.unibo.t2sgame.core.components.impl.ComponentFactoryImpl;
-import it.unibo.t2sgame.core.components.impl.HealthComponent;
 import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.core.entity.impl.EntityImpl;
+import it.unibo.t2sgame.game.components.HealthComponent;
 import it.unibo.t2sgame.input.api.Directions;
 
 public class MessageTest {

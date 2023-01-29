@@ -3,6 +3,8 @@ package it.unibo.t2sgame.core.components.impl;
 import it.unibo.t2sgame.common.Shape;
 import it.unibo.t2sgame.core.components.api.Component;
 import it.unibo.t2sgame.core.components.api.ComponentFactory;
+import it.unibo.t2sgame.game.components.HealthComponent;
+import it.unibo.t2sgame.game.components.ShootComponent;
 import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
 

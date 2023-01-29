@@ -1,4 +1,4 @@
-package it.unibo.t2sgame.core.components.impl;
+package it.unibo.t2sgame.game.components;
 
 import it.unibo.t2sgame.core.components.api.AbstractComponent;
 import it.unibo.t2sgame.core.components.api.Message;
