@@ -1,8 +1,8 @@
 package it.unibo.t2sgame.core;
 
+import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.game.logics.api.Event;
-import it.unibo.t2sgame.view.api.GameScene;
 
 /**
  * An Enviroment is a entity's container.
@@ -14,6 +14,11 @@ public interface Enviroment {
      * Update the enviroment
      */
     public void update();
+    /**
+     * 
+     * @return the game engine contained in the enviroment
+     */
+    public GameEngine getEngine();
     /**
      * Add the entity {@link entity} to the enviroment.
      * The entity will automatically added to the related GameSystems
@@ -34,9 +39,4 @@ public interface Enviroment {
      * Handle all events generated from components
      */
     void handleEvents();
-    /**
-     * Set the scene to the enviroment
-     * @param scene
-     */
-    void setScene(GameScene scene);
 }
