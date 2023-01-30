@@ -1,8 +1,7 @@
 package it.unibo.t2sgame.core;
 
-import it.unibo.t2sgame.view.api.GameScene;
 
-public class AbstractGame {
+public abstract class AbstractGame {
     /**
      * The enviroment where the game's entitites will be stored
      */
@@ -11,23 +10,33 @@ public class AbstractGame {
      * The game's logics and state
      */
     private final State state;
-
-    public AbstractGame(Enviroment enviroment, State state, GameScene scene) {
+    /**
+     * Create a new game with the given {@link enviroment} and {@link state}
+     * @param enviroment 
+     * @param state
+     */
+    public AbstractGame(Enviroment enviroment, State state) {
         this.enviroment = enviroment;
         this.state = state;
         // Setting the scene to the engine
-        this.enviroment.setScene(scene);
         // Setting the enviroment to the scene
         // scene.setEnviroment(this.enviroment);
     }
 
     /**
      * Starting the game loop
+     * Start is a template method which depends on this.checkLogics() implementation
      */
     public void start(){
         while(!this.state.isOver()){
+            this.checkLogics();
             this.enviroment.update();
         }
     }
+    /**
+     * Abstract method which has to be ovveride in order
+     * to check the logics of the current game.
+     */
+    abstract public void checkLogics();
 
 }
