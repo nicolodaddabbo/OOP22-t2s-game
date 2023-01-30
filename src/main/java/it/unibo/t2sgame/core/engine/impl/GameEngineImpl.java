@@ -17,43 +17,34 @@ import it.unibo.t2sgame.core.systems.impl.GameSystemFactoryImpl;
 import it.unibo.t2sgame.view.api.GameScene;
 
 public class GameEngineImpl implements GameEngine {
-
-    /*
+    /**
      * This long indicates the period of frame creation in nanoseconds
      */
-    private static final long FRAME_PERIOD = (long) (7 * 1E6);
-    /*
+    private static final long NS_FRAME_PERIOD = (long) (7 * 1E6);
+    /**
      * This long indicates the perod of updating the states systems in nanoseconds
      */
     private static final long UPDATE_PERDIOD = (long) (7 * 1E6);
-    /*
+    /**
      * These systems are related to those which gives information usefull for
      * states systems.
      * These systems has to be called once during a game loop's cycle
      */
     private final List<GameSystem> initializers = new ArrayList<>();
-    /*
+    /**
      * These systems are related to those which updates the game time.
      * These systems would be called more times in a game loop's cycle, due to
      * the absence of a delta time step variable. 
      */
     private final List<GameSystem> states = new ArrayList<>();
-    /*
-     * This systems are related to the systems which has to be called after
-     * updates the state of the entities.
-     * In these field would be entered all related graphics domain systems.
-     */
-    private List<GameSystem> terminals = new ArrayList<>();
-    // A list of entities contained in the engine
-    private List<Entity> entities = new ArrayList<>(); 
     // A factory for creating GameSystems
-    private GameSystemFactory systemFactory = new GameSystemFactoryImpl(); 
+    private final GameSystemFactory systemFactory = new GameSystemFactoryImpl(); 
     // The scene where the GraphicsSystem has to render
-    private Optional<GameScene> scene = Optional.empty();
+    private  Optional<GameScene> scene = Optional.empty();
+    /*  Usefull to synchronize states systems and to wait for next frame */ 
+    private final StopWatch timer = new StopWatch().start();
     /* Represent the "gap" between game time and real time */
     private long lag = 0;
-    /*  Usefull to synchronize states systems and to wait for next frame */ 
-    private StopWatch timer = new StopWatch().start();
 
     /**
      * Creating a new istance of Engine class.
@@ -63,21 +54,16 @@ public class GameEngineImpl implements GameEngine {
         this.initializers.addAll(List.of(
             this.systemFactory.craeteInputSystem()
         ));
-
         this.states.addAll(List.of(
             this.systemFactory.createPhysicsSystem(),
             this.systemFactory.createCollisionSystem()
-        ));
-
-        this.terminals.addAll(List.of(
-           //this.systemFactory.createGraphicsSystem()
         ));
     }
 
     @Override
     public void update() {
         this.lag = this.lag + this.timer.getElapsedNanos();
-        this.timer.restart();
+            this.timer.restart();
         this.initializers.forEach(GameSystem::update); 
         /**
          *  This loop substitutes the usage of a delta time step 
@@ -91,67 +77,73 @@ public class GameEngineImpl implements GameEngine {
             this.states.forEach(GameSystem::update);
             this.lag = this.lag - UPDATE_PERDIOD;
         }
-        this.terminals.forEach(GameSystem::update);
         this.scene.ifPresent(GameScene::render);
         this.waitForNextFrame();
     }
 
     @Override
-    public GameEngine addEntity(Entity e) {
-        this.entities.add(e);
-        // Add the entity to the corresponding systems
-        this.getSystemsOf(e).forEach(s -> s.addComponent(e.getComponent(s.getType())));
+    public GameEngine addEntityToSystems(Entity entity) {
+        this.getSystemsOf(entity).forEach(s -> s.addComponent(entity.getComponent(s.getType())));
         return this;
     }
 
     @Override
-    public GameEngine removeEntity(Entity e) {
-        this.entities.remove(e);
-        // Remove the entity from the corresponding system
-        this.getSystemsOf(e).forEach(s -> s.removeComponent(e.getComponent(s.getType())));
+    public GameEngine removeEntityToSystems(Entity entity) {
+        this.getSystemsOf(entity).forEach(s -> s.removeComponent(entity.getComponent(s.getType())));
         return this;
     }
 
     @Override
     public Set<GameSystem> getSystems() {
-        return Stream.concat(Stream.concat(this.initializers.stream(),this.states.stream()), this.terminals.stream())
-            .collect(Collectors.toSet());
+        return Stream.concat(this.initializers.stream(), this.states.stream()).collect(Collectors.toSet());
     }
 
     @Override
     public <T extends Component> Optional<GameSystem> getSystem(Class<T> clazz) {
-        return this.getSystems().stream().filter(null).findFirst();
+        return this.getSystems().stream().filter(s -> s.checkType(clazz)).findFirst();
     }
 
-
-    @Override
-    public List<Entity> getEntities() {
-        return this.entities;
+    /**
+     * 
+     * @param entity the entity to known which systems contain it
+     * @return the systems which contains component related to {@link entity} 
+     * 
+     */
+    private Set<GameSystem> getSystemsOf(Entity entity){
+        return this.getSystems().stream().filter(s -> s.isMember(entity)).collect(Collectors.toSet());
     }
 
-    @Override
-    public void setScene(GameScene scene) {
-        this.scene = Optional.of(scene);        
-    }
-
-    private Set<GameSystem> getSystemsOf(Entity e){
-        return this.getSystems().stream().filter(s -> s.isMember(e)).collect(Collectors.toSet());
-    }
-
+    /**
+     * 
+     * @return true if states systems are synchronized with the real time,
+     * false otherwise
+     */
     private boolean isSync(){
         return this.lag < UPDATE_PERDIOD;
     }
 
+    /**
+     * A waiter function usefull to optimize performance.
+     * As soon as the thread has told to scene to render, it sleeps
+     * for a time which is equal to the frame period procession.
+     * This will cause an fps lock during the game loop.
+     */
     private void waitForNextFrame(){
-        var dt = this.timer.getElapsedNanos();
-        if(FRAME_PERIOD - dt > 0){
+        var timeToSleep = NS_FRAME_PERIOD - this.timer.getElapsedNanos();
+        if(timeToSleep > 0){
             try {
-                Thread.sleep((long) ((FRAME_PERIOD - dt) / 1E6));
+                // Sleeping time has to be converted in milliseconds
+                Thread.sleep((long) ((timeToSleep) / 1E6));
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 System.exit(1);
             }
         }
+    }
+
+    @Override
+    public void setScene(GameScene scene) {
+        this.scene = Optional.of(scene);        
     }
 
     
