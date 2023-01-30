@@ -20,23 +20,18 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GameSceneJavaFXImpl implements GameScene {
-
-    private Group root;
-    private Scene scene;
     private Canvas canvas;
     private KeyboardInputController keyInController;
     private Game game;
     private GraphicsContext gContext;
-    private GameEngine gameEngine;
     private GraphicJavaFXImpl graphic;
     private Map<String, Image> cachedSprites;
     private final Stage stage;
+    private GameEngine gameEngine;
     
     public GameSceneJavaFXImpl(Stage stage) {
         this.stage = stage;
@@ -44,25 +39,16 @@ public class GameSceneJavaFXImpl implements GameScene {
 
     @Override
     public void initialize() {
-        this.root = new Group();
+        var root = new Group();
         this.canvas = new Canvas(1200, 800);
         this.gContext = this.canvas.getGraphicsContext2D();
         this.graphic = new GraphicJavaFXImpl(this.gContext);
-        this.scene = new Scene(this.root, 1200, 800, Color.BLACK);
-        this.scene.setOnKeyPressed(event -> keyInController.notifyKeyPressed(event.getCode().getCode()));
-        this.scene.setOnKeyReleased(event -> keyInController.notifyKeyReleased(event.getCode().getCode()));
-        this.root.getChildren().add(this.canvas);
+        var scene = new Scene(root, 1200, 800, Color.BLACK);
+        scene.setOnKeyPressed(event -> keyInController.notifyKeyPressed(event.getCode().getCode()));
+        scene.setOnKeyReleased(event -> keyInController.notifyKeyReleased(event.getCode().getCode()));
+        root.getChildren().add(this.canvas);
         stage.setResizable(false);
-        stage.setScene(this.scene);
-        stage.setTitle("T2S-game");
-        stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
-            if(event.getCode().equals(KeyCode.ESCAPE)) {
-                this.close();
-            }    
-        });
-        stage.setOnCloseRequest(event -> {
-            this.close();
-        });    
+        stage.setScene(scene);  
         stage.centerOnScreen();
         stage.sizeToScene();
         storeSprites();
@@ -110,11 +96,6 @@ public class GameSceneJavaFXImpl implements GameScene {
         this.game.getWorld().getPlayers().get(0)
             .getComponent(InputComponent.class)
             .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController());
-    }
-
-    private void close(){
-        Platform.exit();
-        System.exit(0);
     }
 
     public Graphic getGraphic(){
