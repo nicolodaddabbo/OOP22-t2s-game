@@ -62,32 +62,5 @@ public class EntityImpl implements Entity {
     @Override
     public <T extends Component, S> void notifyComponent(Class<T> receiver, Message<S> message) {
         this.getComponent(receiver).ifPresent(c -> c.receive(message));
-    }
-    
-    @Override
-    public Entity clone(){
-        var entity = new EntityImpl(this.position);
-        this.components.forEach(entity::addComponent);
-        return entity;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        EntityImpl other = (EntityImpl) obj;
-        if (components == null) {
-            if (other.components != null)
-                return false;
-        } else if (!components.equals(other.components))
-            return false;
-        return true;
-    }
-
-    
-    
+    }  
 }

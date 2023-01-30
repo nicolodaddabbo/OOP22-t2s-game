@@ -57,9 +57,4 @@ public interface Entity {
      * @param message the message to send
      */
     <T extends Component, S> void  notifyComponent(Class<T> receiver, Message<S> message);
-    /**
-     * Method used to apply the Prototype pattern
-     * @return an exact copy of the Entity
-     */
-    Entity clone();
 }
