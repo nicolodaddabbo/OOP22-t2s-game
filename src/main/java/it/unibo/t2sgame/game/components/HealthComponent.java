@@ -39,7 +39,7 @@ public class HealthComponent extends AbstractComponent{
     
     private void notifyIfDead(){
         if(this.health == 0){
-            this.entity.getWorld().ifPresent(world -> world.notifyEvent(this.eventFactory.onDeathEvent(this.entity)));
+            this.entity.getEnviroment().ifPresent(e -> e.notifyEvent(this.eventFactory.onDeathEvent(this.entity)));
         }
     }
 }
