@@ -1,4 +1,4 @@
-package it.unibo.t2sgame.core.components.impl;
+package it.unibo.t2sgame.game.components;
 
 import it.unibo.t2sgame.common.StopWatch;
 import it.unibo.t2sgame.core.components.api.AbstractComponent;
@@ -11,7 +11,7 @@ public class DamageComponent extends AbstractComponent {
     private final StopWatch timer = new StopWatch().start();
 
     public DamageComponent(int damage, double cooldown) {
-        this.damage = damage;
+        this.setDamage(damage);
         this.cooldown = cooldown;
     }
 
