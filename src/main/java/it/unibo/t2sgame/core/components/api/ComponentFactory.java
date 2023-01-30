@@ -1,6 +1,7 @@
 package it.unibo.t2sgame.core.components.api;
 
 import it.unibo.t2sgame.common.Shape;
+import it.unibo.t2sgame.core.components.impl.GraphicComponent;
 import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
 
@@ -54,5 +55,21 @@ public interface ComponentFactory {
      * @return a damage component based on {@link damage} and {@link cooldown}
      */
     Component createDamageComponentFrom(int damage , double cooldown);
+
+    /**
+     * 
+     * @return the Graphic component of a player Entity
+     */
+    GraphicComponent createPlayerGraphicComponent();
+    /**
+     * 
+     * @return the Graphic component of a projectile Entity
+     */
+    GraphicComponent createProjectileGraphicComponent();
+    /**
+     * 
+     * @return the Graphic component of a basic enemy Entity
+     */
+    GraphicComponent createBaseEnemyGraphicComponent();
     
 }

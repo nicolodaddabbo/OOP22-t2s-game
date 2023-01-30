@@ -5,8 +5,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import it.unibo.t2sgame.core.components.api.Component;
-import it.unibo.t2sgame.core.components.api.GraphicComponent;
 import it.unibo.t2sgame.core.components.impl.CollisionComponent;
+import it.unibo.t2sgame.core.components.impl.GraphicComponent;
 import it.unibo.t2sgame.core.components.impl.InputComponent;
 import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;

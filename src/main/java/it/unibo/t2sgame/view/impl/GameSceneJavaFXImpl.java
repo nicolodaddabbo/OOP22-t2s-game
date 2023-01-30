@@ -2,12 +2,12 @@ package it.unibo.t2sgame.view.impl;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import it.unibo.t2sgame.core.components.api.GraphicComponent;
+import it.unibo.t2sgame.core.components.impl.GraphicComponent;
+import it.unibo.t2sgame.core.components.impl.InputComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.game.components.HealthComponent;
@@ -107,9 +107,9 @@ public class GameSceneJavaFXImpl implements GameScene {
         /**
          * This code is here just for testing purposes
          */
-        /*this.game.getWorld().getPlayers().get(0)
+        this.game.getWorld().getPlayers().get(0)
             .getComponent(InputComponent.class)
-            .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController()); */
+            .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController());
     }
 
     private void close(){
