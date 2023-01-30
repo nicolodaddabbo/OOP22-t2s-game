@@ -1,6 +1,5 @@
 package it.unibo.t2sgame;
 
-import it.unibo.t2sgame.view.impl.SceneFactoryJavaFXImpl;
 import it.unibo.t2sgame.view.impl.WindowJavaFX;
 import javafx.application.Application;
 import javafx.stage.Stage;
