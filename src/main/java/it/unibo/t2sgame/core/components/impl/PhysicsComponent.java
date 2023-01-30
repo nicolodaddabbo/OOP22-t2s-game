@@ -35,16 +35,13 @@ public class PhysicsComponent extends AbstractComponent {
     }
 
     @Override
-    public <T> void receive(Message<T> message) {
-        try{
-            Directions d = (Directions)message.getMessage();
-            this.receiveDirection(d);
-        }catch(ClassCastException e){
-            e.printStackTrace();
+    public <T> void receive(final Message<T> message) {
+        if(Directions.class.isInstance(message.getMessage())){
+            this.receiveDirection(Directions.class.cast(message.getMessage()));
         }
     }
 
-    private void receiveDirection(Directions direction) {
+    private void receiveDirection(final Directions direction) {
         switch(direction){
             case UP:
                 this.setVelocity(new Vector2D(0, -1));
@@ -72,7 +69,7 @@ public class PhysicsComponent extends AbstractComponent {
         return this.velocity;
     }
 
-    public void setVelocity(Vector2D velocity) {
+    public void setVelocity(final Vector2D velocity) {
         this.velocity = velocity;        
     }
 
@@ -80,7 +77,7 @@ public class PhysicsComponent extends AbstractComponent {
         return this.speed;
     }
 
-    public void setSpeed(double speed) {
+    public void setSpeed(final double speed) {
         this.speed = speed;
     }
     

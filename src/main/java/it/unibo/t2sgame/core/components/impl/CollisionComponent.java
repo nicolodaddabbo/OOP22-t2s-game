@@ -8,32 +8,27 @@ import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.components.api.AbstractComponent;
 import it.unibo.t2sgame.core.components.api.Message;
 import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.game.components.HealthComponent;
 
 public abstract class CollisionComponent extends AbstractComponent {
 
     protected Set<CollisionComponent> collisions = new HashSet<>();
     protected final Shape shape;
-    protected boolean isRigid;
+    protected final boolean isRigid;
 
-    protected CollisionComponent(Shape shape, boolean isRigid) {
+    protected CollisionComponent(final Shape shape, final boolean isRigid) {
         this.shape = shape;
         this.isRigid = isRigid;
     }
 
     @Override
-    public <T> void receive(Message<T> message) {
-        try {
-            Vector2D pos = (Vector2D) message.getMessage();
-            receiveFromPhysicComponent(pos);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
+    public <T> void receive(final Message<T> message) {
+        if(Vector2D.class.isInstance(message.getMessage())){
+            this.receiveFromPhysicComponent(Vector2D.class.cast(message.getMessage()));
         }
     }
 
     private void receiveFromPhysicComponent(final Vector2D pos) {
-        shape.setCenter(pos);
+        this.shape.setCenter(pos);
     }
 
     @Override
@@ -43,31 +38,16 @@ public abstract class CollisionComponent extends AbstractComponent {
         .filter(collision -> shape.isColliding(collision.getShape()))
         // Notify to the health component every collision which has been checked as true
         .forEach(collision -> {
-            if (isRigid || collision.isRigid()) {
+            if (this.isRigid || collision.isRigid()) {
                 this.knockBack(collision.getEntity());
             }
             this.collisionAction(collision.getEntity());
         });
     }
 
-    protected void collisionAction(Entity collisionEntity){
-        // Remove health to the touched entity
-        this.entity.getComponent(DamageComponent.class)
-            .ifPresent(c -> {
-                if (c.canDamage()) {
-                    collisionEntity.notifyComponent(HealthComponent.class, c::getDamage);
-                }
-            });
-        // Remove health to this entity
-        collisionEntity.getComponent(DamageComponent.class)
-            .ifPresent(c -> {
-                if (c.canDamage()) {
-                    this.entity.notifyComponent(HealthComponent.class, c::getDamage);
-                }
-            });
-    }
+    protected abstract void collisionAction(Entity collisionEntity);
 
-    private void knockBack(Entity collisionEntity) {
+    private void knockBack(final Entity collisionEntity) {
         collisionEntity.getComponent(PhysicsComponent.class).ifPresent(phycmp -> collisionEntity
                 .setPosition(collisionEntity.getPosition().sub(phycmp.getVelocity().mul(phycmp.getConvertedSpeed()))));
         this.entity.getComponent(PhysicsComponent.class).ifPresent(phycmp -> this.entity
@@ -75,23 +55,22 @@ public abstract class CollisionComponent extends AbstractComponent {
     }
 
     public Shape getShape() {
-        return shape;
+        return this.shape;
     }
 
     public boolean isRigid() {
-        return isRigid;
+        return this.isRigid;
     }
 
     public Set<CollisionComponent> getCollisions() {
         return new HashSet<>(this.collisions);
     }
 
-    public void addCollision(CollisionComponent c) {
-        this.collisions.add(c);
-
+    public void addCollision(final CollisionComponent component) {
+        this.collisions.add(component);
     }
 
-    public void setCollisions(Set<CollisionComponent> collisions) {
+    public void setCollisions(final Set<CollisionComponent> collisions) {
         this.collisions = new HashSet<>(collisions);
     }
 

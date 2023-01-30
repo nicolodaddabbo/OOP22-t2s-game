@@ -1,15 +1,15 @@
-package it.unibo.t2sgame.core.components.impl;
+package it.unibo.t2sgame.game.components;
 
 import it.unibo.t2sgame.common.Shape;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.game.logics.api.EventFactory;
 import it.unibo.t2sgame.game.logics.impl.EventFactoryImpl;
 
-public class ProjectileCollisionComponent extends CollisionComponent {
+public class ProjectileCollisionComponent extends BaseCollisionComponent {
 
     private EventFactory eventFactory = new EventFactoryImpl();
 
-    protected ProjectileCollisionComponent(Shape shape, boolean isRigid) {
+    public ProjectileCollisionComponent(Shape shape, boolean isRigid) {
         super(shape, isRigid);
     }
 
