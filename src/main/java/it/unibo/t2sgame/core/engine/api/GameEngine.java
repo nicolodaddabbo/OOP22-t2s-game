@@ -22,12 +22,6 @@ public interface GameEngine {
      */
     void update(); 
     /**
-     * Get the entities contained in the engine
-     * 
-     * @return the entities contained in the engine
-     */
-    List<Entity> getEntities();
-    /**
      * Add an entity to the engine.
      * Once added, this entity is automatically associated with its
      * related GameSystems, based on the component that it has.
@@ -36,7 +30,7 @@ public interface GameEngine {
      * 
      * @return this
      */
-    GameEngine addEntity(Entity e);
+    GameEngine addEntityToSystems(Entity entity);
     /**
      * Remove the entity from the engine.
      * Once removed, this entity is automatically removed from its
@@ -44,7 +38,7 @@ public interface GameEngine {
      * @param e
      * @return
      */
-    GameEngine removeEntity(Entity e);
+    GameEngine removeEntityToSystems(Entity entity);
     /**
      * Get the GameSystems added to the engine
      * 
@@ -62,9 +56,7 @@ public interface GameEngine {
      * otherwise an empty Optional
      */
     <T extends Component> Optional<GameSystem> getSystem(Class<T> clazz); 
-    /**
-     * Set the scene to be rendered by the Graphics System
-     * @param scene
-     */
-    void setScene(GameScene scene);    
+
+    
+    public void setScene(GameScene scene);
 }
