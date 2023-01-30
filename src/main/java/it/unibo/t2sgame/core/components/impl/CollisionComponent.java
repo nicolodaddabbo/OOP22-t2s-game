@@ -15,19 +15,15 @@ public abstract class CollisionComponent extends AbstractComponent {
     protected final Shape shape;
     protected final boolean isRigid;
 
-    protected CollisionComponent(Shape shape, boolean isRigid) {
+    protected CollisionComponent(final Shape shape, final boolean isRigid) {
         this.shape = shape;
         this.isRigid = isRigid;
     }
 
     @Override
-    public <T> void receive(Message<T> message) {
-        try {
-            Vector2D pos = (Vector2D) message.getMessage();
-            receiveFromPhysicComponent(pos);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
+    public <T> void receive(final Message<T> message) {
+        if(Vector2D.class.isInstance(message.getMessage())){
+            this.receiveFromPhysicComponent(Vector2D.class.cast(message.getMessage()));
         }
     }
 
@@ -51,7 +47,7 @@ public abstract class CollisionComponent extends AbstractComponent {
 
     protected abstract void collisionAction(Entity collisionEntity);
 
-    private void knockBack(Entity collisionEntity) {
+    private void knockBack(final Entity collisionEntity) {
         collisionEntity.getComponent(PhysicsComponent.class).ifPresent(phycmp -> collisionEntity
                 .setPosition(collisionEntity.getPosition().sub(phycmp.getVelocity().mul(phycmp.getConvertedSpeed()))));
         this.entity.getComponent(PhysicsComponent.class).ifPresent(phycmp -> this.entity
@@ -70,11 +66,11 @@ public abstract class CollisionComponent extends AbstractComponent {
         return new HashSet<>(this.collisions);
     }
 
-    public void addCollision(CollisionComponent component) {
+    public void addCollision(final CollisionComponent component) {
         this.collisions.add(component);
     }
 
-    public void setCollisions(Set<CollisionComponent> collisions) {
+    public void setCollisions(final Set<CollisionComponent> collisions) {
         this.collisions = new HashSet<>(collisions);
     }
 
