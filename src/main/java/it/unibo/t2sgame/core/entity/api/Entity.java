@@ -1,9 +1,8 @@
 package it.unibo.t2sgame.core.entity.api;
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.core.Enviroment;
 import it.unibo.t2sgame.core.components.api.Component;
 import it.unibo.t2sgame.core.components.api.Message;
-
+import it.unibo.t2sgame.game.model.api.World;
 
 import java.util.Optional;
 import java.util.Set;
@@ -42,14 +41,14 @@ public interface Entity {
     void setPosition(Vector2D position);
     /**
      * 
-     * @return enviroment the enviroment where the entity is placed
+     * @return world the enviroment where the entity is placed
      */
-    Optional<Enviroment> getEnviroment();
+    Optional<World> getWorld();
     /**
      * 
-     * @param enviroment the enviroment where the entity is placed
+     * @param world the world where the entity is placed
      */
-    void setEnviroment(Enviroment enviroment);
+    void setWorld(World world);
     /**
      * This method is used to notify the components of the entity.
      * @param <T> T is the type of the receiver 
