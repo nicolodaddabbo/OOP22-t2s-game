@@ -1,24 +1,20 @@
 package it.unibo.t2sgame.game.components;
 
+import java.util.List;
+
 import it.unibo.t2sgame.common.Shape;
 import it.unibo.t2sgame.core.components.impl.CollisionComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.components.TypeComponent.Type;
 
 public class BaseCollisionComponent extends CollisionComponent {
 
-    public BaseCollisionComponent(Shape shape, boolean isRigid) {
-        super(shape, isRigid);
+    public BaseCollisionComponent(Shape shape, boolean isRigid , List<Type> types) {
+        super(shape, isRigid, types);
     }
 
     @Override
     protected void collisionAction(Entity collisionEntity) {
-        // Remove health to the touched entity
-        this.entity.getComponent(DamageComponent.class)
-            .ifPresent(c -> {
-                if (c.canDamage()) {
-                    collisionEntity.notifyComponent(HealthComponent.class, c::getDamage);
-                }
-            });
         // Remove health to this entity
         collisionEntity.getComponent(DamageComponent.class)
             .ifPresent(c -> {
