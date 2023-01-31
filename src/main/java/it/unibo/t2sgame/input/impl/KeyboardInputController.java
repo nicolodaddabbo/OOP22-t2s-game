@@ -56,8 +56,8 @@ public class KeyboardInputController implements InputController {
     }
 
     @Override
-    public Optional<Command> getCommand() {
-        return this.commandsQueue.isEmpty() ? Optional.empty() : Optional.of(this.commandsQueue.poll());
+    public Queue<Command> getCommandsQueue() {
+        return this.commandsQueue;
     }
     
 }
