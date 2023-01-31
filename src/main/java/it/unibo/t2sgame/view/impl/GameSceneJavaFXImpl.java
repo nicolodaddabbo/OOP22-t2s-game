@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 public class GameSceneJavaFXImpl implements GameScene {
     private Canvas canvas;
     private KeyboardInputController keyInController;
-    private Game game;
     private GraphicsContext gContext;
     private GraphicJavaFXImpl graphic;
     private Map<String, Image> cachedSprites;
@@ -65,17 +64,20 @@ public class GameSceneJavaFXImpl implements GameScene {
     }
 
     @Override
-    public void render() {    
+    public void render() {
+        /**
+         * This code is here just for testing purposes
+         */
+        this.getGame().getWorld().getPlayers().get(0)
+            .getComponent(InputComponent.class)
+            .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController()); 
+
         Platform.runLater(() -> {
             gContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            this.game.getWorld().getEntities().forEach(entity -> entity
-                .getComponent(GraphicComponent.class)
-                .ifPresent(gc -> {
-                    gc.setGraphics(graphic);
-                    gc.update();
-                }));     
+            this.gameEngine.getComponents(GraphicComponent.class).forEach(c -> c.setGraphics(this.graphic));
+            this.gameEngine.updateComponentBy(GraphicComponent.class);   
            
-            var health = (game.getWorld().getPlayers().get(0).getComponent(HealthComponent.class).get()).getHealth();
+            var health = (this.getGame().getWorld().getPlayers().get(0).getComponent(HealthComponent.class).get()).getHealth();
             Stream.iterate(0, i -> i + 1)
                 .limit(health)
                 .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 50*n, 0, 40, 40));
@@ -87,15 +89,8 @@ public class GameSceneJavaFXImpl implements GameScene {
         this.gameEngine =  gameEngine;
     }
 
-    public void setGame(Game game){
-        this.game = game;
-
-        /**
-         * This code is here just for testing purposes
-         */
-        this.game.getWorld().getPlayers().get(0)
-            .getComponent(InputComponent.class)
-            .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController());
+    public Game getGame(){
+        return this.gameEngine.getGame();
     }
 
     public Graphic getGraphic(){

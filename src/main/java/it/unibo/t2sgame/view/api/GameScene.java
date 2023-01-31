@@ -16,11 +16,8 @@ public interface GameScene extends BaseScene{
      * @param gameEngine
      */
     void setEngine(GameEngine gameEngine);
-    /**
-     * 
-     * @param game
-     */
-    void setGame(Game game);
+
+    Game getGame();
 
     Graphic getGraphic();
 
