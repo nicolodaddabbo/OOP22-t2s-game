@@ -16,7 +16,7 @@ public class ProjectileCollisionComponent extends BaseCollisionComponent {
     @Override
     protected void collisionAction(Entity entity) {
         super.collisionAction(entity);
-        this.entity.getEnviroment().ifPresent(e -> e.notifyEvent(this.eventFactory.onDeathEvent(this.entity)));
+        this.entity.getWorld().ifPresent(e -> e.notifyEvent(this.eventFactory.onDeathEvent(this.entity)));
     }
     
 }
