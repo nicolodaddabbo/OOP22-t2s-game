@@ -1,5 +1,6 @@
 package it.unibo.t2sgame.game;
 
+import it.unibo.t2sgame.game.logics.api.GameMap;
 import it.unibo.t2sgame.game.logics.api.State;
 import it.unibo.t2sgame.game.model.api.World;
 /**
@@ -26,4 +27,6 @@ public interface Game {
      * Update the game based on the events and checks occoured
      */
     void update();
+
+    GameMap getMap();
 }

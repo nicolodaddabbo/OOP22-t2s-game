@@ -59,8 +59,8 @@ public class ComponentFactoryImpl implements ComponentFactory {
         return new DamageComponent(damage, cooldown);
     }
     
-    private GraphicComponent fromGraphicFunction(BiConsumer<Graphic, Entity> graphConsumer){
-        return new GraphicComponent() {
+    private GraphicComponent fromGraphicFunction(BiConsumer<Graphic, Entity> graphConsumer, double width, double height){
+        return new GraphicComponent(width, height) {
             @Override
             public void update() {
                 graphConsumer.accept(this.graphic, this.entity);
@@ -69,18 +69,18 @@ public class ComponentFactoryImpl implements ComponentFactory {
     }
 
     @Override
-    public GraphicComponent createPlayerGraphicComponent() {    
-        return fromGraphicFunction((graphic, entity) -> graphic.drawPlayer(entity));
+    public GraphicComponent createGraphicComponentWithSprite(String spriteName, double width, double height) {    
+        return fromGraphicFunction((graphic, entity) -> graphic.drawFromSprite(entity, spriteName), width, height);
     }
 
     @Override
-    public GraphicComponent createProjectileGraphicComponent() {
-        return fromGraphicFunction((graphic, entity) -> graphic.drawProjectile(entity));
+    public GraphicComponent createCircleGraphicComponent(double width, double height) {
+        return fromGraphicFunction(Graphic::drawCircle, width, height);
     }
 
     @Override
-    public GraphicComponent createBaseEnemyGraphicComponent() {
-        return fromGraphicFunction((graphic, entity) -> graphic.drawBaseEnemy(entity));
+    public GraphicComponent createRectangleGraphicComponent(double width, double height) {
+        return fromGraphicFunction(Graphic::drawRectangle, width, height);
     }
     
 }

@@ -6,6 +6,12 @@ import it.unibo.t2sgame.view.api.Graphic;
 
 public abstract class GraphicComponent extends AbstractComponent{
     protected Graphic graphic;
+    protected final double width, height;
+    
+    protected GraphicComponent(final double width, final double height) {
+        this.width = width;
+        this.height = height;
+    }
 
     @Override
     public void update() {
@@ -18,5 +24,13 @@ public abstract class GraphicComponent extends AbstractComponent{
     @Override
     public <T> void receive(Message<T> messge) {
         
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
     }
 }

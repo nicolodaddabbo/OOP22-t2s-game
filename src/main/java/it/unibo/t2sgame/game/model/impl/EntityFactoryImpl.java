@@ -28,7 +28,7 @@ public class EntityFactoryImpl implements EntityFactory {
             .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 80), false , List.of(Type.ENEMY , Type.WALL)))
             .addComponent(this.componentFactory.createHealthComponentFrom(3))
             .addComponent(this.componentFactory.createShootComponentFrom(0.2))
-            .addComponent(this.componentFactory.createPlayerGraphicComponent());
+            .addComponent(this.componentFactory.createGraphicComponentWithSprite("player", 60, 80));
     }
 
     @Override
@@ -36,9 +36,9 @@ public class EntityFactoryImpl implements EntityFactory {
         return new EntityImpl(position)
             .addComponent(new TypeComponent(Type.PROJECTILE))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(1.5, direction))
-            .addComponent(this.componentFactory.createProjectileCollisionComponentFrom(new Circle(position, 30), false , List.of(Type.ENEMY , Type.WALL)))
+            .addComponent(this.componentFactory.createProjectileCollisionComponentFrom(new Circle(position, 15), false , List.of(Type.ENEMY , Type.WALL)))
             .addComponent(this.componentFactory.createDamageComponentFrom(1, 0))
-            .addComponent(this.componentFactory.createProjectileGraphicComponent());
+            .addComponent(this.componentFactory.createCircleGraphicComponent(30, 30));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class EntityFactoryImpl implements EntityFactory {
             .addComponent(this.componentFactory.createPhysicsComponentFrom(0.5))
             .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 80), false , List.of(Type.PROJECTILE , Type.WALL)))
             .addComponent(this.componentFactory.createDamageComponentFrom(1, 1))
-            .addComponent(this.componentFactory.createBaseEnemyGraphicComponent());
+            .addComponent(this.componentFactory.createGraphicComponentWithSprite("enemy", 60, 80));
     }
 
     @Override

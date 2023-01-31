@@ -59,20 +59,10 @@ public interface ComponentFactory {
      */
     Component createDamageComponentFrom(int damage , double cooldown);
 
-    /**
-     * 
-     * @return the Graphic component of a player Entity
-     */
-    GraphicComponent createPlayerGraphicComponent();
-    /**
-     * 
-     * @return the Graphic component of a projectile Entity
-     */
-    GraphicComponent createProjectileGraphicComponent();
-    /**
-     * 
-     * @return the Graphic component of a basic enemy Entity
-     */
-    GraphicComponent createBaseEnemyGraphicComponent();
+    GraphicComponent createGraphicComponentWithSprite(String spriteName, double width, double height);
+
+    GraphicComponent createCircleGraphicComponent(double width, double height);
+    
+    GraphicComponent createRectangleGraphicComponent(double width, double height);
     
 }

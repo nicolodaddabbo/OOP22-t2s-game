@@ -1,6 +1,8 @@
 package it.unibo.t2sgame.game;
 
+import it.unibo.t2sgame.game.logics.api.GameMap;
 import it.unibo.t2sgame.game.logics.api.State;
+import it.unibo.t2sgame.game.logics.impl.GameMapImpl;
 import it.unibo.t2sgame.game.model.api.World;
 import it.unibo.t2sgame.game.model.impl.WaveFactoryImpl;
 
@@ -13,6 +15,8 @@ public class GameImpl implements Game {
      * The world where all entities are stored
      */
     private final World world;
+
+    private final GameMap gameMap = new GameMapImpl(1200, 800);
 
     public GameImpl(final State state, final World world) {
         this.state = state;
@@ -52,4 +56,7 @@ public class GameImpl implements Game {
         }
     }
 
+    public GameMap getMap(){
+        return this.gameMap;
+    }
 }

@@ -3,22 +3,9 @@ import it.unibo.t2sgame.core.entity.api.Entity;
 
 public interface Graphic {
     
-    /**
-     * This method draws a specified player Entity
-     * @param player 
-     */
-    void drawPlayer(Entity player);
+    void drawFromSprite(Entity entity, String spriteName);
 
-    /**
-     * This method draws a specified projectile Entity
-     * @param projectile 
-     */
-    void drawProjectile(Entity projectile);
+    void drawRectangle(Entity entity);
 
-    /**
-     * This method draws a specified basic enemy Entity
-     * @param enemy 
-     */
-    void drawBaseEnemy(Entity enemy);
-
+    void drawCircle(Entity entity);
 }
