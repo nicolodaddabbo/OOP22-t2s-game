@@ -3,7 +3,7 @@ package it.unibo.t2sgame.input.api;
 import java.util.Optional;
 
 /**
- * Interface that model the state of an entity
+ * Interface that model the state (i.e. Concurrent State Machine) of an entity
  */
 public interface EntityState<I> {
     /**
