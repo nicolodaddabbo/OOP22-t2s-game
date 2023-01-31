@@ -1,6 +1,6 @@
 package it.unibo.t2sgame.input.api;
 
-import java.util.Optional;
+import java.util.Queue;
 
 /**
  * This interface represent an InutController that gets notified when an input occours
@@ -8,9 +8,8 @@ import java.util.Optional;
  */
 public interface InputController {
     /**
-     * Convert an input to the associated Command
-     * @return an Optional of the Command to execute, an empty Optional if no Command is associated 
-     * to the given input
+     * Return the queue of commands to be executed
+     * @return the commands queue
      */
-    Optional<Command> getCommand();
+    Queue<Command> getCommandsQueue();
 }
