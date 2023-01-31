@@ -1,62 +1,38 @@
 package it.unibo.t2sgame.core.engine.api;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import it.unibo.t2sgame.core.components.api.Component;
-import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.core.systems.api.GameSystem;
-import it.unibo.t2sgame.view.api.GameScene;
+import it.unibo.t2sgame.game.Game;
 
 /**
- * The core part of Entity-Component-Systems architecture
- * The GameEngine allows to handle and update all the systems
- * which it contains.
+ * 
  */
 public interface GameEngine {
     /**
-     * Update all the systems contained in the engine.
-     * This method has to be called once per game loop's 
-     * cycle
+     * Run the current istance of the engine.
+     * This method wil start a game loop, ending only when
+     * the state and logics of the game hosted determs the ending
      */
-    void update(); 
+    void run(); 
     /**
-     * Add an entity to the engine.
-     * Once added, this entity is automatically associated with its
-     * related GameSystems, based on the component that it has.
      * 
-     * @param e the entity to be added to the engine
-     * 
-     * @return this
+     * @return the game which is hosted by the engine
      */
-    GameEngine addEntityToSystems(Entity entity);
+    Game getGame();
     /**
-     * Remove the entity from the engine.
-     * Once removed, this entity is automatically removed from its
-     * related GameSystems.
-     * @param e
+     * 
+     * @param <T>
+     * @param clazz
+     */
+    <T extends Component> void updateComponentBy(Class<T> clazz);
+    /**
+     * 
+     * @param <T>
+     * @param clazz
      * @return
      */
-    GameEngine removeEntityToSystems(Entity entity);
-    /**
-     * Get the GameSystems added to the engine
-     * 
-     * @return the GameSystems added to the engine
-     */
-    Set<GameSystem> getSystems();
-    /**
-     * Get the GameSystem based on the type of component which it 
-     * contains.
-     * 
-     * @param <T> The type of the component 
-     * @param clazz the class instance of the component
-     * 
-     * @return an Optional containing the GameSystem if present, 
-     * otherwise an empty Optional
-     */
-    <T extends Component> Optional<GameSystem> getSystem(Class<T> clazz); 
+    <T extends Component> List<T> getComponents(Class<T> clazz);
 
-    
-    public void setScene(GameScene scene);
 }
+
