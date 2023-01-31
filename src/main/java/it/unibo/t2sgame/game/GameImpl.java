@@ -37,9 +37,7 @@ public class GameImpl implements Game {
     @Override
     public void update() {
         this.addWaveIfOver();
-        /*
-         * [TODO] Check events
-         */
+        this.world.handleEvents();
     }
 
     private void nextWave() {
