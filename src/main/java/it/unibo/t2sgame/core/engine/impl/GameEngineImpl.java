@@ -97,14 +97,14 @@ public class GameEngineImpl implements GameEngine {
                 .toList();
     }
 
-    
+
     private void updateGame() {
         this.updateComponentBy(PhysicsComponent.class);
         this.updateComponentBy(CollisionComponent.class);
         /*
          * [TODO] Here should be check events and check things in polling
          */
-        this.game.addWaveIfOver();
+        this.game.update();
     }
 
     /**
