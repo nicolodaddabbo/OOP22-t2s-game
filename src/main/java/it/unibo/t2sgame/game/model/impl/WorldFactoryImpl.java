@@ -1,17 +1,16 @@
 package it.unibo.t2sgame.game.model.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.components.impl.CollisionComponent;
-import it.unibo.t2sgame.core.engine.api.GameEngine;
-import it.unibo.t2sgame.core.engine.impl.GameEngineImpl;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.game.logics.api.Event;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
@@ -23,13 +22,9 @@ public class WorldFactoryImpl implements WorldFactory{
 
     private final class WorldImpl implements World {
         /*
-         * Creating the engine where all the entity will be updated
-         */
-        private GameEngine engine = new GameEngineImpl();
-        /*
          * The lisf of entities in the world 
          */
-        private final List<Entity> entities = new ArrayList<>();
+        private final Set<Entity> entities = new HashSet<>();
         /**
          * An Optional containing the current wave if present
          */
@@ -56,24 +51,20 @@ public class WorldFactoryImpl implements WorldFactory{
         public void addEntity(Entity e) {
             // Adding the entity to the current world
             this.entities.add(e);       
-            // Adding the entity in the engine to be updated
-            this.engine.addEntity(e);
             // Setting the world where the entity is placed to the entity
             e.setWorld(this);
+        }
+
+
+        public void addPlayer(Entity player){
+            this.players.add(player);
+            this.addEntity(player);
         }
 
         @Override
         public void removeEntity(Entity e) {
             this.entities.remove(e);       
-            this.engine.removeEntity(e);
         }
-
-        @Override
-        public void addPlayer(Entity player) {
-            this.players.add(player);
-            this.addEntity(player);
-        }
-
 
         @Override
         public void setWave(final Wave next) {
@@ -86,22 +77,6 @@ public class WorldFactoryImpl implements WorldFactory{
                         .collect(Collectors.toSet())));
             /* Adding all enemies to the entities */
             next.getEnemies().forEach(this::addEntity);
-        }
-
-        @Override
-        public void update() {
-            /*
-             * Before updating the engine, the world should check
-             * if any events occours, in order to add or remove entities
-             * in the world and in the engine
-             */
-            handleEvents();
-            this.engine.update();  
-        }
-
-        @Override
-        public GameEngine getEngine() {
-            return this.engine;
         }
 
         @Override
@@ -132,7 +107,6 @@ public class WorldFactoryImpl implements WorldFactory{
     public World createWorldWithMorePlayer(final List<Entity> players) {
         var world = new WorldImpl();
         players.forEach(world::addPlayer);
-        players.forEach(p -> p.setWorld(world));
         return world;
     }
     
