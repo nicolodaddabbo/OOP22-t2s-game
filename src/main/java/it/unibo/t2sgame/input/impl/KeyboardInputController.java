@@ -1,5 +1,6 @@
 package it.unibo.t2sgame.input.impl;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +58,9 @@ public class KeyboardInputController implements InputController {
 
     @Override
     public Queue<Command> getCommandsQueue() {
-        return this.commandsQueue;
+        var defensiveQueue = new LinkedList<>(this.commandsQueue);
+        this.commandsQueue.clear();
+        return defensiveQueue;
     }
     
 }

@@ -24,7 +24,9 @@ public class BasicEnemyAIInputController implements InputController {
     @Override
     public Queue<Command> getCommandsQueue() {
         computeNextCommand();
-        return this.commandsQueue;
+        var defensiveQueue = new LinkedList<>(this.commandsQueue);
+        this.commandsQueue.clear();
+        return defensiveQueue;
     }
 
     private void computeNextCommand() {
