@@ -1,7 +1,10 @@
 package it.unibo.t2sgame.core.components.api;
 
+import java.util.List;
+
 import it.unibo.t2sgame.common.Shape;
 import it.unibo.t2sgame.core.components.impl.GraphicComponent;
+import it.unibo.t2sgame.game.components.TypeComponent.Type;
 import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
 
@@ -31,14 +34,14 @@ public interface ComponentFactory {
      *                which collide with it can't go through its body
      * @return a collision component based on {@link shape} and {@link isRigid}
      */
-    Component createCollisionComponentFrom(Shape shape, boolean isRigid);
+    Component createCollisionComponentFrom(Shape shape, boolean isRigid, List<Type> types);
     /**
      * @param shape the shape of the bounding box
      * @param isRigid a boolean representing the fact the entity is an solid form, so the entities 
      *                which collide with it can't go through its body
      * @return a collision component based on {@link shape} and {@link isRigid} wich destroys the entity on collision
      */
-    Component createProjectileCollisionComponentFrom(Shape shape, boolean isRigid);
+    Component createProjectileCollisionComponentFrom(Shape shape, boolean isRigid, List<Type> types);
     /**
      * @param health an integer represents the heal-points of the player
      * @return an health component based on {@link health} heal-points.

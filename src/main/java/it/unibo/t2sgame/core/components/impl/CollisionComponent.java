@@ -1,23 +1,31 @@
 package it.unibo.t2sgame.core.components.impl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import it.unibo.t2sgame.common.Shape;
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.components.api.AbstractComponent;
 import it.unibo.t2sgame.core.components.api.Message;
 import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.components.TypeComponent;
+import it.unibo.t2sgame.game.components.TypeComponent.Type;
 
 public abstract class CollisionComponent extends AbstractComponent {
 
     protected Set<CollisionComponent> collisions = new HashSet<>();
     protected final Shape shape;
     protected final boolean isRigid;
+    private List<Type> types;
 
-    protected CollisionComponent(final Shape shape, final boolean isRigid) {
+    protected CollisionComponent(final Shape shape, final boolean isRigid, List<Type> types) {
         this.shape = shape;
         this.isRigid = isRigid;
+        this.types = types;
     }
 
     @Override
@@ -33,6 +41,14 @@ public abstract class CollisionComponent extends AbstractComponent {
 
     @Override
     public void update() {
+        /**
+         * THIS CODE IS ONLY HERE BECAUSE MY FRIENDS WANTS TO PLAY.
+         * I know that it's very bad, tell them it
+         */
+        this.collisions = this.entity.getWorld().get().getEntities().stream()
+            .filter(e -> this.types.contains(e.getComponent(TypeComponent.class).get().getType()))
+            .map(e -> e.getComponent(CollisionComponent.class).get()).collect(Collectors.toSet());
+
         this.collisions.stream()
         // Filtering each collision which has been checked as true
         .filter(collision -> shape.isColliding(collision.getShape()))

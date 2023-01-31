@@ -1,5 +1,6 @@
 package it.unibo.t2sgame.core.components.impl;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 
 import it.unibo.t2sgame.common.Shape;
@@ -11,6 +12,7 @@ import it.unibo.t2sgame.game.components.DamageComponent;
 import it.unibo.t2sgame.game.components.HealthComponent;
 import it.unibo.t2sgame.game.components.ProjectileCollisionComponent;
 import it.unibo.t2sgame.game.components.ShootComponent;
+import it.unibo.t2sgame.game.components.TypeComponent.Type;
 import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
 import it.unibo.t2sgame.view.api.Graphic;
@@ -33,13 +35,13 @@ public class ComponentFactoryImpl implements ComponentFactory {
     }
 
     @Override
-    public Component createCollisionComponentFrom(Shape shape, boolean isRigid) {
-        return new BaseCollisionComponent(shape, isRigid);
+    public Component createCollisionComponentFrom(Shape shape, boolean isRigid, List<Type> types) {
+        return new BaseCollisionComponent(shape, isRigid, types);
     }
 
     @Override
-    public Component createProjectileCollisionComponentFrom(Shape shape, boolean isRigid) {
-        return new ProjectileCollisionComponent(shape, isRigid);
+    public Component createProjectileCollisionComponentFrom(Shape shape, boolean isRigid, List<Type> types) {
+        return new ProjectileCollisionComponent(shape, isRigid, types);
     }
 
     @Override
