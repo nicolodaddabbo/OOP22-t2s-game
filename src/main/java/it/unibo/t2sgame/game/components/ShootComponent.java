@@ -33,7 +33,7 @@ public class ShootComponent extends AbstractComponent {
 
     private void shoot(final Directions shotDirection){
         if(this.timer.getElapsedSeconds() >= this.fireRate){
-            this.entity.getEnviroment().ifPresent(e -> e.notifyEvent(this.eventFactory.onShootEvent(this.entity, shotDirection)));
+            this.entity.getWorld().ifPresent(e -> e.notifyEvent(this.eventFactory.onShootEvent(this.entity, shotDirection)));
             this.timer.restart();
         }
     }
