@@ -1,17 +1,17 @@
 package it.unibo.t2sgame.game;
 
-import java.util.Optional;
-
-import it.unibo.t2sgame.core.engine.api.GameEngine;
-import it.unibo.t2sgame.core.engine.impl.GameEngineImpl;
 import it.unibo.t2sgame.game.logics.api.State;
 import it.unibo.t2sgame.game.model.api.World;
 import it.unibo.t2sgame.game.model.impl.WaveFactoryImpl;
-import it.unibo.t2sgame.view.api.GameScene;
 
 public class GameImpl implements Game {
-    private Optional<GameScene> scene = Optional.empty();
+    /*
+     * The state and logics of T2SGame
+     */
     private final State state;
+    /**
+     * The world where all entities are stored
+     */
     private final World world;
 
     public GameImpl(final State state, final World world) {
@@ -30,50 +30,28 @@ public class GameImpl implements Game {
     }
 
     @Override
-    public void nextWave() {
+    public boolean isOver() {
+        return this.state.isOver(this.world.getPlayers());
+    }
+
+    @Override
+    public void update() {
+        this.addWaveIfOver();
+        /*
+         * [TODO] Check events
+         */
+    }
+
+    private void nextWave() {
         this.state.incrementRound();
         var wave = new WaveFactoryImpl().createBasicWave(this.state.getRound());
-        wave.getEnemies().forEach(e -> {
-            e.setWorld(world);
-            this.world.addEntity(e);
-        });
         this.world.setWave(wave);
-    }
-
-    @Override
-    public void start() {
-        while (!this.isOver()) {
-            this.addWaveIfOver();
-            this.world.update();
-        }
-
-    }
-
-    @Override
-    public void setScene(GameScene scene) {
-        this.scene = Optional.of(scene);
     }
 
     private void addWaveIfOver() {
         if (this.state.isWaveOver(this.world.getCurrentWave())) {
             this.nextWave();
         }
-    }
-
-    @Override
-    public boolean isOver() {
-        return this.state.isOver(this.world.getPlayers());
-    }
-
-    @Override
-    public void initSettings() {
-        this.scene.ifPresent(s -> s.setGame(this));
-        this.world.getEngine().setScene(this.scene.get());
-    }
-
-    @Override
-    public void initGame() {
-        //this.world.getEntities().forEach(this.engine::addEntity);
     }
 
 }
