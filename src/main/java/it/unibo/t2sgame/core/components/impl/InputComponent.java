@@ -22,6 +22,8 @@ public class InputComponent extends AbstractComponent {
 
     @Override
     public void update() {
-        this.inputController.getCommand().ifPresent(c -> c.execute(this.entity));
+        var commandsQueue = this.inputController.getCommandsQueue();
+        commandsQueue.forEach(c -> c.execute(this.entity));
+        commandsQueue.clear();
     }
 }
