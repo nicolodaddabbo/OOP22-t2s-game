@@ -3,7 +3,6 @@ package it.unibo.t2sgame.game.model.api;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.game.logics.api.Event;
 
@@ -31,7 +30,6 @@ public interface World {
      * Set the next wave
      */
     void setWave(Wave next);
-
     /**
      * Add an entity to the World
      * @param e Entity to be added to the world
@@ -42,22 +40,6 @@ public interface World {
      * @param e Entity to be removed from the world
      */
     void removeEntity(Entity e);
-    
-    /**
-     * Adding a player to the list of players in the world
-     * @param e the player to be addeed
-     */
-    void addPlayer(Entity player);
-    /**
-     * Update the world instance.
-     * This method should be called once in every game loop cycle
-     */
-    void update();
-    /**
-     * 
-     * @return the engine istance where all the entities are updated
-     */
-    GameEngine getEngine();
     /**
      * Add the event to the World event queue
      * @param event occurred
