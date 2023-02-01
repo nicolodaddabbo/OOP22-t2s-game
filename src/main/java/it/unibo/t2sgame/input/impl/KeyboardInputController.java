@@ -1,11 +1,10 @@
 package it.unibo.t2sgame.input.impl;
 
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import it.unibo.t2sgame.input.api.Command;
 import it.unibo.t2sgame.input.api.Directions;
@@ -38,7 +37,7 @@ public class KeyboardInputController implements InputController {
 
     private final EntityState<Integer> moveState = new EntityStateImpl<>(WALK_MOVESET);
     private final EntityState<Integer> shootState = new EntityStateImpl<>(SHOOT_MOVESET);
-    private final Queue<Command> commandsQueue = new LinkedList<>();
+    private final Queue<Command> commandsQueue = new ConcurrentLinkedQueue<>();
     private final List<EntityState<Integer>> states = List.of(this.moveState, this.shootState);
 
     public void notifyKeyPressed(final int keyCode) {
@@ -58,7 +57,7 @@ public class KeyboardInputController implements InputController {
 
     @Override
     public Queue<Command> getCommandsQueue() {
-        var defensiveQueue = new LinkedList<>(this.commandsQueue);
+        var defensiveQueue = new ConcurrentLinkedQueue<>(this.commandsQueue);
         this.commandsQueue.clear();
         return defensiveQueue;
     }

@@ -3,6 +3,7 @@ package it.unibo.t2sgame.input.impl;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.input.api.Command;
@@ -14,7 +15,7 @@ public class BasicEnemyAIInputController implements InputController {
     private final Queue<Command> commandsQueue;
 
     public BasicEnemyAIInputController() {
-        this.commandsQueue = new LinkedList<>();
+        this.commandsQueue = new ConcurrentLinkedQueue<>();
         this.availableCommands = new LinkedList<>();
         for (var direction : Directions.values()) {
             this.availableCommands.add(new Move(direction));
