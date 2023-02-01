@@ -5,7 +5,7 @@ import java.util.List;
 import it.unibo.t2sgame.common.Shape;
 import it.unibo.t2sgame.core.components.impl.CollisionComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.game.components.TypeComponent.Type;
+import it.unibo.t2sgame.core.entity.api.Type;
 
 public class BaseCollisionComponent extends CollisionComponent {
 

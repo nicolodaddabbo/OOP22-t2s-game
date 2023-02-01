@@ -3,6 +3,7 @@ import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.components.api.Component;
 import it.unibo.t2sgame.core.components.api.Message;
 import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.game.model.api.World;
 
 import java.util.HashSet;
@@ -13,10 +14,12 @@ public class EntityImpl implements Entity {
 
     private Set<Component> components = new HashSet<>();
     private Optional<World> world = Optional.empty();
+    private final Type type;
     private Vector2D position;
 
-    public EntityImpl(final Vector2D position) {
+    public EntityImpl(final Vector2D position, final Type type) {
         this.position = position;
+        this.type = type;
     }
 
     @Override
@@ -25,7 +28,7 @@ public class EntityImpl implements Entity {
     }
 
     @Override
-    public <T extends Component> Optional<T> getComponent(Class<T> componentClass){
+    public <T extends Component> Optional<T> getComponent(final Class<T> componentClass){
         return this.components.stream()
             .filter(componentClass::isInstance)
             .map(componentClass::cast)
@@ -33,7 +36,7 @@ public class EntityImpl implements Entity {
     }
 
     @Override
-    public Entity addComponent(Component component) {
+    public Entity addComponent(final Component component) {
         this.components.add(component);
         component.setEntity(this);
         return this;
@@ -50,17 +53,22 @@ public class EntityImpl implements Entity {
     }
 
     @Override
+    public Type getType() {
+        return this.type;
+    }  
+
+    @Override
     public Optional<World> getWorld() {
         return this.world;
     }
 
     @Override
-    public void setWorld(World world) {
+    public void setWorld(final World world) {
         this.world = Optional.of(world);        
     }
 
     @Override
-    public <T extends Component, S> void notifyComponent(Class<T> receiver, Message<S> message) {
+    public <T extends Component, S> void notifyComponent(final Class<T> receiver, final Message<S> message) {
         this.getComponent(receiver).ifPresent(c -> c.receive(message));
-    }  
+    }
 }

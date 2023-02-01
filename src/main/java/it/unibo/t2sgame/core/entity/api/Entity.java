@@ -41,6 +41,11 @@ public interface Entity {
     void setPosition(Vector2D position);
     /**
      * 
+     * @return the type of entity
+     */
+    Type getType();
+    /**
+     * 
      * @return world the enviroment where the entity is placed
      */
     Optional<World> getWorld();

@@ -4,7 +4,7 @@ import java.util.List;
 
 import it.unibo.t2sgame.common.Shape;
 import it.unibo.t2sgame.core.components.impl.GraphicComponent;
-import it.unibo.t2sgame.game.components.TypeComponent.Type;
+import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
 
