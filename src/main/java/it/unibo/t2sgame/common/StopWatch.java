@@ -13,7 +13,7 @@ public class StopWatch {
      * @return this started stopwatch
      * @throws IllegalStateException if the stopwatch is already running
      */
-    public StopWatch start() throws IllegalStateException{
+    public synchronized StopWatch start() throws IllegalStateException{
         if(this.isRunning){
             throw new IllegalStateException("Stopwatch is already running");
         }
@@ -26,7 +26,7 @@ public class StopWatch {
      * This method <strong>stops</strong> the stopwatch.
      * @throws IllegalStateException if the stopwatch is not running
      */
-    public void stop() throws IllegalStateException{
+    public synchronized void stop() throws IllegalStateException{
         if(!this.isRunning){
             throw new IllegalStateException("Stopwatch is not running");
         }
@@ -38,7 +38,7 @@ public class StopWatch {
      * This method <strong>restarts</strong> the stopwatch.
      * @throws IllegalStateException if the stopwatch is not running
      */
-    public void restart() throws IllegalStateException {
+    public synchronized void restart() throws IllegalStateException {
         this.stop();
         this.start();
     }
@@ -57,7 +57,7 @@ public class StopWatch {
      * @see {@link #getElapsedMillis()}
      * @see {@link #getElapsedSeconds()}
      */
-    public long getElapsedNanos() {
+    public synchronized long getElapsedNanos() {
         return this.isRunning ? System.nanoTime()-this.startTime : this.endTime-this.startTime;
     }
 
