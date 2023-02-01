@@ -4,12 +4,20 @@ import it.unibo.t2sgame.common.StopWatch;
 import it.unibo.t2sgame.core.components.api.AbstractComponent;
 import it.unibo.t2sgame.core.components.api.Message;
 
+/**
+ * This class represents the ability to damage entities on collision.
+ */
 public class DamageComponent extends AbstractComponent {
 
     private int damage;
     private double cooldown;
     private final StopWatch timer = new StopWatch().start();
 
+    /**
+     * 
+     * @param damage the damage dealt on collision
+     * @param cooldown the cooldown period in seconds, that indicates after how much the entity can damage after damaging an entity
+     */
     public DamageComponent(int damage, double cooldown) {
         this.setDamage(damage);
         this.cooldown = cooldown;
@@ -39,7 +47,7 @@ public class DamageComponent extends AbstractComponent {
 
     /**
      * 
-     * @return the damage if the entity
+     * @return the damage of the entity
      */
     public int getDamage() {
         return this.damage;
@@ -47,7 +55,7 @@ public class DamageComponent extends AbstractComponent {
 
     /**
      * 
-     * @param damage the damage to set
+     * @param damage the new damage
      */
     public void setDamage(int damage) {
         this.damage = damage;

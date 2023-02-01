@@ -5,6 +5,9 @@ import it.unibo.t2sgame.core.components.api.Message;
 import it.unibo.t2sgame.input.api.Directions;
 
 
+/**
+ * This class represents the physics of the entity.
+ */
 public class PhysicsComponent extends AbstractComponent {
     private static final double CONVERSION = 2;
     private double speed;
@@ -61,22 +64,42 @@ public class PhysicsComponent extends AbstractComponent {
         }
     }
 
+    /**
+     * 
+     * @return the converted speed of the entity
+     */
     public double getConvertedSpeed() {
         return CONVERSION*speed;
     }
 
+    /**
+     * 
+     * @return the current velocity of the entity
+     */
     public Vector2D getVelocity() {
         return this.velocity;
     }
 
+    /**
+     * 
+     * @param velocity the new velocity
+     */
     public void setVelocity(final Vector2D velocity) {
         this.velocity = velocity;        
     }
 
+    /**
+     * 
+     * @return the speed of the entity
+     */
     public double getSpeed() {
         return this.speed;
     }
 
+    /**
+     * 
+     * @param speed the new speed
+     */
     public void setSpeed(final double speed) {
         this.speed = speed;
     }
