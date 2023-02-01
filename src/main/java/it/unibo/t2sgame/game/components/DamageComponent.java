@@ -10,17 +10,17 @@ import it.unibo.t2sgame.core.components.api.Message;
 public class DamageComponent extends AbstractComponent {
 
     private int damage;
-    private double cooldown;
+    private double cooldownSeconds;
     private final StopWatch timer = new StopWatch().start();
 
     /**
      * 
      * @param damage the damage dealt on collision
-     * @param cooldown the cooldown period in seconds, that indicates after how much the entity can damage after damaging an entity
+     * @param cooldownSeconds the cooldown period in seconds, that indicates after how much the entity can damage after damaging an entity
      */
-    public DamageComponent(int damage, double cooldown) {
+    public DamageComponent(final int damage, final double cooldownSeconds) {
         this.setDamage(damage);
-        this.cooldown = cooldown;
+        this.cooldownSeconds = cooldownSeconds;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class DamageComponent extends AbstractComponent {
     }
 
     @Override
-    public <T> void receive(Message<T> message) {
+    public <T> void receive(final Message<T> message) {
         
     }
 
@@ -38,7 +38,7 @@ public class DamageComponent extends AbstractComponent {
      * @return true if the cooldown period is over, otherwise returns false
      */
     public boolean canDamage() {
-        if(this.timer.getElapsedSeconds() >= this.cooldown){
+        if(this.timer.getElapsedSeconds() >= this.cooldownSeconds){
             this.timer.restart();
             return true;
         }
@@ -57,7 +57,7 @@ public class DamageComponent extends AbstractComponent {
      * 
      * @param damage the new damage
      */
-    public void setDamage(int damage) {
+    public void setDamage(final int damage) {
         this.damage = damage;
     }
     

@@ -11,16 +11,16 @@ import it.unibo.t2sgame.input.api.Directions;
  */
 public class ShootComponent extends AbstractComponent {
 
-    private double fireRate;
+    private double fireRateSeconds;
     private final EventFactoryImpl eventFactory = new EventFactoryImpl();
     private final StopWatch timer = new StopWatch().start();
 
     /**
      * 
-     * @param fireRate the rate of fire of the entity in seconds
+     * @param fireRateSeconds the rate of fire of the entity in seconds
      */
-    public ShootComponent(final double fireRate) {
-        this.fireRate = fireRate;
+    public ShootComponent(final double fireRateSeconds) {
+        this.fireRateSeconds = fireRateSeconds;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ShootComponent extends AbstractComponent {
     }
 
     private void shoot(final Directions shotDirection){
-        if(this.timer.getElapsedSeconds() >= this.fireRate){
+        if(this.timer.getElapsedSeconds() >= this.fireRateSeconds){
             this.entity.getWorld().ifPresent(e -> e.notifyEvent(this.eventFactory.onShootEvent(this.entity, shotDirection)));
             this.timer.restart();
         }
@@ -49,16 +49,16 @@ public class ShootComponent extends AbstractComponent {
      * 
      * @return the rate of fire of the entity in seconds
      */
-    public double getFireRate() {
-        return this.fireRate;
+    public double getfireRateSeconds() {
+        return this.fireRateSeconds;
     }
 
     /**
      * 
-     * @param fireRate the new rate of fire in seconds
+     * @param fireRateSeconds the new rate of fire in seconds
      */
-    public void setFireRate(final double fireRate) {
-        this.fireRate = fireRate;
+    public void setfireRateSeconds(final double fireRateSeconds) {
+        this.fireRateSeconds = fireRateSeconds;
     }
     
 }
