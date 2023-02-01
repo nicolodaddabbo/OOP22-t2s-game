@@ -30,6 +30,12 @@ public interface GameEngine {
      * 
      * @param <T>
      * @param clazz
+     */
+    <T extends Component> void updateComponentByConcurrent(Class<T> clazz);
+    /**
+     * 
+     * @param <T>
+     * @param clazz
      * @return
      */
     <T extends Component> List<T> getComponents(Class<T> clazz);
