@@ -15,4 +15,6 @@ public interface WorldFactory {
      * @return a World implementation with more player
      */
     World createWorldWithMorePlayer(List<Entity> players);
+
+    World createBasicWorld();
 }
