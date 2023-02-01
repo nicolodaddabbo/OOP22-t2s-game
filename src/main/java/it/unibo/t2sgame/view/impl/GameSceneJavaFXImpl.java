@@ -101,13 +101,17 @@ public class GameSceneJavaFXImpl implements GameScene {
 
         Platform.runLater(() -> {
             gContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            this.gameEngine.getComponents(GraphicComponent.class).forEach(c -> c.setGraphics(this.graphic));
-            this.gameEngine.updateComponentBy(GraphicComponent.class);   
-           
-            var health = (this.getGame().getWorld().getPlayers().get(0).getComponent(HealthComponent.class).get()).getHealth();
-            Stream.iterate(0, i -> i + 1)
-                .limit(health)
-                .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 50*this.dpiW*n, 0, 40*this.dpiW, 40*this.dpiW));
+            this.gameEngine.getComponents(GraphicComponent.class).forEach(c -> {
+                c.setGraphics(this.graphic);
+                c.update();
+            });
+
+            //this.gameEngine.updateComponentBy(GraphicComponent.class); 
+            this.getGame().getWorld().getPlayers().get(0).getComponent(HealthComponent.class).ifPresent(c -> {
+                Stream.iterate(0, i -> i + 1)
+                    .limit(c.getHealth())
+                    .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 50*this.dpiW*n, 0, 40*this.dpiW, 40*this.dpiW));
+            });
 
             this.round.setText("Round " + this.gameEngine.getGame().getState().getRound());
         });
