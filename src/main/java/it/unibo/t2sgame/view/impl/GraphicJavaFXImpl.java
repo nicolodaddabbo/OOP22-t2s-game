@@ -54,7 +54,7 @@ public class GraphicJavaFXImpl implements Graphic{
         width = entity.getComponent(GraphicComponent.class).get().getWidth() / 100 * this.dpi;
         height = entity.getComponent(GraphicComponent.class).get().getHeight() / 100 * this.dpi;
         graphicContext.setFill(Color.WHITE);
-        graphicContext.fillRect(entityX, entityX, 60, 80);
+        graphicContext.fillRect(entityX - width / 2, entityY - height / 2, width, height);
     }
 
     @Override
