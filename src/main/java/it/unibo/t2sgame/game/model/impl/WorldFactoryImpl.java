@@ -13,6 +13,8 @@ import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.components.impl.CollisionComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.game.logics.api.Event;
+import it.unibo.t2sgame.game.logics.api.GameMap;
+import it.unibo.t2sgame.game.logics.impl.GameMapImpl;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
 import it.unibo.t2sgame.game.model.api.Wave;
 import it.unibo.t2sgame.game.model.api.World;
@@ -31,6 +33,7 @@ public class WorldFactoryImpl implements WorldFactory{
         private final List<Entity> players = new ArrayList<>();
         private Optional<Wave> currentWave = Optional.empty();
         private final Queue<Event> eventQueue = new LinkedList<>();
+        private final GameMap gameMap = new GameMapImpl(1200, 800);
 
         @Override
         public Optional<Wave> getCurrentWave() {
@@ -90,6 +93,9 @@ public class WorldFactoryImpl implements WorldFactory{
             this.eventQueue.clear();
         }
 
+        public GameMap getMap(){
+            return this.gameMap;
+        }
     }
 
 
@@ -109,5 +115,4 @@ public class WorldFactoryImpl implements WorldFactory{
         players.forEach(world::addPlayer);
         return world;
     }
-    
 }

@@ -27,6 +27,4 @@ public interface Game {
      * Update the game based on the events and checks occoured
      */
     void update();
-
-    GameMap getMap();
 }

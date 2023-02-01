@@ -16,8 +16,6 @@ public class GameImpl implements Game {
      */
     private final World world;
 
-    private final GameMap gameMap = new GameMapImpl(1200, 800);
-
     public GameImpl(final State state, final World world) {
         this.state = state;
         this.world = world;
@@ -54,9 +52,5 @@ public class GameImpl implements Game {
         if (this.state.isWaveOver(this.world.getCurrentWave())) {
             this.nextWave();
         }
-    }
-
-    public GameMap getMap(){
-        return this.gameMap;
     }
 }

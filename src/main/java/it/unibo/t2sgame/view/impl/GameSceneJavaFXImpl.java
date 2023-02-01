@@ -50,7 +50,7 @@ public class GameSceneJavaFXImpl implements GameScene {
     @Override
     public void initialize() {
         var root = new Group();
-        this.map = this.gameEngine.getGame().getMap();
+        this.map = this.gameEngine.getGame().getWorld().getMap();
         this.dpi = Screen.getPrimary().getDpi(); 
         this.width = this.map.getWidth() / 100 * this.dpi;
         this.height = this.map.getHeight() / 100 * this.dpi;
@@ -105,7 +105,7 @@ public class GameSceneJavaFXImpl implements GameScene {
                 .limit(health)
                 .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 0.5*dpi*n, 0, 0.4*dpi, 0.4*dpi));
 
-            this.round.setText("Round " + String.valueOf(this.gameEngine.getGame().getState().getRound()));
+            this.round.setText("Round " + this.gameEngine.getGame().getState().getRound());
         });
     }
     

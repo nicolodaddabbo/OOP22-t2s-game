@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.game.logics.api.Event;
+import it.unibo.t2sgame.game.logics.api.GameMap;
 
 /**
  * Rapresenting the "World" of T2S game.
@@ -50,4 +51,6 @@ public interface World {
      * Handle all the events in the event queue
      */
     void handleEvents();
+
+    GameMap getMap();
 }
