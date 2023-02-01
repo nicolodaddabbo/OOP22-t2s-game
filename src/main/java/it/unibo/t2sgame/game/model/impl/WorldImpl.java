@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.game.logics.api.Event;
@@ -18,9 +19,11 @@ import it.unibo.t2sgame.game.model.api.World;
 
 final class WorldImpl implements World {
     /*
-     * The lisf of entities in the world
+     * The lisf of entities in the world.
+     * The implementation of the List is thread safe, allowing add / remove entities
+     * during components update without problems
      */
-    private final Set<Entity> entities = new HashSet<>();
+    private final List<Entity> entities = new CopyOnWriteArrayList<>();
     /**
      * An Optional containing the current wave if present
      */
