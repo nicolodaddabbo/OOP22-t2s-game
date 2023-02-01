@@ -39,9 +39,10 @@ public class GameSceneJavaFXImpl implements GameScene {
     private final Stage stage;
     private GameEngine gameEngine;
     private double width, height;
-    private double dpi;
     private GameMap map;
     private Text round = new Text();
+    private double dpiW;
+    private double dpiH;
 
     public GameSceneJavaFXImpl(Stage stage) {
         this.stage = stage;
@@ -51,12 +52,15 @@ public class GameSceneJavaFXImpl implements GameScene {
     public void initialize() {
         var root = new Group();
         this.map = this.gameEngine.getGame().getWorld().getMap();
-        this.dpi = Screen.getPrimary().getDpi(); 
-        this.width = this.map.getWidth() / 100 * this.dpi;
-        this.height = this.map.getHeight() / 100 * this.dpi;
+        
+        this.dpiW = Screen.getPrimary().getPrimary().getBounds().getWidth() / 1920; 
+        this.dpiH = Screen.getPrimary().getPrimary().getBounds().getHeight() / 1080; 
+        this.width = this.map.getWidth() * this.dpiW;
+        this.height = this.map.getHeight() * this.dpiH;
+
         var scene = new Scene(root, this.width, this.height, Color.BLACK);
-        this.round.setText("\n");
-        this.round.setFont(Font.font(null, FontWeight.BOLD, 0.3*this.dpi));
+        this.round.setText("");
+        this.round.setFont(Font.font(null, FontWeight.BOLD, 30*this.dpiW));
         this.round.setTextOrigin(VPos.BOTTOM);
         this.round.setTextAlignment(TextAlignment.CENTER);
         this.round.setY(this.height);
@@ -64,7 +68,7 @@ public class GameSceneJavaFXImpl implements GameScene {
         root.getChildren().add(this.round);
         this.canvas = new Canvas(this.width, this.height);
         this.gContext = this.canvas.getGraphicsContext2D();
-        this.graphic = new GraphicJavaFXImpl(this.gContext, this.dpi);
+        this.graphic = new GraphicJavaFXImpl(this.gContext, this.dpiW, this.dpiH);
         scene.setOnKeyPressed(event -> keyInController.notifyKeyPressed(event.getCode().getCode()));
         scene.setOnKeyReleased(event -> keyInController.notifyKeyReleased(event.getCode().getCode()));
         root.getChildren().add(this.canvas);
@@ -103,7 +107,7 @@ public class GameSceneJavaFXImpl implements GameScene {
             var health = (this.getGame().getWorld().getPlayers().get(0).getComponent(HealthComponent.class).get()).getHealth();
             Stream.iterate(0, i -> i + 1)
                 .limit(health)
-                .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 0.5*dpi*n, 0, 0.4*dpi, 0.4*dpi));
+                .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 50*this.dpiW*n, 0, 40*this.dpiW, 40*this.dpiW));
 
             this.round.setText("Round " + this.gameEngine.getGame().getState().getRound());
         });

@@ -18,13 +18,15 @@ public class GraphicJavaFXImpl implements Graphic{
     private Map<String, Image> cachedSprites;
     private double entityX;
     private double entityY;
-    private double dpi;
+    private double dpiW;
+    private double dpiH;
     private double width;
     private double height;
 
-    GraphicJavaFXImpl(GraphicsContext gc, double dpi){
+    GraphicJavaFXImpl(GraphicsContext gc, double dpiW, double dpiH){
         this.graphicContext = gc;
-        this.dpi = dpi;
+        this.dpiW = dpiW;
+        this.dpiH = dpiH;
         storeSprites();
     }
     
@@ -40,29 +42,29 @@ public class GraphicJavaFXImpl implements Graphic{
 
     @Override
     public void drawFromSprite(Entity entity, String spirteName) {
-        entityX = entity.getPosition().getX();
-        entityY = entity.getPosition().getY();
-        width = entity.getComponent(GraphicComponent.class).get().getWidth() / 100 * this.dpi;
-        height = entity.getComponent(GraphicComponent.class).get().getHeight() / 100 * this.dpi;
+        entityX = entity.getPosition().getX() * this.dpiW;
+        entityY = entity.getPosition().getY() * this.dpiH;
+        width = entity.getComponent(GraphicComponent.class).get().getWidth() * this.dpiW;
+        height = entity.getComponent(GraphicComponent.class).get().getHeight() * this.dpiH;
         this.graphicContext.drawImage(cachedSprites.get(spirteName), entityX - width / 2, entityY - height / 2, width, height);  
     }
 
     @Override
     public void drawRectangle(Entity entity) {
-        entityX = entity.getPosition().getX();
-        entityY = entity.getPosition().getY();
-        width = entity.getComponent(GraphicComponent.class).get().getWidth() / 100 * this.dpi;
-        height = entity.getComponent(GraphicComponent.class).get().getHeight() / 100 * this.dpi;
+        entityX = entity.getPosition().getX() * this.dpiW;
+        entityY = entity.getPosition().getY() * this.dpiH;
+        width = entity.getComponent(GraphicComponent.class).get().getWidth() * this.dpiW;
+        height = entity.getComponent(GraphicComponent.class).get().getHeight() * this.dpiH;
         graphicContext.setFill(Color.WHITE);
         graphicContext.fillRect(entityX - width / 2, entityY - height / 2, width, height);
     }
 
     @Override
     public void drawCircle(Entity entity) {
-        entityX = entity.getPosition().getX();
-        entityY = entity.getPosition().getY();
-        width = entity.getComponent(GraphicComponent.class).get().getWidth() / 100 * this.dpi;
-        height = entity.getComponent(GraphicComponent.class).get().getHeight() / 100 * this.dpi;
+        entityX = entity.getPosition().getX() * this.dpiW;
+        entityY = entity.getPosition().getY() * this.dpiH;
+        width = entity.getComponent(GraphicComponent.class).get().getWidth() * this.dpiW;
+        height = entity.getComponent(GraphicComponent.class).get().getHeight() * this.dpiH;
         graphicContext.setFill(Color.WHITE);
         graphicContext.fillOval(entityX - width / 2, entityY - height / 2, width, height);
     }
