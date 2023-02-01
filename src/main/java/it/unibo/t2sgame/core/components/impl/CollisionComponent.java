@@ -55,7 +55,7 @@ public abstract class CollisionComponent extends AbstractComponent {
         // Notify to the health component every collision which has been checked as true
         .forEach(collision -> {
             if (this.isRigid || collision.isRigid()) {
-                this.knockBack(collision.getEntity());
+                this.knockBack();
             }
             this.collisionAction(collision.getEntity());
         });
@@ -63,9 +63,7 @@ public abstract class CollisionComponent extends AbstractComponent {
 
     protected abstract void collisionAction(Entity collisionEntity);
 
-    private void knockBack(final Entity collisionEntity) {
-        collisionEntity.getComponent(PhysicsComponent.class).ifPresent(phycmp -> collisionEntity
-                .setPosition(collisionEntity.getPosition().sub(phycmp.getVelocity().mul(phycmp.getConvertedSpeed()))));
+    private void knockBack() {
         this.entity.getComponent(PhysicsComponent.class).ifPresent(phycmp -> this.entity
                 .setPosition(this.entity.getPosition().sub(phycmp.getVelocity().mul(phycmp.getConvertedSpeed()))));
     }
