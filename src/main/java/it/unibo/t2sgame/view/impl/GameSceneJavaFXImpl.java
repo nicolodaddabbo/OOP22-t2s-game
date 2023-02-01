@@ -11,7 +11,6 @@ import it.unibo.t2sgame.core.components.impl.InputComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.game.components.HealthComponent;
-import it.unibo.t2sgame.game.logics.api.GameMap;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.view.api.GameScene;
 import it.unibo.t2sgame.view.api.Graphic;
@@ -38,11 +37,11 @@ public class GameSceneJavaFXImpl implements GameScene {
     private Map<String, Image> cachedSprites;
     private final Stage stage;
     private GameEngine gameEngine;
-    private double width, height;
-    private GameMap map;
     private Text round = new Text();
     private double dpiW;
     private double dpiH;
+    private static final double BASEWIDTH = 1920;
+    private static final double BASEHEIGHT = 1080;
 
     public GameSceneJavaFXImpl(Stage stage) {
         this.stage = stage;
@@ -51,22 +50,23 @@ public class GameSceneJavaFXImpl implements GameScene {
     @Override
     public void initialize() {
         var root = new Group();
-        this.map = this.gameEngine.getGame().getWorld().getMap();
-        
-        this.dpiW = Screen.getPrimary().getPrimary().getBounds().getWidth() / 1920; 
-        this.dpiH = Screen.getPrimary().getPrimary().getBounds().getHeight() / 1080; 
-        this.width = this.map.getWidth() * this.dpiW;
-        this.height = this.map.getHeight() * this.dpiH;
-
-        var scene = new Scene(root, this.width, this.height, Color.BLACK);
+        var map = this.gameEngine.getGame().getWorld().getMap();
+        var screenBounds = Screen.getPrimary().getBounds();
+        /* takes the width and height of the primary screen and proportion it on the static sizes*/
+        this.dpiW = screenBounds.getWidth() / GameSceneJavaFXImpl.BASEWIDTH; 
+        this.dpiH = screenBounds.getHeight() / GameSceneJavaFXImpl.BASEHEIGHT; 
+        var proportionedWidth = map.getWidth() * this.dpiW;
+        var proportionedHeight = map.getHeight() * this.dpiH;
+        var scene = new Scene(root, proportionedWidth, proportionedHeight, Color.BLACK);
+        /*initializing all text settings settings */
         this.round.setText("");
         this.round.setFont(Font.font(null, FontWeight.BOLD, 30*this.dpiW));
         this.round.setTextOrigin(VPos.BOTTOM);
         this.round.setTextAlignment(TextAlignment.CENTER);
-        this.round.setY(this.height);
+        this.round.setY(proportionedHeight);
         this.round.setStroke(Color.WHITE);
         root.getChildren().add(this.round);
-        this.canvas = new Canvas(this.width, this.height);
+        this.canvas = new Canvas(proportionedWidth, proportionedHeight);
         this.gContext = this.canvas.getGraphicsContext2D();
         this.graphic = new GraphicJavaFXImpl(this.gContext, this.dpiW, this.dpiH);
         scene.setOnKeyPressed(event -> keyInController.notifyKeyPressed(event.getCode().getCode()));
