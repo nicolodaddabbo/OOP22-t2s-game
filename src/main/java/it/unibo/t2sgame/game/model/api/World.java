@@ -1,5 +1,6 @@
 package it.unibo.t2sgame.game.model.api;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,12 +36,24 @@ public interface World {
      * Add an entity to the World
      * @param e Entity to be added to the world
      */
-    void addEntity(Entity e);
+    World addEntity(Entity e);
+    
+    World addPlayer(Entity e);
+    /**
+     * Adding a Collection of entities in to the world
+     * @param entities the entities to add to world
+     */
+    World addEntities(Collection<Entity> entities);
     /**
      * Remove an entity from the World
      * @param e Entity to be removed from the world
      */
-    void removeEntity(Entity e);
+    World removeEntity(Entity e);
+    /**
+     * Removing a collection of entities from the world
+     * @param entities the entities to remove from the world
+     */
+    World removeEntities(Collection<Entity> entities);
     /**
      * Add the event to the World event queue
      * @param event occurred
