@@ -1,7 +1,11 @@
 package it.unibo.t2sgame.core.engine.impl;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import it.unibo.t2sgame.common.StopWatch;
 import it.unibo.t2sgame.core.components.api.Component;
@@ -35,6 +39,8 @@ public class GameEngineImpl implements GameEngine {
     private final StopWatch timer = new StopWatch().start();
     /* Represent the "gap" between game time and real time */
     private long lag = 0;
+
+    private final Map<Class<Component>,List<Component>> systems = new HashMap<>();
 
     public GameEngineImpl(GameScene scene, Game game) {
         this.view = scene;
@@ -75,12 +81,14 @@ public class GameEngineImpl implements GameEngine {
      * @param <T>   the type of the component to get
      * @param clazz the class of the component to get
      */
+    @Override
     public <T extends Component> void updateComponentBy(Class<T> clazz) {
-        this.game.getWorld().getEntities().stream()
-                // Mapping every entity with the optional containing the component
-                .map(e -> e.getComponent(clazz))
-                // Update the presents component
-                .forEach(c -> c.ifPresent(Component::update));
+        this.getComponents(clazz).forEach(Component::update);
+    }
+
+    @Override
+    public <T extends Component> void updateComponentByConcurrent(Class<T> clazz) {
+        this.getComponents(clazz).stream().parallel().forEach(Component::update);
     }
 
     /**
@@ -99,11 +107,8 @@ public class GameEngineImpl implements GameEngine {
 
 
     private void updateGame() {
-        this.updateComponentBy(PhysicsComponent.class);
-        this.updateComponentBy(CollisionComponent.class);
-        /*
-         * [TODO] Here should be check events and check things in polling
-         */
+        this.updateComponentByConcurrent(PhysicsComponent.class);
+        this.updateComponentByConcurrent(CollisionComponent.class);
         this.game.update();
     }
 
