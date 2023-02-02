@@ -12,6 +12,8 @@ import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
 
 public class BasicEnemyAIInputController implements InputController {
+    private static final int RIGHT_MAX_ABSOLUTE_ANGLE = 45;
+    private static final int LEFT_MIN_ABSOLUTE_ANGLE = 135;
     private final List<Command> availableCommands;
     private final Queue<Command> commandsQueue;
 
@@ -43,8 +45,7 @@ public class BasicEnemyAIInputController implements InputController {
             closestPlayer.ifPresent(p -> {
                 final var dX = p.getPosition().getX() - entity.getPosition().getX();
                 final var dY = p.getPosition().getY() - entity.getPosition().getY();
-                final var angle = Math.toDegrees(Math.atan2(dY, dX)); // get the angle between the player an the enemy
-                                                                      // in degree
+                final var angle = Math.toDegrees(Math.atan2(dY, dX)); // get the angle between the player and the enemy in degrees
                 entity.notifyComponent(PhysicsComponent.class, () -> findDirectionGivenAngle(angle));
             });
         };
@@ -57,13 +58,17 @@ public class BasicEnemyAIInputController implements InputController {
 
     private Directions findDirectionGivenAngle(final Double angle) {
         final var absAngle = Math.abs(angle);
-        if (absAngle <= 45) {
+        if (absAngle <= RIGHT_MAX_ABSOLUTE_ANGLE) { 
+            // the angle is between -45 and 45 degrees
             return Directions.RIGHT;
-        } else if (absAngle >= 135) {
+        } else if (absAngle >= LEFT_MIN_ABSOLUTE_ANGLE) {
+            // the angle is between -135 and 135 degrees
             return Directions.LEFT;
-        } else if (absAngle > 45 && absAngle < 135 && angle < 0) {
+        } else if (angle < 0) {
+            // the angle is between -45 and -135 degrees
             return Directions.UP;
         } else {
+            // the angle is between 45 and 135 degrees
             return Directions.DOWN;
         }
     }
