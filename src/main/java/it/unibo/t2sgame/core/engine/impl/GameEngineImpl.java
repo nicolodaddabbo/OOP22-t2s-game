@@ -3,25 +3,15 @@ package it.unibo.t2sgame.core.engine.impl;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.t2sgame.common.StopWatch;
 import it.unibo.t2sgame.core.components.api.Component;
-import it.unibo.t2sgame.core.components.impl.CollisionComponent;
 import it.unibo.t2sgame.core.components.impl.InputComponent;
-import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
+import it.unibo.t2sgame.core.engine.api.GameLoop;
 import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.view.api.GameScene;
 
 public class GameEngineImpl implements GameEngine {
-    /*
-     * This long indicates the perod of updating the states systems in nanoseconds
-     */
-    private static final long NS_FRAME_PERIOD = (long) (7 * 1E6);
-    /*
-     * This long indicates the perod of updating the states systems in nanoseconds
-     */
-    private static final long NS_UPDATE_PERDIOD = (long) (7 * 1E6);
     /*
      * The game which is hosted by the engine
      */
@@ -30,10 +20,10 @@ public class GameEngineImpl implements GameEngine {
      * The view where the engine will render the game
      */
     private final GameScene view;
-    /* Usefull to synchronize states systems and to wait for next frame */
-    private final StopWatch timer = new StopWatch().start();
-    /* Represent the "gap" between game time and real time */
-    private long lag = 0;
+    /*
+     * The gameLoop istance, delegating to it the handling of game loop body
+     */
+    private GameLoop gameLoop = new SynchronizeGameLoop(new FpsLockedGameLoop(new BasicGameLoop(this)));
 
     /**
      * Create a GameEngine's istance based on {@link scene} and {@link game}
@@ -50,23 +40,9 @@ public class GameEngineImpl implements GameEngine {
     public void run() {
         this.init();
         while (!this.game.isOver()) {
-            this.lag = this.lag + this.timer.getElapsedNanos();
-            this.timer.restart();
-            this.updateComponentBy(InputComponent.class);
-            /**
-             * This loop substitutes the usage of a delta time step
-             * variabile to procede the game time.
-             * Using a delta time causes a non deterministic game
-             * due to the number of update's calls which which
-             * would be different based on the cpu / gpu "speed" of
-             * the computer that is running the engine.
-             */
-            while (!this.isSync()) {
-                this.updateGame();
-                this.lag = this.lag - NS_UPDATE_PERDIOD;
-            }
-            this.view.render();
-            this.waitForNextFrame();
+            this.gameLoop.processInput();
+            this.gameLoop.updateGame();
+            this.gameLoop.render();
         }
     }
 
@@ -94,11 +70,9 @@ public class GameEngineImpl implements GameEngine {
                 .toList();
     }
 
-    private void updateGame() {
-        this.updateComponentByConcurrent(PhysicsComponent.class);
-        this.updateComponentByConcurrent(CollisionComponent.class);
-        // Update the game logics and check events
-        this.game.update();
+    @Override
+    public GameScene getScene() {
+        return this.view;
     }
 
     /*
@@ -120,36 +94,11 @@ public class GameEngineImpl implements GameEngine {
     }
 
     /*
-     * Check if the "game time" is synchronized with the "real time"
-     */
-    private boolean isSync() {
-        return this.lag < NS_UPDATE_PERDIOD;
-    }
-
-    /*
      * Initialize the engine before start to running
      */
     private void init() {
+        // Setting to the view all the players input controller
         this.view.setInputControllers(this.getKeyboardInputController());
-    }
-
-    /**
-     * A waiter function usefull to optimize performance.
-     * As soon as the thread has told to scene to render, it sleeps
-     * for a time which is equal to the frame period procession.
-     * This will cause an fps lock during the game loop.
-     */
-    private void waitForNextFrame() {
-        var timeToSleep = NS_FRAME_PERIOD - this.timer.getElapsedNanos();
-        if (timeToSleep > 0) {
-            try {
-                // Sleeping time has to be converted in milliseconds
-                Thread.sleep((long) ((timeToSleep) / 1E6));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                System.exit(1);
-            }
-        }
     }
 
 }
