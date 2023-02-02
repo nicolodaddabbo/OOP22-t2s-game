@@ -44,7 +44,7 @@ public class EntityFactoryImpl implements EntityFactory {
             .addComponent(this.componentFactory.createInputComponentFrom(new ChasingAIInputController()))
             .addComponent(this.componentFactory.createHealthComponentFrom(1))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(0.5))
-            .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 80), false , List.of(Type.PROJECTILE , Type.WALL)))
+            .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 80), false , List.of(Type.PROJECTILE)))
             .addComponent(this.componentFactory.createDamageComponentFrom(1, 1))
             .addComponent(this.componentFactory.createGraphicComponentWithSprite("enemy", 60, 80));
     }
