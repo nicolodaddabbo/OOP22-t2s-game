@@ -3,15 +3,13 @@ package it.unibo.t2sgame.input.impl;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
+import it.unibo.t2sgame.input.api.AbstractInputController;
 import it.unibo.t2sgame.input.api.Command;
 import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.EntityState;
-import it.unibo.t2sgame.input.api.InputController;
 
-public class KeyboardInputController implements InputController {
+public class KeyboardInputController extends AbstractInputController {
     private static final int MOVE_UP_CODE = 87;
     private static final int MOVE_RIGHT_CODE = 68;
     private static final int MOVE_DOWN_CODE = 83;
@@ -37,7 +35,6 @@ public class KeyboardInputController implements InputController {
 
     private final EntityState<Integer> moveState = new EntityStateImpl<>(WALK_MOVESET);
     private final EntityState<Integer> shootState = new EntityStateImpl<>(SHOOT_MOVESET);
-    private final Queue<Command> commandsQueue = new ConcurrentLinkedQueue<>();
     private final List<EntityState<Integer>> states = List.of(this.moveState, this.shootState);
 
     public void notifyKeyPressed(final int keyCode) {
@@ -55,11 +52,4 @@ public class KeyboardInputController implements InputController {
         this.commandsQueue.addAll(this.states.stream().filter(s -> s.getCurrentCommand().isPresent()).map(s -> s.getCurrentCommand().get()).toList());
     }
 
-    @Override
-    public Queue<Command> getCommandsQueue() {
-        var defensiveQueue = new ConcurrentLinkedQueue<>(this.commandsQueue);
-        this.commandsQueue.clear();
-        return defensiveQueue;
-    }
-    
 }

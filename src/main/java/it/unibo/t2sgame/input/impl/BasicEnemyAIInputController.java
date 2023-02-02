@@ -1,39 +1,16 @@
 package it.unibo.t2sgame.input.impl;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.input.api.Command;
+import it.unibo.t2sgame.input.api.AbstractAIInputController;
 import it.unibo.t2sgame.input.api.Directions;
-import it.unibo.t2sgame.input.api.InputController;
 
-public class BasicEnemyAIInputController implements InputController {
+public class BasicEnemyAIInputController extends AbstractAIInputController {
     private static final int RIGHT_MAX_ABSOLUTE_ANGLE = 45;
     private static final int LEFT_MIN_ABSOLUTE_ANGLE = 135;
-    private final List<Command> availableCommands;
-    private final Queue<Command> commandsQueue;
-
-    public BasicEnemyAIInputController() {
-        this.commandsQueue = new ConcurrentLinkedQueue<>();
-        this.availableCommands = new LinkedList<>();
-        for (var direction : Directions.values()) {
-            this.availableCommands.add(new Move(direction));
-        }
-    }
 
     @Override
-    public Queue<Command> getCommandsQueue() {
-        computeNextCommand();
-        var defensiveQueue = new LinkedList<>(this.commandsQueue);
-        this.commandsQueue.clear();
-        return defensiveQueue;
-    }
-
-    private void computeNextCommand() {
+    protected void computeNextCommand() {
         this.commandsQueue.add(entity -> {
             if (entity.getWorld().isEmpty()) {
                 throw new IllegalArgumentException();
