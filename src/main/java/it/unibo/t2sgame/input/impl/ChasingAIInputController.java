@@ -5,7 +5,7 @@ import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.input.api.AbstractAIInputController;
 import it.unibo.t2sgame.input.api.Directions;
 
-public class BasicEnemyAIInputController extends AbstractAIInputController {
+public class ChasingAIInputController extends AbstractAIInputController {
     private static final int RIGHT_MAX_ABSOLUTE_ANGLE = 45;
     private static final int LEFT_MIN_ABSOLUTE_ANGLE = 135;
 

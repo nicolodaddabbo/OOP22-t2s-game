@@ -12,7 +12,7 @@ import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.core.entity.impl.EntityImpl;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
 import it.unibo.t2sgame.input.api.Directions;
-import it.unibo.t2sgame.input.impl.BasicEnemyAIInputController;
+import it.unibo.t2sgame.input.impl.ChasingAIInputController;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 
 public class EntityFactoryImpl implements EntityFactory {
@@ -41,7 +41,7 @@ public class EntityFactoryImpl implements EntityFactory {
     @Override
     public Entity createBaseEnemy(final Vector2D position) {
         return new EntityImpl(position, Type.ENEMY)
-            .addComponent(this.componentFactory.createInputComponentFrom(new BasicEnemyAIInputController()))
+            .addComponent(this.componentFactory.createInputComponentFrom(new ChasingAIInputController()))
             .addComponent(this.componentFactory.createHealthComponentFrom(1))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(0.5))
             .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 80), false , List.of(Type.PROJECTILE , Type.WALL)))
