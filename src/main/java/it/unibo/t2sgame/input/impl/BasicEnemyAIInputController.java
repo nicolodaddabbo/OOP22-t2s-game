@@ -6,6 +6,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
+import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.input.api.Command;
 import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
@@ -36,19 +37,22 @@ public class BasicEnemyAIInputController implements InputController {
                 throw new IllegalArgumentException();
             }
             final var world = entity.getWorld().get();
-            var closestPlayer = world.getPlayers().get(0);
-            for (var nextPlayer : world.getPlayers()) { // get the closest player
-                if (entity.getPosition().distance(nextPlayer.getPosition()) < entity.getPosition()
-                        .distance(closestPlayer.getPosition())) {
-                    closestPlayer = nextPlayer;
-                }
-            }
-            final var dX = closestPlayer.getPosition().getX() - entity.getPosition().getX();
-            final var dY = closestPlayer.getPosition().getY() - entity.getPosition().getY();
-            final var angle = Math.toDegrees(Math.atan2(dY, dX)); // get the angle between the player an the enemy in degree
-            entity.notifyComponent(PhysicsComponent.class, () -> findDirectionGivenAngle(angle));
+            var closestPlayer = world.getPlayers().stream()
+                    .min((p1, p2) -> Double.compare(distanceBetweenEntities(entity, p1),
+                            distanceBetweenEntities(entity, p2)));
+            closestPlayer.ifPresent(p -> {
+                final var dX = p.getPosition().getX() - entity.getPosition().getX();
+                final var dY = p.getPosition().getY() - entity.getPosition().getY();
+                final var angle = Math.toDegrees(Math.atan2(dY, dX)); // get the angle between the player an the enemy
+                                                                      // in degree
+                entity.notifyComponent(PhysicsComponent.class, () -> findDirectionGivenAngle(angle));
+            });
         };
         this.commandsQueue.add(cmd);
+    }
+
+    private double distanceBetweenEntities(final Entity e1, final Entity e2) {
+        return e1.getPosition().distance(e2.getPosition());
     }
 
     private Directions findDirectionGivenAngle(final Double angle) {
