@@ -1,5 +1,7 @@
 package it.unibo.t2sgame.view.api;
 
+import java.util.List;
+
 import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
@@ -21,5 +23,5 @@ public interface GameScene extends BaseScene{
 
     Graphic getGraphic();
 
-    void setInputController(KeyboardInputController keyInController);
+    void setInputControllers(List<KeyboardInputController> keyInControllers);
 }

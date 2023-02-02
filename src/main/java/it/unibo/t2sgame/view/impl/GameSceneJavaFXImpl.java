@@ -3,6 +3,7 @@ package it.unibo.t2sgame.view.impl;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -31,7 +32,7 @@ import javafx.stage.Stage;
 
 public class GameSceneJavaFXImpl implements GameScene {
     private Canvas canvas;
-    private KeyboardInputController keyInController;
+    private List<KeyboardInputController> keyInControllers;
     private GraphicsContext gContext;
     private GraphicJavaFXImpl graphic;
     private Map<String, Image> cachedSprites;
@@ -69,8 +70,8 @@ public class GameSceneJavaFXImpl implements GameScene {
         this.canvas = new Canvas(proportionedWidth, proportionedHeight);
         this.gContext = this.canvas.getGraphicsContext2D();
         this.graphic = new GraphicJavaFXImpl(this.gContext, this.dpiW, this.dpiH);
-        scene.setOnKeyPressed(event -> keyInController.notifyKeyPressed(event.getCode().getCode()));
-        scene.setOnKeyReleased(event -> keyInController.notifyKeyReleased(event.getCode().getCode()));
+        scene.setOnKeyPressed(event -> keyInControllers.forEach(c -> c.notifyKeyPressed(event.getCode().getCode())));
+        scene.setOnKeyReleased(event -> keyInControllers.forEach(c -> c.notifyKeyReleased(event.getCode().getCode())));
         root.getChildren().add(this.canvas);
         root.getChildren().get(root.getChildren().indexOf(this.round)).toFront();
         stage.setResizable(false);
@@ -92,34 +93,24 @@ public class GameSceneJavaFXImpl implements GameScene {
 
     @Override
     public void render() {
-        /**
-         * This code is here just for testing purposes
-         */
-        this.getGame().getWorld().getPlayers().get(0)
-            .getComponent(InputComponent.class)
-            .ifPresent(c -> this.keyInController = (KeyboardInputController)(c).getInputController()); 
-
         Platform.runLater(() -> {
             gContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             this.gameEngine.getComponents(GraphicComponent.class).forEach(c -> {
                 c.setGraphics(this.graphic);
                 c.update();
             });
-
-            //this.gameEngine.updateComponentBy(GraphicComponent.class); 
             this.getGame().getWorld().getPlayers().get(0).getComponent(HealthComponent.class).ifPresent(c -> {
                 Stream.iterate(0, i -> i + 1)
                     .limit(c.getHealth())
                     .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 50*this.dpiW*n, 0, 40*this.dpiW, 40*this.dpiW));
             });
-
             this.round.setText("Round " + this.gameEngine.getGame().getState().getRound());
         });
     }
     
     @Override
     public void setEngine(GameEngine gameEngine) {
-        this.gameEngine =  gameEngine;
+        this.gameEngine = gameEngine;
     }
 
     public Game getGame(){
@@ -130,7 +121,7 @@ public class GameSceneJavaFXImpl implements GameScene {
         return this.graphic;
     }
 
-    public void setInputController(KeyboardInputController keyInController){
-        this.keyInController = keyInController;
+    public void setInputControllers(List<KeyboardInputController> keyInControllers){
+        this.keyInControllers = keyInControllers;
     }
 }
