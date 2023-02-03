@@ -1,42 +1,69 @@
 package it.unibo.t2sgame.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 import org.junit.jupiter.api.Test;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.input.api.InputComponentFactory;
-import it.unibo.t2sgame.input.impl.InputComponentFactoryImpl;
+import it.unibo.t2sgame.core.components.api.ComponentFactory;
+import it.unibo.t2sgame.core.components.impl.ComponentFactoryImpl;
+import it.unibo.t2sgame.core.components.impl.InputComponent;
+import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.model.api.EntityFactory;
+import it.unibo.t2sgame.game.model.api.World;
+import it.unibo.t2sgame.game.model.api.WorldFactory;
+import it.unibo.t2sgame.game.model.impl.EntityFactoryImpl;
+import it.unibo.t2sgame.game.model.impl.WorldFactoryImpl;
+import it.unibo.t2sgame.input.impl.ChasingAIInputController;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
-import it.unibo.t2sgame.model.impl.EntityImpl;
+import it.unibo.t2sgame.input.impl.Move;
+import it.unibo.t2sgame.input.impl.Shoot;
 
 public class InputTest {
-    private final InputComponentFactory factory;
+    ComponentFactory componentFactory = new ComponentFactoryImpl();
+    EntityFactory entityFactory = new EntityFactoryImpl();
+    WorldFactory worldFactory = new WorldFactoryImpl();
+    World world;
+    Entity player;
     
     public InputTest() {
-        this.factory = new InputComponentFactoryImpl();
+        world = worldFactory.createWorldWithOnePlayer();
+        player = world.getPlayers().get(0);
     }
 
     @Test
     void keyboardInputTest() {
-        var keyboardInputComponent = this.factory.createKeyboardInputComponent();
-        var entity = new EntityImpl(new Vector2D(0, 0));
-
-        // add the input controller to the input component
-        entity.addComponent(keyboardInputComponent);
-
+        InputComponent keyboardInputComponent = (InputComponent) this.componentFactory.createInputComponentFrom(new KeyboardInputController());
+        // add the input component to the player
+        this.player.addComponent(keyboardInputComponent);
         KeyboardInputController inputController = (KeyboardInputController) keyboardInputComponent.getInputController();
-        
-        // with no key pressed the command should be empty
-        assertTrue(inputController.getCommand().isEmpty());
-
-        // 'W' key is pressed 
+        // with no key pressed the commands queue should be empty
+        assertTrue(inputController.getCommandsQueue().isEmpty());
+        // 'Arrow UP' key is pressed
+        inputController.notifyKeyPressed(38);
+        // command should be a Shoot command
+        assertEquals(Shoot.class, inputController.getCommandsQueue().poll().getClass());
+        // 'W' key is pressed
         inputController.notifyKeyPressed(87);
-        keyboardInputComponent.update(entity);
+        // command should be a Move command, and the previous Shoot command shouldn't exists
+        assertEquals(Move.class, inputController.getCommandsQueue().poll().getClass());
+    }
 
-        // command should be Move in UP direction
-        assertTrue(inputController.getCommand().isPresent());
+    @Test
+    void chasingAIInputTest() {
+        InputComponent aiInputComponent = (InputComponent) this.componentFactory.createInputComponentFrom(new ChasingAIInputController());
+        this.player.addComponent(aiInputComponent);
+        ChasingAIInputController inputController = (ChasingAIInputController) aiInputComponent.getInputController();
+        // every time the getCommandsQueue method gets called the AI generate a command, so the
+        // commands queue should never be empty
+        assertFalse(inputController.getCommandsQueue().isEmpty());
+        aiInputComponent.update();
+        // a ChasingAIInputController generates only Move commands, so after an update the position
+        // of the player should be different from the initial one
+        assertNotEquals(player.getPosition(), new Vector2D(0, 0));
     }
 
 }
