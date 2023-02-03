@@ -24,4 +24,6 @@ public interface GameScene extends BaseScene{
     Graphic getGraphic();
 
     void setInputControllers(List<KeyboardInputController> keyInControllers);
+
+    void gameOver();
 }

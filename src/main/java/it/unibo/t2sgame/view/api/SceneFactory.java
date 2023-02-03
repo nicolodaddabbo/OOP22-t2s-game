@@ -8,4 +8,6 @@ public interface SceneFactory {
     GameScene createGameScene(Window window);
 
     BaseScene createMenuScene(Window window);
+
+    BaseScene createGameOverScene(Window window, int round);
 }

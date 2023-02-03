@@ -9,4 +9,6 @@ public interface Window {
     GameScene createGameScene();
 
     BaseScene createMenuScene();
+
+    BaseScene createGameOverScene(int round);
 }
