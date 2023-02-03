@@ -7,6 +7,7 @@ AbstractAIInputController --|> AbstractInputController
 KeyboardInputController --|> AbstractInputController
 ChasingAIInputController --|> AbstractAIInputController
 MosquitoAIInputController --|> AbstractAIInputController
+Command --* InputController
 
 %%
 class InputComponent {
@@ -17,6 +18,10 @@ class InputComponent {
 class InputController {
     <<interface>>
     +getCommandsQueue(): Queue~Command~
+}
+%%
+class Command {
+    +execute(Entity): void
 }
 %%
 class AbstractInputController {
