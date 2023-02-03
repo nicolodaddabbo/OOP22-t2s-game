@@ -1,50 +1,44 @@
 ```mermaid
 classDiagram
 
-InputComponent <|-- AbstractInputComponent
-AbstractInputComponent <|-- KeyboardInputComponent
-AbstractInputComponent <|-- AIInputComponent
-InputController --* AbstractInputComponent
-InputController <|-- KeyboardInputController
-InputController <|-- AIInputController
-Command --* InputController
+InputController --* InputComponent
+AbstractInputController --|> InputController
+AbstractAIInputController --|> AbstractInputController
+KeyboardInputController --|> AbstractInputController
+ChasingAIInputController --|> AbstractAIInputController
+MosquitoAIInputController --|> AbstractAIInputController
 
 %%
 class InputComponent {
     <<interface>>
-    +update() void
-}
-%%
-class AbstractInputComponent {
-    <<abstract class>>
-    #setInputController()
-    +update() void
-}
-%%
-class KeyboardInputComponent {
-    #setInputController()
-}
-%%
-class AIInputComponent {
-    #setInputController()
+    +update(): void
 }
 %%
 class InputController {
     <<interface>>
-    +handleInput(): Optional~Command~
+    +getCommandsQueue(): Queue~Command~
+}
+%%
+class AbstractInputController {
+    <<abstract>>
+    +getCommandsQueue(): Queue~Command~
+}
+%%
+class AbstractAIInputController {
+    <<abstract>>
+    #computeNextCommand(): void
+    +getCommandsQueue(): Queue~Command~
 }
 %%
 class KeyboardInputController {
-    +handleInput(): Optional~Command~
-    +notifyKeyboardPressed(int keyCode): void
+    +notifyKeyPressed(int): void
+    +notifyKeyReleased(int): void
 }
 %%
-class AIInputController {
-    +handleInput(): Optional~Command~
-    +generateNextMove(): void
+class ChasingAIInputController {
+    #computeNextCommand(): void
 }
 %%
-class Command {
-    <<interface>>
-    +execute(Entity entity): void
+class MosquitoAIInputController {
+    #computeNextCommand(): void
 }
