@@ -22,4 +22,9 @@ public class SceneFactoryJavaFXImpl implements SceneFactory{
     public BaseScene createMenuScene(Window window){
         return new MenuJavaFXImpl(stage, window);
     }
+
+    @Override
+    public BaseScene createGameOverScene(Window window, int round) {
+        return new GameOverSceneJavaFX(stage, window, round);
+    }
 }
