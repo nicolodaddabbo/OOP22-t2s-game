@@ -23,7 +23,8 @@ public class GameEngineImpl implements GameEngine {
     /*
      * The gameLoop istance, delegating to it the handling of game loop body
      */
-    private GameLoop gameLoop = new SynchronizeGameLoop(new FpsLockedGameLoop(new BasicGameLoop(this)));
+    private GameLoop gameLoop = new FpsCounterGameLoop(
+            new SynchronizeGameLoop(new FpsLockedGameLoop(new BasicGameLoop(this))));
 
     /**
      * Create a GameEngine's istance based on {@link scene} and {@link game}
