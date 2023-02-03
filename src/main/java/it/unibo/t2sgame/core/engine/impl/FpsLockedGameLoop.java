@@ -11,8 +11,10 @@ import it.unibo.t2sgame.core.engine.api.GameLoopDecorator;
 public class FpsLockedGameLoop extends GameLoopDecorator {
     /*
      * This long indicates the perod of updating the states systems in nanoseconds
+     * 17.3 ms = 60  fps
+     * 7.3  ms = 144 fps
      */
-    private static final long NS_FRAME_PERIOD = (long) (7 * 1E6);
+    private static final long NS_FRAME_PERIOD = (long) (7.3 * 1E6);
 
     private StopWatch timer = new StopWatch().start();
 
