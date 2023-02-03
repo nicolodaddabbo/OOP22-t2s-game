@@ -63,8 +63,8 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
          * takes the width and height of the primary screen and proportion it on the
          * static sizes
          */
-        this.dpiW = screenBounds.getWidth() / GameSceneJavaFXImpl.BASEWIDTH;
-        this.dpiH = screenBounds.getHeight() / GameSceneJavaFXImpl.BASEHEIGHT;
+        this.dpiW = screenBounds.getWidth() / map.getWidth();
+        this.dpiH = screenBounds.getHeight() /  map.getHeight();
         var proportionedWidth = map.getWidth() * this.dpiW;
         var proportionedHeight = map.getHeight() * this.dpiH;
         storeSprites();
@@ -85,25 +85,11 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
         scene.setOnKeyReleased(event -> keyInControllers.forEach(c -> c.notifyKeyReleased(event.getCode().getCode())));
         root.getChildren().add(this.canvas);
         root.getChildren().get(root.getChildren().indexOf(this.round)).toFront();
-        stage.sizeToScene();
+        //stage.sizeToScene();
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.setResizable(false);
         stage.show();
-    }
-
-    private void storeSprites() {
-        cachedSprites = new HashMap<>();
-        try {
-            this.cachedSprites.put("full_heart",
-                    new Image(new FileInputStream("src/main/resources/sprites/heart_darker.png")));
-            backgroundImage = new BackgroundImage(
-                    new Image(new FileInputStream("src/main/resources/sprites/Brickwall5_Texture.png"),
-                            300 * this.dpiW, 300 * this.dpiH, false, true),
-                    BackgroundRepeat.REPEAT,
-                    BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -123,4 +109,24 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
             this.round.setText("Round " + this.gameEngine.getGame().getState().getRound());
         });
     }
+
+    @Override
+    public void gameOver(){
+        this.window.createGameOverScene(this.gameEngine.getGame().getState().getRound()).initialize();
+    }
+
+    private void storeSprites() {
+            cachedSprites = new HashMap<>();
+            try {
+                this.cachedSprites.put("full_heart",
+                        new Image(new FileInputStream("src/main/resources/sprites/heart_darker.png")));
+                backgroundImage = new BackgroundImage(
+                        new Image(new FileInputStream("src/main/resources/sprites/Brickwall5_Texture.png"),
+                                300 * this.dpiW, 300 * this.dpiH, false, true),
+                        BackgroundRepeat.REPEAT,
+                        BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
 }
