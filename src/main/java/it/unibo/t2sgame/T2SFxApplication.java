@@ -7,6 +7,6 @@ import javafx.stage.Stage;
 public class T2SFxApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        new WindowJavaFX(primaryStage).launch();
+        new WindowJavaFX().launch();
     }
 }

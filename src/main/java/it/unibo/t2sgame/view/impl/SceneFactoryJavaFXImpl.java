@@ -3,6 +3,7 @@ package it.unibo.t2sgame.view.impl;
 import it.unibo.t2sgame.view.api.BaseScene;
 import it.unibo.t2sgame.view.api.GameScene;
 import it.unibo.t2sgame.view.api.SceneFactory;
+import it.unibo.t2sgame.view.api.Window;
 import javafx.stage.Stage;
 
 public class SceneFactoryJavaFXImpl implements SceneFactory{
@@ -14,11 +15,11 @@ public class SceneFactoryJavaFXImpl implements SceneFactory{
     }
     
     @Override
-    public GameScene createGameScene() {
-        return new GameSceneJavaFXImpl(stage);
+    public GameScene createGameScene(Window window) {
+        return new GameSceneJavaFXImpl(stage, window);
     }
     
-    public BaseScene createMenuScene(){
-        return new MenuJavaFXImpl(stage);
+    public BaseScene createMenuScene(Window window){
+        return new MenuJavaFXImpl(stage, window);
     }
 }

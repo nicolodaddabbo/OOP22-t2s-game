@@ -13,8 +13,10 @@ import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.game.components.HealthComponent;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
+import it.unibo.t2sgame.view.api.AbstractGameScene;
 import it.unibo.t2sgame.view.api.GameScene;
 import it.unibo.t2sgame.view.api.Graphic;
+import it.unibo.t2sgame.view.api.Window;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
@@ -35,14 +37,11 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class GameSceneJavaFXImpl implements GameScene {
+public class GameSceneJavaFXImpl extends AbstractGameScene {
     private Canvas canvas;
-    private List<KeyboardInputController> keyInControllers = new ArrayList<>();
     private GraphicsContext gContext;
-    private GraphicJavaFXImpl graphic;
     private Map<String, Image> cachedSprites;
     private final Stage stage;
-    private GameEngine gameEngine;
     private Text round = new Text();
     private double dpiW;
     private double dpiH;
@@ -50,7 +49,8 @@ public class GameSceneJavaFXImpl implements GameScene {
     private static final double BASEWIDTH = 1920;
     private static final double BASEHEIGHT = 1080;
 
-    public GameSceneJavaFXImpl(Stage stage) {
+    public GameSceneJavaFXImpl(Stage stage, Window window) {
+        super(window);
         this.stage = stage;
     }
 
@@ -68,7 +68,7 @@ public class GameSceneJavaFXImpl implements GameScene {
         var proportionedWidth = map.getWidth() * this.dpiW;
         var proportionedHeight = map.getHeight() * this.dpiH;
         storeSprites();
-        var scene = new Scene(root, proportionedWidth, proportionedHeight);
+        var scene = new Scene(root, proportionedWidth, proportionedHeight, Color.BLACK);
         /* initializing all text settings settings */
         this.round.setText("");
         this.round.setFont(Font.font(null, FontWeight.BOLD, 30 * this.dpiW));
@@ -85,10 +85,9 @@ public class GameSceneJavaFXImpl implements GameScene {
         scene.setOnKeyReleased(event -> keyInControllers.forEach(c -> c.notifyKeyReleased(event.getCode().getCode())));
         root.getChildren().add(this.canvas);
         root.getChildren().get(root.getChildren().indexOf(this.round)).toFront();
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.centerOnScreen();
         stage.sizeToScene();
+        stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -123,22 +122,5 @@ public class GameSceneJavaFXImpl implements GameScene {
             });
             this.round.setText("Round " + this.gameEngine.getGame().getState().getRound());
         });
-    }
-
-    @Override
-    public void setEngine(GameEngine gameEngine) {
-        this.gameEngine = gameEngine;
-    }
-
-    public Game getGame() {
-        return this.gameEngine.getGame();
-    }
-
-    public Graphic getGraphic() {
-        return this.graphic;
-    }
-
-    public void setInputControllers(List<KeyboardInputController> keyInControllers) {
-        this.keyInControllers = keyInControllers;
     }
 }

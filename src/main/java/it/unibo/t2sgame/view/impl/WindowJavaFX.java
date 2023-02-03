@@ -1,22 +1,19 @@
 package it.unibo.t2sgame.view.impl;
 
-import it.unibo.t2sgame.view.api.Window;
+import it.unibo.t2sgame.view.api.AbstractWindow;
+import it.unibo.t2sgame.view.api.SceneFactory;
 import javafx.stage.Stage;
 
-public class WindowJavaFX implements Window{
-
+public class WindowJavaFX extends AbstractWindow{
     private final Stage stage;
 
-    public WindowJavaFX(final Stage stage){
-        this.stage = stage;
+    public WindowJavaFX(){
+        this.stage = new Stage();
+        this.sceneFactory = new SceneFactoryJavaFXImpl(stage);
     }
 
     @Override
-    public void launch() {
-        var menu = new SceneFactoryJavaFXImpl(this.stage).createMenuScene(); 
-        menu.initialize();
-
-        this.stage.show();
+    protected SceneFactory getSceneFactory() {
+        return this.sceneFactory;
     }
-    
 }

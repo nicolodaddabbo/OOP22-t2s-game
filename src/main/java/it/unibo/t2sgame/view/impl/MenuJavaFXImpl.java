@@ -1,7 +1,8 @@
 package it.unibo.t2sgame.view.impl;
 
 
-import it.unibo.t2sgame.view.api.BaseScene;
+import it.unibo.t2sgame.view.api.AbstractBaseScene;
+import it.unibo.t2sgame.view.api.Window;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -11,11 +12,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class MenuJavaFXImpl implements BaseScene{
+public class MenuJavaFXImpl extends AbstractBaseScene{
 
     private final Stage stage;
 
-    public MenuJavaFXImpl(final Stage stage) {
+    public MenuJavaFXImpl(final Stage stage, final Window window) {
+        super(window);
         this.stage = stage;
     }
 
@@ -30,7 +32,7 @@ public class MenuJavaFXImpl implements BaseScene{
         multiPlayer.setTranslateY(60);
         root.getChildren().add(singlePlayer);
         root.getChildren().add(multiPlayer);
-        Scene scene = new Scene(root, 1200, 800, Color.BLACK);
+        Scene scene = new Scene(root, 800, 800, Color.BLACK);
         stage.setTitle("T2S-game");
         stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             if(event.getCode().equals(KeyCode.ESCAPE)) {
@@ -42,12 +44,13 @@ public class MenuJavaFXImpl implements BaseScene{
         });  
         BaseSceneLogicImpl sceneImpl = new BaseSceneLogicImpl();
         singlePlayer.setOnAction(event -> {
-            sceneImpl.createSinglePlayer(stage);
+            sceneImpl.createSinglePlayer(this.window);
         });
         multiPlayer.setOnAction(event -> {
-            sceneImpl.createMultiPlayer(stage);
+            sceneImpl.createMultiPlayer(this.window);
         });
         stage.setScene(scene);
+        stage.show();
     }
 
     private void close(){
