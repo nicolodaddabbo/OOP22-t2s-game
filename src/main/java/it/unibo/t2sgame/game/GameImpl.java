@@ -1,8 +1,6 @@
 package it.unibo.t2sgame.game;
 
-import it.unibo.t2sgame.game.logics.api.GameMap;
 import it.unibo.t2sgame.game.logics.api.State;
-import it.unibo.t2sgame.game.logics.impl.GameMapImpl;
 import it.unibo.t2sgame.game.model.api.World;
 import it.unibo.t2sgame.game.model.impl.WaveFactoryImpl;
 
@@ -44,7 +42,7 @@ public class GameImpl implements Game {
 
     private void nextWave() {
         this.state.incrementRound();
-        var wave = new WaveFactoryImpl().createBasicWave(this.state.getRound());
+        var wave = new WaveFactoryImpl(this.world).createBasicWave(this.state.getRound());
         this.world.setWave(wave);
     }
 
