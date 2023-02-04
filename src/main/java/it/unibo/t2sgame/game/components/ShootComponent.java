@@ -25,22 +25,20 @@ public class ShootComponent extends AbstractComponent {
 
     @Override
     public void update() {
-        
+
     }
 
     @Override
     public <T> void receive(final Message<T> message) {
-        try {
-            var shotDirection = (Directions)message.getMessage();
-            this.shoot(shotDirection);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
+        if (Directions.class.isInstance(message.getMessage())) {
+            this.shoot(Directions.class.cast(message.getMessage()));
         }
     }
 
-    private void shoot(final Directions shotDirection){
-        if(this.timer.getElapsedSeconds() >= this.fireRateSeconds){
-            this.entity.getWorld().ifPresent(e -> e.notifyEvent(this.eventFactory.onShootEvent(this.entity, shotDirection)));
+    private void shoot(final Directions shotDirection) {
+        if (this.timer.getElapsedSeconds() >= this.fireRateSeconds) {
+            this.entity.getWorld()
+                    .ifPresent(e -> e.notifyEvent(this.eventFactory.onShootEvent(this.entity, shotDirection)));
             this.timer.restart();
         }
     }
@@ -60,5 +58,5 @@ public class ShootComponent extends AbstractComponent {
     public void setfireRateSeconds(final double fireRateSeconds) {
         this.fireRateSeconds = fireRateSeconds;
     }
-    
+
 }
