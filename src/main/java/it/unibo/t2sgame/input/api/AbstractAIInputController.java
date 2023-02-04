@@ -7,6 +7,8 @@ import java.util.Queue;
  * the method getCommandsQueue
  */
 public abstract class AbstractAIInputController extends AbstractInputController {
+    private static final int RIGHT_MAX_ABSOLUTE_ANGLE = 45;
+    private static final int LEFT_MIN_ABSOLUTE_ANGLE = 135;
 
     /**
      * This method adds the next command to be executed by the AI controlled entity
@@ -21,6 +23,23 @@ public abstract class AbstractAIInputController extends AbstractInputController 
     public Queue<Command> getCommandsQueue() {
         computeNextCommand();
         return super.getCommandsQueue();
+    }
+
+    protected Directions findDirectionGivenAngle(final Double angle) {
+        final var absAngle = Math.abs(angle);
+        if (absAngle <= RIGHT_MAX_ABSOLUTE_ANGLE) { 
+            // the angle is between -45 and 45 degrees
+            return Directions.RIGHT;
+        } else if (absAngle >= LEFT_MIN_ABSOLUTE_ANGLE) {
+            // the angle is between -135 and 135 degrees
+            return Directions.LEFT;
+        } else if (angle < 0) {
+            // the angle is between -45 and -135 degrees
+            return Directions.UP;
+        } else {
+            // the angle is between 45 and 135 degrees
+            return Directions.DOWN;
+        }
     }
 
 }
