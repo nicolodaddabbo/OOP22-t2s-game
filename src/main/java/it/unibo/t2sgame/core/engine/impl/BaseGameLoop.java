@@ -15,17 +15,12 @@ import it.unibo.t2sgame.core.engine.api.GameLoop;
  * input of the Consumer.
  * The type of updater Consumer depends on the real implementation of the GameLoop
  */
-abstract class AbstractGameLoop implements GameLoop {
+abstract class BaseGameLoop implements GameLoop {
 
     protected final GameEngineImpl engine;
 
-    public AbstractGameLoop(GameEngineImpl engine) {
+    public BaseGameLoop(GameEngineImpl engine) {
         this.engine = engine;
-    }
-
-    @Override
-    public GameEngine getEngine() {
-        return this.engine;
     }
 
     @Override
@@ -46,5 +41,10 @@ abstract class AbstractGameLoop implements GameLoop {
     }
 
     abstract Consumer<Class<? extends Component>> getUpdater();
+
+    @Override
+    public GameEngine getEngine() {
+        return this.engine;
+    }
 
 }
