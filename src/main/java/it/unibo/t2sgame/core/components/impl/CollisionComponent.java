@@ -12,6 +12,9 @@ import it.unibo.t2sgame.core.components.api.Message;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.core.entity.api.Type;
 
+/**
+ * This class represents the collsion of the entity.
+ */
 public abstract class CollisionComponent extends AbstractComponent {
 
     protected Set<CollisionComponent> collisions = new HashSet<>();
@@ -21,9 +24,10 @@ public abstract class CollisionComponent extends AbstractComponent {
 
     /**
      * 
-     * @param shape the shape of the collision
-     * @param isRigid if true, the collision is rigid and cant be passed through. Otherwise not
-     * @param types the types of entity that the collision collides with
+     * @param shape   the shape of the collision
+     * @param isRigid if true, the collision is rigid and cant be passed through.
+     *                Otherwise not
+     * @param types   the types of entity that the collision collides with
      */
     protected CollisionComponent(final Shape shape, final boolean isRigid, final List<Type> types) {
         this.shape = shape;
@@ -33,7 +37,7 @@ public abstract class CollisionComponent extends AbstractComponent {
 
     @Override
     public <T> void receive(final Message<T> message) {
-        if(Vector2D.class.isInstance(message.getMessage())){
+        if (Vector2D.class.isInstance(message.getMessage())) {
             this.receiveFromPhysicComponent(Vector2D.class.cast(message.getMessage()));
         }
     }
@@ -53,25 +57,28 @@ public abstract class CollisionComponent extends AbstractComponent {
             .map(e -> e.getComponent(CollisionComponent.class).get()).collect(Collectors.toSet());
 
         this.collisions.stream()
-        // Filtering each collision which has been checked as true
-        .filter(collision -> shape.isColliding(collision.getShape()))
-        // Notify to the health component every collision which has been checked as true
-        .forEach(collision -> {
-            if (this.isRigid || collision.isRigid()) {
-                this.knockBack();
-            }
-            this.collisionAction(collision.getEntity());
-        });
+                // Filtering each collision which has been checked as true
+                .filter(collision -> shape.isColliding(collision.getShape()))
+                // Take collision action for every collision which has been checked as true
+                .forEach(collision -> {
+                    if (this.isRigid || collision.isRigid()) {
+                        this.knockBack();
+                    }
+                    this.collisionAction(collision.getEntity());
+                });
     }
 
     /**
-     * The action the collision should take when colliding with the specified entity.
+     * The action the collision should take when colliding with the specified
+     * entity.
+     * 
      * @param collisionEntity the entity the collision is colliding with
      */
     protected abstract void collisionAction(Entity collisionEntity);
 
     /**
-     * The action the collision should take when colliding with the specified entity that has a rigid collision.
+     * The action the collision should take when colliding with the specified entity
+     * that has a rigid collision.
      */
     protected void knockBack() {
         this.entity.getComponent(PhysicsComponent.class).ifPresent(phycmp -> this.entity
