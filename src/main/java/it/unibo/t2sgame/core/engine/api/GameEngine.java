@@ -5,6 +5,7 @@ import java.util.List;
 import it.unibo.t2sgame.core.components.api.Component;
 import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.view.api.GameScene;
+import it.unibo.t2sgame.view.api.Graphic;
 
 /**
  * 
@@ -50,5 +51,11 @@ public interface GameEngine {
      * @return
      */
     <T extends Component> List<T> getComponents(Class<T> clazz);
+
+    /**
+     * Update the all graphics components using {@link g} to draw the entities
+     * @param g
+     */
+    void updateGraphics(Graphic g);
 
 }

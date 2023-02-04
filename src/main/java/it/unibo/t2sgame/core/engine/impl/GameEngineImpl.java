@@ -1,15 +1,17 @@
 package it.unibo.t2sgame.core.engine.impl;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import it.unibo.t2sgame.core.components.api.Component;
+import it.unibo.t2sgame.core.components.impl.GraphicComponent;
 import it.unibo.t2sgame.core.components.impl.InputComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.core.engine.api.GameLoop;
 import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.view.api.GameScene;
+import it.unibo.t2sgame.view.api.Graphic;
 
 public class GameEngineImpl implements GameEngine {
     /*
@@ -24,7 +26,7 @@ public class GameEngineImpl implements GameEngine {
      * The gameLoop istance, delegating to it the handling of game loop body
      */
     private GameLoop gameLoop = new FpsCounterGameLoop(
-            new SynchronizeGameLoop(new FpsLockedGameLoop(new BasicGameLoop(this))));
+            new SynchronizeGameLoop(new FpsLockedGameLoop(new ConcurrentGameLoop(this))));
 
     /**
      * Create a GameEngine's istance based on {@link scene} and {@link game}
@@ -67,10 +69,8 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public <T extends Component> List<T> getComponents(Class<T> clazz) {
         return this.game.getWorld().getEntities().stream()
-                .map(e -> e.getComponent(clazz))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .toList();
+                .flatMap(e -> e.getComponent(clazz).stream())
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @Override
@@ -78,22 +78,26 @@ public class GameEngineImpl implements GameEngine {
         return this.view;
     }
 
+    @Override
+    public void updateGraphics(Graphic g) {
+        this.getComponents(GraphicComponent.class).stream()
+                .peek(gc -> gc.setGraphics(g))
+                .forEach(GraphicComponent::update);
+    }
+
     /*
      * Getting the input controllers of the players
      */
     private List<KeyboardInputController> getKeyboardInputController() {
         return this.game.getWorld().getPlayers().stream()
-                // Mapping every player with its input component
-                .map(p -> p.getComponent(InputComponent.class))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+                .flatMap(p -> p.getComponent(InputComponent.class).stream())
                 // Map each InputComponent with its InputController
                 .map(InputComponent::getInputController)
                 // Cast to KeyboardInputController
                 .filter(KeyboardInputController.class::isInstance)
                 .map(KeyboardInputController.class::cast)
                 // Collect the input controllers in a list
-                .toList();
+                .collect(Collectors.toUnmodifiableList());
     }
 
     /*
