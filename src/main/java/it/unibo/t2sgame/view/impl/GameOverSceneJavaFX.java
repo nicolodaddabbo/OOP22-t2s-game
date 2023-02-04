@@ -40,6 +40,7 @@ public class GameOverSceneJavaFX extends AbstractBaseScene{
         root.setAlignment(Pos.CENTER);
         root.setStyle("-fx-background-color:#000");
         var gameOverScene = new Scene(root);
+        this.stage.centerOnScreen();
         this.stage.setScene(gameOverScene);
         this.stage.show();
     }

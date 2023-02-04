@@ -103,7 +103,7 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
 
     @Override
     public void gameOver() {
-        this.window.createGameOverScene(this.gameEngine.getGame().getState().getRound()).initialize();
+        Platform.runLater(() -> this.window.createGameOverScene(this.gameEngine.getGame().getState().getRound()).initialize());
     }
 
     private void storeSprites() {
