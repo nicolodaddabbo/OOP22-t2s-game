@@ -15,8 +15,10 @@ public class DamageComponent extends AbstractComponent {
 
     /**
      * 
-     * @param damage the damage dealt on collision
-     * @param cooldownSeconds the cooldown period in seconds, that indicates after how much the entity can damage after damaging an entity
+     * @param damage          the damage dealt on collision
+     * @param cooldownSeconds the cooldown period in seconds, that indicates after
+     *                        how much the entity can damage after damaging an
+     *                        entity
      */
     public DamageComponent(final int damage, final double cooldownSeconds) {
         this.setDamage(damage);
@@ -25,12 +27,12 @@ public class DamageComponent extends AbstractComponent {
 
     @Override
     public void update() {
-        
+
     }
 
     @Override
     public <T> void receive(final Message<T> message) {
-        
+
     }
 
     /**
@@ -38,7 +40,7 @@ public class DamageComponent extends AbstractComponent {
      * @return true if the cooldown period is over, otherwise returns false
      */
     public boolean canDamage() {
-        if(this.timer.getElapsedSeconds() >= this.cooldownSeconds){
+        if (this.timer.getElapsedSeconds() >= this.cooldownSeconds) {
             this.timer.restart();
             return true;
         }
@@ -60,5 +62,5 @@ public class DamageComponent extends AbstractComponent {
     public void setDamage(final int damage) {
         this.damage = damage;
     }
-    
+
 }
