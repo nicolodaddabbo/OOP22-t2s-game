@@ -12,8 +12,7 @@ public class StateImpl implements State{
 
     @Override
     public boolean isOver(List<Entity> players) {
-        // Need to check the all players' life
-        return false;
+        return players.isEmpty();
     }
 
     @Override

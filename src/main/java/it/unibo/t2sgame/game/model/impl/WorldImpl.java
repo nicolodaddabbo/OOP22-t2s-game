@@ -3,14 +3,13 @@ package it.unibo.t2sgame.game.model.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.game.logics.api.Event;
 import it.unibo.t2sgame.game.logics.api.GameMap;
 import it.unibo.t2sgame.game.logics.impl.GameMapImpl;
@@ -24,9 +23,7 @@ final class WorldImpl implements World {
      * during components update without problems
      */
     private final List<Entity> entities = new CopyOnWriteArrayList<>();
-    /**
-     * An Optional containing the current wave if present
-     */
+
     private final List<Entity> players = new ArrayList<>();
     /*
      * An Optional containing the current wave if present
@@ -48,7 +45,7 @@ final class WorldImpl implements World {
 
     @Override
     public List<Entity> getPlayers() {
-        return new ArrayList<>(this.players);
+        return new ArrayList<>(this.entities.stream().filter(e -> e.getType() == Type.PLAYER).toList());
     }
 
     @Override
@@ -70,7 +67,6 @@ final class WorldImpl implements World {
     }
 
     public World addPlayer(Entity player) {
-        this.players.add(player);
         return this.addEntity(player);
     }
 

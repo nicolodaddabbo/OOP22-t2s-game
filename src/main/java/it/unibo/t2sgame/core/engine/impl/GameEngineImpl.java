@@ -45,6 +45,8 @@ public class GameEngineImpl implements GameEngine {
             this.gameLoop.updateGame();
             this.gameLoop.render();
         }
+        // Render Game over
+        this.getScene().gameOver();
     }
 
     @Override
