@@ -9,6 +9,10 @@ import it.unibo.t2sgame.core.entity.api.Type;
 
 public class BaseCollisionComponent extends CollisionComponent {
 
+    /**
+     * 
+     * @see {@link it.unibo.t2sgame.core.components.impl.CollisionComponent#CollisionComponent(Shape, isRigid, types) CollisionComponent constructor}
+     */
     public BaseCollisionComponent(Shape shape, boolean isRigid , List<Type> types) {
         super(shape, isRigid, types);
     }

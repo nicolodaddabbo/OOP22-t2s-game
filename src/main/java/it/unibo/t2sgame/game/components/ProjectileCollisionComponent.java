@@ -13,6 +13,10 @@ public class ProjectileCollisionComponent extends CollisionComponent {
 
     private final EventFactory eventFactory = new EventFactoryImpl();
 
+    /**
+     * 
+     * @see {@link it.unibo.t2sgame.core.components.impl.CollisionComponent#CollisionComponent(Shape, isRigid, types) CollisionComponent constructor}
+     */
     public ProjectileCollisionComponent(Shape shape, boolean isRigid, List<Type> types) {
         super(shape, isRigid, types);
     }
