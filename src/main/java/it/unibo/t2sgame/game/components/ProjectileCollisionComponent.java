@@ -15,7 +15,8 @@ public class ProjectileCollisionComponent extends CollisionComponent {
 
     /**
      * 
-     * @see {@link it.unibo.t2sgame.core.components.impl.CollisionComponent#CollisionComponent(Shape, isRigid, types) CollisionComponent constructor}
+     * @see {@link it.unibo.t2sgame.core.components.impl.CollisionComponent#CollisionComponent(Shape, isRigid, types)
+     *      CollisionComponent constructor}
      */
     public ProjectileCollisionComponent(Shape shape, boolean isRigid, List<Type> types) {
         super(shape, isRigid, types);
@@ -25,5 +26,5 @@ public class ProjectileCollisionComponent extends CollisionComponent {
     protected void collisionAction(Entity entity) {
         this.entity.getWorld().ifPresent(e -> e.notifyEvent(this.eventFactory.onDeathEvent(this.entity)));
     }
-    
+
 }

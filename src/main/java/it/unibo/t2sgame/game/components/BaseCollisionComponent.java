@@ -11,9 +11,10 @@ public class BaseCollisionComponent extends CollisionComponent {
 
     /**
      * 
-     * @see {@link it.unibo.t2sgame.core.components.impl.CollisionComponent#CollisionComponent(Shape, isRigid, types) CollisionComponent constructor}
+     * @see {@link it.unibo.t2sgame.core.components.impl.CollisionComponent#CollisionComponent(Shape, isRigid, types)
+     *      CollisionComponent constructor}
      */
-    public BaseCollisionComponent(Shape shape, boolean isRigid , List<Type> types) {
+    public BaseCollisionComponent(Shape shape, boolean isRigid, List<Type> types) {
         super(shape, isRigid, types);
     }
 
@@ -21,11 +22,11 @@ public class BaseCollisionComponent extends CollisionComponent {
     protected void collisionAction(Entity collisionEntity) {
         // Remove health to this entity
         collisionEntity.getComponent(DamageComponent.class)
-            .ifPresent(c -> {
-                if (c.canDamage()) {
-                    this.entity.notifyComponent(HealthComponent.class, c::getDamage);
-                }
-            });
+                .ifPresent(c -> {
+                    if (c.canDamage()) {
+                        this.entity.notifyComponent(HealthComponent.class, c::getDamage);
+                    }
+                });
     }
-    
+
 }
