@@ -11,6 +11,7 @@ import it.unibo.t2sgame.core.components.impl.CollisionComponent;
 import it.unibo.t2sgame.core.components.impl.ComponentFactoryImpl;
 import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.core.entity.impl.EntityImpl;
 
 
@@ -19,9 +20,13 @@ public class EntityTest {
     
     private ComponentFactory componentFactory = new ComponentFactoryImpl();
 
+    private Entity baseEntity(){
+        return new EntityImpl(new Vector2D(0,0), Type.PLAYER);
+    }
+
     @Test 
     void testGetComponentIsPresentAndReturnsExpectedComponent() {
-        Entity entity = new EntityImpl(new Vector2D(0, 0));
+        Entity entity = this.baseEntity();
         entity.addComponent(this.componentFactory.createPhysicsComponentFrom(1));
         var componentOptional = entity.getComponent(PhysicsComponent.class);
         assertTrue(componentOptional.isPresent());
@@ -30,7 +35,7 @@ public class EntityTest {
 
     @Test 
     void testGetComponentIsNotPresent() {
-        Entity entity = new EntityImpl(new Vector2D(0, 0));
+        Entity entity = this.baseEntity();
         entity.addComponent(this.componentFactory.createPhysicsComponentFrom(1));
         var componentOptional = entity.getComponent(CollisionComponent.class);
         assertFalse(componentOptional.isPresent());
