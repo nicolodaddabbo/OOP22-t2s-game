@@ -5,10 +5,16 @@ import it.unibo.t2sgame.core.components.api.Message;
 import it.unibo.t2sgame.game.logics.api.EventFactory;
 import it.unibo.t2sgame.game.logics.impl.EventFactoryImpl;
 
+/**
+ * This class represent the health of an entity, and extends AbstractComponent
+ */
 public class HealthComponent extends AbstractComponent{
-
     private int health;
     private EventFactory eventFactory = new EventFactoryImpl();
+    /**
+     * 
+     * @param health the health of an entity
+     */
     public HealthComponent(final int health){
         this.health = health;
     }
@@ -28,11 +34,16 @@ public class HealthComponent extends AbstractComponent{
             e.printStackTrace();
         } 
     }
-
+    /**
+     * Getter that returns the current health of the entity 
+     */
     public int getHealth() {
         return this.health;
     }
-
+    /**
+     * Setter to modify the value of health
+     * @param health value that will substitute the previous health
+     */
     public void setHealth(final int health){
         this.health = health;
     }
