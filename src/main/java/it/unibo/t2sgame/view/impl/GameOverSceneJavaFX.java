@@ -2,10 +2,16 @@ package it.unibo.t2sgame.view.impl;
 
 import it.unibo.t2sgame.view.api.AbstractBaseScene;
 import it.unibo.t2sgame.view.api.Window;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class GameOverSceneJavaFX extends AbstractBaseScene{
@@ -20,11 +26,20 @@ public class GameOverSceneJavaFX extends AbstractBaseScene{
 
     @Override
     public void initialize() {
-        var root = new Pane();
-        var text = new Text("GAME OVER AL ROUND " + round);
-        root.getChildren().add(text);
-        var gameOverScene = new Scene(root, this.stage.getWidth(), this.stage.getHeight(), Color.BLACK);
-
+        var root = new GridPane();
+        var gameOverLabel = new Label("GAME OVER\nYOU DIED AT ROUND " + this.round);
+        var screenBounds = Screen.getPrimary().getBounds();
+        var dpiW = screenBounds.getWidth() / AbstractBaseScene.BASEWIDTH;
+        var dpiH = screenBounds.getHeight() / AbstractBaseScene.BASEHEIGHT;
+        gameOverLabel.setTextFill(Color.WHITE);
+        gameOverLabel.setFont(Font.font(null, FontWeight.BOLD, 30 * dpiW));
+        gameOverLabel.setTextAlignment(TextAlignment.CENTER);
+        GridPane.setHalignment(gameOverLabel, HPos.CENTER);
+        root.add(gameOverLabel, 1, 1);
+        root.setMinSize(AbstractBaseScene.BASEWIDTH * dpiW / 2, AbstractBaseScene.BASEHEIGHT * dpiH / 2);
+        root.setAlignment(Pos.CENTER);
+        root.setStyle("-fx-background-color:#000");
+        var gameOverScene = new Scene(root);
         this.stage.setScene(gameOverScene);
         this.stage.show();
     }

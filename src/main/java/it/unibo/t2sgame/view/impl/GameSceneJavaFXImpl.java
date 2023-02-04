@@ -2,20 +2,13 @@ package it.unibo.t2sgame.view.impl;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import it.unibo.t2sgame.core.components.impl.GraphicComponent;
-import it.unibo.t2sgame.core.engine.api.GameEngine;
-import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.game.components.HealthComponent;
-import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.view.api.AbstractGameScene;
-import it.unibo.t2sgame.view.api.GameScene;
-import it.unibo.t2sgame.view.api.Graphic;
 import it.unibo.t2sgame.view.api.Window;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
@@ -46,8 +39,6 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
     private double dpiW;
     private double dpiH;
     private BackgroundImage backgroundImage;
-    private static final double BASEWIDTH = 1920;
-    private static final double BASEHEIGHT = 1080;
 
     public GameSceneJavaFXImpl(Stage stage, Window window) {
         super(window);
@@ -64,7 +55,7 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
          * static sizes
          */
         this.dpiW = screenBounds.getWidth() / map.getWidth();
-        this.dpiH = screenBounds.getHeight() /  map.getHeight();
+        this.dpiH = screenBounds.getHeight() / map.getHeight();
         var proportionedWidth = map.getWidth() * this.dpiW;
         var proportionedHeight = map.getHeight() * this.dpiH;
         storeSprites();
@@ -85,8 +76,8 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
         scene.setOnKeyReleased(event -> keyInControllers.forEach(c -> c.notifyKeyReleased(event.getCode().getCode())));
         root.getChildren().add(this.canvas);
         root.getChildren().get(root.getChildren().indexOf(this.round)).toFront();
-        //stage.sizeToScene();
         stage.setScene(scene);
+        stage.setFullScreenExitHint("");
         stage.setFullScreen(true);
         stage.setResizable(false);
         stage.show();
@@ -111,22 +102,22 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
     }
 
     @Override
-    public void gameOver(){
+    public void gameOver() {
         this.window.createGameOverScene(this.gameEngine.getGame().getState().getRound()).initialize();
     }
 
     private void storeSprites() {
-            cachedSprites = new HashMap<>();
-            try {
-                this.cachedSprites.put("full_heart",
-                        new Image(new FileInputStream("src/main/resources/sprites/heart_darker.png")));
-                backgroundImage = new BackgroundImage(
-                        new Image(new FileInputStream("src/main/resources/sprites/Brickwall5_Texture.png"),
-                                300 * this.dpiW, 300 * this.dpiH, false, true),
-                        BackgroundRepeat.REPEAT,
-                        BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+        cachedSprites = new HashMap<>();
+        try {
+            this.cachedSprites.put("full_heart",
+                    new Image(new FileInputStream("src/main/resources/sprites/heart_darker.png")));
+            backgroundImage = new BackgroundImage(
+                    new Image(new FileInputStream("src/main/resources/sprites/Brickwall5_Texture.png"),
+                            300 * this.dpiW, 300 * this.dpiH, false, true),
+                    BackgroundRepeat.REPEAT,
+                    BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
+    }
 }
