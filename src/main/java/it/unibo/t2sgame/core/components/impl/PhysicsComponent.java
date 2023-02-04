@@ -1,9 +1,9 @@
 package it.unibo.t2sgame.core.components.impl;
+
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.components.api.AbstractComponent;
 import it.unibo.t2sgame.core.components.api.Message;
 import it.unibo.t2sgame.input.api.Directions;
-
 
 /**
  * This class represents the physics of the entity.
@@ -17,13 +17,13 @@ public class PhysicsComponent extends AbstractComponent {
      * 
      * @param speed the speed of the entity
      */
-    public PhysicsComponent(final double speed){
+    public PhysicsComponent(final double speed) {
         this.setSpeed(speed);
     }
 
     /**
      * 
-     * @param speed the speed of the entity
+     * @param speed     the speed of the entity
      * @param direction the starting direction of the entity
      */
     public PhysicsComponent(final double speed, final Directions direction) {
@@ -39,13 +39,13 @@ public class PhysicsComponent extends AbstractComponent {
 
     @Override
     public <T> void receive(final Message<T> message) {
-        if(Directions.class.isInstance(message.getMessage())){
+        if (Directions.class.isInstance(message.getMessage())) {
             this.receiveDirection(Directions.class.cast(message.getMessage()));
         }
     }
 
     private void receiveDirection(final Directions direction) {
-        switch(direction){
+        switch (direction) {
             case UP:
                 this.setVelocity(new Vector2D(0, -1));
                 break;
@@ -69,7 +69,7 @@ public class PhysicsComponent extends AbstractComponent {
      * @return the converted speed of the entity
      */
     public double getConvertedSpeed() {
-        return CONVERSION*speed;
+        return CONVERSION * speed;
     }
 
     /**
@@ -85,7 +85,7 @@ public class PhysicsComponent extends AbstractComponent {
      * @param velocity the new velocity
      */
     public void setVelocity(final Vector2D velocity) {
-        this.velocity = velocity;        
+        this.velocity = velocity;
     }
 
     /**
@@ -103,5 +103,5 @@ public class PhysicsComponent extends AbstractComponent {
     public void setSpeed(final double speed) {
         this.speed = speed;
     }
-    
+
 }
