@@ -58,11 +58,23 @@ public interface ComponentFactory {
      * @return a damage component based on {@link damage} and {@link cooldown}
      */
     Component createDamageComponentFrom(int damage , double cooldown);
-
+    /**
+     * @param spriteName name of the sprite cached in the Graphics used
+     * @param width the width of the GraphicComponent
+     * @param height the height of the GraphicComponent
+     * @return a GraphicComponent based on {@link spriteName}, {@link width} and {@link height}
+     */
     GraphicComponent createGraphicComponentWithSprite(String spriteName, double width, double height);
-
+    /**
+     * @param width the width of the GraphicComponent
+     * @param height the height of the GraphicComponent
+     * @return a GraphicComponent having Circular shape and based on {@link width} and {@link height}
+     */
     GraphicComponent createCircleGraphicComponent(double width, double height);
-    
+    /**
+     * @param width the width of the GraphicComponent
+     * @param height the height of the GraphicComponent
+     * @return a GraphicComponent having Rectangular shape and based on {@link width} and {@link height}
+     */
     GraphicComponent createRectangleGraphicComponent(double width, double height);
-    
 }
