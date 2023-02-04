@@ -15,17 +15,17 @@ public class PowerUpFactoryImpl implements PowerUpFactory{
     }
 
     @Override
-    public PowerUp generateDamageBoostPowerUp(Entity entity) {
-        return fromFunction(en -> entity.getComponent(DamageComponent.class).ifPresent(c -> c.setDamage(c.getDamage() + 1)));
+    public PowerUp generateDamageBoostPowerUp() {
+        return fromFunction(entity -> entity.getComponent(DamageComponent.class).ifPresent(c -> c.setDamage(c.getDamage() + 1)));
     }
 
     @Override
-    public PowerUp generateFireRatioPowerUp(Entity entity) {
-        return fromFunction(en -> entity.getComponent(ShootComponent.class).ifPresent(c -> c.setfireRateSeconds(c.getfireRateSeconds() / 2)));
+    public PowerUp generateFireRatioPowerUp() {
+        return fromFunction(entity -> entity.getComponent(ShootComponent.class).ifPresent(c -> c.setfireRateSeconds(c.getfireRateSeconds() / 2)));
     }
 
     @Override
-    public PowerUp generateHealthUpPowerUp(Entity entity) {
-        return fromFunction(en -> entity.getComponent(HealthComponent.class).ifPresent(c -> c.setHealth(c.getHealth() + 1)));
+    public PowerUp generateHealthUpPowerUp() {
+        return fromFunction(entity -> entity.getComponent(HealthComponent.class).ifPresent(c -> c.setHealth(c.getHealth() + 1)));
     }
 }
