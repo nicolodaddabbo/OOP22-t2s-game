@@ -30,4 +30,7 @@ public interface GameLoop {
      * {@link FpsLockGameLoop} decorator class has been choosen.
      */
     void render();
+
+
+    GameEngine getEngine();
 }
