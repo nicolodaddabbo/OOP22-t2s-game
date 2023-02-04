@@ -70,7 +70,10 @@ public abstract class CollisionComponent extends AbstractComponent {
      */
     protected abstract void collisionAction(Entity collisionEntity);
 
-    private void knockBack() {
+    /**
+     * The action the collision should take when colliding with the specified entity that has a rigid collision.
+     */
+    protected void knockBack() {
         this.entity.getComponent(PhysicsComponent.class).ifPresent(phycmp -> this.entity
                 .setPosition(this.entity.getPosition().sub(phycmp.getVelocity().mul(phycmp.getConvertedSpeed()))));
     }
@@ -89,18 +92,6 @@ public abstract class CollisionComponent extends AbstractComponent {
      */
     public boolean isRigid() {
         return this.isRigid;
-    }
-
-    public Set<CollisionComponent> getCollisions() {
-        return new HashSet<>(this.collisions);
-    }
-
-    public void addCollision(final CollisionComponent component) {
-        this.collisions.add(component);
-    }
-
-    public void setCollisions(final Set<CollisionComponent> collisions) {
-        this.collisions = new HashSet<>(collisions);
     }
 
 }
