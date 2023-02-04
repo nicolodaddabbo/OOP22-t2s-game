@@ -19,6 +19,7 @@ public abstract class AbstractWindow implements Window{
         return this.getSceneFactory().createMenuScene(this);
     }
 
+    @Override
     public BaseScene createGameOverScene(int round){ 
         return this.getSceneFactory().createGameOverScene(this, round);
     }
