@@ -8,7 +8,7 @@ public abstract class GameLoopDecorator implements GameLoop {
      * The base GameLoop which has been decorated
      */
     private final GameLoop decorated;
-
+    
     protected GameLoopDecorator(GameLoop decorated) {
         this.decorated = decorated;
     }
@@ -26,6 +26,11 @@ public abstract class GameLoopDecorator implements GameLoop {
     @Override
     public void updateGame() {
         this.decorated.updateGame();
+    }
+
+    @Override
+    public GameEngine getEngine() {
+        return this.decorated.getEngine();
     }
 
 }
