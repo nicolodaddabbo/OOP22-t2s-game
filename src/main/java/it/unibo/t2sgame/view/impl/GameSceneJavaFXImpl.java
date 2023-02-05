@@ -65,8 +65,8 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
         this.round.setFont(Font.font(null, FontWeight.BOLD, 30 * this.dpiW));
         this.round.setTextOrigin(VPos.BOTTOM);
         this.round.setTextAlignment(TextAlignment.CENTER);
-        this.round.setY(proportionedHeight);
         this.round.setStroke(Color.WHITE);
+        this.round.setY(proportionedHeight);
         root.getChildren().add(this.round);
         root.setBackground(new Background(backgroundImage));
         this.canvas = new Canvas(proportionedWidth, proportionedHeight);
@@ -91,12 +91,12 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
                 c.setGraphics(this.graphic);
                 c.update();
             });
-            this.getGame().getWorld().getPlayers().get(0).getComponent(HealthComponent.class).ifPresent(c -> {
+            this.getGame().getWorld().getPlayers().forEach(p -> p.getComponent(HealthComponent.class).ifPresent(c -> {
                 Stream.iterate(0, i -> i + 1)
                         .limit(c.getHealth())
-                        .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 50 * this.dpiW * n, 0,
-                                40 * this.dpiW, 40 * this.dpiW));
-            });
+                            .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 50 * this.dpiW * n, 0,
+                                    40 * this.dpiW, 40 * this.dpiW));
+            }));
             this.round.setText("Round " + this.gameEngine.getGame().getState().getRound());
         });
     }
