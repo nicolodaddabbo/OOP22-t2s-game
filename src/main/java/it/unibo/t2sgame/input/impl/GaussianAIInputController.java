@@ -4,32 +4,31 @@ import java.util.Random;
 
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
-import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.input.api.AbstractAIInputController;
+import it.unibo.t2sgame.core.entity.api.Type;
+import it.unibo.t2sgame.input.api.AbstractChasingAIInputController;
 import it.unibo.t2sgame.input.api.Directions;
 
-public class GaussianAIInputController extends AbstractAIInputController {
+public class GaussianAIInputController extends AbstractChasingAIInputController {
     final Random random = new Random();
     private static final long TIME_TO_NEXT_DECISION = 300;
     private static final long STANDARD_DEVIATION = 500;
     private long lastChoiceTime = 0;
+    private final Type adversaryType;
+
+    public GaussianAIInputController(final Type adversaryType) {
+        this.adversaryType = adversaryType;
+    }
 
     @Override
     protected void computeNextCommand() {
         this.commandsQueue.add(entity -> {
             if (isTimeToChoose()) {
-                final var world = entity.getWorld().get();
-                var closestPlayer = world.getPlayers().stream()
-                        .min((p1, p2) -> Double.compare(distanceBetweenEntities(entity, p1), distanceBetweenEntities(entity, p2)));
-                entity.notifyComponent(PhysicsComponent.class,
-                        () -> generateGaussianRandomDirection(entity.getPosition(), closestPlayer.get().getPosition(), STANDARD_DEVIATION));
+                var closestAdeversary = super.findClosestAdeversary(entity, this.adversaryType);
+                closestAdeversary.ifPresent(a -> entity.notifyComponent(PhysicsComponent.class,
+                        () -> generateGaussianRandomDirection(entity.getPosition(), closestAdeversary.get().getPosition(), STANDARD_DEVIATION)));
                 this.lastChoiceTime = System.currentTimeMillis();
             }
         });
-    }
-
-    private double distanceBetweenEntities(final Entity e1, final Entity e2) {
-        return e1.getPosition().distance(e2.getPosition());
     }
 
     private Directions generateGaussianRandomDirection(final Vector2D currentEntityPos, final Vector2D playerPos, final double standardDeviation) {

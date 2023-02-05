@@ -43,7 +43,7 @@ public class EntityFactoryImpl implements EntityFactory {
     @Override
     public Entity createBaseEnemy(final Vector2D position) {
         return new EntityImpl(position, Type.ENEMY)
-            .addComponent(this.componentFactory.createInputComponentFrom(new ChasingAIInputController()))
+            .addComponent(this.componentFactory.createInputComponentFrom(new ChasingAIInputController(Type.PLAYER)))
             .addComponent(this.componentFactory.createHealthComponentFrom(1))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(0.5))
             .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 50), false , List.of(Type.PROJECTILE)))
@@ -54,7 +54,7 @@ public class EntityFactoryImpl implements EntityFactory {
     @Override
     public Entity createGaussianEnemy(final Vector2D position) {
         return new EntityImpl(position, Type.ENEMY)
-            .addComponent(this.componentFactory.createInputComponentFrom(new GaussianAIInputController()))
+            .addComponent(this.componentFactory.createInputComponentFrom(new GaussianAIInputController(Type.PLAYER)))
             .addComponent(this.componentFactory.createHealthComponentFrom(1))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(1))
             .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 50), false , List.of(Type.PROJECTILE)))
@@ -65,7 +65,7 @@ public class EntityFactoryImpl implements EntityFactory {
     @Override
     public Entity createWildEnemy(final Vector2D position){
         return new EntityImpl(position, Type.ENEMY)
-            .addComponent(this.componentFactory.createInputComponentFrom(random.nextInt(2) == 0 ? new GaussianAIInputController() : new ChasingAIInputController()))
+            .addComponent(this.componentFactory.createInputComponentFrom(random.nextInt(2) == 0 ? new GaussianAIInputController(Type.PLAYER) : new ChasingAIInputController(Type.PLAYER)))
             .addComponent(this.componentFactory.createHealthComponentFrom(1))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(random.nextDouble(0.5, 2)))
             .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 50), false , List.of(Type.PROJECTILE)))
@@ -76,7 +76,7 @@ public class EntityFactoryImpl implements EntityFactory {
     @Override
     public Entity createBossEnemy(final Vector2D position){
         return new EntityImpl(position, Type.ENEMY)
-            .addComponent(this.componentFactory.createInputComponentFrom(new ChasingAIInputController()))
+            .addComponent(this.componentFactory.createInputComponentFrom(new ChasingAIInputController(Type.PLAYER)))
             .addComponent(this.componentFactory.createHealthComponentFrom(10))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(0.25))
             .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 200, 140), false , List.of(Type.PROJECTILE)))

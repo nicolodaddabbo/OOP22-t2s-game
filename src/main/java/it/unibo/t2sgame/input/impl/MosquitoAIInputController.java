@@ -3,13 +3,13 @@ package it.unibo.t2sgame.input.impl;
 import java.util.Random;
 
 import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
-import it.unibo.t2sgame.input.api.AbstractAIInputController;
+import it.unibo.t2sgame.input.api.AbstractChasingAIInputController;
 import it.unibo.t2sgame.input.api.Directions;
 
 /**
  * AI that randomly change direction every TIME_TO_NEXT_DECISION ms 
  */
-public class MosquitoAIInputController extends AbstractAIInputController {
+public class MosquitoAIInputController extends AbstractChasingAIInputController {
     private final Random random = new Random();
     private static final long TIME_TO_NEXT_DECISION = 500;
     private long lastChoiceTime = 0;
