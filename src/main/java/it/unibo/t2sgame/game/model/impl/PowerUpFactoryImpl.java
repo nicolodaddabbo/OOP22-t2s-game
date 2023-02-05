@@ -1,6 +1,8 @@
 package it.unibo.t2sgame.game.model.impl;
 
 import java.util.function.Consumer;
+
+import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.game.components.DamageComponent;
 import it.unibo.t2sgame.game.components.HealthComponent;
@@ -27,5 +29,10 @@ public class PowerUpFactoryImpl implements PowerUpFactory{
     @Override
     public PowerUp generateHealthUpPowerUp() {
         return fromFunction(entity -> entity.getComponent(HealthComponent.class).ifPresent(c -> c.setHealth(c.getHealth() + 1)));
+    }
+
+    @Override
+    public PowerUp generateSpeedUpPowerUp() {
+        return fromFunction(entity -> entity.getComponent(PhysicsComponent.class).ifPresent(c -> c.setSpeed(c.getSpeed() + 0.5)));
     }
 }

@@ -6,4 +6,6 @@ public interface PowerUpFactory {
     PowerUp generateFireRatioPowerUp();
 
     PowerUp generateHealthUpPowerUp();
+
+    PowerUp generateSpeedUpPowerUp();
 }
