@@ -27,17 +27,17 @@ public class EntityFactoryImpl implements EntityFactory {
             .addComponent(this.componentFactory.createPhysicsComponentFrom(1))
             .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 80), false , List.of(Type.ENEMY , Type.WALL)))
             .addComponent(this.componentFactory.createHealthComponentFrom(3))
-            .addComponent(this.componentFactory.createShootComponentFrom(0.2))
+            .addComponent(this.componentFactory.createShootComponentFrom(0.2, 1.5, 1, 20))
             .addComponent(this.componentFactory.createGraphicComponentWithSprite("player", 60, 80));
     }
 
     @Override
-    public Entity createProjectile(final Vector2D position, final Directions direction) {
+    public Entity createProjectile(final Vector2D position, final double speed, final int damage, final double size, final Directions direction) {
         return new EntityImpl(position, Type.PROJECTILE)
-            .addComponent(this.componentFactory.createPhysicsComponentFrom(1.5, direction))
-            .addComponent(this.componentFactory.createProjectileCollisionComponentFrom(new Circle(position, 15), false , List.of(Type.ENEMY , Type.WALL)))
-            .addComponent(this.componentFactory.createDamageComponentFrom(1, 0))
-            .addComponent(this.componentFactory.createCircleGraphicComponent(30, 30));
+            .addComponent(this.componentFactory.createPhysicsComponentFrom(speed, direction))
+            .addComponent(this.componentFactory.createProjectileCollisionComponentFrom(new Circle(position, size), false , List.of(Type.ENEMY , Type.WALL)))
+            .addComponent(this.componentFactory.createDamageComponentFrom(damage, 0))
+            .addComponent(this.componentFactory.createCircleGraphicComponent(size*2, size*2));
     }
 
     @Override

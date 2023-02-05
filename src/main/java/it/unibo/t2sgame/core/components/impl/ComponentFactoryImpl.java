@@ -50,8 +50,8 @@ public class ComponentFactoryImpl implements ComponentFactory {
     }
 
     @Override
-    public Component createShootComponentFrom(double fireRate) {
-        return new ShootComponent(fireRate);
+    public Component createShootComponentFrom(double fireRateSeconds, double projectileSpeed, int projectileDamage, double projectileSize) {
+        return new ShootComponent(fireRateSeconds, projectileSpeed, projectileDamage, projectileSize);
     }
 
     @Override

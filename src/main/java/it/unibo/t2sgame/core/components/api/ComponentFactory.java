@@ -48,10 +48,13 @@ public interface ComponentFactory {
      */
     Component createHealthComponentFrom(int health);
     /**
-     * @param fireRate a double represents the shoot's fireRate
+     * @param fireRateSeconds a double represents the shots rate of fire in seconds
+     * @param projectileSpeed a double represents the shots speed
+     * @param projectileDamage a int represents the shots damage
+     * @param projectileSize a double represents the shots size
      * @return an ShootComponent based on a {@link fireRate}.
      */
-    Component createShootComponentFrom(double fireRate);
+    Component createShootComponentFrom(double fireRateSeconds, double projectileSpeed, int projectileDamage, double projectileSize);
     /**
      * @param damage the damage of the entity which collide with another one.
      * @param cooldown a cooldown which represents the seconds where the damage component can't hurt other entity.

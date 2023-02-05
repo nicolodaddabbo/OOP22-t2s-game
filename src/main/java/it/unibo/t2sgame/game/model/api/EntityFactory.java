@@ -17,10 +17,13 @@ public interface EntityFactory {
     /**
      * 
      * @param position the starting position
+     * @param speed the projectile speed
+     * @param damage the projectile damage
+     * @param size the projectile size
      * @param direction the starting direction
      * @return Entity instance representing the "Projectile"
      */
-    Entity createProjectile(Vector2D position, Directions direction);
+    Entity createProjectile(Vector2D position, double speed, int damage, double size, Directions direction);
     /**
      * 
      * @param position the starting position
