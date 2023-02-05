@@ -38,7 +38,7 @@ public class EntityFactoryImpl implements EntityFactory {
             .addComponent(this.componentFactory.createPhysicsComponentFrom(1))
             .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 80), false , List.of(Type.WALL)))
             .addComponent(this.componentFactory.createDamageComponentFrom(1, 1))
-            .addComponent(this.componentFactory.createGraphicComponentWithSprite("player", 60, 80));
+            .addComponent(this.componentFactory.createGraphicComponentWithSprite("companion", 60, 80));
     }
 
     @Override
