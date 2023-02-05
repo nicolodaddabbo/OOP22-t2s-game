@@ -1,6 +1,7 @@
 package it.unibo.t2sgame.game.logics.api;
 
 import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.model.api.PowerUp;
 
 /**
  * This interface model an EventFactory
@@ -17,4 +18,9 @@ public interface EventFactory {
      * @return an onDeath event
      */
     public Event onDeathEvent(Entity entity);
+    /**
+     * @param powerUp to apply
+     * @return an onPowerUp event
+     */
+    public Event onPowerUpEvent(PowerUp powerUp);
 }
