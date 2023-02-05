@@ -42,7 +42,9 @@ public class GameImpl implements Game {
 
     private void nextWave() {
         this.state.incrementRound();
-        var wave = new WaveFactoryImpl(this.world).createBasicWave(this.state.getRound());
+        var wave = this.state.getRound() % 10 == 0
+                ? new WaveFactoryImpl(this.world).createBossWave(this.state.getRound())
+                : new WaveFactoryImpl(this.world).createRandomWave(this.state.getRound());
         this.world.setWave(wave);
     }
 

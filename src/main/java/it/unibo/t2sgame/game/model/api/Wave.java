@@ -19,4 +19,9 @@ public interface Wave {
      * @return the id of the wave
      */
     int getWaveID();
+    /**
+     * @param entity to add in the wave
+     * @return the wave with the new entity
+     */
+    Wave addEnemy(Entity entity);
 }
