@@ -17,6 +17,12 @@ public interface EntityFactory {
     /**
      * 
      * @param position the starting position
+     * @return Entity instance representing the "Companion"
+     */
+    Entity createCompanion(Vector2D position);
+    /**
+     * 
+     * @param position the starting position
      * @param speed the projectile speed
      * @param damage the projectile damage
      * @param size the projectile size

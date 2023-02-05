@@ -32,6 +32,16 @@ public class EntityFactoryImpl implements EntityFactory {
     }
 
     @Override
+    public Entity createCompanion(final Vector2D position) {
+        return new EntityImpl(position, Type.COMPANION)
+            .addComponent(this.componentFactory.createInputComponentFrom(new ChasingAIInputController(Type.ENEMY)))
+            .addComponent(this.componentFactory.createPhysicsComponentFrom(1))
+            .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 80), false , List.of(Type.WALL)))
+            .addComponent(this.componentFactory.createDamageComponentFrom(1, 1))
+            .addComponent(this.componentFactory.createGraphicComponentWithSprite("player", 60, 80));
+    }
+
+    @Override
     public Entity createProjectile(final Vector2D position, final double speed, final int damage, final double size, final Directions direction) {
         return new EntityImpl(position, Type.PROJECTILE)
             .addComponent(this.componentFactory.createPhysicsComponentFrom(speed, direction))
@@ -46,7 +56,7 @@ public class EntityFactoryImpl implements EntityFactory {
             .addComponent(this.componentFactory.createInputComponentFrom(new ChasingAIInputController(Type.PLAYER)))
             .addComponent(this.componentFactory.createHealthComponentFrom(1))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(0.5))
-            .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 50), false , List.of(Type.PROJECTILE)))
+            .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 50), false , List.of(Type.PROJECTILE, Type.COMPANION)))
             .addComponent(this.componentFactory.createDamageComponentFrom(1, 1))
             .addComponent(this.componentFactory.createGraphicComponentWithSprite("ice_enemy", 60, 60));
     }
@@ -57,7 +67,7 @@ public class EntityFactoryImpl implements EntityFactory {
             .addComponent(this.componentFactory.createInputComponentFrom(new GaussianAIInputController(Type.PLAYER)))
             .addComponent(this.componentFactory.createHealthComponentFrom(1))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(1))
-            .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 50), false , List.of(Type.PROJECTILE)))
+            .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 50), false , List.of(Type.PROJECTILE, Type.COMPANION)))
             .addComponent(this.componentFactory.createDamageComponentFrom(1, 1))
             .addComponent(this.componentFactory.createGraphicComponentWithSprite("fire_enemy", 60, 60));
     }
@@ -68,7 +78,7 @@ public class EntityFactoryImpl implements EntityFactory {
             .addComponent(this.componentFactory.createInputComponentFrom(random.nextInt(2) == 0 ? new GaussianAIInputController(Type.PLAYER) : new ChasingAIInputController(Type.PLAYER)))
             .addComponent(this.componentFactory.createHealthComponentFrom(1))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(random.nextDouble(0.5, 2)))
-            .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 50), false , List.of(Type.PROJECTILE)))
+            .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 60, 50), false , List.of(Type.PROJECTILE, Type.COMPANION)))
             .addComponent(this.componentFactory.createDamageComponentFrom(1, 1))
             .addComponent(this.componentFactory.createGraphicComponentWithSprite("rainbow_enemy", 60, 60));
     }
@@ -79,7 +89,7 @@ public class EntityFactoryImpl implements EntityFactory {
             .addComponent(this.componentFactory.createInputComponentFrom(new ChasingAIInputController(Type.PLAYER)))
             .addComponent(this.componentFactory.createHealthComponentFrom(10))
             .addComponent(this.componentFactory.createPhysicsComponentFrom(0.25))
-            .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 200, 140), false , List.of(Type.PROJECTILE)))
+            .addComponent(this.componentFactory.createCollisionComponentFrom(new Rectangle(position, 200, 140), false , List.of(Type.PROJECTILE, Type.COMPANION)))
             .addComponent(this.componentFactory.createDamageComponentFrom(2, 1))
             .addComponent(this.componentFactory.createGraphicComponentWithSprite("crown_enemy", 200, 140));
     }
