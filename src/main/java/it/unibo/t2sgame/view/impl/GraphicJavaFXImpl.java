@@ -34,7 +34,10 @@ public class GraphicJavaFXImpl implements Graphic {
         cachedSprites = new HashMap<>();
         try {
             this.cachedSprites.put("player", new Image(new FileInputStream("src/main/resources/sprites/ghost.gif")));
-            this.cachedSprites.put("enemy", new Image(new FileInputStream("src/main/resources/sprites/blob.gif")));
+            this.cachedSprites.put("fire_enemy", new Image(new FileInputStream("src/main/resources/sprites/fire_enemy.gif")));
+            this.cachedSprites.put("ice_enemy", new Image(new FileInputStream("src/main/resources/sprites/ice_enemy.gif")));
+            this.cachedSprites.put("rainbow_enemy", new Image(new FileInputStream("src/main/resources/sprites/rainbow_enemy.gif")));
+            this.cachedSprites.put("crown_enemy", new Image(new FileInputStream("src/main/resources/sprites/crown_enemy.gif")));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

@@ -36,4 +36,9 @@ public interface EntityFactory {
      */
     Entity createWall(Vector2D position, double width, double height);
     
+    Entity createBossEnemy(final Vector2D position);
+
+    Entity createGaussianEnemy(final Vector2D position);
+
+    Entity createWildEnemy(final Vector2D position);
 }
