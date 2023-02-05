@@ -8,4 +8,8 @@ public interface PowerUpFactory {
     PowerUp generateHealthUpPowerUp();
 
     PowerUp generateSpeedUpPowerUp();
+
+    PowerUp generateProjectileSpeedUpPowerUp();
+
+    PowerUp generateProjectileSizeUpPowerUp();
 }
