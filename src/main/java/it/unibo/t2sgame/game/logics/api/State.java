@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.game.model.api.Wave;
+import it.unibo.t2sgame.game.model.api.World;
 
 /**
  * Rapresent the state and the logics of a Game
@@ -28,5 +29,5 @@ public interface State {
     /**
      * Increment the number of round depends on the implementation
      */
-    void incrementRound();
+    void incrementRound(World world);
 }
