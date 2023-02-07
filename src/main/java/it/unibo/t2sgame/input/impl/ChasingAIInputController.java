@@ -5,14 +5,21 @@ import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.input.api.AbstractChasingAIInputController;
 
 /**
- * AI that chase the closest adversary
+ * AI that chase the closest adversary.
  */
 public class ChasingAIInputController extends AbstractChasingAIInputController {
     private final Type adversaryType;
 
+    /**
+     * @param adversaryType type of the adversary to chase
+     */
     public ChasingAIInputController(final Type adversaryType) {
         this.adversaryType = adversaryType;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void computeNextCommand() {
         super.addToCommandsQueue(entity -> {
