@@ -22,7 +22,7 @@ class InputController {
 %%
 class AbstractInputController {
     <<abstract>>
-    +addToCommandsQueue(Command): void
+    #addToCommandsQueue(Command): void
     +getCommandsQueue(): Queue~Command~
 }
 %%
