@@ -12,6 +12,7 @@ import it.unibo.t2sgame.core.components.api.ComponentFactory;
 import it.unibo.t2sgame.core.components.impl.ComponentFactoryImpl;
 import it.unibo.t2sgame.core.components.impl.InputComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
 import it.unibo.t2sgame.game.model.api.World;
 import it.unibo.t2sgame.game.model.api.WorldFactory;
@@ -54,7 +55,7 @@ public class InputTest {
 
     @Test
     void chasingAIInputTest() {
-        InputComponent aiInputComponent = (InputComponent) this.componentFactory.createInputComponentFrom(new ChasingAIInputController());
+        InputComponent aiInputComponent = (InputComponent) this.componentFactory.createInputComponentFrom(new ChasingAIInputController(Type.PLAYER));
         this.player.addComponent(aiInputComponent);
         ChasingAIInputController inputController = (ChasingAIInputController) aiInputComponent.getInputController();
         // every time the getCommandsQueue method gets called the AI generate a command, so the
