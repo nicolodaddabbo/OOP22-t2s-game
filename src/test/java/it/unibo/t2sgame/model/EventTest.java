@@ -11,8 +11,10 @@ import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.core.entity.impl.EntityImpl;
 import it.unibo.t2sgame.game.logics.api.EventFactory;
 import it.unibo.t2sgame.game.logics.impl.EventFactoryImpl;
+import it.unibo.t2sgame.game.model.api.EntityFactory;
 import it.unibo.t2sgame.game.model.api.World;
 import it.unibo.t2sgame.game.model.api.WorldFactory;
+import it.unibo.t2sgame.game.model.impl.EntityFactoryImpl;
 import it.unibo.t2sgame.game.model.impl.WorldFactoryImpl;
 import it.unibo.t2sgame.input.api.Directions;
 
@@ -22,6 +24,7 @@ public class EventTest {
     EventFactory eventFactory = new EventFactoryImpl();
     Entity player = new EntityImpl(new Vector2D(0, 0), Type.PLAYER);
     Entity enemy = new EntityImpl(new Vector2D(0, 0), Type.ENEMY);
+    EntityFactory entityFactory = new EntityFactoryImpl();
 
     public EventTest() {
         this.world.addEntity(player);
@@ -30,7 +33,8 @@ public class EventTest {
 
     @Test
     void onShootEventTest() {
-        this.world.notifyEvent(this.eventFactory.onShootEvent(this.player, Directions.UP));
+        var projectile = this.entityFactory.createProjectile(this.player.getPosition(), 0.5, 1, 0.5, Directions.DOWN);
+        this.world.notifyEvent(this.eventFactory.onShootEvent(projectile));
         // The projectile should NOT exist after the notification of its shooting
         this.world.handleEvents();
         // The world run the onShoot event that creates the projectile when the handleEvents method get called
