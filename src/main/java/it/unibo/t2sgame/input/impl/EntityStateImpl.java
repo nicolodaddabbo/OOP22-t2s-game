@@ -6,35 +6,50 @@ import java.util.Optional;
 import it.unibo.t2sgame.input.api.Command;
 import it.unibo.t2sgame.input.api.EntityState;
 
+/**
+ * Generic finite state of an entity.
+ * 
+ * @param <I> input type
+ */
 public class EntityStateImpl<I> implements EntityState<I> {
-    /**
-     * Every state is a Command, and this Map is useful for 
-     * associate to every Input a state (i.e. command)
-     */
-    private final Map<I, Command> states;
+    private final Map<I, Command> moveset;
     private Optional<Command> currentCommand;
 
-    public EntityStateImpl(final Map<I, Command> states) {
-        this.states = states;
+    /**
+     * @param moveset Map that associate to every input a command
+     */
+    public EntityStateImpl(final Map<I, Command> moveset) {
+        this.moveset = moveset;
         this.currentCommand = Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void notifyInput(final I input) {
-        this.currentCommand = this.states.containsKey(input) ? Optional.of(this.states.get(input)) : this.currentCommand;
+        this.currentCommand = this.moveset.containsKey(input) ? Optional.of(this.moveset.get(input))
+                : this.currentCommand;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void notifyInputRelease(final I input, final Optional<Command> releaseCommandValue) {
         if (this.currentCommand.isEmpty()) {
             return;
         }
-        this.currentCommand = this.states.get(input) == this.currentCommand.get() ? releaseCommandValue : this.currentCommand;
+        this.currentCommand = this.moveset.get(input) == this.currentCommand.get() ? releaseCommandValue
+                : this.currentCommand;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Command> getCurrentCommand() {
         return this.currentCommand;
     }
-    
+
 }
