@@ -3,10 +3,11 @@ classDiagram
 
 InputController --* InputComponent
 AbstractInputController --|> InputController
-AbstractAIInputController --|> AbstractInputController
+AbstractChasingAIInputController --|> AbstractInputController
 KeyboardInputController --|> AbstractInputController
-ChasingAIInputController --|> AbstractAIInputController
-MosquitoAIInputController --|> AbstractAIInputController
+ChasingAIInputController --|> AbstractChasingAIInputController
+MosquitoAIInputController --|> AbstractChasingAIInputController
+GaussianAIInputController --|> AbstractChasingAIInputController
 
 %%
 class InputComponent {
@@ -24,7 +25,7 @@ class AbstractInputController {
     +getCommandsQueue(): Queue~Command~
 }
 %%
-class AbstractAIInputController {
+class AbstractChasingAIInputController {
     <<abstract>>
     #computeNextCommand(): void
     +getCommandsQueue(): Queue~Command~
@@ -40,5 +41,9 @@ class ChasingAIInputController {
 }
 %%
 class MosquitoAIInputController {
+    #computeNextCommand(): void
+}
+%%
+class GaussianAIInputController {
     #computeNextCommand(): void
 }
