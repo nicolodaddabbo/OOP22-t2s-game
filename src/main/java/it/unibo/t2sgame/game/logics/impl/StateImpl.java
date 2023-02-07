@@ -35,16 +35,16 @@ public class StateImpl implements State {
     }
 
     @Override
-    public void incrementRound(final World world) {
-        if ((this.round + 1) % POWER_UP_ROUND == 0) {
-            /*
-             * if next round is a multiple of POWER_UP_ROUND generate a random
-             * power-up
-             */
+    public void incrementRound() {
+        this.round++;
+    }
+
+    @Override
+    public void generatePowerUp(final World world) {
+        if (this.round % POWER_UP_ROUND == 0) {
             var powerUpList = this.powerUpFactory.getObtainablePowerUpList();
             world.notifyEvent(this.eventFactory.onPowerUpEvent(powerUpList.get(this.random.nextInt(powerUpList.size()))));
         }
-        this.round++;
     }
 
 }

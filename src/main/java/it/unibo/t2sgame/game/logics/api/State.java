@@ -29,5 +29,10 @@ public interface State {
     /**
      * Increment the number of round depends on the implementation
      */
-    void incrementRound(World world);
+    void incrementRound();
+    /**
+     * Generate the onPowerUp event if a power up can be issued
+     * @param world
+     */
+    void generatePowerUp(World world);
 }

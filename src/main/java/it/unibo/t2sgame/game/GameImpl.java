@@ -41,7 +41,8 @@ public class GameImpl implements Game {
     }
 
     private void nextWave() {
-        this.state.incrementRound(this.world);
+        this.state.incrementRound();
+        this.state.generatePowerUp(this.world);
         var wave = this.state.getRound() % 10 == 0
                 ? new WaveFactoryImpl(this.world).createBossWave(this.state.getRound())
                 : new WaveFactoryImpl(this.world).createRandomWave(this.state.getRound());
