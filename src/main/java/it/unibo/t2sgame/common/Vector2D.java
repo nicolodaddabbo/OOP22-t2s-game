@@ -34,18 +34,22 @@ public class Vector2D {
     }
 
     /**
-     * This method sums the current vector with the given vector and returns the new vector.
+     * This method sums the current vector with the given vector and returns the new
+     * vector.
+     * 
      * @param x coordinate of the vector in x axis
      * @param y coordinate of the vector in y axis
      * @return the resulting vector
      * @see {@link #sum(vector)}
      */
     public Vector2D sum(final double x, final double y) {
-        return new Vector2D(this.x+x, this.y+y);
+        return new Vector2D(this.x + x, this.y + y);
     }
 
     /**
-     * This method sums the current vector with the given vector and returns the new vector.
+     * This method sums the current vector with the given vector and returns the new
+     * vector.
+     * 
      * @param vector the vector
      * @return the resulting vector
      * @see {@link #sum(x, y)}
@@ -55,18 +59,22 @@ public class Vector2D {
     }
 
     /**
-     * This method subtracts the current vector with the given vector and returns the new vector.
+     * This method subtracts the current vector with the given vector and returns
+     * the new vector.
+     * 
      * @param x coordinate of the vector in x axis
      * @param y coordinate of the vector in y axis
      * @return the resulting vector
      * @see {@link #sub(vector)}
      */
     public Vector2D sub(final double x, final double y) {
-        return new Vector2D(this.x-x, this.y-y);
+        return new Vector2D(this.x - x, this.y - y);
     }
 
     /**
-     * This method subtracts the current vector with the given vector and returns the new vector.
+     * This method subtracts the current vector with the given vector and returns
+     * the new vector.
+     * 
      * @param vector the vector
      * @return the resulting vector
      * @see {@link #sub(x, y)}
@@ -76,27 +84,33 @@ public class Vector2D {
     }
 
     /**
-     * This method multiplies the current vector with the given value and returns the new vector.
+     * This method multiplies the current vector with the given value and returns
+     * the new vector.
+     * 
      * @param scalar the value to multiply
      * @return the resulting vector
      */
     public Vector2D mul(final double scalar) {
-        return new Vector2D(this.x*scalar, this.y*scalar);
+        return new Vector2D(this.x * scalar, this.y * scalar);
     }
 
     /**
-     * This method returns the distance between the current point and the given point.
+     * This method returns the distance between the current point and the given
+     * point.
+     * 
      * @param x coordinate of the point in x axis
      * @param y coordinate of the point in y axis
      * @return the resulting distance
      * @see {@link #distance(vector)}
      */
     public double distance(final double x, final double y) {
-        return Math.sqrt(Math.pow(x-this.x, 2)+Math.pow(y-this.y, 2));
+        return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
     }
 
     /**
-     * This method returns the distance between the current point and the given point.
+     * This method returns the distance between the current point and the given
+     * point.
+     * 
      * @param point the point
      * @return the resulting distance
      * @see {@link #distance(x, y)}
@@ -118,7 +132,7 @@ public class Vector2D {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -133,6 +147,9 @@ public class Vector2D {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "Vector2D [x=" + x + ", y=" + y + "]";
