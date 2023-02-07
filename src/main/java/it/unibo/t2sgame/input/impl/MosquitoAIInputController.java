@@ -16,7 +16,7 @@ public class MosquitoAIInputController extends AbstractChasingAIInputController 
 
     @Override
     protected void computeNextCommand() {
-        this.commandsQueue.add(entity -> {
+        super.addToCommandsQueue(entity -> {
             if (isTimeToChoose()) {
                 entity.notifyComponent(PhysicsComponent.class,
                     () -> Directions.values()[random.nextInt(Directions.values().length)]);

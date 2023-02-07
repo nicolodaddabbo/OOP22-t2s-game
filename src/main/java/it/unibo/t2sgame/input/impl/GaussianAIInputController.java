@@ -36,7 +36,7 @@ public class GaussianAIInputController extends AbstractChasingAIInputController 
      */
     @Override
     protected void computeNextCommand() {
-        this.commandsQueue.add(entity -> {
+        super.addToCommandsQueue(entity -> {
             if (isTimeToChoose()) {
                 var closestAdeversary = super.findClosestAdeversary(entity, this.adversaryType);
                 closestAdeversary.ifPresent(a -> entity.notifyComponent(PhysicsComponent.class,

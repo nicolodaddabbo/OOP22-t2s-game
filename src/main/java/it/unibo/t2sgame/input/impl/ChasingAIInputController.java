@@ -15,7 +15,7 @@ public class ChasingAIInputController extends AbstractChasingAIInputController {
     }
     @Override
     protected void computeNextCommand() {
-        this.commandsQueue.add(entity -> {
+        super.addToCommandsQueue(entity -> {
             var closestAdeversary = super.findClosestAdeversary(entity, this.adversaryType);
             closestAdeversary.ifPresent(adversary -> {
                 final var dX = adversary.getPosition().getX() - entity.getPosition().getX();

@@ -5,13 +5,22 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * This abstract class represent an InutController with a default implementation of
- * the method getCommandsQueue
+ * the method getCommandsQueue.
  */
 public abstract class AbstractInputController implements InputController {
-    protected final Queue<Command> commandsQueue = new ConcurrentLinkedQueue<>();
+    private final Queue<Command> commandsQueue = new ConcurrentLinkedQueue<>();
 
     /**
-     * Return a defensive copy of the commands queue
+     * Add command to the commands queue.
+     * 
+     * @param command to add
+     */
+    protected void addToCommandsQueue(final Command command) {
+        this.commandsQueue.add(command);
+    }
+
+    /**
+     * Return a defensive copy of the commands queue.
      */
     @Override
     public Queue<Command> getCommandsQueue() {

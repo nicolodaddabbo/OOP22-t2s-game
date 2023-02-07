@@ -60,8 +60,9 @@ public class KeyboardInputController extends AbstractInputController {
     }
 
     private void addCommandsToQueue() {
-        this.commandsQueue.addAll(this.states.stream().filter(s -> s.getCurrentCommand().isPresent())
-                .map(s -> s.getCurrentCommand().get()).toList());
+        this.states.stream().filter(s -> s.getCurrentCommand().isPresent())
+                .map(s -> s.getCurrentCommand().get())
+                .forEach(super::addToCommandsQueue);
     }
 
 }
