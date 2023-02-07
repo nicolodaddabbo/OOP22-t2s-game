@@ -8,6 +8,10 @@ import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.input.api.AbstractChasingAIInputController;
 import it.unibo.t2sgame.input.api.Directions;
 
+/**
+ * AI that uses Gaussian distribution to generate random movements for an entity, 
+ * with the aim of gradually approaching the adversary's position.
+ */
 public class GaussianAIInputController extends AbstractChasingAIInputController {
     final Random random = new Random();
     private static final long TIME_TO_NEXT_DECISION = 300;
