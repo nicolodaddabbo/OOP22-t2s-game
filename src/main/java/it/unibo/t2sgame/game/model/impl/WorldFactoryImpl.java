@@ -1,11 +1,8 @@
 package it.unibo.t2sgame.game.model.impl;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.IntStream;
 
-import javax.sql.rowset.WebRowSet;
 
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.entity.api.Entity;
@@ -20,7 +17,7 @@ public class WorldFactoryImpl implements WorldFactory{
     @Override
     public World createWorldWithOnePlayer() {
         var world = this.createBasicWorld();
-        return world.addPlayer(this.entityFactory.createPlayer(new Vector2D(world.getMap().getWidth() / 2, world.getMap().getHeight() / 2 )));
+        return world.addEntity(this.entityFactory.createPlayer(new Vector2D(world.getMap().getWidth() / 2, world.getMap().getHeight() / 2 )));
     }
 
     @Override
