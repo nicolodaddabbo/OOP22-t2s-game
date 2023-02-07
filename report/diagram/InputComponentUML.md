@@ -11,7 +11,6 @@ GaussianAIInputController --|> AbstractChasingAIInputController
 
 %%
 class InputComponent {
-    <<interface>>
     +update(): void
 }
 %%
