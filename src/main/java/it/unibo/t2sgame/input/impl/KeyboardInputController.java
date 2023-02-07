@@ -39,7 +39,7 @@ public class KeyboardInputController extends AbstractInputController {
     private final List<EntityState<Integer>> states = List.of(this.moveState, this.shootState);
 
     /**
-     * Notify that a key has been pressed
+     * Notify that a key has been pressed.
      * 
      * @param keyCode of the key pressed
      */
@@ -49,7 +49,7 @@ public class KeyboardInputController extends AbstractInputController {
     }
 
     /**
-     * Notify that a key has been released
+     * Notify that a key has been released.
      * 
      * @param keyCode of the key released
      */
