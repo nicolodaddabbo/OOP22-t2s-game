@@ -45,7 +45,7 @@ public class ComponentFactoryImpl implements ComponentFactory {
     }
 
     @Override
-    public Component createHealthComponentFrom(int health) {
+    public Component createHealthComponentFrom(final int health) {
         return new HealthComponent(health);
     }
 
@@ -58,8 +58,9 @@ public class ComponentFactoryImpl implements ComponentFactory {
     public Component createDamageComponentFrom(int damage, double cooldown) {
         return new DamageComponent(damage, cooldown);
     }
-    
-    private GraphicComponent fromGraphicFunction(BiConsumer<Graphic, Entity> graphConsumer, double width, double height){
+
+    private GraphicComponent fromGraphicFunction(final BiConsumer<Graphic, Entity> graphConsumer,
+                                                 final double width, final double height) {
         return new GraphicComponent(width, height) {
             @Override
             public void update() {
@@ -69,18 +70,17 @@ public class ComponentFactoryImpl implements ComponentFactory {
     }
 
     @Override
-    public GraphicComponent createGraphicComponentWithSprite(String spriteName, double width, double height) {    
+    public GraphicComponent createGraphicComponentWithSprite(final String spriteName, final double width, final double height) {
         return fromGraphicFunction((graphic, entity) -> graphic.drawFromSprite(entity, spriteName), width, height);
     }
 
     @Override
-    public GraphicComponent createCircleGraphicComponent(double width, double height) {
+    public GraphicComponent createCircleGraphicComponent(final double width, final double height) {
         return fromGraphicFunction(Graphic::drawCircle, width, height);
     }
 
     @Override
-    public GraphicComponent createRectangleGraphicComponent(double width, double height) {
+    public GraphicComponent createRectangleGraphicComponent(final double width, final double height) {
         return fromGraphicFunction(Graphic::drawRectangle, width, height);
     }
-    
 }

@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class GraphicJavaFXImpl implements Graphic {
-
     private final GraphicsContext graphicContext;
     private Map<String, Image> cachedSprites;
     private double entityX;
@@ -23,7 +22,7 @@ public class GraphicJavaFXImpl implements Graphic {
     private double width;
     private double height;
 
-    GraphicJavaFXImpl(GraphicsContext gc, double dpiW, double dpiH) {
+    GraphicJavaFXImpl(final GraphicsContext gc, final double dpiW, final double dpiH) {
         this.graphicContext = gc;
         this.dpiW = dpiW;
         this.dpiH = dpiH;
@@ -37,7 +36,8 @@ public class GraphicJavaFXImpl implements Graphic {
             this.cachedSprites.put("companion", new Image(new FileInputStream("src/main/resources/sprites/companion.gif")));
             this.cachedSprites.put("fire_enemy", new Image(new FileInputStream("src/main/resources/sprites/fire_enemy.gif")));
             this.cachedSprites.put("ice_enemy", new Image(new FileInputStream("src/main/resources/sprites/ice_enemy.gif")));
-            this.cachedSprites.put("rainbow_enemy", new Image(new FileInputStream("src/main/resources/sprites/rainbow_enemy.gif")));
+            this.cachedSprites.put("rainbow_enemy", 
+                new Image(new FileInputStream("src/main/resources/sprites/rainbow_enemy.gif")));
             this.cachedSprites.put("crown_enemy", new Image(new FileInputStream("src/main/resources/sprites/crown_enemy.gif")));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -45,7 +45,7 @@ public class GraphicJavaFXImpl implements Graphic {
     }
 
     @Override
-    public void drawFromSprite(Entity entity, String spirteName) {
+    public void drawFromSprite(final Entity entity, final String spirteName) {
         entity.getComponent(GraphicComponent.class).ifPresent(component -> {
             entityX = entity.getPosition().getX() * this.dpiW;
             entityY = entity.getPosition().getY() * this.dpiH;
@@ -63,7 +63,7 @@ public class GraphicJavaFXImpl implements Graphic {
     }
 
     @Override
-    public void drawRectangle(Entity entity) {
+    public void drawRectangle(final Entity entity) {
         entity.getComponent(GraphicComponent.class).ifPresent(component -> {
             entityX = entity.getPosition().getX() * this.dpiW;
             entityY = entity.getPosition().getY() * this.dpiH;
@@ -80,7 +80,7 @@ public class GraphicJavaFXImpl implements Graphic {
     }
 
     @Override
-    public void drawCircle(Entity entity) {
+    public void drawCircle(final Entity entity) {
         entity.getComponent(GraphicComponent.class).ifPresent(component -> {
             entityX = entity.getPosition().getX() * this.dpiW;
             entityY = entity.getPosition().getY() * this.dpiH;

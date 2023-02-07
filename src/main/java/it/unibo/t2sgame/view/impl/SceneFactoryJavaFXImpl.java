@@ -6,25 +6,25 @@ import it.unibo.t2sgame.view.api.SceneFactory;
 import it.unibo.t2sgame.view.api.Window;
 import javafx.stage.Stage;
 
-public class SceneFactoryJavaFXImpl implements SceneFactory{
-
+public class SceneFactoryJavaFXImpl implements SceneFactory {
     private final Stage stage;
 
-    public SceneFactoryJavaFXImpl(final Stage stage){
+    public SceneFactoryJavaFXImpl(final Stage stage) {
         this.stage = stage;
     }
-    
+
     @Override
-    public GameScene createGameScene(Window window) {
+    public GameScene createGameScene(final Window window) {
         return new GameSceneJavaFXImpl(stage, window);
     }
-    
-    public BaseScene createMenuScene(Window window){
+
+    @Override
+    public BaseScene createMenuScene(final Window window) {
         return new MenuJavaFXImpl(stage, window);
     }
 
     @Override
-    public BaseScene createGameOverScene(Window window, int round) {
+    public BaseScene createGameOverScene(final Window window, final int round) {
         return new GameOverSceneJavaFX(stage, window, round);
     }
 }

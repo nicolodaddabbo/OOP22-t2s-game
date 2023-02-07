@@ -6,8 +6,7 @@ import it.unibo.t2sgame.game.GameFactoryImpl;
 import it.unibo.t2sgame.view.api.Window;
 
 public class BaseSceneLogicImpl {
-    
-    public void runScene(final Game game, final Window window){
+    public void runScene(final Game game, final Window window) {
         var scene = window.createGameScene();
         var engine = new GameEngineImpl(scene, game);
         scene.setEngine(engine);

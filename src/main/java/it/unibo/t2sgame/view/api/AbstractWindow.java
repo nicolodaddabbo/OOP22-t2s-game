@@ -1,6 +1,6 @@
 package it.unibo.t2sgame.view.api;
 
-public abstract class AbstractWindow implements Window{
+public abstract class AbstractWindow implements Window {
     protected SceneFactory sceneFactory;
 
     @Override
@@ -20,7 +20,7 @@ public abstract class AbstractWindow implements Window{
     }
 
     @Override
-    public BaseScene createGameOverScene(int round){ 
+    public BaseScene createGameOverScene(final int round) { 
         return this.getSceneFactory().createGameOverScene(this, round);
     }
 

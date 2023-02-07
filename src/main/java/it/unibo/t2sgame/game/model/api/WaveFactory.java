@@ -1,7 +1,7 @@
 package it.unibo.t2sgame.game.model.api;
 
 /**
- * an interface representing a factory of waves
+ * an interface representing a factory of waves.
  */
 public interface WaveFactory {
     /**

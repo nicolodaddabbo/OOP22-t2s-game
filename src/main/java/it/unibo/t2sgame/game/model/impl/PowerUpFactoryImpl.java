@@ -11,8 +11,7 @@ import it.unibo.t2sgame.game.model.api.PowerUp;
 import it.unibo.t2sgame.game.model.api.PowerUpFactory;
 
 public class PowerUpFactoryImpl implements PowerUpFactory {
-
-    public PowerUp fromFunction(Consumer<Entity> function) {
+    public PowerUp fromFunction(final Consumer<Entity> function) {
         return function::accept;
     }
 
@@ -37,7 +36,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
     @Override
     public PowerUp generateFireRatioPowerUp() {
         return fromFunction(entity -> entity.getComponent(ShootComponent.class)
-                .ifPresent(c -> c.setfireRateSeconds(c.getfireRateSeconds() / 2)));
+                .ifPresent(c -> c.setfireRateSeconds(c.getfireRateSeconds() - 0.05)));
     }
 
     @Override
@@ -49,7 +48,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
     @Override
     public PowerUp generateSpeedUpPowerUp() {
         return fromFunction(
-                entity -> entity.getComponent(PhysicsComponent.class).ifPresent(c -> c.setSpeed(c.getSpeed() + 0.5)));
+                entity -> entity.getComponent(PhysicsComponent.class).ifPresent(c -> c.setSpeed(c.getSpeed() + 0.25)));
     }
 
     @Override

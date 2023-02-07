@@ -40,7 +40,7 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
     private double dpiH;
     private BackgroundImage backgroundImage;
 
-    public GameSceneJavaFXImpl(Stage stage, Window window) {
+    public GameSceneJavaFXImpl(final Stage stage, final Window window) {
         super(window);
         this.stage = stage;
     }

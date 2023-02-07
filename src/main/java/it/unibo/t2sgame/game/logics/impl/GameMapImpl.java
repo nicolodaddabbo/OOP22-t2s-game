@@ -2,9 +2,9 @@ package it.unibo.t2sgame.game.logics.impl;
 
 import it.unibo.t2sgame.game.logics.api.GameMap;
 
-public class GameMapImpl implements GameMap{
-
-    private final double width, height;
+public class GameMapImpl implements GameMap {
+    private final double width;
+    private final double height;
 
     public GameMapImpl(final double width, final double height) {
         this.width = width;
@@ -20,5 +20,4 @@ public class GameMapImpl implements GameMap{
     public double getHeight() {
         return this.height;
     }
-    
 }

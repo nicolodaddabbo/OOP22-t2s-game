@@ -44,10 +44,19 @@ public interface EntityFactory {
      * @return Entity instance representing a "Wall"
      */
     Entity createWall(Vector2D position, double width, double height);
-    
-    Entity createBossEnemy(final Vector2D position);
-
-    Entity createGaussianEnemy(final Vector2D position);
-
-    Entity createWildEnemy(final Vector2D position);
+    /**
+     * @param position the position to be placed
+     * @return Entity instance representing a Boss enemy
+     */
+    Entity createBossEnemy(Vector2D position);
+    /**
+     * @param position the position to be placed
+     * @return Entity instance representing a Gaussian enemy
+     */
+    Entity createGaussianEnemy(Vector2D position);
+    /**
+     * @param position the position to be placed
+     * @return Entity instance representing a Gaussian enemy
+     */
+    Entity createWildEnemy(Vector2D position);
 }

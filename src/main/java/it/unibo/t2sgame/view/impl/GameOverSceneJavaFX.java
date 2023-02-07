@@ -14,11 +14,11 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class GameOverSceneJavaFX extends AbstractBaseScene{
+public class GameOverSceneJavaFX extends AbstractBaseScene {
 
     private final int round;
     private final Stage stage;
-    protected GameOverSceneJavaFX(Stage stage, Window window, int round) {
+    protected GameOverSceneJavaFX(final Stage stage, final Window window, final int round) {
         super(window);
         this.round = round;
         this.stage = stage;
@@ -44,5 +44,4 @@ public class GameOverSceneJavaFX extends AbstractBaseScene{
         this.stage.setScene(gameOverScene);
         this.stage.show();
     }
-    
 }

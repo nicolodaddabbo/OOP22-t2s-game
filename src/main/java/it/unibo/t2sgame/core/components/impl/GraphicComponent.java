@@ -4,9 +4,9 @@ import it.unibo.t2sgame.core.components.api.AbstractComponent;
 import it.unibo.t2sgame.core.components.api.Message;
 import it.unibo.t2sgame.view.api.Graphic;
 /**
- * this abstract class represents the GraphicComponent of the entity
+ * this abstract class represents the GraphicComponent of the entity.
  */
-public abstract class GraphicComponent extends AbstractComponent{
+public abstract class GraphicComponent extends AbstractComponent {
     protected Graphic graphic;
     protected final double width;
     protected final double height;
@@ -21,19 +21,19 @@ public abstract class GraphicComponent extends AbstractComponent{
 
     @Override
     public void update() {
-        
+
     }
     /**
-     * setter for the Graphic architecture used
+     * setter for the Graphic architecture used.
      * @param graphic the graphic architecture used
      */
-    public void setGraphics(Graphic graphic) {
+    public void setGraphics(final Graphic graphic) {
         this.graphic = graphic;   
     }
 
     @Override
-    public <T> void receive(Message<T> messge) {
-        
+    public <T> void receive(final Message<T> messge) {
+
     }
     /**
      * @return the width of the GraphicComponent
