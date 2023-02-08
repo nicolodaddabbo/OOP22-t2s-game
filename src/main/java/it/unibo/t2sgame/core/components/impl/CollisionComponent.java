@@ -51,21 +51,18 @@ public abstract class CollisionComponent extends AbstractComponent {
      */
     @Override
     public void update() {
-        var collisions = this.entity.getWorld().stream()
+        this.entity.getWorld().stream()
                 .flatMap(w -> w.getEntities().stream()
                         .filter(e -> this.types.contains(e.getType()))
                         .flatMap(e -> e.getComponent(CollisionComponent.class).stream()))
-                .collect(Collectors.toSet());
-
-        collisions.stream()
                 // Filtering each collision which has been checked as true
-                .filter(collision -> shape.isColliding(collision.getShape()))
+                .filter(c -> shape.isColliding(c.getShape()))
                 // Take collision action for every collision which has been checked as true
-                .forEach(collision -> {
-                    if (this.isRigid || collision.isRigid()) {
+                .forEach(c -> {
+                    if (this.isRigid || c.isRigid()) {
                         this.knockBack();
                     }
-                    this.collisionAction(collision.getEntity());
+                    this.collisionAction(c.getEntity());
                 });
     }
 
