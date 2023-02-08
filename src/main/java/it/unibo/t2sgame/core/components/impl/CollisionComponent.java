@@ -51,13 +51,11 @@ public abstract class CollisionComponent extends AbstractComponent {
      */
     @Override
     public void update() {
-        /**
-         * THIS CODE IS ONLY HERE BECAUSE MY FRIENDS WANTS TO PLAY.
-         * I know that it's very bad, tell them it
-         */
-        var collisions = this.entity.getWorld().get().getEntities().stream()
-                .filter(e -> this.types.contains(e.getType()))
-                .map(e -> e.getComponent(CollisionComponent.class).get()).collect(Collectors.toSet());
+        var collisions = this.entity.getWorld().stream()
+                .flatMap(w -> w.getEntities().stream()
+                        .filter(e -> this.types.contains(e.getType()))
+                        .flatMap(e -> e.getComponent(CollisionComponent.class).stream()))
+                .collect(Collectors.toSet());
 
         collisions.stream()
                 // Filtering each collision which has been checked as true
