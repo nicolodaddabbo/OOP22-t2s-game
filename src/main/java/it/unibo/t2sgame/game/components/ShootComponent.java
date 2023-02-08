@@ -24,21 +24,30 @@ public class ShootComponent extends AbstractComponent {
 
     /**
      * 
-     * @param fireRateSeconds the rate of fire of the entity in seconds
+     * @param fireRateSeconds  the rate of fire of the entity in seconds
+     * @param projectileSpeed  the speed of the projectiles
+     * @param projectileDamage the damage of the projectiles
+     * @param projectileSize   the size of the projectile
      */
     public ShootComponent(final double fireRateSeconds, final double projectileSpeed, final int projectileDamage,
             final double projectileSize) {
-        this.fireRateSeconds = fireRateSeconds;
-        this.projectileSpeed = projectileSpeed;
-        this.projectileDamage = projectileDamage;
-        this.projectileSize = projectileSize;
+        this.setfireRateSeconds(fireRateSeconds);
+        this.setProjectileSpeed(projectileSpeed);
+        this.setProjectileDamage(projectileDamage);
+        this.setProjectileSize(projectileSize);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <T> void receive(final Message<T> message) {
         if (Directions.class.isInstance(message.getMessage())) {
@@ -49,13 +58,22 @@ public class ShootComponent extends AbstractComponent {
     private void shoot(final Directions shotDirection) {
         if (this.timer.getElapsedSeconds() >= this.fireRateSeconds) {
             this.entity.getWorld()
-                    .ifPresent(e -> e.notifyEvent(this.eventFactory.onShootEvent(this.createProjectile(shotDirection))));
+                    .ifPresent(
+                            e -> e.notifyEvent(this.eventFactory.onShootEvent(this.createProjectile(shotDirection))));
             this.timer.restart();
         }
     }
 
-    protected Entity createProjectile(final Directions shotDirection){
-        return this.entityFactory.createProjectile(this.entity.getPosition(), projectileSpeed, projectileDamage, projectileSize, shotDirection);
+    /**
+     * The projectile to shoot when entity shoots.
+     * 
+     * @param shotDirection the direction of the projectile
+     * @return the projectile to shoot
+     */
+    protected Entity createProjectile(final Directions shotDirection) {
+        return this.entityFactory.createProjectile(this.entity.getPosition(), this.projectileSpeed,
+                this.projectileDamage,
+                this.projectileSize, shotDirection);
     }
 
     /**
@@ -79,8 +97,9 @@ public class ShootComponent extends AbstractComponent {
      * @return the projectile speed of the entity in seconds
      */
     public double getProjectileSpeed() {
-        return projectileSpeed;
+        return this.projectileSpeed;
     }
+
     /**
      * 
      * @param projectileSpeed the new projectile speed of the entity
@@ -94,8 +113,9 @@ public class ShootComponent extends AbstractComponent {
      * @return the projectile damage of the entity in seconds
      */
     public int getProjectileDamage() {
-        return projectileDamage;
+        return this.projectileDamage;
     }
+
     /**
      * 
      * @param projectileDamage the new projectile damage of the entity
@@ -109,8 +129,9 @@ public class ShootComponent extends AbstractComponent {
      * @return the projectile size of the entity in seconds
      */
     public double getProjectileSize() {
-        return projectileSize;
+        return this.projectileSize;
     }
+
     /**
      * 
      * @param projectileSize the new projectile size of the entity
