@@ -1,8 +1,6 @@
 package it.unibo.t2sgame.core.components.impl;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import it.unibo.t2sgame.common.Shape;
@@ -17,9 +15,8 @@ import it.unibo.t2sgame.core.entity.api.Type;
  */
 public abstract class CollisionComponent extends AbstractComponent {
 
-    protected Set<CollisionComponent> collisions = new HashSet<>();
-    protected final Shape shape;
-    protected final boolean isRigid;
+    private final Shape shape;
+    private final boolean isRigid;
     private List<Type> types;
 
     /**
@@ -35,6 +32,9 @@ public abstract class CollisionComponent extends AbstractComponent {
         this.types = types;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <T> void receive(final Message<T> message) {
         if (Vector2D.class.isInstance(message.getMessage())) {
@@ -46,17 +46,20 @@ public abstract class CollisionComponent extends AbstractComponent {
         this.shape.setCenter(pos);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
         /**
          * THIS CODE IS ONLY HERE BECAUSE MY FRIENDS WANTS TO PLAY.
          * I know that it's very bad, tell them it
          */
-        this.collisions = this.entity.getWorld().get().getEntities().stream()
-            .filter(e -> this.types.contains(e.getType()))
-            .map(e -> e.getComponent(CollisionComponent.class).get()).collect(Collectors.toSet());
+        var collisions = this.entity.getWorld().get().getEntities().stream()
+                .filter(e -> this.types.contains(e.getType()))
+                .map(e -> e.getComponent(CollisionComponent.class).get()).collect(Collectors.toSet());
 
-        this.collisions.stream()
+        collisions.stream()
                 // Filtering each collision which has been checked as true
                 .filter(collision -> shape.isColliding(collision.getShape()))
                 // Take collision action for every collision which has been checked as true

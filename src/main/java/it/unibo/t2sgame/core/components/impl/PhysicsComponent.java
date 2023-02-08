@@ -31,12 +31,18 @@ public class PhysicsComponent extends AbstractComponent {
         this.receiveDirection(direction);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
         entity.setPosition(entity.getPosition().sum(this.velocity.mul(this.getConvertedSpeed())));
         entity.notifyComponent(CollisionComponent.class, entity::getPosition);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <T> void receive(final Message<T> message) {
         if (Directions.class.isInstance(message.getMessage())) {
