@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import it.unibo.t2sgame.core.components.impl.GraphicComponent;
 import it.unibo.t2sgame.game.components.HealthComponent;
 import it.unibo.t2sgame.view.api.AbstractGameScene;
 import it.unibo.t2sgame.view.api.Window;
@@ -29,7 +28,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
+/**
+ * Scene representing the implementation of a GameScene using JavaFX.
+ */
 public class GameSceneJavaFXImpl extends AbstractGameScene {
     private Canvas canvas;
     private GraphicsContext gContext;
@@ -39,12 +40,18 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
     private double dpiW;
     private double dpiH;
     private BackgroundImage backgroundImage;
+    private static final double HEARTSIZE = 40;
+    private static final double BACKGROUNDTILESIZE = 300;
+    private static final double PADDING = 10;
 
-    public GameSceneJavaFXImpl(final Stage stage, final Window window) {
+    GameSceneJavaFXImpl(final Stage stage, final Window window) {
         super(window);
         this.stage = stage;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize() {
         var root = new Pane();
@@ -62,7 +69,7 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
         var scene = new Scene(root, proportionedWidth, proportionedHeight, Color.BLACK);
         /* initializing all text settings settings */
         this.round.setText("");
-        this.round.setFont(Font.font(null, FontWeight.BOLD, 30 * this.dpiW));
+        this.round.setFont(Font.font(null, FontWeight.BOLD, FONTSIZE * this.dpiW));
         this.round.setTextOrigin(VPos.BOTTOM);
         this.round.setTextAlignment(TextAlignment.CENTER);
         this.round.setStroke(Color.WHITE);
@@ -83,24 +90,28 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
         stage.show();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render() {
         Platform.runLater(() -> {
+            this.gameEngine.updateGraphics(graphic);
             gContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            this.gameEngine.getComponents(GraphicComponent.class).forEach(c -> {
-                c.setGraphics(this.graphic);
-                c.update();
-            });
+            this.gameEngine.updateGraphics(this.graphic);
             this.getGame().getWorld().getPlayers().forEach(p -> p.getComponent(HealthComponent.class).ifPresent(c -> {
                 Stream.iterate(0, i -> i + 1)
                         .limit(c.getHealth())
-                            .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 50 * this.dpiW * n, 0,
-                                    40 * this.dpiW, 40 * this.dpiW));
+                            .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 
+                                    (HEARTSIZE + PADDING) * this.dpiW * n, 0, HEARTSIZE * this.dpiW, HEARTSIZE * this.dpiW));
             }));
             this.round.setText("Round " + this.gameEngine.getGame().getState().getRound());
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void gameOver() {
         Platform.runLater(() -> this.window.createGameOverScene(this.gameEngine.getGame().getState().getRound()).initialize());
@@ -113,7 +124,7 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
                     new Image(new FileInputStream("src/main/resources/sprites/heart_darker.png")));
             backgroundImage = new BackgroundImage(
                     new Image(new FileInputStream("src/main/resources/sprites/Brickwall5_Texture.png"),
-                            300 * this.dpiW, 300 * this.dpiH, false, true),
+                            BACKGROUNDTILESIZE * this.dpiW, BACKGROUNDTILESIZE * this.dpiH, false, true),
                     BackgroundRepeat.REPEAT,
                     BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         } catch (FileNotFoundException e) {
