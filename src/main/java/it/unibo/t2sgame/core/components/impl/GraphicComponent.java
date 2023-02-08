@@ -28,7 +28,7 @@ public abstract class GraphicComponent extends AbstractComponent {
      * @param graphic the graphic architecture used
      */
     public void setGraphics(final Graphic graphic) {
-        this.graphic = graphic;   
+        this.graphic = graphic;
     }
 
     @Override

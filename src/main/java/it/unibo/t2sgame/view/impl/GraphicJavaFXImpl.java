@@ -11,7 +11,9 @@ import it.unibo.t2sgame.view.api.Graphic;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-
+/**
+ * class that represents the Graphics using JavaFX.
+ */
 public class GraphicJavaFXImpl implements Graphic {
     private final GraphicsContext graphicContext;
     private Map<String, Image> cachedSprites;
@@ -43,7 +45,9 @@ public class GraphicJavaFXImpl implements Graphic {
             e.printStackTrace();
         }
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void drawFromSprite(final Entity entity, final String spirteName) {
         entity.getComponent(GraphicComponent.class).ifPresent(component -> {
@@ -59,9 +63,10 @@ public class GraphicJavaFXImpl implements Graphic {
                     height
             );
         });
-
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void drawRectangle(final Entity entity) {
         entity.getComponent(GraphicComponent.class).ifPresent(component -> {
@@ -78,7 +83,9 @@ public class GraphicJavaFXImpl implements Graphic {
             );
         });
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void drawCircle(final Entity entity) {
         entity.getComponent(GraphicComponent.class).ifPresent(component -> {

@@ -29,7 +29,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 /**
- * Scene representing the implementation of a GameScene using JavaFX.
+ * class representing the implementation of a GameScene using JavaFX.
  */
 public class GameSceneJavaFXImpl extends AbstractGameScene {
     private Canvas canvas;
@@ -42,7 +42,6 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
     private BackgroundImage backgroundImage;
     private static final double HEARTSIZE = 40;
     private static final double BACKGROUNDTILESIZE = 300;
-    private static final double PADDING = 10;
 
     GameSceneJavaFXImpl(final Stage stage, final Window window) {
         super(window);

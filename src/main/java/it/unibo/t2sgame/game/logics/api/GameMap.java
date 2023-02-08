@@ -1,7 +1,7 @@
 package it.unibo.t2sgame.game.logics.api;
 
 /**
- * This interface models the concept of GameMap
+ * This interface models the concept of GameMap.
  */
 public interface GameMap {
     /**

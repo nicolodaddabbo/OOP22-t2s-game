@@ -15,15 +15,21 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
+/**
+ * class representing a MenuScene that uses JavaFX.
+ */
 public class MenuJavaFXImpl extends AbstractBaseScene {
     private final Stage stage;
+    private static final double PREFBUTTONWIDTH = 300;
+    private static final double PREFBUTTONHEIGHT = 100;
 
-    public MenuJavaFXImpl(final Stage stage, final Window window) {
+    MenuJavaFXImpl(final Stage stage, final Window window) {
         super(window);
         this.stage = stage;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize() {
         var root = new GridPane();
@@ -34,17 +40,17 @@ public class MenuJavaFXImpl extends AbstractBaseScene {
         var dpiH = screenBounds.getHeight() / AbstractBaseScene.BASEHEIGHT;
         GridPane.setHalignment(singlePlayer, HPos.CENTER);
         GridPane.setHalignment(multiPlayer, HPos.CENTER);
-        root.setVgap(10 * dpiH);
-        singlePlayer.setFont(Font.font(null, FontWeight.BOLD, 30 * dpiW));
+        root.setVgap(AbstractBaseScene.PADDING * dpiH);
+        singlePlayer.setFont(Font.font(null, FontWeight.BOLD, AbstractBaseScene.FONTSIZE * dpiW));
         multiPlayer.setFont(singlePlayer.getFont());
-        singlePlayer.setPrefSize(300 * dpiW, 100 * dpiH);
+        singlePlayer.setPrefSize(MenuJavaFXImpl.PREFBUTTONWIDTH * dpiW, MenuJavaFXImpl.PREFBUTTONHEIGHT * dpiH);
         multiPlayer.setPrefSize(singlePlayer.getPrefWidth(), singlePlayer.getPrefHeight());
         root.setMinSize(AbstractBaseScene.BASEWIDTH * dpiW / 2, AbstractBaseScene.BASEHEIGHT * dpiH / 2);
         root.setAlignment(Pos.CENTER);
         root.setStyle("-fx-background-color:#000");
         root.add(singlePlayer, 1, 1);
         root.add(multiPlayer, 1, 2);
-        Scene scene = new Scene(root, 800, 800, Color.BLACK);
+        Scene scene = new Scene(root, AbstractBaseScene.BASEWIDTH, AbstractBaseScene.BASEHEIGHT, Color.BLACK);
         stage.setTitle("T2S-game");
         stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             if (event.getCode().equals(KeyCode.ESCAPE)) {

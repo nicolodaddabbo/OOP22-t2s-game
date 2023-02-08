@@ -18,12 +18,16 @@ public class HealthComponent extends AbstractComponent {
     public HealthComponent(final int health) {
         this.health = health;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
 
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <T> void receive(final Message<T> message) {
         try {
@@ -36,6 +40,7 @@ public class HealthComponent extends AbstractComponent {
     }
     /**
      * Getter that returns the current health of the entity.
+     * @return the current health
      */
     public int getHealth() {
         return this.health;
@@ -47,7 +52,7 @@ public class HealthComponent extends AbstractComponent {
     public void setHealth(final int health) {
         this.health = health;
     }
-    
+
     private void notifyIfDead() {
         if (this.health == 0) {
             this.entity.getWorld().ifPresent(e -> e.notifyEvent(this.eventFactory.onDeathEvent(this.entity)));

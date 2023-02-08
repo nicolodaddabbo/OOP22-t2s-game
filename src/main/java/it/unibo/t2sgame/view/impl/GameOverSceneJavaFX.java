@@ -13,17 +13,25 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
+/**
+ * class representing a GameOverScene in JavaFX.
+ */
 public class GameOverSceneJavaFX extends AbstractBaseScene {
-
     private final int round;
     private final Stage stage;
+    /**
+     * @param stage in which the scene is to be rendered
+     * @param window in which the stage is contained 
+     * @param round in which the user lost
+     */
     protected GameOverSceneJavaFX(final Stage stage, final Window window, final int round) {
         super(window);
         this.round = round;
         this.stage = stage;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize() {
         var root = new GridPane();
@@ -32,7 +40,7 @@ public class GameOverSceneJavaFX extends AbstractBaseScene {
         var dpiW = screenBounds.getWidth() / AbstractBaseScene.BASEWIDTH;
         var dpiH = screenBounds.getHeight() / AbstractBaseScene.BASEHEIGHT;
         gameOverLabel.setTextFill(Color.WHITE);
-        gameOverLabel.setFont(Font.font(null, FontWeight.BOLD, 30 * dpiW));
+        gameOverLabel.setFont(Font.font(null, FontWeight.BOLD, AbstractBaseScene.FONTSIZE * dpiW));
         gameOverLabel.setTextAlignment(TextAlignment.CENTER);
         GridPane.setHalignment(gameOverLabel, HPos.CENTER);
         root.add(gameOverLabel, 1, 1);
