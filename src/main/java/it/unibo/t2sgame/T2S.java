@@ -11,6 +11,10 @@ public final class T2S {
         throw new UnsupportedOperationException("This is a utility class");
     }
     //private static final T2SLauncher LAUNCHER = new T2SSwingLauncher();
+    /**
+     * main of the program.
+     * @param args passed to the main
+     */
     public static void main(final String... args) {
         LAUNCHER.launch();
     }

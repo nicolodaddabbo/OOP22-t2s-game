@@ -7,9 +7,9 @@ import it.unibo.t2sgame.view.api.Graphic;
  * this abstract class represents the GraphicComponent of the entity.
  */
 public abstract class GraphicComponent extends AbstractComponent {
-    protected Graphic graphic;
-    protected final double width;
-    protected final double height;
+    private Graphic graphic;
+    private final double width;
+    private final double height;
     /**
      * @param width the width of the GraphicComponent
      * @param height the height of the GraphicComponent
@@ -46,5 +46,11 @@ public abstract class GraphicComponent extends AbstractComponent {
      */
     public double getHeight() {
         return height;
+    }
+    /**
+     * @return the graphic
+     */
+    public Graphic getGraphic() {
+        return graphic;
     }
 }

@@ -11,19 +11,19 @@ public abstract class AbstractGameScene extends AbstractBaseScene implements Gam
     /**
      * variable that contains the GameEngine used.
      */
-    protected GameEngine gameEngine;
+    private GameEngine gameEngine;
     /**
      * variable that contains the game in which the scene is going to be used.
      */
-    protected Game game;
+    private Game game;
     /**
      * list that contains all the keyboard input controllers in the game.
      */
-    protected List<KeyboardInputController> keyInControllers;
+    private List<KeyboardInputController> keyInControllers;
     /**
      * variable that contains the Graphic that is going to be used to render the entities.
      */
-    protected Graphic graphic;
+    private Graphic graphic;
     /**
      * contructor of an AbstractGameScene.
      * @param window in which the scenes are going to be contained
@@ -58,5 +58,33 @@ public abstract class AbstractGameScene extends AbstractBaseScene implements Gam
     @Override
     public void setInputControllers(final List<KeyboardInputController> keyInControllers) {
         this.keyInControllers = keyInControllers;
+    }
+    /**
+     * getter of the GameEngine.
+     * @return the game engine
+     */
+    public GameEngine getGameEngine() {
+        return gameEngine;
+    }
+    /**
+     * setter for the game.
+     * @param game to be set
+     */
+    public void setGame(final Game game) {
+        this.game = game;
+    }
+    /**
+     * getter of the list of KeyboardInputController.
+     * @return the list of KeyboardInputController
+     */
+    public List<KeyboardInputController> getKeyInControllers() {
+        return keyInControllers;
+    }
+    /**
+     * setter for the graphics.
+     * @param graphic to be set.
+     */
+    public void setGraphic(final Graphic graphic) {
+        this.graphic = graphic;
     }
 }

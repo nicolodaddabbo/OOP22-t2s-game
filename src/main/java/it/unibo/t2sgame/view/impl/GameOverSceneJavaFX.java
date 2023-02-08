@@ -37,14 +37,14 @@ public class GameOverSceneJavaFX extends AbstractBaseScene {
         var root = new GridPane();
         var gameOverLabel = new Label("GAME OVER\nYOU DIED AT ROUND " + this.round);
         var screenBounds = Screen.getPrimary().getBounds();
-        var dpiW = screenBounds.getWidth() / AbstractBaseScene.BASEWIDTH;
-        var dpiH = screenBounds.getHeight() / AbstractBaseScene.BASEHEIGHT;
+        var dpiW = screenBounds.getWidth() / AbstractBaseScene.getBaseWidth();
+        var dpiH = screenBounds.getHeight() / AbstractBaseScene.getBaseHeight();
         gameOverLabel.setTextFill(Color.WHITE);
-        gameOverLabel.setFont(Font.font(null, FontWeight.BOLD, AbstractBaseScene.FONTSIZE * dpiW));
+        gameOverLabel.setFont(Font.font(null, FontWeight.BOLD, AbstractBaseScene.getFontSize() * dpiW));
         gameOverLabel.setTextAlignment(TextAlignment.CENTER);
         GridPane.setHalignment(gameOverLabel, HPos.CENTER);
         root.add(gameOverLabel, 1, 1);
-        root.setMinSize(AbstractBaseScene.BASEWIDTH * dpiW / 2, AbstractBaseScene.BASEHEIGHT * dpiH / 2);
+        root.setMinSize(AbstractBaseScene.getBaseWidth() * dpiW / 2, AbstractBaseScene.getBaseHeight() * dpiH / 2);
         root.setAlignment(Pos.CENTER);
         root.setStyle("-fx-background-color:#000");
         var gameOverScene = new Scene(root);

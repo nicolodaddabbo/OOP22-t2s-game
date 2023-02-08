@@ -36,21 +36,21 @@ public class MenuJavaFXImpl extends AbstractBaseScene {
         Button singlePlayer = new Button("Single Player");
         Button multiPlayer = new Button("Multiplayer");
         var screenBounds = Screen.getPrimary().getBounds();
-        var dpiW = screenBounds.getWidth() / AbstractBaseScene.BASEWIDTH;
-        var dpiH = screenBounds.getHeight() / AbstractBaseScene.BASEHEIGHT;
+        var dpiW = screenBounds.getWidth() / AbstractBaseScene.getBaseWidth();
+        var dpiH = screenBounds.getHeight() / AbstractBaseScene.getBaseHeight();
         GridPane.setHalignment(singlePlayer, HPos.CENTER);
         GridPane.setHalignment(multiPlayer, HPos.CENTER);
-        root.setVgap(AbstractBaseScene.PADDING * dpiH);
-        singlePlayer.setFont(Font.font(null, FontWeight.BOLD, AbstractBaseScene.FONTSIZE * dpiW));
+        root.setVgap(AbstractBaseScene.getPadding() * dpiH);
+        singlePlayer.setFont(Font.font(null, FontWeight.BOLD, AbstractBaseScene.getFontSize() * dpiW));
         multiPlayer.setFont(singlePlayer.getFont());
         singlePlayer.setPrefSize(MenuJavaFXImpl.PREFBUTTONWIDTH * dpiW, MenuJavaFXImpl.PREFBUTTONHEIGHT * dpiH);
         multiPlayer.setPrefSize(singlePlayer.getPrefWidth(), singlePlayer.getPrefHeight());
-        root.setMinSize(AbstractBaseScene.BASEWIDTH * dpiW / 2, AbstractBaseScene.BASEHEIGHT * dpiH / 2);
+        root.setMinSize(AbstractBaseScene.getBaseWidth() * dpiW / 2, AbstractBaseScene.getBaseHeight() * dpiH / 2);
         root.setAlignment(Pos.CENTER);
         root.setStyle("-fx-background-color:#000");
         root.add(singlePlayer, 1, 1);
         root.add(multiPlayer, 1, 2);
-        Scene scene = new Scene(root, AbstractBaseScene.BASEWIDTH, AbstractBaseScene.BASEHEIGHT, Color.BLACK);
+        Scene scene = new Scene(root, AbstractBaseScene.getBaseWidth(), AbstractBaseScene.getBaseHeight(), Color.BLACK);
         stage.setTitle("T2S-game");
         stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             if (event.getCode().equals(KeyCode.ESCAPE)) {
@@ -59,8 +59,8 @@ public class MenuJavaFXImpl extends AbstractBaseScene {
         });
         stage.setOnCloseRequest(event -> this.close());
         BaseSceneLogicImpl sceneImpl = new BaseSceneLogicImpl();
-        singlePlayer.setOnAction(event -> sceneImpl.createSinglePlayer(this.window));
-        multiPlayer.setOnAction(event -> sceneImpl.createMultiPlayer(this.window));
+        singlePlayer.setOnAction(event -> sceneImpl.createSinglePlayer(this.getWindow()));
+        multiPlayer.setOnAction(event -> sceneImpl.createMultiPlayer(this.getWindow()));
         stage.setScene(scene);
         stage.show();
     }

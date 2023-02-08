@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import it.unibo.t2sgame.game.components.HealthComponent;
+import it.unibo.t2sgame.view.api.AbstractBaseScene;
 import it.unibo.t2sgame.view.api.AbstractGameScene;
 import it.unibo.t2sgame.view.api.Window;
 import javafx.application.Platform;
@@ -54,7 +55,7 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
     @Override
     public void initialize() {
         var root = new Pane();
-        var map = this.gameEngine.getGame().getWorld().getMap();
+        var map = this.getGameEngine().getGame().getWorld().getMap();
         var screenBounds = Screen.getPrimary().getBounds();
         /*
          * takes the width and height of the primary screen and proportion it on the
@@ -68,7 +69,7 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
         var scene = new Scene(root, proportionedWidth, proportionedHeight, Color.BLACK);
         /* initializing all text settings settings */
         this.round.setText("");
-        this.round.setFont(Font.font(null, FontWeight.BOLD, FONTSIZE * this.dpiW));
+        this.round.setFont(Font.font(null, FontWeight.BOLD, AbstractBaseScene.getFontSize() * this.dpiW));
         this.round.setTextOrigin(VPos.BOTTOM);
         this.round.setTextAlignment(TextAlignment.CENTER);
         this.round.setStroke(Color.WHITE);
@@ -77,9 +78,9 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
         root.setBackground(new Background(backgroundImage));
         this.canvas = new Canvas(proportionedWidth, proportionedHeight);
         this.gContext = this.canvas.getGraphicsContext2D();
-        this.graphic = new GraphicJavaFXImpl(this.gContext, this.dpiW, this.dpiH);
-        scene.setOnKeyPressed(event -> keyInControllers.forEach(c -> c.notifyKeyPressed(event.getCode().getCode())));
-        scene.setOnKeyReleased(event -> keyInControllers.forEach(c -> c.notifyKeyReleased(event.getCode().getCode())));
+        this.setGraphic(new GraphicJavaFXImpl(this.gContext, this.dpiW, this.dpiH));
+        scene.setOnKeyPressed(event -> this.getKeyInControllers().forEach(c -> c.notifyKeyPressed(event.getCode().getCode())));
+        scene.setOnKeyReleased(event -> this.getKeyInControllers().forEach(c -> c.notifyKeyReleased(event.getCode().getCode())));
         root.getChildren().add(this.canvas);
         root.getChildren().get(root.getChildren().indexOf(this.round)).toFront();
         stage.setScene(scene);
@@ -95,16 +96,15 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
     @Override
     public void render() {
         Platform.runLater(() -> {
-            this.gameEngine.updateGraphics(graphic);
             gContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            this.gameEngine.updateGraphics(this.graphic);
+            this.getGameEngine().updateGraphics(this.getGraphic());
             this.getGame().getWorld().getPlayers().forEach(p -> p.getComponent(HealthComponent.class).ifPresent(c -> {
                 Stream.iterate(0, i -> i + 1)
                         .limit(c.getHealth())
                             .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 
-                                    (HEARTSIZE + PADDING) * this.dpiW * n, 0, HEARTSIZE * this.dpiW, HEARTSIZE * this.dpiW));
+                                    (HEARTSIZE + getPadding()) * this.dpiW * n, 0, HEARTSIZE * this.dpiW, HEARTSIZE * this.dpiW));
             }));
-            this.round.setText("Round " + this.gameEngine.getGame().getState().getRound());
+            this.round.setText("Round " + this.getGameEngine().getGame().getState().getRound());
         });
     }
 
@@ -113,7 +113,8 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
      */
     @Override
     public void gameOver() {
-        Platform.runLater(() -> this.window.createGameOverScene(this.gameEngine.getGame().getState().getRound()).initialize());
+        Platform.runLater(() -> this.getWindow().createGameOverScene(this.getGameEngine().getGame().getState().getRound())
+            .initialize());
     }
 
     private void storeSprites() {
