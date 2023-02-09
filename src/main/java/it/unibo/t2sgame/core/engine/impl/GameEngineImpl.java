@@ -7,7 +7,11 @@ import it.unibo.t2sgame.core.components.api.Component;
 import it.unibo.t2sgame.core.components.impl.GraphicComponent;
 import it.unibo.t2sgame.core.components.impl.InputComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
-import it.unibo.t2sgame.core.engine.api.GameLoop;
+import it.unibo.t2sgame.core.gameloop.api.GameLoop;
+import it.unibo.t2sgame.core.gameloop.impl.ConcurrentGameLoop;
+import it.unibo.t2sgame.core.gameloop.impl.FrequencyCounterGameLoop;
+import it.unibo.t2sgame.core.gameloop.impl.FrequencyLockedGameLoop;
+import it.unibo.t2sgame.core.gameloop.impl.SynchronizedGameLoop;
 import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.view.api.GameScene;
@@ -25,8 +29,8 @@ public class GameEngineImpl implements GameEngine {
     /*
      * The gameLoop istance, delegating to it the handling of game loop body
      */
-    private GameLoop gameLoop = new FpsCounterGameLoop(
-            new SynchronizeGameLoop(new FpsLockedGameLoop(new ConcurrentGameLoop(this))));
+    private GameLoop gameLoop = new FrequencyCounterGameLoop(
+            new FrequencyLockedGameLoop(new SynchronizedGameLoop(new ConcurrentGameLoop(this))));
 
     /**
      * Create a GameEngine's istance based on {@link scene} and {@link game}
