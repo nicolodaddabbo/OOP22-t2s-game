@@ -16,7 +16,7 @@ public abstract class CollisionComponent extends AbstractComponent {
 
     private final Shape shape;
     private final boolean isRigid;
-    private List<Type> types;
+    private final List<Type> types;
 
     /**
      * 
