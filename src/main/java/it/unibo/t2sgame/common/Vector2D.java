@@ -148,7 +148,7 @@ public class Vector2D {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Vector2D other = (Vector2D) obj;
+        final Vector2D other = (Vector2D) obj;
         if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)) {
             return false;
         }
