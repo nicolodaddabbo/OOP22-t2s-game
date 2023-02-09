@@ -13,7 +13,9 @@ public class StopWatchTest {
         double elapsed;
         double seconds = 1;
         stopWatch.start();
-        while((elapsed = stopWatch.getElapsedSeconds()) < seconds){}
+        while ((elapsed = stopWatch.getElapsedSeconds()) < seconds) {
+            /* Wait for the time to elapse */
+        }
         assertEquals(seconds, elapsed);
     }
 
@@ -23,7 +25,9 @@ public class StopWatchTest {
         double elapsed;
         double milliseconds = 500;
         stopWatch.start();
-        while((elapsed = stopWatch.getElapsedMillis()) < milliseconds){}
+        while ((elapsed = stopWatch.getElapsedMillis()) < milliseconds) {
+            /* Wait for the time to elapse */
+        }
         assertEquals(milliseconds, elapsed);
     }
 
@@ -33,7 +37,9 @@ public class StopWatchTest {
         long elapsed;
         long nanoseconds = 500000;
         stopWatch.start();
-        while((elapsed = stopWatch.getElapsedNanos()) < nanoseconds){}
+        while ((elapsed = stopWatch.getElapsedNanos()) < nanoseconds) {
+            /* Wait for the time to elapse */
+        }
         assertEquals(nanoseconds, elapsed);
     }
 
@@ -58,5 +64,5 @@ public class StopWatchTest {
         Exception exception = assertThrows(IllegalStateException.class, () -> stopWatch.restart());
         assertEquals("Stopwatch is not running", exception.getMessage());
     }
-    
+
 }
