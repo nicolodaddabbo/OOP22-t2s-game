@@ -90,7 +90,7 @@ public class ComponentFactoryImpl implements ComponentFactory {
         return new GraphicComponent(width, height) {
             @Override
             public void update() {
-                graphConsumer.accept(this.getGraphic(), this.entity);
+                graphConsumer.accept(this.getGraphic(), this.getEntity());
             }
         };
     }
