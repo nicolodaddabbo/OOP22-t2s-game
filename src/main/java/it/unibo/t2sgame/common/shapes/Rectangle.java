@@ -18,9 +18,9 @@ public class Rectangle implements Shape {
      * @param height the height of the rectangle
      */
     public Rectangle(final Vector2D center, final double width, final double height) {
-        this.setCenter(center);
-        this.setWidth(width);
-        this.setHeight(height);
+        this.center = center;
+        this.width = width;
+        this.height = height;
     }
 
     /**

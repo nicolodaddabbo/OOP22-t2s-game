@@ -5,9 +5,9 @@ package it.unibo.t2sgame.common;
  * elapsed time.
  */
 public class StopWatch {
-    private long startTime = 0;
-    private long endTime = 0;
-    private boolean isRunning = false;
+    private long startTime;
+    private long endTime;
+    private boolean isRunning;
     private static final double NANO_TO_MILLIS = 1E6;
     private static final double NANO_TO_SECONDS = 1E9;
 
@@ -15,9 +15,8 @@ public class StopWatch {
      * This method <strong>starts</strong> the stopwatch.
      * 
      * @return this started stopwatch
-     * @throws IllegalStateException if the stopwatch is already running
      */
-    public synchronized StopWatch start() throws IllegalStateException {
+    public synchronized StopWatch start() {
         if (this.isRunning) {
             throw new IllegalStateException("Stopwatch is already running");
         }
@@ -28,10 +27,8 @@ public class StopWatch {
 
     /**
      * This method <strong>stops</strong> the stopwatch.
-     * 
-     * @throws IllegalStateException if the stopwatch is not running
      */
-    public synchronized void stop() throws IllegalStateException {
+    public synchronized void stop() {
         if (!this.isRunning) {
             throw new IllegalStateException("Stopwatch is not running");
         }
@@ -41,10 +38,8 @@ public class StopWatch {
 
     /**
      * This method <strong>restarts</strong> the stopwatch.
-     * 
-     * @throws IllegalStateException if the stopwatch is not running
      */
-    public synchronized void restart() throws IllegalStateException {
+    public synchronized void restart() {
         this.stop();
         this.start();
     }

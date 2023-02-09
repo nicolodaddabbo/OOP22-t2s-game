@@ -16,8 +16,8 @@ public class Circle implements Shape {
      * @param radius the radius of the circle
      */
     public Circle(final Vector2D center, final double radius) {
-        this.setCenter(center);
-        this.setRadius(radius);
+        this.center = center;
+        this.radius = radius;
     }
 
     /**
@@ -76,9 +76,9 @@ public class Circle implements Shape {
      */
     @Override
     public boolean isColliding(final Rectangle rectangle) {
-        var rectangleCenter = rectangle.getCenter();
-        var deltaX = this.calcDelta(this.center.getX(), rectangleCenter.getX(), rectangle.getWidth());
-        var deltaY = this.calcDelta(this.center.getY(), rectangleCenter.getY(), rectangle.getHeight());
+        final var rectangleCenter = rectangle.getCenter();
+        final var deltaX = this.calcDelta(this.center.getX(), rectangleCenter.getX(), rectangle.getWidth());
+        final var deltaY = this.calcDelta(this.center.getY(), rectangleCenter.getY(), rectangle.getHeight());
         return Math.pow(deltaX, 2) + Math.pow(deltaY, 2) < Math.pow(this.radius, 2);
     }
 
