@@ -36,9 +36,9 @@ public class PhysicsComponent extends AbstractComponent {
      */
     @Override
     public void update() {
-        var e = this.getEntity();
-        e.setPosition(e.getPosition().sum(this.velocity.mul(this.getConvertedSpeed())));
-        e.notifyComponent(CollisionComponent.class, e::getPosition);
+        final var entity = this.getEntity();
+        entity.setPosition(entity.getPosition().sum(this.velocity.mul(this.getConvertedSpeed())));
+        entity.notifyComponent(CollisionComponent.class, entity::getPosition);
     }
 
     /**
@@ -54,19 +54,19 @@ public class PhysicsComponent extends AbstractComponent {
     private void receiveDirection(final Directions direction) {
         switch (direction) {
             case UP:
-                this.setVelocity(new Vector2D(0, -1));
+                this.velocity = new Vector2D(0, -1);
                 break;
             case DOWN:
-                this.setVelocity(new Vector2D(0, 1));
+                this.velocity = new Vector2D(0, 1);
                 break;
             case LEFT:
-                this.setVelocity(new Vector2D(-1, 0));
+                this.velocity = new Vector2D(-1, 0);
                 break;
             case RIGHT:
-                this.setVelocity(new Vector2D(1, 0));
+                this.velocity = new Vector2D(1, 0);
                 break;
             default:
-                this.setVelocity(new Vector2D(0, 0));
+                this.velocity = new Vector2D(0, 0);
                 break;
         }
     }
