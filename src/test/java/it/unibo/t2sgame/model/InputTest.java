@@ -29,10 +29,14 @@ public class InputTest {
     WorldFactory worldFactory = new WorldFactoryImpl();
     World world;
     Entity player;
+    Entity enemy;
     
     public InputTest() {
-        world = worldFactory.createWorldWithOnePlayer();
-        player = world.getPlayers().get(0);
+        this.world = this.worldFactory.createWorldWithOnePlayer();
+        this.player = this.world.getPlayers().get(0);
+        this.enemy = this.entityFactory.createBaseEnemy(new Vector2D(0, 0));
+        this.world.addEntity(this.enemy);
+        this.world.addEntity(this.player);
     }
 
     @Test
@@ -56,7 +60,7 @@ public class InputTest {
     @Test
     void chasingAIInputTest() {
         InputComponent aiInputComponent = (InputComponent) this.componentFactory.createInputComponentFrom(new ChasingAIInputController(Type.PLAYER));
-        this.player.addComponent(aiInputComponent);
+        this.enemy.addComponent(aiInputComponent);
         ChasingAIInputController inputController = (ChasingAIInputController) aiInputComponent.getInputController();
         // every time the getCommandsQueue method gets called the AI generate a command, so the
         // commands queue should never be empty
@@ -64,7 +68,7 @@ public class InputTest {
         aiInputComponent.update();
         // a ChasingAIInputController generates only Move commands, so after an update the position
         // of the player should be different from the initial one
-        assertNotEquals(player.getPosition(), new Vector2D(0, 0));
+        assertNotEquals(this.enemy.getPosition(), new Vector2D(0, 0));
     }
 
 }
