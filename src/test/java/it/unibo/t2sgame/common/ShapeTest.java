@@ -9,7 +9,7 @@ import it.unibo.t2sgame.common.shapes.Circle;
 import it.unibo.t2sgame.common.shapes.Rectangle;
 
 public class ShapeTest {
-    
+
     @Test
     void testCircleIsIntersectingWithCircleInXAxis() {
         Shape circle = new Circle(new Vector2D(3.9, 0), 2);
@@ -118,12 +118,12 @@ public class ShapeTest {
         assertFalse(this.isCircleIntersecting(rectangle));
     }
 
-    private boolean isCircleIntersecting(final Shape shape){
+    private boolean isCircleIntersecting(final Shape shape) {
         Shape circle = new Circle(new Vector2D(0, 0), 2);
         return circle.isColliding(shape);
     }
 
-    private boolean isRectangleIntersecting(final Shape shape){
+    private boolean isRectangleIntersecting(final Shape shape) {
         Shape rectangle = new Rectangle(new Vector2D(0, 0), 4, 4);
         return rectangle.isColliding(shape);
     }
