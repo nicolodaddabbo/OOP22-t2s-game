@@ -32,7 +32,7 @@ public class ProjectileCollisionComponent extends CollisionComponent {
      */
     @Override
     protected void collisionAction(final Entity entity) {
-        this.entity.getWorld().ifPresent(e -> e.notifyEvent(this.eventFactory.onDeathEvent(this.entity)));
+        this.getEntity().getWorld().ifPresent(e -> e.notifyEvent(this.eventFactory.onDeathEvent(this.getEntity())));
     }
 
 }

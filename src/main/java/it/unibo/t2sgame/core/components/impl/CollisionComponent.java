@@ -1,7 +1,6 @@
 package it.unibo.t2sgame.core.components.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import it.unibo.t2sgame.common.Shape;
 import it.unibo.t2sgame.common.Vector2D;
@@ -42,16 +41,12 @@ public abstract class CollisionComponent extends AbstractComponent {
         }
     }
 
-    private void receiveFromPhysicComponent(final Vector2D pos) {
-        this.shape.setCenter(pos);
-    }
-
     /**
      * {@inheritDoc}
      */
     @Override
     public void update() {
-        this.entity.getWorld().stream()
+        this.getEntity().getWorld().stream()
                 .flatMap(w -> w.getEntities().stream()
                         .filter(e -> this.types.contains(e.getType()))
                         .flatMap(e -> e.getComponent(CollisionComponent.class).stream()))
@@ -64,23 +59,6 @@ public abstract class CollisionComponent extends AbstractComponent {
                     }
                     this.collisionAction(c.getEntity());
                 });
-    }
-
-    /**
-     * The action the collision should take when colliding with the specified
-     * entity.
-     * 
-     * @param collisionEntity the entity the collision is colliding with
-     */
-    protected abstract void collisionAction(Entity collisionEntity);
-
-    /**
-     * The action the collision should take when colliding with the specified entity
-     * that has a rigid collision.
-     */
-    protected void knockBack() {
-        this.entity.getComponent(PhysicsComponent.class).ifPresent(phycmp -> this.entity
-                .setPosition(this.entity.getPosition().sub(phycmp.getVelocity().mul(phycmp.getConvertedSpeed()))));
     }
 
     /**
@@ -97,6 +75,27 @@ public abstract class CollisionComponent extends AbstractComponent {
      */
     public boolean isRigid() {
         return this.isRigid;
+    }
+
+    /**
+     * The action the collision should take when colliding with the specified
+     * entity.
+     * 
+     * @param collisionEntity the entity the collision is colliding with
+     */
+    protected abstract void collisionAction(Entity collisionEntity);
+
+    /**
+     * The action the collision should take when colliding with the specified entity
+     * that has a rigid collision.
+     */
+    protected void knockBack() {
+        this.getEntity().getComponent(PhysicsComponent.class).ifPresent(phycmp -> this.getEntity()
+                .setPosition(this.getEntity().getPosition().sub(phycmp.getVelocity().mul(phycmp.getConvertedSpeed()))));
+    }
+
+    private void receiveFromPhysicComponent(final Vector2D pos) {
+        this.shape.setCenter(pos);
     }
 
 }

@@ -36,8 +36,9 @@ public class PhysicsComponent extends AbstractComponent {
      */
     @Override
     public void update() {
-        entity.setPosition(entity.getPosition().sum(this.velocity.mul(this.getConvertedSpeed())));
-        entity.notifyComponent(CollisionComponent.class, entity::getPosition);
+        var e = this.getEntity();
+        e.setPosition(e.getPosition().sum(this.velocity.mul(this.getConvertedSpeed())));
+        e.notifyComponent(CollisionComponent.class, e::getPosition);
     }
 
     /**

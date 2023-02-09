@@ -57,7 +57,7 @@ public class ShootComponent extends AbstractComponent {
 
     private void shoot(final Directions shotDirection) {
         if (this.timer.getElapsedSeconds() >= this.fireRateSeconds) {
-            this.entity.getWorld()
+            this.getEntity().getWorld()
                     .ifPresent(
                             e -> e.notifyEvent(this.eventFactory.onShootEvent(this.createProjectile(shotDirection))));
             this.timer.restart();
@@ -71,7 +71,7 @@ public class ShootComponent extends AbstractComponent {
      * @return the projectile to shoot
      */
     protected Entity createProjectile(final Directions shotDirection) {
-        return this.entityFactory.createProjectile(this.entity.getPosition(), this.projectileSpeed,
+        return this.entityFactory.createProjectile(this.getEntity().getPosition(), this.projectileSpeed,
                 this.projectileDamage,
                 this.projectileSize, shotDirection);
     }

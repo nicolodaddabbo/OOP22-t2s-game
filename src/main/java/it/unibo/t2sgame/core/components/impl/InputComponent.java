@@ -40,6 +40,6 @@ public class InputComponent extends AbstractComponent {
      */
     @Override
     public void update() {
-        this.inputController.getCommandsQueue().forEach(c -> c.execute(this.entity));
+        this.inputController.getCommandsQueue().forEach(c -> c.execute(this.getEntity()));
     }
 }

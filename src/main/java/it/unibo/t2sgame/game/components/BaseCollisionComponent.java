@@ -32,7 +32,7 @@ public class BaseCollisionComponent extends CollisionComponent {
         collisionEntity.getComponent(DamageComponent.class)
                 .ifPresent(c -> {
                     if (c.canDamage()) {
-                        this.entity.notifyComponent(HealthComponent.class, c::getDamage);
+                        this.getEntity().notifyComponent(HealthComponent.class, c::getDamage);
                     }
                 });
     }
