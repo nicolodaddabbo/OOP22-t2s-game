@@ -10,7 +10,7 @@ import it.unibo.t2sgame.game.logics.impl.EventFactoryImpl;
  */
 public class HealthComponent extends AbstractComponent {
     private int health;
-    private EventFactory eventFactory = new EventFactoryImpl();
+    private final EventFactory eventFactory = new EventFactoryImpl();
     /**
      * 
      * @param health the health of an entity
@@ -30,13 +30,11 @@ public class HealthComponent extends AbstractComponent {
      */
     @Override
     public <T> void receive(final Message<T> message) {
-        try {
-            var dmg = (int) message.getMessage();
+        if (Integer.class.isInstance(message.getMessage())) {
+            final var dmg = Integer.class.cast(message.getMessage());
             this.health = this.health - dmg >= 0 ? this.health - dmg : 0;
             this.notifyIfDead();
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        } 
+        }
     }
     /**
      * Getter that returns the current health of the entity.

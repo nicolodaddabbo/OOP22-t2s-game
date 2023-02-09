@@ -32,12 +32,12 @@ public class MenuJavaFXImpl extends AbstractBaseScene {
      */
     @Override
     public void initialize() {
-        var root = new GridPane();
-        Button singlePlayer = new Button("Single Player");
-        Button multiPlayer = new Button("Multiplayer");
-        var screenBounds = Screen.getPrimary().getBounds();
-        var dpiW = screenBounds.getWidth() / AbstractBaseScene.getBaseWidth();
-        var dpiH = screenBounds.getHeight() / AbstractBaseScene.getBaseHeight();
+        final var root = new GridPane();
+        final Button singlePlayer = new Button("Single Player");
+        final Button multiPlayer = new Button("Multiplayer");
+        final var screenBounds = Screen.getPrimary().getBounds();
+        final var dpiW = screenBounds.getWidth() / AbstractBaseScene.getBaseWidth();
+        final var dpiH = screenBounds.getHeight() / AbstractBaseScene.getBaseHeight();
         GridPane.setHalignment(singlePlayer, HPos.CENTER);
         GridPane.setHalignment(multiPlayer, HPos.CENTER);
         root.setVgap(AbstractBaseScene.getPadding() * dpiH);
@@ -50,7 +50,7 @@ public class MenuJavaFXImpl extends AbstractBaseScene {
         root.setStyle("-fx-background-color:#000");
         root.add(singlePlayer, 1, 1);
         root.add(multiPlayer, 1, 2);
-        Scene scene = new Scene(root, AbstractBaseScene.getBaseWidth() / 2, AbstractBaseScene.getBaseHeight() / 2, Color.BLACK);
+        final Scene scene = new Scene(root, AbstractBaseScene.getBaseWidth() / 2, AbstractBaseScene.getBaseHeight() / 2, Color.BLACK);
         stage.setTitle("T2S-game");
         stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             if (event.getCode().equals(KeyCode.ESCAPE)) {
@@ -58,7 +58,7 @@ public class MenuJavaFXImpl extends AbstractBaseScene {
             }
         });
         stage.setOnCloseRequest(event -> this.close());
-        BaseSceneLogicImpl sceneImpl = new BaseSceneLogicImpl();
+        final BaseSceneLogicImpl sceneImpl = new BaseSceneLogicImpl();
         singlePlayer.setOnAction(event -> sceneImpl.createSinglePlayer(this.getWindow()));
         multiPlayer.setOnAction(event -> sceneImpl.createMultiPlayer(this.getWindow()));
         stage.setScene(scene);
