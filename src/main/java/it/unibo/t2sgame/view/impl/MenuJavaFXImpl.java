@@ -36,22 +36,23 @@ public class MenuJavaFXImpl extends AbstractBaseScene {
     public void initialize() {
         final var root = new GridPane();
         final Button singlePlayer = new Button("Single Player");
-        final Button multiPlayer = new Button("Multiplayer");
+        final Button withCompanion = new Button("With Companion");
         final var screenBounds = Screen.getPrimary().getBounds();
         final var dpiW = screenBounds.getWidth() / AbstractBaseScene.getBaseWidth();
         final var dpiH = screenBounds.getHeight() / AbstractBaseScene.getBaseHeight();
         GridPane.setHalignment(singlePlayer, HPos.CENTER);
-        GridPane.setHalignment(multiPlayer, HPos.CENTER);
+        GridPane.setHalignment(withCompanion, HPos.CENTER);
         root.setVgap(AbstractBaseScene.getPadding() * dpiH);
         singlePlayer.setFont(Font.font(null, FontWeight.BOLD, AbstractBaseScene.getFontSize() * dpiW));
-        multiPlayer.setFont(singlePlayer.getFont());
+        withCompanion.setFont(singlePlayer.getFont());
         singlePlayer.setPrefSize(MenuJavaFXImpl.PREFBUTTONWIDTH * dpiW, MenuJavaFXImpl.PREFBUTTONHEIGHT * dpiH);
-        multiPlayer.setPrefSize(singlePlayer.getPrefWidth(), singlePlayer.getPrefHeight());
+        withCompanion.setPrefSize(singlePlayer.getPrefWidth(), singlePlayer.getPrefHeight());
+        withCompanion.setWrapText(true);
         root.setMinSize(AbstractBaseScene.getBaseWidth() * dpiW / 2, AbstractBaseScene.getBaseHeight() * dpiH / 2);
         root.setAlignment(Pos.CENTER);
         root.setStyle("-fx-background-color:#000");
         root.add(singlePlayer, 1, 1);
-        root.add(multiPlayer, 1, 2);
+        root.add(withCompanion, 1, 2);
         final Scene scene = new Scene(root, AbstractBaseScene.getBaseWidth() / 2,
                 AbstractBaseScene.getBaseHeight() / 2, Color.BLACK);
         stage.setTitle("T2S-game");
@@ -63,7 +64,7 @@ public class MenuJavaFXImpl extends AbstractBaseScene {
         stage.setOnCloseRequest(event -> this.close());
         final BaseSceneLogicImpl sceneImpl = new BaseSceneLogicImpl();
         singlePlayer.setOnAction(event -> sceneImpl.createSinglePlayer(this.getWindow()));
-        multiPlayer.setOnAction(event -> sceneImpl.createMultiPlayer(this.getWindow()));
+        withCompanion.setOnAction(event -> sceneImpl.createMultiPlayer(this.getWindow()));
         stage.setScene(scene);
         stage.show();
     }
