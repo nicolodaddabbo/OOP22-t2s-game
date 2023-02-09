@@ -50,7 +50,7 @@ public class MenuJavaFXImpl extends AbstractBaseScene {
         root.setStyle("-fx-background-color:#000");
         root.add(singlePlayer, 1, 1);
         root.add(multiPlayer, 1, 2);
-        Scene scene = new Scene(root, AbstractBaseScene.getBaseWidth(), AbstractBaseScene.getBaseHeight(), Color.BLACK);
+        Scene scene = new Scene(root, AbstractBaseScene.getBaseWidth() / 2, AbstractBaseScene.getBaseHeight() / 2, Color.BLACK);
         stage.setTitle("T2S-game");
         stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             if (event.getCode().equals(KeyCode.ESCAPE)) {

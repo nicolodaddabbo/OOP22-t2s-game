@@ -37,12 +37,15 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
     private GraphicsContext gContext;
     private Map<String, Image> cachedSprites;
     private final Stage stage;
-    private Text round = new Text();
+    private Text roundText = new Text();
+    private Text fpsText = new Text();
     private double dpiW;
     private double dpiH;
     private BackgroundImage backgroundImage;
+    private int round;
     private static final double HEARTSIZE = 40;
     private static final double BACKGROUNDTILESIZE = 300;
+    private static final int POWERUPROUND = 5;
 
     GameSceneJavaFXImpl(final Stage stage, final Window window) {
         super(window);
@@ -68,13 +71,21 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
         storeSprites();
         var scene = new Scene(root, proportionedWidth, proportionedHeight, Color.BLACK);
         /* initializing all text settings settings */
-        this.round.setText("");
-        this.round.setFont(Font.font(null, FontWeight.BOLD, AbstractBaseScene.getFontSize() * this.dpiW));
-        this.round.setTextOrigin(VPos.BOTTOM);
-        this.round.setTextAlignment(TextAlignment.CENTER);
-        this.round.setStroke(Color.WHITE);
-        this.round.setY(proportionedHeight);
-        root.getChildren().add(this.round);
+        this.roundText.setText("");
+        this.roundText.setFont(Font.font(null, FontWeight.BOLD, AbstractBaseScene.getFontSize() * this.dpiW));
+        this.roundText.setTextOrigin(VPos.BOTTOM);
+        this.roundText.setTextAlignment(TextAlignment.CENTER);
+        this.roundText.setStroke(Color.WHITE);
+        this.roundText.setY(proportionedHeight);
+        this.fpsText.setText("");
+        this.fpsText.setFont(Font.font(null, FontWeight.BOLD, AbstractBaseScene.getFontSize() * this.dpiW));
+        this.fpsText.setTextOrigin(VPos.BOTTOM);
+        this.fpsText.setTextAlignment(TextAlignment.CENTER);
+        this.fpsText.setStroke(Color.WHITE);
+        this.fpsText.setY(proportionedHeight);
+        this.fpsText.setX(proportionedWidth - getFontSize() * 3);
+        root.getChildren().add(this.roundText);
+        root.getChildren().add(this.fpsText);
         root.setBackground(new Background(backgroundImage));
         this.canvas = new Canvas(proportionedWidth, proportionedHeight);
         this.gContext = this.canvas.getGraphicsContext2D();
@@ -82,32 +93,37 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
         scene.setOnKeyPressed(event -> this.getKeyInControllers().forEach(c -> c.notifyKeyPressed(event.getCode().getCode())));
         scene.setOnKeyReleased(event -> this.getKeyInControllers().forEach(c -> c.notifyKeyReleased(event.getCode().getCode())));
         root.getChildren().add(this.canvas);
-        root.getChildren().get(root.getChildren().indexOf(this.round)).toFront();
+        root.getChildren().get(root.getChildren().indexOf(this.roundText)).toFront();
         stage.setScene(scene);
         stage.setFullScreenExitHint("");
         stage.setFullScreen(true);
         stage.setResizable(false);
         stage.show();
     }
-
     /**
      * {@inheritDoc}
      */
     @Override
     public void render() {
         Platform.runLater(() -> {
-            gContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            this.gContext.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
             this.getGameEngine().updateGraphics(this.getGraphic());
-            this.getGame().getWorld().getPlayers().forEach(p -> p.getComponent(HealthComponent.class).ifPresent(c -> {
-                Stream.iterate(0, i -> i + 1)
+            this.getGameEngine().getGame().getWorld().getPlayers().forEach(p -> p.getComponent(HealthComponent.class)
+            .ifPresent(c -> { Stream.iterate(0, i -> i + 1)
                         .limit(c.getHealth())
-                            .forEach(n -> this.gContext.drawImage(cachedSprites.get("full_heart"), 
+                            .forEach(n -> this.gContext.drawImage(this.cachedSprites.get("full_heart"), 
                                     (HEARTSIZE + getPadding()) * this.dpiW * n, 0, HEARTSIZE * this.dpiW, HEARTSIZE * this.dpiW));
             }));
-            this.round.setText("Round " + this.getGameEngine().getGame().getState().getRound());
+            round = this.getGameEngine().getGame().getState().getRound();         
+            this.roundText.setText(this.round % POWERUPROUND == 0 ? "ROUND" + this.round + " - POWERUP OBTAINED" : "ROUND " + this.round);
         });
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    public void renderFPS(final int fps){
+        this.fpsText.setText("" + fps);
+    }
     /**
      * {@inheritDoc}
      */
@@ -122,7 +138,7 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
         try {
             this.cachedSprites.put("full_heart",
                     new Image(new FileInputStream("src/main/resources/sprites/heart_darker.png")));
-            backgroundImage = new BackgroundImage(
+            this.backgroundImage = new BackgroundImage(
                     new Image(new FileInputStream("src/main/resources/sprites/Brickwall5_Texture.png"),
                             BACKGROUNDTILESIZE * this.dpiW, BACKGROUNDTILESIZE * this.dpiH, false, true),
                     BackgroundRepeat.REPEAT,
