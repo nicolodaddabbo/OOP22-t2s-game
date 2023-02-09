@@ -21,7 +21,7 @@ public class DamageComponent extends AbstractComponent {
      *                        entity
      */
     public DamageComponent(final int damage, final double cooldownSeconds) {
-        this.setDamage(damage);
+        this.damage = damage;
         this.cooldownSeconds = cooldownSeconds;
     }
 

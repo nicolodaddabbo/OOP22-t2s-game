@@ -18,7 +18,7 @@ public class PhysicsComponent extends AbstractComponent {
      * @param speed the speed of the entity
      */
     public PhysicsComponent(final double speed) {
-        this.setSpeed(speed);
+        this.speed = speed;
     }
 
     /**
@@ -27,7 +27,7 @@ public class PhysicsComponent extends AbstractComponent {
      * @param direction the starting direction of the entity
      */
     public PhysicsComponent(final double speed, final Directions direction) {
-        this.setSpeed(speed);
+        this.speed = speed;
         this.receiveDirection(direction);
     }
 

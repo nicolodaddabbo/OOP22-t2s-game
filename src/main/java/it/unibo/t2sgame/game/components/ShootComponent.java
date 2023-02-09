@@ -31,10 +31,10 @@ public class ShootComponent extends AbstractComponent {
      */
     public ShootComponent(final double fireRateSeconds, final double projectileSpeed, final int projectileDamage,
             final double projectileSize) {
-        this.setfireRateSeconds(fireRateSeconds);
-        this.setProjectileSpeed(projectileSpeed);
-        this.setProjectileDamage(projectileDamage);
-        this.setProjectileSize(projectileSize);
+        this.fireRateSeconds = fireRateSeconds;
+        this.projectileSpeed = projectileSpeed;
+        this.projectileDamage = projectileDamage;
+        this.projectileSize = projectileSize;
     }
 
     /**
