@@ -8,7 +8,7 @@ import it.unibo.t2sgame.core.gameloop.api.GameLoop;
  * Extending this class allows creating a new decoration for the game loop.
  */
 public abstract class GameLoopDecorator implements GameLoop {
-    
+
     /*
      * The base GameLoop which will be decorated
      */
