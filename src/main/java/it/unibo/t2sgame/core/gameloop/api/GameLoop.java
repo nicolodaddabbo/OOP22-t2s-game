@@ -1,4 +1,6 @@
-package it.unibo.t2sgame.core.engine.api;
+package it.unibo.t2sgame.core.gameloop.api;
+
+import it.unibo.t2sgame.core.engine.api.GameEngine;
 
 /**
  * This interface models the concept of "game loop" body.
@@ -31,6 +33,9 @@ public interface GameLoop {
      */
     void render();
 
-
+    /**
+     * 
+     * @return the engine where the game loop operates
+     */
     GameEngine getEngine();
 }

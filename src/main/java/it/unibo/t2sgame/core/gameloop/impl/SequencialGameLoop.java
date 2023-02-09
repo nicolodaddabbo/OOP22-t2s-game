@@ -1,8 +1,9 @@
-package it.unibo.t2sgame.core.engine.impl;
+package it.unibo.t2sgame.core.gameloop.impl;
 
 import java.util.function.Consumer;
 
 import it.unibo.t2sgame.core.components.api.Component;
+import it.unibo.t2sgame.core.engine.api.GameEngine;
 
 /**
  * This class extends the base game loop implementation.
@@ -12,12 +13,18 @@ import it.unibo.t2sgame.core.components.api.Component;
  * It's not preferable to use this class in order to achieve better
  * performances.
  */
-class SequencialGameLoop extends BaseGameLoop {
+public class SequencialGameLoop extends BaseGameLoop {
 
-    public SequencialGameLoop(GameEngineImpl engine) {
+    /**
+     * {@inheritDoc}
+     */
+    public SequencialGameLoop(final GameEngine engine) {
         super(engine);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     Consumer<Class<? extends Component>> getUpdater() {
         return this.engine::updateComponentBy;
