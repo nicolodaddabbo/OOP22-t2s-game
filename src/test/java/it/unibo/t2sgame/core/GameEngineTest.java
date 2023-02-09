@@ -1,44 +1,47 @@
 package it.unibo.t2sgame.core;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.t2sgame.core.api.GameEngine;
-import it.unibo.t2sgame.core.api.GameEngineFactory;
-import it.unibo.t2sgame.core.api.GameFactory;
-import it.unibo.t2sgame.core.impl.GameEngineFactoryImpl;
-import it.unibo.t2sgame.core.impl.GameFactoryImpl;
+import it.unibo.t2sgame.core.components.impl.CollisionComponent;
+import it.unibo.t2sgame.core.components.impl.GraphicComponent;
+import it.unibo.t2sgame.core.components.impl.InputComponent;
+import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
+import it.unibo.t2sgame.core.engine.api.GameEngine;
+import it.unibo.t2sgame.core.engine.impl.GameEngineImpl;
+import it.unibo.t2sgame.game.GameFactory;
+import it.unibo.t2sgame.game.GameFactoryImpl;
 
 public class GameEngineTest {
-    private final GameEngineFactory gameEngineFactory = new GameEngineFactoryImpl();
+
     private final GameFactory gameFactory = new GameFactoryImpl();
+    
+    private final GameEngine engine = new GameEngineImpl(this.gameFactory.createSinglePlayerGame());
 
-    private void basics(final GameEngine engine){
-        assertEquals(Optional.empty(), engine.getGame());
-        // Setting a game to the game engine
-        engine.setGame(this.gameFactory.createSinglePlayerGame());        
-        assertNotEquals(Optional.empty(), engine.getGame());
-        /*
-         * Running the engine: 
-         * this will generate an infinity loop which causes
-         * the test to be failed.
-         */
-        engine.run();
+    @Test
+    void testRunAndStop(){
+        assertDoesNotThrow(this.engine::run , "Engine was already running");
+        assertThrows(IllegalStateException.class, this.engine::run);
+        assertDoesNotThrow(this.engine::stop , "Engine was not running");
+        assertDoesNotThrow(this.engine::run , "Engine was already running");
+        assertDoesNotThrow(this.engine::stop , "Engine was not running");
+        assertThrows(IllegalStateException.class, this.engine::stop);
     }
 
     @Test
-    void testGameEngine(){
-        var engine = this.gameEngineFactory.createEngine();
-        this.basics(engine);
+    void testGetters(){
+        assertNotNull(this.engine);
+        assertNotNull(this.engine.getGame());
+        assertNotNull(this.engine.getComponents(InputComponent.class));
+        assertNotNull(this.engine.getComponents(PhysicsComponent.class));
+        assertNotNull(this.engine.getComponents(CollisionComponent.class));
+        assertNotNull(this.engine.getComponents(GraphicComponent.class));
+        assertNotNull(this.engine.getScene());
     }
 
-    @Test
-    void testGameEngineWithFpsLock(){
-
-    }
 }
