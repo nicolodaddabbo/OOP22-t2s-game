@@ -1,32 +1,27 @@
 ```mermaid
 classDiagram
 
-EntityState~I~ --* KeyboardInputController
-Command --* EntityState~I~
-Move --|> Command
-Shoot --|> Command
+InputController --* InputComponent
+AbstractInputController --|> InputController
+KeyboardInputController --|> AbstractInputController
 
+%%
+class InputComponent {
+    +update(): void
+}
+%%
+class InputController {
+    <<interface>>
+    +getCommandsQueue(): Queue~Command~
+}
+%%
+class AbstractInputController {
+    <<abstract>>
+    #addToCommandsQueue(Command): void
+    +getCommandsQueue(): Queue~Command~
+}
+%%
 class KeyboardInputController {
     +notifyKeyPressed(int): void
     +notifyKeyReleased(int): void
-}
-%%
-class EntityState~I~ {
-    <<interface>>
-    +notifyInput(I): void
-    +notifyInputReleased(I, Optional~Command~): void
-    +getCurrentCommand(): Optional~Command~
-}
-%%
-class Command {
-    <<interface>>
-    +execute(Entity): void
-}
-%%
-class Move {
-    +execute(Entity): void
-}
-%%
-class Shoot {
-    +execute(Entity): void
 }
