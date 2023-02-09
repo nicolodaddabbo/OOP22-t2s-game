@@ -3,7 +3,6 @@ package it.unibo.t2sgame.view.api;
 import java.util.List;
 
 import it.unibo.t2sgame.core.engine.api.GameEngine;
-import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 /**
  * Interface representing a GameScene of the game. 
@@ -19,10 +18,6 @@ public interface GameScene extends BaseScene {
      */
     void setEngine(GameEngine gameEngine);
     /**
-     * @return the game in which the GameScene was created.
-     */
-    Game getGame();
-    /**
      * @return the Graphic architecture used.
      */
     Graphic getGraphic();
@@ -35,4 +30,9 @@ public interface GameScene extends BaseScene {
      * method called when the game is over, this method calls the rendering of a GameOverScene.
      */
     void gameOver();
+    /**
+     * method called to render FPS.
+     * @param fps the game is running on
+     */
+    void renderFPS(int fps);
 }
