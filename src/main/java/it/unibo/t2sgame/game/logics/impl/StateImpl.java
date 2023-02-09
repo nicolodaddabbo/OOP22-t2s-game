@@ -17,11 +17,13 @@ import it.unibo.t2sgame.game.model.impl.PowerUpFactoryImpl;
  * This class increments the round by 1.
  */
 public class StateImpl implements State {
+
     private static final int POWER_UP_ROUND = 5;
-    private int round = 0;
+
     private final PowerUpFactory powerUpFactory = new PowerUpFactoryImpl();
     private final EventFactory eventFactory = new EventFactoryImpl();
     private final Random random = new Random();
+    private int round;
 
     /**
      * {@inheritDoc}
@@ -61,7 +63,7 @@ public class StateImpl implements State {
     @Override
     public void generatePowerUp(final World world) {
         if (this.round % POWER_UP_ROUND == 0) {
-            var powerUpList = this.powerUpFactory.getObtainablePowerUpList();
+            final var powerUpList = this.powerUpFactory.getObtainablePowerUpList();
             world.notifyEvent(
                     this.eventFactory.onPowerUpEvent(powerUpList.get(this.random.nextInt(powerUpList.size()))));
         }

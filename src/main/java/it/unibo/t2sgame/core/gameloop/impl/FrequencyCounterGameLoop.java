@@ -16,7 +16,8 @@ public class FrequencyCounterGameLoop extends GameLoopDecorator {
     private static final long NS_UPDATE_FPS_COUNT = (long) (1000 * 1E6);
 
     private final StopWatch timer = new StopWatch().start();
-    private int counter = 0;
+
+    private int counter;
 
     /**
      * Creating a new GameLoop which decorates {@link decorated} with the logic's

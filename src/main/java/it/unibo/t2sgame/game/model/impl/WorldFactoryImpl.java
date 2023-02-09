@@ -20,7 +20,7 @@ public class WorldFactoryImpl implements WorldFactory {
      */
     @Override
     public World createWorldWithOnePlayer() {
-        var world = this.createBasicWorld();
+        final var world = this.createBasicWorld();
         return world.addEntity(this.entityFactory
                 .createPlayer(new Vector2D(world.getMap().getWidth() / 2, world.getMap().getHeight() / 2)));
     }
@@ -30,15 +30,15 @@ public class WorldFactoryImpl implements WorldFactory {
      */
     @Override
     public World createWorldWithPlayerAndCompanion() {
-        var world = this.createWorldWithOnePlayer();
+        final var world = this.createWorldWithOnePlayer();
         return world.addEntity(this.entityFactory
                 .createCompanion(new Vector2D(world.getMap().getWidth() / 2, world.getMap().getHeight() / 2)));
     }
 
     private World createBasicWorld() {
-        var world = new WorldImpl();
-        var width = world.getMap().getWidth();
-        var height = world.getMap().getHeight();
+        final var world = new WorldImpl();
+        final var width = world.getMap().getWidth();
+        final var height = world.getMap().getHeight();
         return world.addEntities(Set.of(
                 // Adding the walls
                 this.entityFactory.createWall(new Vector2D(0, height / 2), 0, height),

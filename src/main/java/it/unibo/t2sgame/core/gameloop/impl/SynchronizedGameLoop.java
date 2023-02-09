@@ -30,7 +30,7 @@ public class SynchronizedGameLoop extends GameLoopDecorator {
      * Indicates how much real time has passed from the last game loop's cycle
      * procession.
      */
-    private long lag = 0;
+    private long lag;
 
     /**
      * Creating a new GameLoop which decorates {@link decorated} with the logic's

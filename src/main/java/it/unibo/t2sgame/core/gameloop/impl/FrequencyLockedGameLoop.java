@@ -24,7 +24,7 @@ public class FrequencyLockedGameLoop extends GameLoopDecorator {
      */
     private static final long NS_CYCLE_PERIOD = (long) (7 * NANO_TO_MILLIS);
 
-    private StopWatch timer = new StopWatch().start();
+    private final StopWatch timer = new StopWatch().start();
 
     /**
      * Creating a new GameLoop which decorates {@link decorated} with the logic's
@@ -54,13 +54,12 @@ public class FrequencyLockedGameLoop extends GameLoopDecorator {
      * This will cause an fps lock during the game loop.
      */
     private void waitForNextCycle() {
-        var timeToSleep = NS_CYCLE_PERIOD - this.timer.getElapsedNanos();
+        final var timeToSleep = NS_CYCLE_PERIOD - this.timer.getElapsedNanos();
         if (timeToSleep > 0) {
             try {
                 // Sleeping time has to be converted in milliseconds
                 Thread.sleep((long) ((timeToSleep) / NANO_TO_MILLIS));
             } catch (final InterruptedException e) {
-                e.printStackTrace();
                 Thread.currentThread().interrupt();
             }
         }
