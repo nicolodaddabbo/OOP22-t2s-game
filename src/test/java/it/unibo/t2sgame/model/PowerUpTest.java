@@ -70,7 +70,7 @@ public class PowerUpTest {
         var entity = this.createBasePlayerEntity();
         var shootComponent = entity.getComponent(ShootComponent.class);
         powerUpFactory.generateProjectileSpeedUpPowerUp().obtain(entity);
-        assertEquals(PROJECTILE_SPEED+1, shootComponent.get().getProjectileSpeed());
+        assertEquals(PROJECTILE_SPEED+0.25, shootComponent.get().getProjectileSpeed());
     }
 
     @Test

@@ -14,7 +14,7 @@ import it.unibo.t2sgame.game.model.api.PowerUpFactory;
  */
 public class PowerUpFactoryImpl implements PowerUpFactory {
     private static final int DMGUP = 1;
-    private static final int PROJSPEEDUP = 1;
+    private static final double PROJSPEEDUP = 0.5;
     private static final int PROJSIZEUP = 5;
     private static final double FIRERATEUP = 0.05;
     private static final int HEALTHUP = 1;

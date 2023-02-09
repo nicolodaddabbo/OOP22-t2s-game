@@ -8,7 +8,7 @@ final class Stats {
     }
 
     static final class Player {
-        static final int HEALTH = 3;
+        static final int HEALTH = 5;
         static final double MOVEMENT_SPEED = 1.0;
         static final int PROJECTILE_DAMAGE = 1;
         static final double FIRERATE_SECONDS = 0.5;
