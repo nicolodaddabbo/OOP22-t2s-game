@@ -20,7 +20,7 @@ public abstract class AbstractInputController implements InputController {
     }
 
     /**
-     * Return a defensive copy of the commands queue.
+     * Return a defensive copy of the commands queue and clears it.
      */
     @Override
     public Queue<Command> getCommandsQueue() {
