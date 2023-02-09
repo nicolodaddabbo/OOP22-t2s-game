@@ -40,7 +40,7 @@ public class GameEngineImpl implements GameEngine {
     /*
      * Represents the running state of the engine.
      */
-    private boolean state = false;
+    private boolean state;
 
     /**
      * Create a GameEngine's istance based {@link game} hosted.
@@ -56,7 +56,7 @@ public class GameEngineImpl implements GameEngine {
      * {@inheritDoc}
      */
     @Override
-    public void run() throws IllegalStateException {
+    public void run() {
         if (this.isRunning()) {
             throw new IllegalStateException();
         }
@@ -69,7 +69,7 @@ public class GameEngineImpl implements GameEngine {
      * {@inheritDoc}
      */
     @Override
-    public void stop() throws IllegalStateException {
+    public void stop() {
         if (!this.isRunning()) {
             throw new IllegalStateException();
         }
@@ -90,7 +90,7 @@ public class GameEngineImpl implements GameEngine {
      */
     @Override
     public void updateGraphics(final Graphic g) {
-        var clazz = GraphicComponent.class;
+        final var clazz = GraphicComponent.class;
         this.getComponents(clazz).forEach(gc -> {
             gc.setGraphics(g);
             gc.update();

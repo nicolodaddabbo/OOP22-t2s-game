@@ -21,18 +21,14 @@ public interface GameEngine {
      * The loop will continue until either the state and logics of the hosted game
      * determs the end or {@link stop} method is called.
      * The game loop will run on the engine thread.
-     * 
-     * @throws IllegalStateException if the engine was already running.
      */
-    void run() throws IllegalStateException;
+    void run();
 
     /**
      * Stop the game loop which was running.
      * The thread where the game loop was running will interrupt.
-     * 
-     * @throws IllegalStateException if the engine was not running.
      */
-    void stop() throws IllegalStateException;
+    void stop();
 
     /**
      * 
