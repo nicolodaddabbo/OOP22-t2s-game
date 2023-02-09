@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 /**
  * class representing a MenuScene that uses JavaFX.
  */
@@ -27,6 +28,7 @@ public class MenuJavaFXImpl extends AbstractBaseScene {
         super(window);
         this.stage = stage;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -50,7 +52,8 @@ public class MenuJavaFXImpl extends AbstractBaseScene {
         root.setStyle("-fx-background-color:#000");
         root.add(singlePlayer, 1, 1);
         root.add(multiPlayer, 1, 2);
-        final Scene scene = new Scene(root, AbstractBaseScene.getBaseWidth() / 2, AbstractBaseScene.getBaseHeight() / 2, Color.BLACK);
+        final Scene scene = new Scene(root, AbstractBaseScene.getBaseWidth() / 2,
+                AbstractBaseScene.getBaseHeight() / 2, Color.BLACK);
         stage.setTitle("T2S-game");
         stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             if (event.getCode().equals(KeyCode.ESCAPE)) {

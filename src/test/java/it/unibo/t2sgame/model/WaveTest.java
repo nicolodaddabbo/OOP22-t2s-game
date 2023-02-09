@@ -13,7 +13,7 @@ import it.unibo.t2sgame.game.model.impl.WaveFactoryImpl;
 import it.unibo.t2sgame.game.model.impl.WorldFactoryImpl;
 
 public class WaveTest {
-    private WaveFactory waveFactory = new WaveFactoryImpl(new WorldFactoryImpl().createBasicWorld());
+    private WaveFactory waveFactory = new WaveFactoryImpl(new WorldFactoryImpl().createWorldWithOnePlayer());
     private int round = 10;
     
     @Test
