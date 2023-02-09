@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class EntityImpl implements Entity {
 
-    private final Set<Component> components = new HashSet<>();
+    private final Set<Component> components;
     private Optional<World> world = Optional.empty();
     private final Type type;
     private Vector2D position;
@@ -29,6 +29,17 @@ public class EntityImpl implements Entity {
     public EntityImpl(final Vector2D position, final Type type) {
         this.position = position;
         this.type = type;
+        this.components = new HashSet<>();
+    }
+
+    /**
+     * 
+     * @param entity the entity to copy
+     */
+    public EntityImpl(final Entity entity) {
+        this.position = entity.getPosition();
+        this.type = entity.getType();
+        this.components = new HashSet<>(entity.getComponents());
     }
 
     /**
@@ -36,7 +47,7 @@ public class EntityImpl implements Entity {
      */
     @Override
     public Set<Component> getComponents() {
-        return this.components;
+        return new HashSet<>(this.components);
     }
 
     /**

@@ -1,6 +1,7 @@
 package it.unibo.t2sgame.core.components.api;
 
 import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.core.entity.impl.EntityImpl;
 
 /**
  * This abstract class factorized the common code between all components
@@ -15,7 +16,7 @@ public abstract class AbstractComponent implements Component {
      */
     @Override
     public Entity getEntity() {
-        return this.entity;
+        return new EntityImpl(this.entity);
     }
 
     /**
@@ -23,7 +24,7 @@ public abstract class AbstractComponent implements Component {
      */
     @Override
     public void setEntity(final Entity entity) {
-        this.entity = entity;
+        this.entity = new EntityImpl(entity);
     }
 
 }
