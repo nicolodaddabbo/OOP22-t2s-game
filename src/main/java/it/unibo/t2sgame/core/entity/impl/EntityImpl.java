@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class EntityImpl implements Entity {
 
-    private Set<Component> components = new HashSet<>();
+    private final Set<Component> components = new HashSet<>();
     private Optional<World> world = Optional.empty();
     private final Type type;
     private Vector2D position;
