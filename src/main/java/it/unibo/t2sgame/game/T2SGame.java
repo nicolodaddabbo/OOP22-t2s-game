@@ -4,36 +4,59 @@ import it.unibo.t2sgame.game.logics.api.State;
 import it.unibo.t2sgame.game.model.api.World;
 import it.unibo.t2sgame.game.model.impl.WaveFactoryImpl;
 
-public class GameImpl implements Game {
+/**
+ * This class represents a T2S Game.
+ * To running a game, the instance of the class has to be hosted by the
+ * {@link GameEngine}.
+ */
+public class T2SGame implements Game {
     /*
-     * The state and logics of T2SGame
+     * The state and logics of T2SGame.
      */
     private final State state;
-    /**
-     * The world where all entities are stored
+    /*
+     * The world where all entities are stored.
      */
     private final World world;
 
-    public GameImpl(final State state, final World world) {
+    /**
+     * Create a T2SGame based on {@link state} and {@link world}.
+     * 
+     * @param state represents the state/logics of the current game.
+     * @param world represents the world where the entities of the game are placed.
+     */
+    public T2SGame(final State state, final World world) {
         this.state = state;
         this.world = world;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public State getState() {
         return this.state;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public World getWorld() {
         return this.world;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isOver() {
         return this.state.isOver(this.world.getPlayers());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
         this.addWaveIfOver();
