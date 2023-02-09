@@ -15,15 +15,13 @@ public class BaseSceneLogicImpl {
      */
     private void runScene(final Game game, final Window window) {
         var scene = window.createGameScene();
-        var engine = new GameEngineImpl(scene, game);
+        var engine = new GameEngineImpl(game);
+        engine.setScene(scene);
         scene.setEngine(engine);
+        // Initialize the view
         scene.initialize();
-        /*
-         * Letting the JavaFx Thread to be free in order to handle the GUI.
-         * Not creating a new thread to handle game loop would JavaFx Thread
-         * to be used in the loop causing the crash of the GUI 
-         */
-        new Thread(engine::run).start();
+        // Running the engine
+        engine.run();
     }
     /**
      * method called when the user wants to create a single player game.

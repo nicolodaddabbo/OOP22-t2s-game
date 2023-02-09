@@ -1,97 +1,136 @@
 package it.unibo.t2sgame.core.engine.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import it.unibo.t2sgame.core.components.api.Component;
 import it.unibo.t2sgame.core.components.impl.GraphicComponent;
 import it.unibo.t2sgame.core.components.impl.InputComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
-import it.unibo.t2sgame.core.gameloop.api.GameLoop;
-import it.unibo.t2sgame.core.gameloop.impl.ConcurrentGameLoop;
-import it.unibo.t2sgame.core.gameloop.impl.FrequencyCounterGameLoop;
-import it.unibo.t2sgame.core.gameloop.impl.FrequencyLockedGameLoop;
-import it.unibo.t2sgame.core.gameloop.impl.SynchronizedGameLoop;
+import it.unibo.t2sgame.core.gameloop.impl.RunnableGameLoop;
 import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.view.api.GameScene;
 import it.unibo.t2sgame.view.api.Graphic;
 
+/**
+ * This class represents the GameEngine's base implementation.
+ * The engine will run on a different thread respect from the one who call the
+ * run method.
+ * This thread will close when stop method will called.
+ */
 public class GameEngineImpl implements GameEngine {
     /*
-     * The game which is hosted by the engine
+     * The game which is hosted by the engine.
      */
     private final Game game;
     /*
-     * The view where the engine will render the game
+     * The view where the engine will render the game.
      */
-    private final GameScene view;
+    private Optional<GameScene> view;
     /*
-     * The gameLoop istance, delegating to it the handling of game loop body
+     * Represents the "Game Loop", to start the loop use gameLoop.run().
      */
-    private GameLoop gameLoop = new FrequencyCounterGameLoop(
-            new FrequencyLockedGameLoop(new SynchronizedGameLoop(new ConcurrentGameLoop(this))));
+    private final Runnable gameLoop = new RunnableGameLoop(this);
+    /*
+     * The thread where the engine works.
+     */
+    private Thread thread;
+    /*
+     * Represents the running state of the engine.
+     */
+    private boolean state = false;
 
     /**
-     * Create a GameEngine's istance based on {@link scene} and {@link game}
+     * Create a GameEngine's istance based {@link game} hosted.
      * 
-     * @param scene the scene which is delegated to render by the game engine
-     * @param game  the game hosted by the engine
+     * @param game the game hosted by the engine
      */
-    public GameEngineImpl(GameScene scene, Game game) {
-        this.view = scene;
+    public GameEngineImpl(final Game game) {
+        this.view = Optional.empty();
         this.game = game;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void run() {
-        this.init();
-        while (!this.game.isOver()) {
-            this.gameLoop.processInput();
-            this.gameLoop.updateGame();
-            this.gameLoop.render();
+    public void run() throws IllegalStateException {
+        if (this.isRunning()) {
+            throw new IllegalStateException();
         }
-        // Render Game over
-        this.getScene().gameOver();
+        this.init();
+        this.thread = new Thread(this.gameLoop);
+        this.thread.start();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Game getGame() {
-        return this.game;
+    public void stop() throws IllegalStateException {
+        if (!this.isRunning()) {
+            throw new IllegalStateException();
+        }
+        this.state = false;
+        this.thread.interrupt();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public <T extends Component> void updateComponentBy(Class<T> clazz) {
-        this.getComponents(clazz).forEach(Component::update);
+    public boolean isRunning() {
+        return this.state;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public <T extends Component> void updateComponentByConcurrent(Class<T> clazz) {
-        this.getComponents(clazz).stream().parallel().forEach(Component::update);
+    public void updateGraphics(final Graphic g) {
+        var clazz = GraphicComponent.class;
+        this.getComponents(clazz).forEach(gc -> {
+            gc.setGraphics(g);
+            gc.update();
+        });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public <T extends Component> List<T> getComponents(Class<T> clazz) {
+    public <T extends Component> List<T> getComponents(final Class<T> clazz) {
         return this.game.getWorld().getEntities().stream()
                 .flatMap(e -> e.getComponent(clazz).stream())
                 .collect(Collectors.toUnmodifiableList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public GameScene getScene() {
+    public Optional<GameScene> getScene() {
         return this.view;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void updateGraphics(Graphic g) {
-        this.getComponents(GraphicComponent.class).stream()
-                .peek(gc -> gc.setGraphics(g))
-                .forEach(GraphicComponent::update);
+    public void setScene(final GameScene scene) {
+        this.view = Optional.of(scene);
     }
 
-    /*
-     * Getting the input controllers of the players
+    /**
+     * {@inheritDoc}
      */
+    @Override
+    public Game getGame() {
+        return this.game;
+    }
+
     private List<KeyboardInputController> getKeyboardInputController() {
         return this.game.getWorld().getPlayers().stream()
                 .flatMap(p -> p.getComponent(InputComponent.class).stream())
@@ -104,12 +143,11 @@ public class GameEngineImpl implements GameEngine {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    /*
-     * Initialize the engine before start to running
-     */
     private void init() {
+        // Set the runnig state on true.
+        this.state = true;
         // Setting to the view all the players input controller
-        this.view.setInputControllers(this.getKeyboardInputController());
+        this.view.ifPresent(s -> s.setInputControllers(this.getKeyboardInputController()));
     }
 
 }
