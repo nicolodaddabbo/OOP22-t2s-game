@@ -10,15 +10,13 @@ import it.unibo.t2sgame.game.logics.api.State;
 import it.unibo.t2sgame.game.model.api.World;
 
 class GameTest {
-    /**
-     * A factory which creates Game's objects
-     */
-    private GameFactory factory = new GameFactoryImpl();
+
+    private final GameFactory factory = new GameFactoryImpl();
 
     void testBasics(final Game g) {
-        var w = g.getWorld();
-        var s = g.getState();
-        var players = w.getPlayers();
+        final var w = g.getWorld();
+        final var s = g.getState();
+        final var players = w.getPlayers();
         // Let update the game status
         g.update();
         // 1 Round
@@ -47,7 +45,7 @@ class GameTest {
     @Test
     void testSinglePlayer() {
         // Creating a single player game
-        var game = this.factory.createSinglePlayerGame();
+        final var game = this.factory.createSinglePlayerGame();
         // Check if the game contains only one player
         assertEquals(1, game.getWorld().getPlayers().size());
         testBasics(game);
@@ -55,9 +53,9 @@ class GameTest {
 
     @Test
     void testMultiPlayerWithCompanion() {
-        var game = this.factory.createMultiPlayerGame();
+        final var game = this.factory.createMultiPlayerGame();
         // Check if companion is present
-        var companion = game.getWorld().getEntities().stream()
+        final var companion = game.getWorld().getEntities().stream()
                 .filter(e -> e.getType() == Type.COMPANION)
                 .findFirst();
         assertTrue(companion.isPresent());

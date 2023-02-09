@@ -1,8 +1,6 @@
 package it.unibo.t2sgame.core;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -17,24 +15,24 @@ import it.unibo.t2sgame.core.engine.impl.GameEngineImpl;
 import it.unibo.t2sgame.game.GameFactory;
 import it.unibo.t2sgame.game.GameFactoryImpl;
 
-public class GameEngineTest {
+class GameEngineTest {
 
     private final GameFactory gameFactory = new GameFactoryImpl();
-    
+
     private final GameEngine engine = new GameEngineImpl(this.gameFactory.createSinglePlayerGame());
 
     @Test
-    void testRunAndStop(){
-        assertDoesNotThrow(this.engine::run , "Engine was already running");
+    void testRunAndStop() {
+        assertDoesNotThrow(this.engine::run, "Engine was already running");
         assertThrows(IllegalStateException.class, this.engine::run);
-        assertDoesNotThrow(this.engine::stop , "Engine was not running");
-        assertDoesNotThrow(this.engine::run , "Engine was already running");
-        assertDoesNotThrow(this.engine::stop , "Engine was not running");
+        assertDoesNotThrow(this.engine::stop, "Engine was not running");
+        assertDoesNotThrow(this.engine::run, "Engine was already running");
+        assertDoesNotThrow(this.engine::stop, "Engine was not running");
         assertThrows(IllegalStateException.class, this.engine::stop);
     }
 
     @Test
-    void testGetters(){
+    void testGetters() {
         assertNotNull(this.engine);
         assertNotNull(this.engine.getGame());
         assertNotNull(this.engine.getComponents(InputComponent.class));
