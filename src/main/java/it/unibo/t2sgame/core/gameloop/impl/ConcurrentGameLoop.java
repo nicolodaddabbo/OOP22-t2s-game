@@ -16,7 +16,8 @@ import it.unibo.t2sgame.core.engine.api.GameEngine;
 public class ConcurrentGameLoop extends BaseGameLoop {
 
     /**
-     * {@inheritDoc}
+     * 
+     * @param engine the engine where the game loop operates
      */
     public ConcurrentGameLoop(final GameEngine engine) {
         super(engine);
@@ -27,7 +28,11 @@ public class ConcurrentGameLoop extends BaseGameLoop {
      */
     @Override
     Consumer<Class<? extends Component>> getUpdater() {
-        return this.engine::updateComponentByConcurrent;
+        return this::updateComponentByConcurrent;
+    }
+
+    private <T extends Component> void updateComponentByConcurrent(final Class<T> clazz) {
+        this.getEngine().getComponents(clazz).stream().parallel().forEach(Component::update);
     }
 
 }

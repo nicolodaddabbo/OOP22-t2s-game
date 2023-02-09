@@ -8,6 +8,7 @@ import it.unibo.t2sgame.core.components.impl.InputComponent;
 import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.core.gameloop.api.GameLoop;
+import it.unibo.t2sgame.view.api.GameScene;
 
 /**
  * This abstract class models the base of every game loop.
@@ -18,11 +19,11 @@ import it.unibo.t2sgame.core.gameloop.api.GameLoop;
  */
 public abstract class BaseGameLoop implements GameLoop {
 
-    protected final GameEngine engine;
+    private final GameEngine engine;
 
     /**
      * 
-     * @param engine the engine where the game loop operates
+     * @param engine the engine where the game loop operates.
      */
     protected BaseGameLoop(final GameEngine engine) {
         this.engine = engine;
@@ -41,7 +42,7 @@ public abstract class BaseGameLoop implements GameLoop {
      */
     @Override
     public void render() {
-        this.engine.getScene().render();
+        this.engine.getScene().ifPresent(GameScene::render);
     }
 
     /**
@@ -65,7 +66,7 @@ public abstract class BaseGameLoop implements GameLoop {
     /**
      * 
      * @return the component updater whichs is delegated to update a group of
-     *         component of the same type
+     *         component of the same type.
      */
     abstract Consumer<Class<? extends Component>> getUpdater();
 
