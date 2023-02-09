@@ -19,7 +19,10 @@ public class FrequencyCounterGameLoop extends GameLoopDecorator {
     private int counter = 0;
 
     /**
-     * {@inheritDoc}
+     * Creating a new GameLoop which decorates {@link decorated} with the logic's
+     * implementation.
+     * 
+     * @param decorated the base game loop to decorate
      */
     public FrequencyCounterGameLoop(final GameLoop decorated) {
         super(decorated);
@@ -32,7 +35,7 @@ public class FrequencyCounterGameLoop extends GameLoopDecorator {
     public void render() {
         super.render();
         if (this.timer.getElapsedNanos() >= NS_UPDATE_FPS_COUNT) {
-            this.getEngine().getScene().renderFPS(counter);
+            this.getEngine().getScene().ifPresent(s -> s.renderFPS(counter));
             reset();
         }
         this.counter++;
