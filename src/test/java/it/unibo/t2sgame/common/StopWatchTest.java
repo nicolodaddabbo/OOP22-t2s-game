@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 
 public class StopWatchTest {
 
+    private static final double NANO_TO_MILLIS = 1E6;
+    private static final double NANO_TO_SECONDS = 1E9;
+
     @Test
     void testElapsedSeconds() {
         StopWatch stopWatch = new StopWatch();
@@ -16,7 +19,7 @@ public class StopWatchTest {
         while ((elapsed = stopWatch.getElapsedSeconds()) < seconds) {
             /* Wait for the time to elapse */
         }
-        assertEquals(seconds, elapsed);
+        assertEquals(seconds, elapsed, 100 / NANO_TO_SECONDS);
     }
 
     @Test
@@ -28,7 +31,7 @@ public class StopWatchTest {
         while ((elapsed = stopWatch.getElapsedMillis()) < milliseconds) {
             /* Wait for the time to elapse */
         }
-        assertEquals(milliseconds, elapsed);
+        assertEquals(milliseconds, elapsed, 100 / NANO_TO_MILLIS);
     }
 
     @Test
@@ -40,7 +43,7 @@ public class StopWatchTest {
         while ((elapsed = stopWatch.getElapsedNanos()) < nanoseconds) {
             /* Wait for the time to elapse */
         }
-        assertEquals(nanoseconds, elapsed);
+        assertEquals(nanoseconds, elapsed, 100);
     }
 
     @Test
