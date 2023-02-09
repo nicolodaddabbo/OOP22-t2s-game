@@ -8,8 +8,8 @@ public class StopWatch {
     private long startTime = 0;
     private long endTime = 0;
     private boolean isRunning = false;
-    private static final double MILLIS = 1E6;
-    private static final double SECONDS = 1E9;
+    private static final double NANO_TO_MILLIS = 1E6;
+    private static final double NANO_TO_SECONDS = 1E9;
 
     /**
      * This method <strong>starts</strong> the stopwatch.
@@ -84,7 +84,7 @@ public class StopWatch {
      * @see {@link #getElapsedSeconds()}
      */
     public double getElapsedMillis() {
-        return this.getElapsedNanos() / MILLIS;
+        return this.getElapsedNanos() / NANO_TO_MILLIS;
     }
 
     /**
@@ -103,7 +103,7 @@ public class StopWatch {
      * @see {@link #getElapsedMillis()}
      */
     public double getElapsedSeconds() {
-        return this.getElapsedNanos() / SECONDS;
+        return this.getElapsedNanos() / NANO_TO_SECONDS;
     }
 
 }
