@@ -29,6 +29,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 /**
  * class representing the implementation of a GameScene using JavaFX.
  */
@@ -90,8 +91,10 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
         this.canvas = new Canvas(proportionedWidth, proportionedHeight);
         this.gContext = this.canvas.getGraphicsContext2D();
         this.setGraphic(new GraphicJavaFXImpl(this.gContext, this.dpiW, this.dpiH));
-        scene.setOnKeyPressed(event -> this.getKeyInControllers().forEach(c -> c.notifyKeyPressed(event.getCode().getCode())));
-        scene.setOnKeyReleased(event -> this.getKeyInControllers().forEach(c -> c.notifyKeyReleased(event.getCode().getCode())));
+        scene.setOnKeyPressed(
+                event -> this.getKeyInControllers().forEach(c -> c.notifyKeyPressed(event.getCode().getCode())));
+        scene.setOnKeyReleased(
+                event -> this.getKeyInControllers().forEach(c -> c.notifyKeyReleased(event.getCode().getCode())));
         root.getChildren().add(this.canvas);
         root.getChildren().get(root.getChildren().indexOf(this.roundText)).toFront();
         stage.setScene(scene);
@@ -100,6 +103,7 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
         stage.setResizable(false);
         stage.show();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -109,28 +113,35 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
             this.gContext.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
             this.getGameEngine().updateGraphics(this.getGraphic());
             this.getGameEngine().getGame().getWorld().getPlayers().forEach(p -> p.getComponent(HealthComponent.class)
-            .ifPresent(c -> { Stream.iterate(0, i -> i + 1)
-                        .limit(c.getHealth())
-                            .forEach(n -> this.gContext.drawImage(this.cachedSprites.get("full_heart"), 
-                                    (HEARTSIZE + getPadding()) * this.dpiW * n, 0, HEARTSIZE * this.dpiW, HEARTSIZE * this.dpiW));
-            }));
-            round = this.getGameEngine().getGame().getState().getRound();         
-            this.roundText.setText(this.round % POWERUPROUND == 0 ? "ROUND" + this.round + " - POWERUP OBTAINED" : "ROUND " + this.round);
+                    .ifPresent(c -> {
+                        Stream.iterate(0, i -> i + 1)
+                                .limit(c.getHealth())
+                                .forEach(n -> this.gContext.drawImage(this.cachedSprites.get("full_heart"),
+                                        (HEARTSIZE + getPadding()) * this.dpiW * n, 0, HEARTSIZE * this.dpiW,
+                                        HEARTSIZE * this.dpiW));
+                    }));
+            round = this.getGameEngine().getGame().getState().getRound();
+            this.roundText.setText(this.round % POWERUPROUND == 0
+                    ? "ROUND" + this.round + " - POWERUP OBTAINED"
+                    : "ROUND " + this.round);
         });
     }
+
     /**
      * {@inheritDoc}
      */
-    public void renderFPS(final int fps){
+    public void renderFPS(final int fps) {
         this.fpsText.setText("" + fps);
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void gameOver() {
-        Platform.runLater(() -> this.getWindow().createGameOverScene(this.getGameEngine().getGame().getState().getRound())
-            .initialize());
+        Platform.runLater(
+                () -> this.getWindow().createGameOverScene(this.getGameEngine().getGame().getState().getRound())
+                        .initialize());
     }
 
     private void storeSprites() {
