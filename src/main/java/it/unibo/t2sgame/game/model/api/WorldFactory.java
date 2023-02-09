@@ -1,20 +1,20 @@
 package it.unibo.t2sgame.game.model.api;
 
-import java.util.List;
-
-import it.unibo.t2sgame.core.entity.api.Entity;
-
+/**
+ * This interface models a factory of World.
+ * See {@link World} to know what is a World.
+ */
 public interface WorldFactory {
     /**
      * 
-     * @return a World implementation with only one player  
+     * @return a World implementation with only one player
      */
     World createWorldWithOnePlayer();
+
     /**
      * 
-     * @return a World implementation with more player
+     * @return a World implementation with one player and one companion
      */
-    World createWorldWithMorePlayer(List<Entity> players);
+    World createWorldWithPlayerAndCompanion();
 
-    World createBasicWorld();
 }
