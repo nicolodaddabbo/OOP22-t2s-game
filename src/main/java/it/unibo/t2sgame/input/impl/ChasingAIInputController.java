@@ -18,7 +18,7 @@ public class ChasingAIInputController extends AbstractChasingAIInputController {
     }
 
     /**
-     * {@inheritDoc}
+     * Notify to the PhysicsComponent a movement in the calculated direction of the player.
      */
     @Override
     protected void computeNextCommand() {
