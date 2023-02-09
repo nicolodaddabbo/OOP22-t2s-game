@@ -138,22 +138,24 @@ public class Vector2D {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
+    public boolean equals(Object obj) {
+        if (this == obj){
             return true;
         }
-        if (obj == null) {
+        if (obj == null){
             return false;
         }
-        if (this.getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass()){
             return false;
         }
         Vector2D other = (Vector2D) obj;
-        return axisEquals(this.x, other.x) && axisEquals(this.y, other.y);
-    }
-
-    private boolean axisEquals(final double axis1, final double axis2) {
-        return Double.doubleToLongBits(axis1) != Double.doubleToLongBits(axis2);
+        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)){
+            return false;
+        }
+        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y)){
+            return false;
+        }
+        return true;
     }
 
     /**
