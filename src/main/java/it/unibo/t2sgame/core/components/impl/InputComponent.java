@@ -36,7 +36,7 @@ public class InputComponent extends AbstractComponent {
     }
 
     /**
-     * Execute every command in the input controller's event queue 
+     * Execute every command in the input controller's event queue.
      */
     @Override
     public void update() {
