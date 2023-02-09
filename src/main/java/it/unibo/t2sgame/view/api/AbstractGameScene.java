@@ -1,5 +1,6 @@
 package it.unibo.t2sgame.view.api;
 
+import java.util.Collections;
 import java.util.List;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
@@ -36,7 +37,7 @@ public abstract class AbstractGameScene extends AbstractBaseScene implements Gam
     */
     @Override
     public void setInputControllers(final List<KeyboardInputController> keyInControllers) {
-        this.keyInControllers = keyInControllers;
+        this.keyInControllers = Collections.unmodifiableList(keyInControllers);
     }
     /**
      * getter of the GameEngine.
@@ -50,7 +51,7 @@ public abstract class AbstractGameScene extends AbstractBaseScene implements Gam
      * @return the list of KeyboardInputController
      */
     public List<KeyboardInputController> getKeyInControllers() {
-        return keyInControllers;
+        return Collections.unmodifiableList(keyInControllers);
     }
     /**
      * setter for the graphics.

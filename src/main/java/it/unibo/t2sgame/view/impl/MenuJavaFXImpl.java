@@ -71,6 +71,6 @@ public class MenuJavaFXImpl extends AbstractBaseScene {
 
     private void close() {
         Platform.exit();
-        System.exit(0);
+        Runtime.getRuntime().exit(0);
     }
 }

@@ -15,7 +15,7 @@ public class SceneFactoryJavaFXImpl implements SceneFactory {
      * @param stage the stage in which the Scene is to be rendered
      */
     public SceneFactoryJavaFXImpl(final Stage stage) {
-        this.stage = stage;
+        this.stage = new Stage(stage.getStyle());
     }
     /**
      * {@inheritDoc}
