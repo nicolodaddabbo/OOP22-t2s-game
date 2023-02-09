@@ -1,7 +1,5 @@
 package it.unibo.t2sgame.view.impl;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +9,7 @@ import it.unibo.t2sgame.view.api.Graphic;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+
 /**
  * class that represents the Graphics using JavaFX.
  */
@@ -33,18 +32,20 @@ public class GraphicJavaFXImpl implements Graphic {
 
     private void storeSprites() {
         cachedSprites = new HashMap<>();
-        try {
-            this.cachedSprites.put("player", new Image(new FileInputStream("src/main/resources/sprites/ghost.gif")));
-            this.cachedSprites.put("companion", new Image(new FileInputStream("src/main/resources/sprites/companion.gif")));
-            this.cachedSprites.put("fire_enemy", new Image(new FileInputStream("src/main/resources/sprites/fire_enemy.gif")));
-            this.cachedSprites.put("ice_enemy", new Image(new FileInputStream("src/main/resources/sprites/ice_enemy.gif")));
-            this.cachedSprites.put("rainbow_enemy", 
-                new Image(new FileInputStream("src/main/resources/sprites/rainbow_enemy.gif")));
-            this.cachedSprites.put("crown_enemy", new Image(new FileInputStream("src/main/resources/sprites/crown_enemy.gif")));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        this.cachedSprites.put("player",
+                new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/ghost.gif")));
+        this.cachedSprites.put("companion",
+                new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/companion.gif")));
+        this.cachedSprites.put("fire_enemy",
+                new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/fire_enemy.gif")));
+        this.cachedSprites.put("ice_enemy",
+                new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/ice_enemy.gif")));
+        this.cachedSprites.put("rainbow_enemy",
+                new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/rainbow_enemy.gif")));
+        this.cachedSprites.put("crown_enemy",
+                new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/crown_enemy.gif")));
     }
+
     /**
      * {@inheritDoc}
      */
@@ -56,14 +57,14 @@ public class GraphicJavaFXImpl implements Graphic {
             width = component.getWidth() * this.dpiW;
             height = component.getHeight() * this.dpiH;
             this.graphicContext.drawImage(
-                    cachedSprites.get(spirteName), 
-                    entityX - width / 2, 
+                    cachedSprites.get(spirteName),
+                    entityX - width / 2,
                     entityY - height / 2,
                     width,
-                    height
-            );
+                    height);
         });
     }
+
     /**
      * {@inheritDoc}
      */
@@ -76,13 +77,13 @@ public class GraphicJavaFXImpl implements Graphic {
             height = component.getHeight() * this.dpiH;
             graphicContext.setFill(Color.WHITE);
             this.graphicContext.fillRect(
-                    entityX - width / 2, 
+                    entityX - width / 2,
                     entityY - height / 2,
                     width,
-                    height
-            );
+                    height);
         });
     }
+
     /**
      * {@inheritDoc}
      */
@@ -95,11 +96,10 @@ public class GraphicJavaFXImpl implements Graphic {
             height = component.getHeight() * this.dpiH;
             graphicContext.setFill(Color.WHITE);
             this.graphicContext.fillOval(
-                    entityX - width / 2, 
+                    entityX - width / 2,
                     entityY - height / 2,
                     width,
-                    height
-            );
+                    height);
         });
     }
 }

@@ -1,7 +1,5 @@
 package it.unibo.t2sgame.view.impl;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -146,16 +144,12 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
 
     private void storeSprites() {
         cachedSprites = new HashMap<>();
-        try {
-            this.cachedSprites.put("full_heart",
-                    new Image(new FileInputStream("src/main/resources/sprites/heart_darker.png")));
-            this.backgroundImage = new BackgroundImage(
-                    new Image(new FileInputStream("src/main/resources/sprites/Brickwall5_Texture.png"),
-                            BACKGROUNDTILESIZE * this.dpiW, BACKGROUNDTILESIZE * this.dpiH, false, true),
-                    BackgroundRepeat.REPEAT,
-                    BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        this.cachedSprites.put("full_heart",
+                new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/heart_darker.png")));
+        this.backgroundImage = new BackgroundImage(
+                new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/Brickwall5_Texture.png"),
+                        BACKGROUNDTILESIZE * this.dpiW, BACKGROUNDTILESIZE * this.dpiH, false, true),
+                BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     }
 }
