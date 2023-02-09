@@ -8,7 +8,7 @@ public abstract class AbstractWindow implements Window {
      */
     @Override
     public void launch() {
-        var menu = this.createMenuScene(); 
+        final var menu = this.createMenuScene(); 
         menu.initialize();
     }
     /**

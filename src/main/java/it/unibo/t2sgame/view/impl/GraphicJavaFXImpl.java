@@ -18,8 +18,8 @@ public class GraphicJavaFXImpl implements Graphic {
     private Map<String, Image> cachedSprites;
     private double entityX;
     private double entityY;
-    private double dpiW;
-    private double dpiH;
+    private final double dpiW;
+    private final double dpiH;
     private double width;
     private double height;
 

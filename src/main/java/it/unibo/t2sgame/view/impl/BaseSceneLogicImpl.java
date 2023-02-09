@@ -14,8 +14,8 @@ public class BaseSceneLogicImpl {
      * @param window in which the game is going to be rendered
      */
     private void runScene(final Game game, final Window window) {
-        var scene = window.createGameScene();
-        var engine = new GameEngineImpl(game);
+        final var scene = window.createGameScene();
+        final var engine = new GameEngineImpl(game);
         engine.setScene(scene);
         scene.setEngine(engine);
         // Initialize the view

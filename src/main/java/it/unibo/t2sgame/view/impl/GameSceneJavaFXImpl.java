@@ -36,8 +36,8 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
     private GraphicsContext gContext;
     private Map<String, Image> cachedSprites;
     private final Stage stage;
-    private Text roundText = new Text();
-    private Text fpsText = new Text();
+    private final Text roundText = new Text();
+    private final Text fpsText = new Text();
     private double dpiW;
     private double dpiH;
     private BackgroundImage backgroundImage;
@@ -56,19 +56,19 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
      */
     @Override
     public void initialize() {
-        var root = new Pane();
-        var map = this.getGameEngine().getGame().getWorld().getMap();
-        var screenBounds = Screen.getPrimary().getBounds();
+        final var root = new Pane();
+        final var map = this.getGameEngine().getGame().getWorld().getMap();
+        final var screenBounds = Screen.getPrimary().getBounds();
         /*
          * takes the width and height of the primary screen and proportion it on the
          * static sizes
          */
         this.dpiW = screenBounds.getWidth() / map.getWidth();
         this.dpiH = screenBounds.getHeight() / map.getHeight();
-        var proportionedWidth = map.getWidth() * this.dpiW;
-        var proportionedHeight = map.getHeight() * this.dpiH;
+        final var proportionedWidth = map.getWidth() * this.dpiW;
+        final var proportionedHeight = map.getHeight() * this.dpiH;
         storeSprites();
-        var scene = new Scene(root, proportionedWidth, proportionedHeight, Color.BLACK);
+        final var scene = new Scene(root, proportionedWidth, proportionedHeight, Color.BLACK);
         /* initializing all text settings settings */
         this.roundText.setText("");
         this.roundText.setFont(Font.font(null, FontWeight.BOLD, AbstractBaseScene.getFontSize() * this.dpiW));
@@ -128,8 +128,9 @@ public class GameSceneJavaFXImpl extends AbstractGameScene {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void renderFPS(final int fps) {
-        this.fpsText.setText("" + fps);
+        this.fpsText.setText(String.valueOf(fps));
     }
 
     /**

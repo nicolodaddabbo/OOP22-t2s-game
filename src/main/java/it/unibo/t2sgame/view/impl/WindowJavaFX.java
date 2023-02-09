@@ -7,13 +7,12 @@ import javafx.stage.Stage;
  * class representing a Window using JavaFX.
  */
 public class WindowJavaFX extends AbstractWindow {
-    private final Stage stage;
     private final SceneFactory sceneFactory;
     /**
      * constructor for WindowJavaFX.
      */
     public WindowJavaFX() {
-        this.stage = new Stage();
+        final var stage = new Stage();
         this.sceneFactory = new SceneFactoryJavaFXImpl(stage);
     }
 

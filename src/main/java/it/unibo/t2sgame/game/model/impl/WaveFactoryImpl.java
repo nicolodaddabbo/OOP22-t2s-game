@@ -16,10 +16,8 @@ import it.unibo.t2sgame.game.model.api.World;
  * class that is implementing interface WaveFactory.
  */
 public class WaveFactoryImpl implements WaveFactory {
-    private EntityFactory entityFactory = new EntityFactoryImpl();
-    private Random random = new Random();
-    private World world;
-    private int roundCounter = 0;
+    private final EntityFactory entityFactory = new EntityFactoryImpl();
+    private final Random random = new Random();
     private final double width;
     private final double height;
     private static final double OUTSIDEMAPVALUE = 100.0;
@@ -31,17 +29,16 @@ public class WaveFactoryImpl implements WaveFactory {
         BOSS(EntityFactory::createBossEnemy);
 
         private BiFunction<EntityFactory, Vector2D, Entity> entityBiFunction;
+        private static final Random RANDOM = new Random();
+        private static final int BASEENEMYPROBABILISTICWEIGH = 50;
+        private static final int GAUSSIANENEMYPROBABILISTICWEIGH = 90;
 
         Enemy(final BiFunction<EntityFactory, Vector2D, Entity> entityBiFunction) {
             this.entityBiFunction = entityBiFunction;
         }
 
-        private static final Random RANDOM = new Random();
-        private static final int BASEENEMYPROBABILISTICWEIGH = 50;
-        private static final int GAUSSIANENEMYPROBABILISTICWEIGH = 90;
-
         public static Enemy randomEnemy() {
-            var randomValue = RANDOM.nextInt(100);
+            final var randomValue = RANDOM.nextInt(100);
             return randomValue < BASEENEMYPROBABILISTICWEIGH 
                 ? Enemy.BASE 
                 : randomValue < GAUSSIANENEMYPROBABILISTICWEIGH 
@@ -58,9 +55,8 @@ public class WaveFactoryImpl implements WaveFactory {
      * @param world in which the waves are going to be spawned
      */
     public WaveFactoryImpl(final World world) {
-        this.world = world;
-        this.width = this.world.getMap().getWidth();
-        this.height = this.world.getMap().getHeight();
+        this.width = world.getMap().getWidth();
+        this.height = world.getMap().getHeight();
     }
 
     private Wave createWaveFromEnemies(final List<Entity> enemies) {
