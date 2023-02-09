@@ -7,20 +7,23 @@ import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.core.entity.api.Type;
 
 /**
- * This abstract class represent an InutController for an AI that chase an entity.
+ * This abstract class represent an InutController for an AI that chase an
+ * entity.
  */
 public abstract class AbstractChasingAIInputController extends AbstractInputController {
     private static final int RIGHT_MAX_ABSOLUTE_ANGLE = 45;
     private static final int LEFT_MIN_ABSOLUTE_ANGLE = 135;
 
     /**
-     * This method adds the next command to be executed by the AI controlled entity.
+     * This method adds to the command queue the next command to be executed by the
+     * AI controlled entity.
      */
     protected abstract void computeNextCommand();
 
     /**
      * This template method return the commands queue (in the way that is
-     * implemented in the parent class) but first it execute the computeNextCommand method.
+     * implemented in the parent class) but first it executes the computeNextCommand
+     * method.
      */
     @Override
     public Queue<Command> getCommandsQueue() {
@@ -55,7 +58,8 @@ public abstract class AbstractChasingAIInputController extends AbstractInputCont
     }
 
     /**
-     * This method convert an angle in degrees into one of the 4 cardinal directions.
+     * This method convert an angle in degrees into one of the 4 cardinal
+     * directions.
      * 
      * @param angle in degree
      * @return direction corresponding to the given angle
