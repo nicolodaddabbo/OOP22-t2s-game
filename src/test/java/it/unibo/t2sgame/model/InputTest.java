@@ -11,6 +11,7 @@ import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.components.api.ComponentFactory;
 import it.unibo.t2sgame.core.components.impl.ComponentFactoryImpl;
 import it.unibo.t2sgame.core.components.impl.InputComponent;
+import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
@@ -66,6 +67,7 @@ public class InputTest {
         // commands queue should never be empty
         assertFalse(inputController.getCommandsQueue().isEmpty());
         aiInputComponent.update();
+        this.enemy.getComponent(PhysicsComponent.class).get().update();
         // a ChasingAIInputController generates only Move commands, so after an update the position
         // of the player should be different from the initial one
         assertNotEquals(this.enemy.getPosition(), new Vector2D(0, 0));
