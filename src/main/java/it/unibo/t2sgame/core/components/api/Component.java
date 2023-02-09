@@ -31,7 +31,7 @@ public interface Component {
     Entity getEntity();
 
     /**
-     * Link the {@link entity} to the component
+     * Link the {@link entity} to the component.
      * 
      * @param entity the entity to be linked with the component
      */

@@ -17,6 +17,10 @@ import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
 import it.unibo.t2sgame.view.api.Graphic;
 
+/**
+ * This class implements ComponentFactory interface, it is used to create
+ * components.
+ */
 public class ComponentFactoryImpl implements ComponentFactory {
 
     /**
