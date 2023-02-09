@@ -19,6 +19,7 @@ public class WaveFactoryImpl implements WaveFactory {
     private EntityFactory entityFactory = new EntityFactoryImpl();
     private Random random = new Random();
     private World world;
+    private int roundCounter = 0;
     private final double width;
     private final double height;
     private static final double OUTSIDEMAPVALUE = 100.0;
@@ -64,20 +65,12 @@ public class WaveFactoryImpl implements WaveFactory {
 
     private Wave createWaveFromEnemies(final List<Entity> enemies) {
         return new Wave() {
-            private final int roundId = enemies.size();
             /**
             * {@inheritDoc}
             */
             @Override
             public List<Entity> getEnemies() {
                 return enemies;
-            }
-            /**
-            * {@inheritDoc}
-            */
-            @Override
-            public int getWaveID() {
-                return this.roundId;
             }
             /**
             * {@inheritDoc}
@@ -96,7 +89,7 @@ public class WaveFactoryImpl implements WaveFactory {
     public Wave createBasicWave(final int round) {
         return createWaveFromEnemies(Stream.generate(() -> Enemy.BASE.getBiFunction().apply(this.entityFactory,
                     new Vector2D(random.nextDouble(0, this.width), random.nextDouble(0, this.height))))
-                .limit(round)
+                .limit((long) Math.ceil(round / 2.0))
                 .collect(Collectors.toList()));
     }
     /**

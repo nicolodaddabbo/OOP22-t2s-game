@@ -20,14 +20,14 @@ public class WaveTest {
     public void testBasicWaveSpawn(){
         var wave = this.waveFactory.createBasicWave(this.round);
         assertFalse(wave.getEnemies().isEmpty());
-        assertEquals(round, wave.getEnemies().size());
+        assertEquals(round / 2, wave.getEnemies().size());
     }
 
     @Test
     public void testBossWaveSpawn(){
         var wave = this.waveFactory.createBossWave(this.round);
         assertFalse(wave.getEnemies().isEmpty());
-        assertEquals((round / 2) + 1, wave.getEnemies().size());
+        assertEquals((Math.ceil((round / 2) / 2.0)) + 1, wave.getEnemies().size());
     }
 
     @Test
@@ -36,11 +36,5 @@ public class WaveTest {
         assertTrue(wave.getEnemies().isEmpty());
         wave.addEnemy(new EntityFactoryImpl().createBaseEnemy(new Vector2D(0, 0)));
         assertFalse(wave.getEnemies().isEmpty());
-    }
-
-    @Test
-    public void testCorrectWaveID(){
-        var wave = this.waveFactory.createBasicWave(round);
-        assertEquals(this.round, wave.getWaveID());
     }
 }
