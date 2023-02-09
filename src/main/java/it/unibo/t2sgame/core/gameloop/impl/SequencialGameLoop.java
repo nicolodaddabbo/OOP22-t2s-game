@@ -16,7 +16,8 @@ import it.unibo.t2sgame.core.engine.api.GameEngine;
 public class SequencialGameLoop extends BaseGameLoop {
 
     /**
-     * {@inheritDoc}
+     * 
+     * @param engine the engine where the game loop operates
      */
     public SequencialGameLoop(final GameEngine engine) {
         super(engine);
@@ -27,7 +28,11 @@ public class SequencialGameLoop extends BaseGameLoop {
      */
     @Override
     Consumer<Class<? extends Component>> getUpdater() {
-        return this.engine::updateComponentBy;
+        return this::updateComponentBy;
+    }
+
+    private <T extends Component> void updateComponentBy(final Class<T> clazz) {
+        this.getEngine().getComponents(clazz).forEach(Component::update);
     }
 
 }
