@@ -16,7 +16,7 @@ public abstract class AbstractComponent implements Component {
      */
     @Override
     public Entity getEntity() {
-        return new EntityImpl(this.entity);
+        return this.entity;
     }
 
     /**
@@ -24,7 +24,7 @@ public abstract class AbstractComponent implements Component {
      */
     @Override
     public void setEntity(final Entity entity) {
-        this.entity = new EntityImpl(entity);
+        this.entity = entity;
     }
 
 }

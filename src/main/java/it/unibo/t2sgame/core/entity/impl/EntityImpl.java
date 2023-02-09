@@ -7,6 +7,7 @@ import it.unibo.t2sgame.core.entity.api.Entity;
 import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.game.model.api.World;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -16,7 +17,7 @@ import java.util.Set;
  */
 public class EntityImpl implements Entity {
 
-    private final Set<Component> components;
+    private final Set<Component> components = new HashSet<>();
     private Optional<World> world = Optional.empty();
     private final Type type;
     private Vector2D position;
@@ -29,17 +30,6 @@ public class EntityImpl implements Entity {
     public EntityImpl(final Vector2D position, final Type type) {
         this.position = position;
         this.type = type;
-        this.components = new HashSet<>();
-    }
-
-    /**
-     * 
-     * @param entity the entity to copy
-     */
-    public EntityImpl(final Entity entity) {
-        this.position = entity.getPosition();
-        this.type = entity.getType();
-        this.components = new HashSet<>(entity.getComponents());
     }
 
     /**
@@ -47,7 +37,7 @@ public class EntityImpl implements Entity {
      */
     @Override
     public Set<Component> getComponents() {
-        return new HashSet<>(this.components);
+        return Collections.unmodifiableSet(this.components);
     }
 
     /**
