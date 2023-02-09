@@ -4,14 +4,15 @@ import it.unibo.t2sgame.core.engine.api.GameEngine;
 
 /**
  * This interface models the concept of "game loop" body.
- * The game loop has three main blocks
- * - Input handling
- * - Update the game time and status based on the input
- * - Render what updated
+ * The game loop has three main blocks:
+ * - Input handling.
+ * - Update the game time and status based on the input.
+ * - Render what updated.
  */
 public interface GameLoop {
+
     /**
-     * Processes all the InputComponents in the game
+     * Processes all the InputComponents in the game.
      * This method should be called once during the game loop cycle
      */
     void processInput();
@@ -35,7 +36,7 @@ public interface GameLoop {
 
     /**
      * 
-     * @return the engine where the game loop operates
+     * @return the engine where the game loop operates.
      */
     GameEngine getEngine();
 }
