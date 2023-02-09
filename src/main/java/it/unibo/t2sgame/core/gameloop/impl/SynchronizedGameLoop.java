@@ -33,7 +33,10 @@ public class SynchronizedGameLoop extends GameLoopDecorator {
     private long lag = 0;
 
     /**
-     * {@inheritDoc}
+     * Creating a new GameLoop which decorates {@link decorated} with the logic's
+     * implementation.
+     * 
+     * @param decorated the base game loop to decorate
      */
     public SynchronizedGameLoop(final GameLoop decorated) {
         super(decorated);
