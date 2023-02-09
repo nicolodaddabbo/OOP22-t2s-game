@@ -16,16 +16,21 @@ import it.unibo.t2sgame.core.gameloop.api.GameLoop;
  */
 public class FrequencyLockedGameLoop extends GameLoopDecorator {
 
+    private static final double NANO_TO_MILLIS = 1E6;
+
     /*
      * Indicates the minimum period the computer takes to complete a game loop's
      * cycle.
      */
-    private static final long NS_CYCLE_PERIOD = (long) (7 * 1E6);
+    private static final long NS_CYCLE_PERIOD = (long) (7 * NANO_TO_MILLIS);
 
     private StopWatch timer = new StopWatch().start();
 
     /**
-     * {@inheritDoc}
+     * Creating a new GameLoop which decorates {@link decorated} with the logic's
+     * implementation.
+     * 
+     * @param decorated the base game loop to decorate
      */
     public FrequencyLockedGameLoop(final GameLoop decorated) {
         super(decorated);
@@ -53,7 +58,7 @@ public class FrequencyLockedGameLoop extends GameLoopDecorator {
         if (timeToSleep > 0) {
             try {
                 // Sleeping time has to be converted in milliseconds
-                Thread.sleep((long) ((timeToSleep) / 1E6));
+                Thread.sleep((long) ((timeToSleep) / NANO_TO_MILLIS));
             } catch (final InterruptedException e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
