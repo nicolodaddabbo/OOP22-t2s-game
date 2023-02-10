@@ -3,11 +3,10 @@ classDiagram
 %% Relations
 Game --o State
 Game --o World
-World -- Wave
-World -- GameObject
-Wave *-- GameObject
-GameObject --> InputController
-
+World --> Wave
+World --* Entity
+Wave *-- Entity
+s
 class Game{
     <<Interface>>
     +getWorld() World
@@ -15,24 +14,23 @@ class Game{
 }
 class World{
     <<Interface>>
-    +getCurrentWave() Wave
-    +getPlayer() GameObject
+    getCurrentWave() Wave
+    getEntities() List~Entity~
+    getPlayers() List~Entity~
 }
 class State{
     <<Interface>>
-    +updateScore() void
-    +getScore() Integer
-    +isRoundOver() Boolean
-    +isGameOver() Boolean
+    incrementScore() void
+    getScore() Integer
+    isOver() Boolean
+    isWaveOver() Boolean
 }
 class Wave{
     <<Interface>>
-    +getEnemies() List~GameObject~
+    getEnemies() List~GameObject~
 }
-class GameObject{
+class Entity{
     <<Interface>>
 }
-class InputController{
-    <<Interface>>
-}
+
 ```

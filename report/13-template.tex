@@ -90,7 +90,7 @@ Le difficoltà che il progetto si porta dietro sono:
 
 \begin{figure}[H]
 \centering{}
-\includegraphics[width=1\textwidth]{img/Schema-UML-Analisi.png}
+\includegraphics[width=1\textwidth]{img/AnalysisDomainUML-1.pdf}
 \caption{Schema UML dell'analisi del problema, con rappresentate le entità principali ed i rapporti fra loro}
 \label{img:analysis}
 \end{figure}
@@ -120,8 +120,8 @@ L’utilizzo di questi componenti porta ad importanti vantaggi:
 Dal punto di vista del pattern architetturale Model-View-Controller, i rispettivi moduli sono rappresentati da:
 \begin{itemize}
 	\item \textbf{Model}:
-	Viene seguito il seguente mantra “Everything is a Entity”	
-Difatti ogni entità del dominio viene rappresentata e astratta grazie all’utilizzo 	dell’interfaccia Entity, la quale svolge il ruolo di “container” di Component.
+	Il ruolo del "Model" viene affidato all'insieme delle classi che sono contenute nella classe Game (inclusa).
+	Difatti, se per creare un gioco diverso da T2S basterebbe cambiare la parte di "Model" dell'architettura in questione, le parti da sostituire ricadono nell'insieme sopra citato.
 	\item \textbf{Controller}:
 	Questo ruolo viene affidato all’interfaccia GameEngine, la quale ha il compito di gestire l’aggiornamento di ogni Entity, dei suoi componenti e della sua renderizzazione sulla View.
 	\item \textbf{View}:
@@ -541,6 +541,7 @@ La suddivisione iniziale del processo è stata fatta in maniera adeguata, consen
 \\
 Abbiamo deciso di utilizzare il DVCS con il semplice approccio spiegato in classe, difatti dopo la creazione del repository ognuno di noi ne ha fatto un clone per lavorarci in autonomia condividendo le aggiunte mediante pull e push.
 
+
 \subsection*{Nicolò D'Addabbo}
 In autonomia mi sono occupato di:
 \begin{itemize}
@@ -562,6 +563,22 @@ In autonomia mi sono occupato di:
 \end{itemize}
 
 \section{Note di sviluppo}
+\subsection*{Cecchini Andrea}
+\subsubsection*{Utilizzo di Stream}
+L'uso di streams pervade la maggior parte del codice.
+Il seguente è solo un esempio: 
+\\
+\url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/6dc6e41a127a2c02e07ca14e6265c07ac3afeeb1/src/main/java/it/unibo/t2sgame/core/engine/impl/GameEngineImpl.java#L115-L119}
+
+\subsection*{Creazione di interfacce funzionali}
+Esempio di una classe funzionale utilizzata per incapsulare messaggi tra componenti:
+\\
+\url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/a2aae31b62e6f41b9cc2d0ee80a388e56f2b42db/src/main/java/it/unibo/t2sgame/game/ecs/api/Message.java#L3-L15}
+\subsection*{Utilizzo di Lambda e Method references}
+Sono numerosi gli utilizzi di lambda e method references. In seguito alcuni esempi: 
+\\
+\url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/6dc6e41a127a2c02e07ca14e6265c07ac3afeeb1/src/main/java/it/unibo/t2sgame/core/engine/impl/GameEngineImpl.java#L145-L155}
+
 
 \subsection*{Nicolò D'Addabbo}
 \subsubsection*{Utilizzo di Stream, lambda expression e method reference}
