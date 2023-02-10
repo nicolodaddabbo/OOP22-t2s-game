@@ -327,15 +327,15 @@ Prendiamo come esempio l'evento \textit{onShoot}. La gestione degli eventi è an
 passandogli un evento come parametro. Questo evento viene aggiunto alla coda della Event Queue. Gli eventi possono essere generati tramite una \textit{Factory}.
 \\
 Al prossimo update del Game, verrà chiamato il metodo handleEvents() del World, che eseguirà ogni comando presente nella coda, e poi la pulirà.
-\subsection*{Fiumanò Luca Oskari}
+\subsection*{Luca Oskari Fiumanò}
 
 \subsubsection{Gestione delle Wave}
 
 \begin{figure}[H]
 \centering{}
-\includegraphics[width=\textwidth]{img/strategy}
+\includegraphics[scale=0.75]{img/WaveUML}
 \caption{Rappresentazione UML del pattern Factory per la gestione delle Wave}
-\label{img:strategy}
+\label{img:wave}
 \end{figure}
 
 \paragraph{Problema} Esistono diversi tipi di Wave ognuna composta da nemici di vario tipo e numero.
@@ -347,9 +347,9 @@ Ho capito quindi che sarebbe servito un pattern che creasse i diversi tipi di Wa
 
 \begin{figure}[H]
 \centering{}
-\includegraphics[width=\textwidth]{img/template}
+\includegraphics[scale=0.75]{img/WindowUML}
 \caption{Rappresentazione UML dell'applicazione del pattern Template Method alla Window}
-\label{img:template}
+\label{img:window}
 \end{figure}
 
 \paragraph{Problema} La gestione delle Window deve essere indipendente dall'architettura grafica scelta.
@@ -360,9 +360,9 @@ Ho capito quindi che sarebbe servito un pattern che creasse i diversi tipi di Wa
 
 \begin{figure}[H]
 \centering{}
-\includegraphics[width=\textwidth]{img/template}
+\includegraphics[scale=0.75]{img/SceneUML}
 \caption{Rappresentazione UML dell'applicazione del pattern FactoryMethod alla Scene}
-\label{img:template}
+\label{img:scene}
 \end{figure}
 
 \paragraph{Problema} La gestione e creazione delle Scene deve essere indipendente dall'architettura grafica scelta.
@@ -373,9 +373,9 @@ Ho capito quindi che sarebbe servito un pattern che creasse i diversi tipi di Wa
 
 \begin{figure}[H]
 \centering{}
-% \includegraphics[width=\textwidth]{img/PowerUpUML}
+\includegraphics[scale=0.75]{img/PowerUpUML}
 \caption{Rappresentazione UML dell'applicazione del pattern Factory e Strategy ai PowerUp}
-\label{img:observer}
+\label{img:powerUp}
 \end{figure}
 
 \paragraph{Problema} Il gioco deve implementare diversi tipi di PowerUp, ognuno che lavora su componenti diversi, che devono essere gestiti.
@@ -383,7 +383,7 @@ Ho capito quindi che sarebbe servito un pattern che creasse i diversi tipi di Wa
 \paragraph{Soluzione} Dato che il nostro gioco doveva avere la possibilità di creare diversi tipi di PowerUp ognuno con comportamenti diversi ho deciso di utilizzare il \textit{Factory pattern} per sostituire la costruzione diretta dei PowerUp con delle appropriate chiamate alla \textit{Factory}. L'utilizzo del \textit{Factory method pattern} si è portato dietro un altro vantaggio la possibilità di aggiungere facilmente nuovi PowerUp.
 Per risolvere il problema dei diversi comportamenti ho invece usato il pattern Strategy direttamente dentro la \textit{Factory} mediante il suo metodo privato \texttt{fromFunction()}.
 
-\subsection*{Magnani Leonardo David Matteo}
+\subsection*{Leonardo David Matteo Magnani}
 
 \subsubsection{Getione delle entità}
 
@@ -568,6 +568,22 @@ In autonomia mi sono occupato di:
 \item Gestione degli eventi (Event ed EventFactory in t2sgame.game.logics e metodi notifyEvent e handleEvent in World)
 \end{itemize}
 
+\subsection*{Luca Oskari Fiumanò}
+In autonomia mi sono occupato di:
+\begin{itemize}
+	\item GraphicComponent e rispettiva sezione in ComponentFactory (in t2sgame.game.ecs.impl)
+	\item HealthComponent (in t2sgame.game.ecs.impl)
+	\item Gestione dei PowerUp e rispettiva Factory (in t2sgame.game.model.impl)
+	\item Gestione delle Wave e rispettiva Factory (in t2sgame.game.model.impl)
+	\item Gestione della totalità della View (package t2sgame.view)
+    \item Gestione del launcher (in t2sgame.view.api e t2sgame)
+\end{itemize}
+In collaborazione mi sono occupato di:
+\begin{itemize}
+	\item EntityFactory insieme a Magnani Leonardo David Matteo (in t2sgame.game.model.impl)
+\end{itemize}
+
+
 \subsection*{Magnani Leonardo David Matteo}
 In autonomia mi sono occupato di:
 \begin{itemize}
@@ -609,7 +625,28 @@ Usate molto spesso in vari punti del progetto:
 	\item Permalink: \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/d1453f9e5f56d2cdfec21561311304a309e99ed9/src/main/java/it/unibo/t2sgame/input/impl/EntityStateImpl.java#L14}
 \end{itemize}
 
-\subsection*{Magnani Leonardo David Matteo}
+\subsection*{Luca Oskari Fiumanò}
+\subsubsection*{Utilizzo di Stream, lambda expression e method reference}
+Usate frequentemente
+\begin{itemize}
+    \item Permalink: \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/69dda3855df80a277137dc0033e6d9ae3a6d71a3/src/main/java/it/unibo/t2sgame/game/model/impl/WaveFactoryImpl.java#L96-L100}
+    \item Permalink: \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/9a90fd37a7e43a7f97ee824fb1158284e79280f7/src/main/java/it/unibo/t2sgame/view/impl/GameSceneJavaFXImpl.java#L115-L119}
+    \item Permalink: \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/69dda3855df80a277137dc0033e6d9ae3a6d71a3/src/main/java/it/unibo/t2sgame/game/model/impl/WaveFactoryImpl.java#L26-L29}
+    \item Permalink \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/69dda3855df80a277137dc0033e6d9ae3a6d71a3/src/main/java/it/unibo/t2sgame/T2S.java#L9}
+\end{itemize}
+
+\subsubsection*{Utilizzo JavaFX}
+Utilizzata per realizzare la parte di View
+\begin{itemize}
+    \item Permalink: \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/69dda3855df80a277137dc0033e6d9ae3a6d71a3/src/main/java/it/unibo/t2sgame/view/impl/GameSceneJavaFXImpl.java#L92-L95}
+\end{itemize}
+
+\subsubsection*{Creazione interfaccie funzionali}
+\begin{itemize}
+    \item Permalink: \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/69dda3855df80a277137dc0033e6d9ae3a6d71a3/src/main/java/it/unibo/t2sgame/game/model/api/PowerUp.java#L7-L14}
+\end{itemize}
+
+\subsection*{Leonardo David Matteo Magnani}
 \begin{itemize}
 	\item Utilizzo di stream, optional, method reference e metodo generico  \\
 	Permalink: \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/48fe160af0c4cdbfbf7fe791b784f6f4ad7b185e/src/main/java/it/unibo/t2sgame/game/ecs/impl/EntityImpl.java#L46-L51}
@@ -623,8 +660,12 @@ Usate molto spesso in vari punti del progetto:
 \subsection*{Nicolò D'Addabbo}
 Sono soddisfatto del nostro progetto, che è stato un ottimo esercizio di lavoro di gruppo. Abbiamo collaborato in maniera efficace grazie a una buona fase di analisi, che è stata fondamentale per individuare quali problemi risolvere e come affrontarli. Questo progetto mi ha permesso di sviluppare abilità che possono essere applicate a progetti futuri, come la gestione del codice in gruppo ed una buona organizzazione del lavoro.
 Ho lavorato alla parte Model e ho collaborato al Controller. Purtroppo non ho avuto la possibilità di approfondire JavaFX, che mi sarebbe interessato molto, poiché non ho avuto parti di View.
-
-\subsection*{Magnani Leonardo David Matteo}
+\subsection*{Luca Oskari Fiumanò}
+Mi ritengo abbastanza soddisfatto del lavoro svolto nel progetto nonostante numerose possibili aggiunte e migliorie effettuabili. 
+All’interno del gruppo svolgevo il compito di referente per la gestione della grafica, dei nemici e dei power up. 
+Ritengo che questo progetto rimarrà solamente un progetto didattico e di non portarlo avanti a meno di eventuali risvolti futuri. 
+Nonostante questo ritengo di aver imparato diverse competenze applicabili per un futuro lavorativo, quali l’utilizzo di DVCS (Git) e il lavoro di gruppo.
+\subsection*{Leonardo David Matteo Magnani}
 Sono soddisfatto del risultato finale considerando il tempo limitato a disposizione. 
 La buona analisi effettuata prima dello sviluppo ha permesso di creare una solida base per il progetto. 
 Nonostante alcune parti siano state riscritte durante la fase di sviluppo per migliorare il codice, l'architettura iniziale è rimasta intatta. 
