@@ -182,6 +182,63 @@ Il metodo \textit{update} dell’Input Component chiama il metodo \textit{execut
 Inoltre, grazie allo \textit{Strategy pattern}, è possibile sviluppare un'intelligenza artificiale in modo semplice. Un'AI, infatti, non è altro che un \textit{InputController} che genera diversi \textit{Command} in base a un determinato algoritmo.
 \\
 
+\subsection*{Fiumanò Luca Oskari}
+
+\subsubsection{Gestione delle Wave}
+
+\begin{figure}[H]
+\centering{}
+\includegraphics[width=\textwidth]{img/strategy}
+\caption{Rappresentazione UML del pattern Factory per la gestione delle Wave}
+\label{img:strategy}
+\end{figure}
+
+\paragraph{Problema} Esistono diversi tipi di Wave ognuna composta da nemici di vario tipo e numero.
+
+\paragraph{Soluzione} Inizialmente per risolvere questo problema volevo utilizzare il \textit{Prototype} pattern creando una singola istanze per ogni tipo di nemico (prototipi) che sarebbero state clonate quando ritenute necessarie, inizialmente l’implementazione mi sembrava appropriata per risolvere il problema, ma non avevo preso in considerazione un problema fondamentale del pattern, infatti il metodo clone() che applicava il pattern non creava mai una nuova istanza ma passava solamente un riferimento del prototipo su cui era stato chiamato; questo causava diversi problemi, usando questo pattern i nemici avrebbero avuto tutti un riferimento agli stessi componenti questo causava ad esempio la condivisione di danno ricevuto tra tutti i nemici che avevano clonato lo stesso prototipo.
+Ho capito quindi che sarebbe servito un pattern che creasse i diversi tipi di Wave formandole con istanze diverse di nemici; dopo un attenta ricerca la soluzione migliore mi è sembrata l’utilizzo di una \textit{Factory}. Così facendo mi sarei ritrovato nella condizione di poter creare un diverso tipo di wave con la sola chiamata di un metodo della \textit{Factory} senza incappare in errori di riferimenti comuni.
+
+\subsubsection{Gestione delle Window indipendentemente dall'architettura grafica scelta}
+
+\begin{figure}[H]
+\centering{}
+\includegraphics[width=\textwidth]{img/template}
+\caption{Rappresentazione UML dell'applicazione del pattern Template Method alla Window}
+\label{img:template}
+\end{figure}
+
+\paragraph{Problema} La gestione delle Window deve essere indipendente dall'architettura grafica scelta.
+
+\paragraph{Soluzione} Per risolvere il problema ho deciso di utilizzare una classe astratta AbstractWindow che implementa il \textit{template method pattern} per definire come verranno create le scene. I template method sono \texttt{createGameScene()}, \texttt{createMenuScene()} e \texttt{createGameOverScene()} che utilizzano il metodo astratto \texttt{getSceneFactory()} che sarà implementato concretamente in una classe che estende AbstractWindow.
+
+\subsubsection{Gestione delle diverse scene indipendentemente dall'architettura grafica scelta}
+
+\begin{figure}[H]
+\centering{}
+\includegraphics[width=\textwidth]{img/template}
+\caption{Rappresentazione UML dell'applicazione del pattern FactoryMethod alla Scene}
+\label{img:template}
+\end{figure}
+
+\paragraph{Problema} La gestione e creazione delle Scene deve essere indipendente dall'architettura grafica scelta.
+
+\paragraph{Soluzione} Per venire a capo del problema ho deciso di utilizzare il \textit{pattern Factory} per delegare la creazione delle diverse scene in maniera indipendente dall'architettura grafica scelta; infatti se si volesse utilizzare una determinata architettura si dovrebbe creare una \textit{Factory} concreta per essa.
+
+\subsubsection{Gestione di multipli PowerUp}
+
+\begin{figure}[H]
+\centering{}
+\includegraphics[width=.7\textwidth]{img/PowerUpUML}
+\caption{Rappresentazione UML dell'applicazione del pattern Factory e Strategy ai PowerUp}
+\label{img:observer}
+\end{figure}
+
+\paragraph{Problema} Il gioco deve implementare diversi tipi di PowerUp, ognuno che lavora su componenti diversi, che devono essere gestiti.
+
+\paragraph{Soluzione} Dato che il nostro gioco doveva avere la possibilità di creare diversi tipi di PowerUp ognuno con comportamenti diversi ho deciso di utilizzare il \textit{Factory pattern} per sostituire la costruzione diretta dei PowerUp con delle appropriate chiamate alla \textit{Factory}. L'utilizzo del \textit{Factory method pattern} si è portato dietro un altro vantaggio la possibilità di aggiungere facilmente nuovi PowerUp.
+Per risolvere il problema dei diversi comportamenti ho invece usato il pattern Strategy direttamente dentro la \textit{Factory} mediante il suo metodo privato \texttt{fromFunction()}.
+\subsubsection{Riuso del codice delle personalità}
+
 \begin{figure}[H]
 \centering{}
 \includegraphics[width=\textwidth]{img/template}
