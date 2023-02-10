@@ -35,6 +35,6 @@ public class BaseSceneLogicImpl {
      * @param window in which the game is going to be rendered
      */
     public void createMultiPlayer(final Window window) {
-        this.runScene(new GameFactoryImpl().createMultiPlayerGame(), window);
+        this.runScene(new GameFactoryImpl().createWithCompanion(), window);
     }
 }

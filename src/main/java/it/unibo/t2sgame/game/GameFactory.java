@@ -13,5 +13,5 @@ public interface GameFactory {
      * 
      * @return a new game based on MultiPlayer mode
      */
-    Game createMultiPlayerGame();
+    Game createWithCompanion();
 }

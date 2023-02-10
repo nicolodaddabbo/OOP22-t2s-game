@@ -45,7 +45,7 @@ class GameTest {
 
     @Test
     void testMultiPlayerWithCompanion() {
-        final var game = this.factory.createMultiPlayerGame();
+        final var game = this.factory.createWithCompanion();
         // Check if companion is present
         final var companion = game.getWorld().getEntities().stream()
                 .filter(e -> e.getType() == Type.COMPANION)

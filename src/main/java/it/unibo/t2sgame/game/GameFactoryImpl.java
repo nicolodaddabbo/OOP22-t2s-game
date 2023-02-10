@@ -24,7 +24,7 @@ public class GameFactoryImpl implements GameFactory {
      * {@inheritDoc}
      */
     @Override
-    public Game createMultiPlayerGame() {
+    public Game createWithCompanion() {
         return new T2SGame(new StateImpl(), this.worldFactory.createWorldWithPlayerAndCompanion());
     }
 }
