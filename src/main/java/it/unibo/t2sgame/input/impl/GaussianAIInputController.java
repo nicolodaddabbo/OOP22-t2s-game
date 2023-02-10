@@ -19,7 +19,7 @@ public class GaussianAIInputController extends AbstractChasingAIInputController 
     private static final double TWO_PI = 2 * Math.PI;
     // Factor used to adjust the scale of the normally distributed random variable
     private static final double SCALE_FACTOR = -2;
-    private long lastChoiceTime = 0;
+    private long lastChoiceTime;
     private final Type adversaryType;
 
     /**
