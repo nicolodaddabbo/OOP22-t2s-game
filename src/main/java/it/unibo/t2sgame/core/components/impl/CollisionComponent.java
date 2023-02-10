@@ -66,7 +66,7 @@ public abstract class CollisionComponent extends AbstractComponent {
      * @return the shape of the collision
      */
     public Shape getShape() {
-        return this.shape;
+        return this.shape.copy();
     }
 
     /**
