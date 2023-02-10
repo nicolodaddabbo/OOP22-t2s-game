@@ -22,15 +22,24 @@ import it.unibo.t2sgame.game.model.impl.EntityFactoryImpl;
 import it.unibo.t2sgame.game.model.impl.WorldFactoryImpl;
 import it.unibo.t2sgame.input.api.Directions;
 
+/**
+ * Class that contains event related tests
+ */
 public class EventTest {
-    WorldFactory worldFactory = new WorldFactoryImpl();
-    World world = worldFactory.createWorldWithOnePlayer();
-    EventFactory eventFactory = new EventFactoryImpl();
-    EntityFactory entityFactory = new EntityFactoryImpl();
-    Entity player;
-    Entity enemy = new EntityImpl(new Vector2D(0, 0), Type.ENEMY);
-    PowerUpFactory powerUpFactory = new PowerUpFactoryImpl();
+    private static final double PROJECTILE_SPEED = 0.5;
+    private static final double PROJECTILE_SIZE = 0.5;
+    private static final int PROJECTILE_DAMAGE = 1;
+    private final WorldFactory worldFactory = new WorldFactoryImpl();
+    private final World world = worldFactory.createWorldWithOnePlayer();
+    private final EventFactory eventFactory = new EventFactoryImpl();
+    private final EntityFactory entityFactory = new EntityFactoryImpl();
+    private final Entity player;
+    private final Entity enemy = new EntityImpl(new Vector2D(0, 0), Type.ENEMY);
+    private final PowerUpFactory powerUpFactory = new PowerUpFactoryImpl();
 
+    /**
+     * Initialize the player entity
+     */
     public EventTest() {
         this.player = this.entityFactory.createPlayer(new Vector2D(0, 0));
         this.player.setWorld(this.world);
@@ -40,12 +49,15 @@ public class EventTest {
 
     @Test
     void onShootEventTest() {
-        var projectile = this.entityFactory.createProjectile(this.player.getPosition(), 0.5, 1, 0.5, Directions.DOWN);
+        final var projectile = this.entityFactory.createProjectile(this.player.getPosition(), PROJECTILE_SPEED,
+                PROJECTILE_DAMAGE, PROJECTILE_SIZE, Directions.DOWN);
         this.world.notifyEvent(this.eventFactory.onShootEvent(projectile));
         // The projectile should NOT exist after the notification of its shooting
         this.world.handleEvents();
-        // The world run the onShoot event that creates the projectile when the handleEvents method get called
-        assertTrue(this.world.getEntities().stream().filter(e -> e.getType() == Type.PROJECTILE).findFirst().isPresent());
+        // The world run the onShoot event that creates the projectile when the
+        // handleEvents method get called
+        assertTrue(
+                this.world.getEntities().stream().filter(e -> e.getType() == Type.PROJECTILE).findFirst().isPresent());
     }
 
     @Test
@@ -53,19 +65,22 @@ public class EventTest {
         this.world.notifyEvent(this.eventFactory.onDeathEvent(enemy));
         // The enemy should still exist after the notification of his death
         assertTrue(this.world.getEntities().stream().filter(e -> e.getType() == Type.ENEMY).findFirst().isPresent());
-        // The world runs the onDeath event that removes the death entities when the handleEvents method get called
+        // The world runs the onDeath event that removes the death entities when the
+        // handleEvents method get called
         this.world.handleEvents();
         assertFalse(this.world.getEntities().stream().filter(e -> e.getType() == Type.ENEMY).findFirst().isPresent());
     }
 
     @Test
     void onPowerUpEventTest() {
-        var playerShootComponent = this.player.getComponent(ShootComponent.class).get();
-        var initialDamage = playerShootComponent.getProjectileDamage();
+        final var playerShootComponent = this.player.getComponent(ShootComponent.class).get();
+        final var initialDamage = playerShootComponent.getProjectileDamage();
         this.world.notifyEvent(this.eventFactory.onPowerUpEvent(this.powerUpFactory.generateDamageBoostPowerUp()));
-        // The player projectile damage should be the same after the notification of the power up
+        // The player projectile damage should be the same after the notification of the
+        // power up
         assertEquals(initialDamage, playerShootComponent.getProjectileDamage());
-        // The world runs the onPowerUp event that gives the power up to the player when the handleEvents method get called
+        // The world runs the onPowerUp event that gives the power up to the player when
+        // the handleEvents method get called
         this.world.handleEvents();
         assertTrue(playerShootComponent.getProjectileDamage() > initialDamage);
     }
