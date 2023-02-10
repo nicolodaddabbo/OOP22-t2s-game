@@ -25,3 +25,4 @@ class KeyboardInputController {
     +notifyKeyPressed(int): void
     +notifyKeyReleased(int): void
 }
+```
