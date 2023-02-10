@@ -66,6 +66,14 @@ public class EntityImpl implements Entity {
      * {@inheritDoc}
      */
     @Override
+    public <T extends Component, S> void notifyComponent(final Class<T> receiver, final Message<S> message) {
+        this.getComponent(receiver).ifPresent(c -> c.receive(message));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Vector2D getPosition() {
         return this.position;
     }
@@ -102,11 +110,4 @@ public class EntityImpl implements Entity {
         this.world = Optional.of(world);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public <T extends Component, S> void notifyComponent(final Class<T> receiver, final Message<S> message) {
-        this.getComponent(receiver).ifPresent(c -> c.receive(message));
-    }
 }
