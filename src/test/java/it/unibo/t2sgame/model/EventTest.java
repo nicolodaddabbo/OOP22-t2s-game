@@ -25,7 +25,7 @@ import it.unibo.t2sgame.input.api.Directions;
 /**
  * Class that contains event related tests.
  */
-public class EventTest {
+class EventTest {
     private static final double PROJECTILE_SPEED = 0.5;
     private static final double PROJECTILE_SIZE = 0.5;
     private static final int PROJECTILE_DAMAGE = 1;
@@ -37,9 +37,6 @@ public class EventTest {
     private final Entity enemy = new EntityImpl(new Vector2D(0, 0), Type.ENEMY);
     private final PowerUpFactory powerUpFactory = new PowerUpFactoryImpl();
 
-    /**
-     * Initialize the player entity.
-     */
     public EventTest() {
         this.player = this.entityFactory.createPlayer(new Vector2D(0, 0));
         this.player.setWorld(this.world);

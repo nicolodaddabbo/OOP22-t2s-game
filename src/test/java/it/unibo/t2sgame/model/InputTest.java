@@ -27,25 +27,21 @@ import it.unibo.t2sgame.input.impl.Shoot;
 /**
  * Class that contains input related tests.
  */
-public class InputTest {
+class InputTest {
     private static final int MOVE_UP_CODE = 38;
     private static final int SHOOT_UP_CODE = 87;
     private final ComponentFactory componentFactory = new ComponentFactoryImpl();
     private final EntityFactory entityFactory = new EntityFactoryImpl();
     private final WorldFactory worldFactory = new WorldFactoryImpl();
-    private final World world;
     private final Entity player;
     private final Entity enemy;
-
-    /**
-     * Initialize the world, player and enemy fields.
-     */
+    
     public InputTest() {
-        this.world = this.worldFactory.createWorldWithOnePlayer();
-        this.player = this.world.getPlayers().get(0);
+        final World world = this.worldFactory.createWorldWithOnePlayer();
+        this.player = world.getPlayers().get(0);
         this.enemy = this.entityFactory.createBaseEnemy(new Vector2D(0, 0));
-        this.world.addEntity(this.enemy);
-        this.world.addEntity(this.player);
+        world.addEntity(this.enemy);
+        world.addEntity(this.player);
     }
 
     @Test
