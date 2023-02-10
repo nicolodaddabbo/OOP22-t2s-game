@@ -7,7 +7,7 @@ class Vector2DTest {
 
     @Test
     void testSum() {
-        Vector2D vector = new Vector2D(1, 1);
+        final Vector2D vector = new Vector2D(1, 1);
         final double xToSum = 1.3;
         final double yToSum = -0.3;
         assertEquals(new Vector2D(vector.getX() + xToSum, vector.getY() + yToSum), vector.sum(xToSum, yToSum));
