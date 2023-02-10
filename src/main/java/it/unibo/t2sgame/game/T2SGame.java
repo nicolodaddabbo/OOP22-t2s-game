@@ -3,6 +3,7 @@ package it.unibo.t2sgame.game;
 import it.unibo.t2sgame.game.logics.api.State;
 import it.unibo.t2sgame.game.model.api.World;
 import it.unibo.t2sgame.game.model.impl.WaveFactoryImpl;
+import it.unibo.t2sgame.game.model.impl.WorldImpl;
 
 /**
  * This class represents a T2S Game.
@@ -27,7 +28,7 @@ public class T2SGame implements Game {
      */
     public T2SGame(final State state, final World world) {
         this.state = state;
-        this.world = world;
+        this.world = new WorldImpl(world);
     }
 
     /**
@@ -43,7 +44,7 @@ public class T2SGame implements Game {
      */
     @Override
     public World getWorld() {
-        return this.world;
+        return new WorldImpl(world);
     }
 
     /**

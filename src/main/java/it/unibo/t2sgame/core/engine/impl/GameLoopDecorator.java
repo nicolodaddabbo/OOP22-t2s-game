@@ -1,13 +1,12 @@
-package it.unibo.t2sgame.core.gameloop.impl;
+package it.unibo.t2sgame.core.engine.impl;
 
 import it.unibo.t2sgame.core.engine.api.GameEngine;
-import it.unibo.t2sgame.core.gameloop.api.GameLoop;
 
 /**
  * This abstract class is usefull for Decorator pattern's implementation.
  * Extending this class allows creating a new decoration for the game loop.
  */
-public abstract class GameLoopDecorator implements GameLoop {
+abstract class GameLoopDecorator implements GameLoop {
 
     /*
      * The base GameLoop which will be decorated

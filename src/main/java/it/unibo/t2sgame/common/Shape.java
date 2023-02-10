@@ -44,4 +44,11 @@ public interface Shape {
      */
     boolean isColliding(Rectangle rectangle);
 
+    /**
+     * This method is used to create a defency copy of the shape.
+     * 
+     * @return a defency copy of the shape.
+     */
+    Shape copy();
+
 }

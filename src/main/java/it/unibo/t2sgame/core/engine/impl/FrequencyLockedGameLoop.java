@@ -1,7 +1,6 @@
-package it.unibo.t2sgame.core.gameloop.impl;
+package it.unibo.t2sgame.core.engine.impl;
 
 import it.unibo.t2sgame.common.StopWatch;
-import it.unibo.t2sgame.core.gameloop.api.GameLoop;
 
 /**
  * This Gameloop's decoration adds a frequency lock to {@link decorated}
@@ -14,7 +13,7 @@ import it.unibo.t2sgame.core.gameloop.api.GameLoop;
  * cycle,
  * even the frame rate will be locked.
  */
-public class FrequencyLockedGameLoop extends GameLoopDecorator {
+class FrequencyLockedGameLoop extends GameLoopDecorator {
 
     private static final double NANO_TO_MILLIS = 1E6;
 
@@ -32,7 +31,7 @@ public class FrequencyLockedGameLoop extends GameLoopDecorator {
      * 
      * @param decorated the base game loop to decorate
      */
-    public FrequencyLockedGameLoop(final GameLoop decorated) {
+    FrequencyLockedGameLoop(final GameLoop decorated) {
         super(decorated);
     }
 

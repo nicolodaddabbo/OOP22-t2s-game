@@ -1,7 +1,6 @@
-package it.unibo.t2sgame.core.gameloop.impl;
+package it.unibo.t2sgame.core.engine.impl;
 
 import it.unibo.t2sgame.common.StopWatch;
-import it.unibo.t2sgame.core.gameloop.api.GameLoop;
 
 /**
  * This decoration class adds a synchronization stuff to {@link decorated}
@@ -18,7 +17,7 @@ import it.unibo.t2sgame.core.gameloop.api.GameLoop;
  * independing from the amount of frames rendered.
  * This synchronization allows better collision and physics precision.
  */
-public class SynchronizedGameLoop extends GameLoopDecorator {
+class SynchronizedGameLoop extends GameLoopDecorator {
     /*
      * Indicates the "granularity" used to update the game.
      * This granularity is express in nano seconds.
@@ -38,7 +37,7 @@ public class SynchronizedGameLoop extends GameLoopDecorator {
      * 
      * @param decorated the base game loop to decorate
      */
-    public SynchronizedGameLoop(final GameLoop decorated) {
+    SynchronizedGameLoop(final GameLoop decorated) {
         super(decorated);
     }
 

@@ -3,6 +3,7 @@ package it.unibo.t2sgame.view.api;
 import java.util.Collections;
 import java.util.List;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
+import it.unibo.t2sgame.core.engine.impl.GameEngineImpl;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 /**
  * abstract class that represents a GameScene and implements all the common implementation of a GameScene.
@@ -23,7 +24,7 @@ public abstract class AbstractGameScene extends AbstractBaseScene implements Gam
      */
     @Override
     public void setEngine(final GameEngine gameEngine) {
-        this.gameEngine = gameEngine;
+        this.gameEngine = new GameEngineImpl(gameEngine);
     }
     /**
      * {@inheritDoc}
@@ -44,7 +45,7 @@ public abstract class AbstractGameScene extends AbstractBaseScene implements Gam
      * @return the game engine
      */
     public GameEngine getGameEngine() {
-        return gameEngine;
+        return new GameEngineImpl(gameEngine);
     }
     /**
      * getter of the list of KeyboardInputController.

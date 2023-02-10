@@ -1,7 +1,6 @@
-package it.unibo.t2sgame.core.gameloop.impl;
+package it.unibo.t2sgame.core.engine.impl;
 
 import it.unibo.t2sgame.common.StopWatch;
-import it.unibo.t2sgame.core.gameloop.api.GameLoop;
 
 /**
  * This GameLoop's decoration allows to show the frequency (Hz) of
@@ -11,7 +10,7 @@ import it.unibo.t2sgame.core.gameloop.api.GameLoop;
  * is processed once per cycle, this decoration allows to show the frame rate of
  * the game.
  */
-public class FrequencyCounterGameLoop extends GameLoopDecorator {
+class FrequencyCounterGameLoop extends GameLoopDecorator {
 
     private static final long NS_UPDATE_FPS_COUNT = (long) (1000 * 1E6);
 
@@ -25,7 +24,7 @@ public class FrequencyCounterGameLoop extends GameLoopDecorator {
      * 
      * @param decorated the base game loop to decorate
      */
-    public FrequencyCounterGameLoop(final GameLoop decorated) {
+    FrequencyCounterGameLoop(final GameLoop decorated) {
         super(decorated);
     }
 

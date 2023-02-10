@@ -88,4 +88,12 @@ public class Circle implements Shape {
                 Math.min(circleCenterAxis, rectangleCenterAxis + rectangleSide / 2));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Shape copy() {
+        return new Circle(this.center, this.radius);
+    }
+
 }

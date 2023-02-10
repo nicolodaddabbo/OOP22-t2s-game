@@ -1,5 +1,6 @@
 package it.unibo.t2sgame.input.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class EntityStateImpl<I> implements EntityState<I> {
      * @param moveset Map that associate to every input a command
      */
     public EntityStateImpl(final Map<I, Command> moveset) {
-        this.moveset = moveset;
+        this.moveset = new HashMap<>(moveset);
         this.currentCommand = Optional.empty();
     }
 

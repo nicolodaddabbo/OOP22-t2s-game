@@ -1,4 +1,4 @@
-package it.unibo.t2sgame.core.gameloop.impl;
+package it.unibo.t2sgame.core.engine.impl;
 
 import java.util.function.Consumer;
 
@@ -7,7 +7,6 @@ import it.unibo.t2sgame.core.components.impl.CollisionComponent;
 import it.unibo.t2sgame.core.components.impl.InputComponent;
 import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
-import it.unibo.t2sgame.core.gameloop.api.GameLoop;
 import it.unibo.t2sgame.view.api.GameScene;
 
 /**
@@ -17,7 +16,7 @@ import it.unibo.t2sgame.view.api.GameScene;
  * The type of updater Consumer depends on the real implementation of the
  * BaseGameLoop.
  */
-public abstract class BaseGameLoop implements GameLoop {
+abstract class BaseGameLoop implements GameLoop {
 
     private final GameEngine engine;
 

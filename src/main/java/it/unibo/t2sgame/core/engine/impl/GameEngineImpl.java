@@ -8,7 +8,6 @@ import it.unibo.t2sgame.core.components.api.Component;
 import it.unibo.t2sgame.core.components.impl.GraphicComponent;
 import it.unibo.t2sgame.core.components.impl.InputComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
-import it.unibo.t2sgame.core.gameloop.impl.RunnableGameLoop;
 import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.view.api.GameScene;
@@ -45,12 +44,24 @@ public class GameEngineImpl implements GameEngine {
     /**
      * Create a GameEngine's istance based {@link game} hosted.
      * 
-     * @param game the game hosted by the engine
+     * @param game the game hosted by the engine.
      */
     public GameEngineImpl(final Game game) {
         this.view = Optional.empty();
         this.game = game;
     }
+
+     /**
+     * Create a GameEngine's copy.
+     * 
+     * @param engine the engine to copy.
+     */
+    public GameEngineImpl(final GameEngine engine) {
+        this.view = engine.getScene();
+        this.game = engine.getGame();
+    }
+
+
 
     /**
      * {@inheritDoc}

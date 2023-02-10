@@ -1,4 +1,4 @@
-package it.unibo.t2sgame.core.gameloop.impl;
+package it.unibo.t2sgame.core.engine.impl;
 
 import java.util.function.Consumer;
 
@@ -13,13 +13,13 @@ import it.unibo.t2sgame.core.engine.api.GameEngine;
  * It's preferable to use this GameLoop in order to achieve better
  * performances.
  */
-public class ConcurrentGameLoop extends BaseGameLoop {
+class ConcurrentGameLoop extends BaseGameLoop {
 
     /**
      * 
      * @param engine the engine where the game loop operates
      */
-    public ConcurrentGameLoop(final GameEngine engine) {
+    ConcurrentGameLoop(final GameEngine engine) {
         super(engine);
     }
 
