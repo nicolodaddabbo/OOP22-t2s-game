@@ -23,7 +23,7 @@ import it.unibo.t2sgame.game.model.impl.WorldFactoryImpl;
 import it.unibo.t2sgame.input.api.Directions;
 
 /**
- * Class that contains event related tests
+ * Class that contains event related tests.
  */
 public class EventTest {
     private static final double PROJECTILE_SPEED = 0.5;
@@ -38,7 +38,7 @@ public class EventTest {
     private final PowerUpFactory powerUpFactory = new PowerUpFactoryImpl();
 
     /**
-     * Initialize the player entity
+     * Initialize the player entity.
      */
     public EventTest() {
         this.player = this.entityFactory.createPlayer(new Vector2D(0, 0));
