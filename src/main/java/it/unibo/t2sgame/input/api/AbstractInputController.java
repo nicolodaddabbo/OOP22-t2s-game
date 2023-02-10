@@ -24,7 +24,7 @@ public abstract class AbstractInputController implements InputController {
      */
     @Override
     public Queue<Command> getCommandsQueue() {
-        var defensiveQueue = new ConcurrentLinkedQueue<>(this.commandsQueue);
+        final var defensiveQueue = new ConcurrentLinkedQueue<>(this.commandsQueue);
         this.commandsQueue.clear();
         return defensiveQueue;
     }
