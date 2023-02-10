@@ -399,8 +399,8 @@ L'utilizzare la ereditarietà comporterebbe la creazione di molte sottoclassi co
 Inoltre utilizzare l'ereditarietà multipla potrebbe portare numerosi problemi, come Deadly Diamond.
 
 \paragraph{Soluzione} Il \textit{Component pattern} permette di creare dei componenti altamente riusabili e indipendenti.
-Utilizzando il \textit{Component pattern}, quindi favorendo la composizione rispetto alla ereditarietà, si riesce a scaltare
-molto velocementerent sul numero di entità.
+Utilizzando il \textit{Component pattern}, quindi favorendo la composizione rispetto alla ereditarietà, si riesce a scalare
+molto velocemente sul numero di entità.
 Per descrivere il comportamento generale dell'entità li si vengono assegnati i componenti desiderati.
 Dividendo il dominio e assegnando un dominio specifico ad un specifico componente viene rispettato il \textit{Single Responsability Principle}.
 Questo comporta un migliore manutenibilità dovuta all'assenza di ripetizione di codice.\\
@@ -462,46 +462,6 @@ fisica e collisione, oppure un’entità che abbia solo una collisione (come il 
 abstracation per la creazione delle entità e nasconde la loro logica di implementazione. Tramite questo pattern, un codice chiamante può 
 passare dei parametri specifici e ricevere un'istanza di un'entità pre-configurata. Questo significa che non è necessario scrivere il codice 
 di creazione di un'entità in più posti, ma basta creare una factory una volta e passare i parametri a seconda dei casi d'uso.
-
-\subsubsection{Riuso del codice delle personalità}
-
-\begin{figure}[H]
-\centering{}
-\includegraphics[width=\textwidth]{img/template}
-\caption{Rappresentazione UML dell'applicazione del pattern Template Method alla gerarchia delle Personalità}
-\label{img:template}
-\end{figure}
-
-\paragraph{Problema} In fase di sviluppo, sono state sviluppate due personalità, una buona ed una cattiva.
-Quella buona restituisce sempre una torta vera, mentre quella cattiva restituisce sempre la
-promessa di una torta che verrà in realtà disattesa.
-Ci si è accorti che diverse personalità condividevano molto del comportamento,
-portando a classi molto simili e a duplicazione.
-
-\paragraph{Soluzione} Dato che le due personalità differiscono solo per il comportamento da effettuarsi in caso di percorso completato con successo,
-è stato utilizzato il \textit{pattern template method} per massimizzare il riuso, come da \Cref{img:template}.
-Il metodo template è \texttt{onSuccess()}, che chiama un metodo astratto e protetto
-\texttt{makeCake()}.
-
-\subsubsection{Gestione di output multipli}
-
-\begin{figure}[H]
-\centering{}
-\includegraphics[width=.7\textwidth]{img/observer}
-\caption{Il pattern Observer è usato per consentire a GLaDOS di informare tutti i sistemi di output in ascolto}
-\label{img:observer}
-\end{figure}
-
-\paragraph{Problema} Il sistema deve supportare output multipli. In particolare, si richiede che vi sia un logger che stampa a terminale o su file,
-e un'interfaccia grafica che mostri una rappresentazione grafica del sistema.
-
-\paragraph{Soluzione} Dato che i due sistemi di reporting utilizzano le medesime informazioni, si è deciso di raggrupparli dietro l'interfaccia \texttt{Output}.
-A questo punto, le due possibilità erano quelle di far sì che \texttt{GLaDOS} potesse pilotarle entrambe.
-Invece di fare un sistema in cui questi output sono obbligatori e connessi, si è deciso di usare maggior flessibilità (anche in vista di future estensioni)
-e di adottare una comunicazione uno-a-molti fra \texttt{GLaDOS} ed i sistemi di output.
-La scelta è quindi ricaduta sul \textit{pattern Observer}: \texttt{GLaDOS} è observable, e le istanze di \texttt{Output} sono observer.
-%
-Il suo utilizzo è esemplificato in \Cref{img:observer}
 
 \chapter{Sviluppo}
 \section{Testing automatizzato}

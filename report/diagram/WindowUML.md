@@ -1,6 +1,6 @@
 ```mermaid
 classDiagram
-AbstractWindow <|-- Window
+AbstractWindow --|> Window
 Window o-- BaseScene
 Window --> SceneFactory
 

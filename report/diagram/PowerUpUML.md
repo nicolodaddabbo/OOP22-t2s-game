@@ -1,7 +1,7 @@
 ```mermaid
 classDiagram
 
-PowerUp <|-- PowerUpFactory 
+PowerUp <-- PowerUpFactory 
 
 class PowerUp {
     <<interface>>

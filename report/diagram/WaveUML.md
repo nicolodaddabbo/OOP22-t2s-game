@@ -1,6 +1,6 @@
 ```mermaid
 classDiagram
-Wave <|-- WaveFactory 
+Wave <-- WaveFactory 
 
 class Wave {
     <<interface>>
