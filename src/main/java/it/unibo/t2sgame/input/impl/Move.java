@@ -52,11 +52,7 @@ public class Move implements Command {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Move other = (Move) obj;
-        if (direction != other.direction) {
-            return false;
-        }
-        return true;
+        return direction == ((Move) obj).direction;
     }
 
 }
