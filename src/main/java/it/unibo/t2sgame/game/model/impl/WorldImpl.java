@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -21,24 +22,45 @@ import it.unibo.t2sgame.game.model.api.World;
  * This implementationt allows handling differents players.
  */
 public class WorldImpl implements World {
+
     /*
      * The lisf of entities in the world.
      * The implementation of the List is thread safe, allowing add / remove entities
      * during components update without problems.
      */
-    private final List<Entity> entities = new CopyOnWriteArrayList<>();
+    private List<Entity> entities;
     /*
      * An Optional containing the current wave if present
      */
-    private Optional<Wave> currentWave = Optional.empty();
+    private Optional<Wave> currentWave;
     /*
-     * 
+     * Represents an event queue to be emptied every frame
      */
-    private final ConcurrentLinkedQueue<Event> eventQueue = new ConcurrentLinkedQueue<>();
+    private final Queue<Event> eventQueue;
     /*
      * The "logic" game map of the world
      */
     private final GameMap gameMap = new GameMapImpl(1200, 800);
+
+    /**
+     * Create a new World basic implementation.
+     */
+    public WorldImpl() {
+        this.entities = new CopyOnWriteArrayList<>();
+        this.currentWave = Optional.empty();
+        this.eventQueue = new ConcurrentLinkedQueue<>();
+    }
+
+    /**
+     * Create a defency copy of {@link world}.
+     * 
+     * @param world the world to copy.
+     */
+    public WorldImpl(final World world) {
+        this.copyEntity(world);
+        this.currentWave = world.getCurrentWave();
+        this.eventQueue = ((WorldImpl) world).getEventQueue();
+    }
 
     /**
      * {@inheritDoc}
@@ -133,6 +155,15 @@ public class WorldImpl implements World {
     @Override
     public GameMap getMap() {
         return this.gameMap;
+    }
+
+    private Queue<Event> getEventQueue() {
+        return this.eventQueue;
+    }
+
+    private void copyEntity(final World world) {
+        this.entities = world.getEntities();
+        this.entities.forEach(e -> e.setWorld(this));
     }
 
 }
