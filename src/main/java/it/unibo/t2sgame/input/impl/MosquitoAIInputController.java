@@ -12,7 +12,7 @@ import it.unibo.t2sgame.input.api.Directions;
 public class MosquitoAIInputController extends AbstractChasingAIInputController {
     private final Random random = new Random();
     private static final long TIME_TO_NEXT_DECISION = 500;
-    private long lastChoiceTime = 0;
+    private long lastChoiceTime;
 
     /**
      * {@inheritDoc}
