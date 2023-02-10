@@ -35,6 +35,16 @@ public interface Entity {
     Entity addComponent(Component component);
 
     /**
+     * This method is used to notify the components of the entity.
+     * 
+     * @param <T>      T is the type of the receiver
+     * @param <S>      S is the type of the message
+     * @param receiver the component class that will receive the message
+     * @param message  the message to send
+     */
+    <T extends Component, S> void notifyComponent(Class<T> receiver, Message<S> message);
+
+    /**
      * 
      * @return the entity position
      */
@@ -64,14 +74,4 @@ public interface Entity {
      * @param world the world where the entity is placed
      */
     void setWorld(World world);
-
-    /**
-     * This method is used to notify the components of the entity.
-     * 
-     * @param <T>      T is the type of the receiver
-     * @param <S>      S is the type of the message
-     * @param receiver the component class that will receive the message
-     * @param message  the message to send
-     */
-    <T extends Component, S> void notifyComponent(Class<T> receiver, Message<S> message);
 }

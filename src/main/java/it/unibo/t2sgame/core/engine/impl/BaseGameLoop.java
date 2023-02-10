@@ -11,7 +11,8 @@ import it.unibo.t2sgame.view.api.GameScene;
 
 /**
  * This abstract class models the base of every game loop.
- * Based on its "updater" Consumer, the game loop updates a group of components of
+ * Based on its "updater" Consumer, the game loop updates a group of components
+ * of
  * the same type.
  * The type of updater Consumer depends on the real implementation of the
  * BaseGameLoop.
@@ -67,6 +68,6 @@ abstract class BaseGameLoop implements GameLoop {
      * @return the component updater whichs is delegated to update a group of
      *         component of the same type.
      */
-    abstract protected Consumer<Class<? extends Component>> getUpdater();
+    protected abstract Consumer<Class<? extends Component>> getUpdater();
 
 }

@@ -160,6 +160,79 @@ si dovranno sostituire le implementazioni di JavaFx delle interfacce Graphics e 
 \end{figure}
 
 \section{Design dettagliato}
+%
+\subsection*{Cecchini Andrea}
+%
+\subsubsection*{Separare il dominio del GameLoop da quello dell GameEngine}
+%
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[scale=0.75]{img/GameEngineAndGameLoop.pdf}
+	\caption{Rappresentazione UML del pattern Strategy per separare il dominio della classe GameLoop da quello del GameEngine.}
+	\label{img:strategy}
+	\end{figure}
+%
+\paragraph*{Problema} Disacoppiare la logica della classe \textbf{GameLoop} dal logica della classe \textbf{GameEngine}, al fine di garantire il \textbf{Single Responsability Principle}.
+%
+\paragraph*{Soluzione} La classe GameEngine utilizza il pattern \textbf{Strategy} al fine di delegare alla classe \textbf{RunnableGameLoop} la gestione del dominio del GameLoop. 
+Quindi, alla classe GameEngine avrà la responsabilità di gestire solamente ciò che le compete, delegando il resto.
+%
+\subsubsection*{Decorazione della classe GameLoop}
+%
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[scale=0.75]{img/GameLoopDecorator.pdf}
+	\caption{Rappresentazione UML del pattern Strategy per l'Input Component}
+	\label{img:strategy}
+	\end{figure}
+%	
+\paragraph*{Problema} La classe \textbf{GameLoop} risulta essere prona alla confusione e alla non manutibilità.
+Questo è dovuto alla natura stessa del GameLoop, nel quale al suo interno si sviluppano diversi domini e logiche quali:
+\begin{itemize}
+	\item Processione dell'input.
+	\item Aggiornamento dello stato di gioco
+	\item Gestione della renderizzazione.
+\end{itemize}
+Inoltre, ognuno di questi domini potrebbe raccogliere delle particolarità che possono differire dalla implementazione basica contenuta in \textbf{BaseGameLoop}.
+Aggiungere nuove feature risulta quindi essere un lavoro poco gradevole e prono alla aggiunti di possibili errori.
+%
+\paragraph*{Soluzione} Utilizzare il pattern \textbf{Decorator}, nel quale il BaseGameLoop viene decorato con delle possibili implementazioni di decorazione, permette di risolvere tutti i problemi sopra presentati:
+\\
+In particolare il codice non risulta piu' essere accumulato in un punto specifico della classe BaseGameLoop e 
+l'aggiunta di nuove feature, riguardante i domini sopra citati, risulta essere estremamente facile, difatti basta aggiungere una nuova decorazione al game loop già sviluppato.
+\\
+Il codice risulta essere estremamente manutenibile, questo dovuto alla separazione di codice che il pattern Decorator offre.
+%
+\subsubsection*{Implementare diversi tipi di basi per il game loop}
+%
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[scale=0.75]{img/TemplateMethodOnBaseGameLoop.pdf}
+	\caption{Rappresentazione UML del pattern Template Method per la creazione di GameLoops Base}
+	\label{img:strategy}
+	\end{figure}
+%
+\paragraph*{Problema} Esistono due versioni di BaseGameLoop, una nel quale i componenti vengono aggiornati parallelamente e un'altra sequenzialmente.
+Ci si è accorti che le due implementazioni condividevano gran parte del codice, avendo quindi una ripetizione.
+%
+\paragraph*{Soluzione} Essendo che le due implementazioni differiscono solo per il tipo di updater, è stato utilizzato il \textbf{Template Method} al fine di massimizzare il riuso.
+I metodi template sono \texttt{processInput()}, \texttt{updateGame()}, \texttt{render()}, che chiamano un metodo astratto e protetto \texttt{getUpdater()}. 
+%
+\subsubsection*{Gestione delle collisioni fra figure di forma diverse}
+%
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[scale=0.75]{img/VisitorPattern.pdf}
+	\caption{Rappresentazione UML del pattern Visitor Pattern per la gestione delle collisioni con figure di forma diversa.}
+	\label{img:strategy}
+	\end{figure}
+%
+\paragraph*{Problema} L'istanza della classe \textbf{Shape} ha bisogno di sapere l'implementazione della figura della quale sta verificando la possibili collisione, al fine di addattare i propri calcoli verificare se vi è stata o meno la collisione con quella figura. 
+%
+\paragraph*{Soluzione} La soluzione scelta rispetta l'implementazione del pattern \textbf{Visitor}.
+Tale implementazione suggerisce di delegare alla Shape \textbf{s} il controllo della collisione con la Shape \textbf{this}.
+Questa soluzione permette rende possibile aggiunta di nuove figure in modo facile, senza dover creare un costrutto switch o if-else al fine di controllare la reale implementazione della shape s.
+%%
 
 \subsection*{Nicolò D'Addabbo}
 
@@ -326,6 +399,87 @@ Ho capito quindi che sarebbe servito un pattern che creasse i diversi tipi di Wa
 
 \paragraph{Soluzione} Dato che il nostro gioco doveva avere la possibilità di creare diversi tipi di PowerUp ognuno con comportamenti diversi ho deciso di utilizzare il \textit{Factory pattern} per sostituire la costruzione diretta dei PowerUp con delle appropriate chiamate alla \textit{Factory}. L'utilizzo del \textit{Factory method pattern} si è portato dietro un altro vantaggio la possibilità di aggiungere facilmente nuovi PowerUp.
 Per risolvere il problema dei diversi comportamenti ho invece usato il pattern Strategy direttamente dentro la \textit{Factory} mediante il suo metodo privato \texttt{fromFunction()}.
+
+\subsection*{Magnani Leonardo David Matteo}
+
+\subsubsection{Getione delle entità}
+
+\begin{figure}[H]
+\centering{}
+\includegraphics[width=.3\textwidth]{img/EntityComponentUML}
+\caption{Rappresentazione UML dell'applicazione del Component Pattern alla enttità}
+\end{figure}
+
+\paragraph{Problema} La classe \texttt{Entity} copre più domini rompendo il \textit{Single Responsability Principle}.
+Inoltre l'interfaccia \texttt{Entity} potrebbe avere numerose implementazioni in base al comportamento che li si vuole dare.
+L'utilizzare la ereditarietà comporterebbe la creazione di molte sottoclassi con la conseguenza di ripetizione di codice.
+Inoltre utilizzare l'ereditarietà multipla potrebbe portare numerosi problemi, come Deadly Diamond.
+
+\paragraph{Soluzione} Il \textit{Component pattern} permette di creare dei componenti altamente riusabili e indipendenti.
+Utilizzando il \textit{Component pattern}, quindi favorendo la composizione rispetto alla ereditarietà, si riesce a scaltare
+molto velocementerent sul numero di entità.
+Per descrivere il comportamento generale dell'entità li si vengono assegnati i componenti desiderati.
+Dividendo il dominio e assegnando un dominio specifico ad un specifico componente viene rispettato il \textit{Single Responsability Principle}.
+Questo comporta un migliore manutenibilità dovuta all'assenza di ripetizione di codice.\\
+NOTA: La progettazione alla soluzione del problema è stata fatta in collaborazione con Cecchini Andrea.
+
+\subsubsection{Comunicazione tra le componenti dell'entità}
+
+\begin{figure}[H]
+\centering{}
+\includegraphics[width=\textwidth]{img/ComponentCommunicationUML}
+\caption{Rappresentazione UML dell'applicazione del Mediator pattern per la comunicazione tra le componenti}
+\end{figure}
+
+\paragraph{Problema} I componenti hanno bisogno di comunicare tra di loro. Nel progetto:
+\begin{itemize}
+	\item InputComponent deve notificare il movimento da effettuare al PhysicsComponent.
+	\item PhysicsComponent deve notificare il CollisionComponent della nuova posizione dopo il movimento.
+	\item CollisionComponent deve notificare HealthComponent per indicare il danno ricevuto dalla collisione.
+\end{itemize}
+\paragraph{Soluzione} Il \textit{Mediator Pattern} è un modo efficace di gestire la comunicazione tra componenti
+all'interno di un'entità. Utilizzando tale pattern, ciascun componente può inviare messaggi a un altro componente 
+tramite la sua entità/mediatore. Ogni componente ha una referenza alla sua entità, consentendogli di inviare messaggi
+a un componente specifico utilizzando il metodo \texttt{notifyComponent()}. Una volta ricevuto il messaggio, l'entità 
+si occupa di passarlo al componente desiderato tramite il metodo \texttt{receive()}, consentendo così al componente ricevente 
+di decidere come gestire il messaggio. Questo pattern offre la versatilità necessaria per gestire la comunicazione tra componenti 
+in modo efficace e affidabile. \\
+NOTA: La progettazione alla soluzione del problema è stata fatta in collaborazione con Cecchini Andrea.
+
+\subsubsection{Creazione di collisioni con comportamenti diversi}
+
+\begin{figure}[H]
+\centering{}
+\includegraphics[width=\textwidth]{img/CollisionComponentUML}
+\caption{Rappresentazione UML dell'applicazione del Template Method per la gestione di CollisionComponent con comportamenti diversi}
+\end{figure}
+	
+\paragraph{Problema} Alcune entità devono agire in modo diverso in caso di collisione. Nel progetto, 
+alcune entità perdono la vita in base al danno causato dalla collisione, mentre altre (i proiettili) si distruggono all'impatto.
+\paragraph{Soluzione} Per gestire diverse entità che devono comportarsi in modo diverso in caso di collisione, nel progetto è 
+stato utilizzato il \textit{Template Method pattern}. Il metodo template è \texttt{update()}, che chiama un metodo astratto \texttt{collisionAction()} 
+per gestire il comportamento che l'entità deve prendere in caso di collisione, e un metodo protetto \texttt{knockback()} che gestisce il 
+comportamento della collisione con entità rigide. In questo modo, si è creato un modo riutilizzabile e flessibile per gestire le 
+collisioni tra entità che devono agire in modo diverso. \\
+Il metodo \texttt{knockback()} anche se non utilizzato nell’implementazioni è stato messo per futura estendibilità.
+
+\subsubsection{Creazione delle entità}
+
+\begin{figure}[H]
+\centering{}
+\includegraphics[width=\textwidth]{img/EntityFactoryUML.pdf}
+\caption{Rappresentazione UML dell'applicazione del Factory Method per la creazione di diversi tipi di entità, 
+\\NOTA: sono mostrate solo tre funzioni nella factory per rapprestazione}
+\end{figure}
+	
+\paragraph{Problema} Ci possono essere più entità con componenti diversi e quindi comportamenti diversi.
+\paragraph{Soluzione} Per la creazione di entità è stato utilizzato il \textit{Factory Method pattern}, è un modo semplice e flessibile 
+per creare entità con componenti diversi e quindi comportamenti diversi. Ad esempio, una factory può creare un'entità che ha una 
+fisica e collisione, oppure un’entità che abbia solo una collisione (come il muro di gioco). Una factory crea una superficie di 
+abstracation per la creazione delle entità e nasconde la loro logica di implementazione. Tramite questo pattern, un codice chiamante può 
+passare dei parametri specifici e ricevere un'istanza di un'entità pre-configurata. Questo significa che non è necessario scrivere il codice 
+di creazione di un'entità in più posti, ma basta creare una factory una volta e passare i parametri a seconda dei casi d'uso.
+
 \subsubsection{Riuso del codice delle personalità}
 
 \begin{figure}[H]
@@ -369,28 +523,32 @@ Il suo utilizzo è esemplificato in \Cref{img:observer}
 \chapter{Sviluppo}
 \section{Testing automatizzato}
 
-Il testing automatizzato è un requisito di qualunque progetto software che si rispetti, e consente di verificare che non vi siano regressioni nelle funzionalità a fronte di aggiornamenti.
-%
-Per quanto riguarda questo progetto è considerato sufficiente un test minimale, a patto che sia completamente automatico.
-%
-Test che richiedono l'intervento da parte dell'utente sono considerati \textit{negativamente} nel computo del punteggio finale.
-
-\subsection*{Elementi positivi}
-
+Per effettuare i test abbiamo utilizzato JUnit 5.
+\\I test che abbiamo effettuato sono:
 \begin{itemize}
- \item Si descrivono molto brevemente i componenti che si è deciso di sottoporre a test automatizzato.
- \item Si utilizzano suite specifiche (e.g. JUnit) per il testing automatico.
+	\item \textbf{ShapeTest}, questa classe controlla le intersezioni tra i differenti Shape, assicurandosi che funzionino come previsto.
+	\item \textbf{StopWatchTest}, questa classe verifica il funzionamento dello StopWatch nel caso in cui cerca di avviarlo quando già avviato oppure di fermarlo quando già fermato.
+	\item \textbf{Vector2DTest}, questa classe verifica che le operazioni di Vector2D siano esatte.
+	\item \textbf{GameEngineTest}, testati i getter del gameEngine, in modo tale da controllare che non ritornassero elementi nulli. E' stato controllato l'accesso ai metodi run e stop, in modo tale da verificare se venissero lanciate le giuste eccezioni quando il programmatore effettua errori di programmazione.
+	\item \textbf{MessageTest}, in questa classe viene testato la messaggistica tra le componenti. Di preciso ho testato la comunicazione e ricevimento dei messaggi del PhysicsComponent e CollisionComponent
+	\item \textbf{GameTest}, sono state testate le funzionalità basiche della classe Game, in particolare i vari getters, l'update e il metodo isOver(). Inoltre sono stati testati i metodi della factory di game, in modo da verificare che tali metodi ritornassero gli oggetti della classe Game con le caratteristiche volute
+	\item \textbf{StateTest}, si testa l'implementazione della logica e dello stato della partita, in particolare 
+        \begin{itemize}
+    	    \item L'incremento del round e il suo relativo get.
+            \item Controllo dello stato attuale della partita attraverso il metodo isOver. 
+            \item Controllo dello stato della wave del round corrente
+    	\end{itemize}
+	\item \textbf{EntityTest}: questa classe verifica che si ottengano i componenti giusti dall’entità quando richiesti.
+	\item \textbf{EventTest}, in questa classe vengono testati i vari tipi di eventi, controllando che vengano eseguiti dal World e non prima.
+	\item \textbf{HealthComponentTest}, si testa il funzionamento del componente HealthComponent controllando specificatamente cosa succede quando si riceve un danno minore della vita attuale e cosa succede se si riceve un danno che porterebbe la vita sotto lo zero.
+	\item \textbf{InputTest}, in questa classe viene testato l’input da testiera ec una delle AI.
+	\item \textbf{PowerUpTest}, si testa il corretto funzionamento di tutti i possibili power up.
+	\item \textbf{WaveTest}, in questa classe di test viene testato la corretta generazione di una wave controllando specificatamente la generazione di una wave basica e di una wave con boss, viene inoltre testato il la correttezza dell’aggiunta di un Entity alla wave.
+	\item \textbf{WorldTest}, sono state testate funzioni basi come l'aggiunta e rimozione di entità, il metodo set e get dell'oggetto  Wave all'interno del mondo. Inoltre sono stati testati i metodi della factory di world, in modo da verificare che tali metodo ritornassero world con le caratteristiche volute
 \end{itemize}
+Dal punto di vista della grafica non sono stati svolti test automatizzati visto che la totalità della renderizzazione grafica è stata affidata al componente Canvas di JavaFX e al suo GraphicContext, risultavano quindi veramente minime le funzionalità da testare. Inoltre ciò che doveva essere visibile alla grafica veniva prelevato dal controller e altri eventuali test sarebbero stati solo ripetizioni di test già effettuati.
 
-\subsection*{Elementi negativi}
-\begin{itemize}
- \item Non si realizza alcun test automatico.
- \item La non presenza di testing viene aggravata dall'adduzione di motivazioni non valide. Ad esempio, si scrive che l'interfaccia grafica non è testata automaticamente perché è \emph{impossibile} farlo\footnote{Testare in modo automatico le interfacce grafiche è possibile (si veda, come esempio, \url{https://github.com/TestFX/TestFX}), semplicemente nel corso non c'è modo e tempo di introdurvi questo livello di complessità. Il fatto che non vi sia stato insegnato come farlo non implica che sia impossibile!}.
- \item Si descrive un testing di tipo manuale in maniera prolissa.
- \item Si descrivono test effettuati manualmente che sarebbero potuti essere automatizzati, ad esempio scrivendo che si è usata l'applicazione manualmente.
- \item Si descrivono test non presenti nei sorgenti del progetto.
- \item I test, quando eseguiti, falliscono.
-\end{itemize}
+
 
 \section{Metodologia di lavoro}
 
