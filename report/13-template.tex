@@ -160,6 +160,79 @@ si dovranno sostituire le implementazioni di JavaFx delle interfacce Graphics e 
 \end{figure}
 
 \section{Design dettagliato}
+%
+\subsection*{Cecchini Andrea}
+%
+\subsubsection*{Separare il dominio del GameLoop da quello dell GameEngine}
+%
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[scale=0.75]{img/GameEngineAndGameLoop.pdf}
+	\caption{Rappresentazione UML del pattern Strategy per separare il dominio della classe GameLoop da quello del GameEngine.}
+	\label{img:strategy}
+	\end{figure}
+%
+\paragraph*{Problema} Disacoppiare la logica della classe \textbf{GameLoop} dal logica della classe \textbf{GameEngine}, al fine di garantire il \textbf{Single Responsability Principle}.
+%
+\paragraph*{Soluzione} La classe GameEngine utilizza il pattern \textbf{Strategy} al fine di delegare alla classe \textbf{RunnableGameLoop} la gestione del dominio del GameLoop. 
+Quindi, alla classe GameEngine avrà la responsabilità di gestire solamente ciò che le compete, delegando il resto.
+%
+\subsubsection*{Decorazione della classe GameLoop}
+%
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[scale=0.75]{img/GameLoopDecorator.pdf}
+	\caption{Rappresentazione UML del pattern Strategy per l'Input Component}
+	\label{img:strategy}
+	\end{figure}
+%	
+\paragraph*{Problema} La classe \textbf{GameLoop} risulta essere prona alla confusione e alla non manutibilità.
+Questo è dovuto alla natura stessa del GameLoop, nel quale al suo interno si sviluppano diversi domini e logiche quali:
+\begin{itemize}
+	\item Processione dell'input.
+	\item Aggiornamento dello stato di gioco
+	\item Gestione della renderizzazione.
+\end{itemize}
+Inoltre, ognuno di questi domini potrebbe raccogliere delle particolarità che possono differire dalla implementazione basica contenuta in \textbf{BaseGameLoop}.
+Aggiungere nuove feature risulta quindi essere un lavoro poco gradevole e prono alla aggiunti di possibili errori.
+%
+\paragraph*{Soluzione} Utilizzare il pattern \textbf{Decorator}, nel quale il BaseGameLoop viene decorato con delle possibili implementazioni di decorazione, permette di risolvere tutti i problemi sopra presentati:
+\\
+In particolare il codice non risulta piu' essere accumulato in un punto specifico della classe BaseGameLoop e 
+l'aggiunta di nuove feature, riguardante i domini sopra citati, risulta essere estremamente facile, difatti basta aggiungere una nuova decorazione al game loop già sviluppato.
+\\
+Il codice risulta essere estremamente manutenibile, questo dovuto alla separazione di codice che il pattern Decorator offre.
+%
+\subsubsection*{Implementare diversi tipi di basi per il game loop}
+%
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[scale=0.75]{img/TemplateMethodOnBaseGameLoop.pdf}
+	\caption{Rappresentazione UML del pattern Template Method per la creazione di GameLoops Base}
+	\label{img:strategy}
+	\end{figure}
+%
+\paragraph*{Problema} Esistono due versioni di BaseGameLoop, una nel quale i componenti vengono aggiornati parallelamente e un'altra sequenzialmente.
+Ci si è accorti che le due implementazioni condividevano gran parte del codice, avendo quindi una ripetizione.
+%
+\paragraph*{Soluzione} Essendo che le due implementazioni differiscono solo per il tipo di updater, è stato utilizzato il \textbf{Template Method} al fine di massimizzare il riuso.
+I metodi template sono \texttt{processInput()}, \texttt{updateGame()}, \texttt{render()}, che chiamano un metodo astratto e protetto \texttt{getUpdater()}. 
+%
+\subsubsection*{Gestione delle collisioni fra figure di forma diverse}
+%
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[scale=0.75]{img/VisitorPattern.pdf}
+	\caption{Rappresentazione UML del pattern Visitor Pattern per la gestione delle collisioni con figure di forma diversa.}
+	\label{img:strategy}
+	\end{figure}
+%
+\paragraph*{Problema} L'istanza della classe \textbf{Shape} ha bisogno di sapere l'implementazione della figura della quale sta verificando la possibili collisione, al fine di addattare i propri calcoli verificare se vi è stata o meno la collisione con quella figura. 
+%
+\paragraph*{Soluzione} La soluzione scelta rispetta l'implementazione del pattern \textbf{Visitor}.
+Tale implementazione suggerisce di delegare alla Shape \textbf{s} il controllo della collisione con la Shape \textbf{this}.
+Questa soluzione permette rende possibile aggiunta di nuove figure in modo facile, senza dover creare un costrutto switch o if-else al fine di controllare la reale implementazione della shape s.
+%%
 
 \subsection*{Nicolò D'Addabbo}
 

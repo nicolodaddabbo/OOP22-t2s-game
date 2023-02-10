@@ -1,21 +1,22 @@
 ```mermaid 
+
 classDiagram
 PowerUp <|-- PowerUpFactory 
 
-class PowerUp {
+    class PowerUp {
     <<interface>>
-    +obtain(Entity entity): void
-}
+    obtain(Entity entity): void
+    }
 
 
-class PowerUpFactory {
+    class PowerUpFactory {
     <<interface>>
-    +generateDamageBoostPowerUp(): PowerUp
-    +generateFireRatioPowerUp(): PowerUp
-    +generateHealthUpPowerUp(): PowerUp
-    +generateSpeedUpPowerUp(): PowerUp
-    +generateProjectileSpeedUpPowerUp(): PowerUp
-    +generateProjectileSizeUpPowerUp(): PowerUp
-    +getObtainablePowerUpList(): PowerUp
-}
+    generateDamageBoostPowerUp(): PowerUp
+    generateFireRatioPowerUp(): PowerUp
+    generateHealthUpPowerUp(): PowerUp
+    generateSpeedUpPowerUp(): PowerUp
+    generateProjectileSpeedUpPowerUp(): PowerUp
+    generateProjectileSizeUpPowerUp(): PowerUp
+    getObtainablePowerUpList(): PowerUp
+    }
 ```
