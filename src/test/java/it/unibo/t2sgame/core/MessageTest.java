@@ -19,7 +19,7 @@ import it.unibo.t2sgame.input.api.Directions;
 
 class MessageTest {
 
-    private ComponentFactory componentFactory = new ComponentFactoryImpl();
+    private final ComponentFactory componentFactory = new ComponentFactoryImpl();
 
     private Entity baseEntity() {
         final var pos = new Vector2D(0, 0);
