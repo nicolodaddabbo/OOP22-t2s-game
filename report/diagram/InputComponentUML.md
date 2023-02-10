@@ -1,7 +1,6 @@
 ```mermaid
 classDiagram
 
-InputController --* InputComponent
 AbstractInputController --|> InputController
 AbstractChasingAIInputController --|> AbstractInputController
 KeyboardInputController --|> AbstractInputController
@@ -9,10 +8,6 @@ ChasingAIInputController --|> AbstractChasingAIInputController
 MosquitoAIInputController --|> AbstractChasingAIInputController
 GaussianAIInputController --|> AbstractChasingAIInputController
 
-%%
-class InputComponent {
-    +update(): void
-}
 %%
 class InputController {
     <<interface>>
@@ -47,3 +42,4 @@ class MosquitoAIInputController {
 class GaussianAIInputController {
     #computeNextCommand(): void
 }
+```
