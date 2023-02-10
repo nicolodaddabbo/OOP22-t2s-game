@@ -26,3 +26,4 @@ class World {
 class ShootComponent {
     -shoot(): void
 }
+```
