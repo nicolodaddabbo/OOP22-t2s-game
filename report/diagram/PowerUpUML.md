@@ -1,15 +1,14 @@
-```mermaid 
-
+```mermaid
 classDiagram
+
 PowerUp <|-- PowerUpFactory 
 
-    class PowerUp {
+class PowerUp {
     <<interface>>
     obtain(Entity entity): void
-    }
-
-
-    class PowerUpFactory {
+}
+%%
+class PowerUpFactory {
     <<interface>>
     generateDamageBoostPowerUp(): PowerUp
     generateFireRatioPowerUp(): PowerUp
@@ -18,5 +17,6 @@ PowerUp <|-- PowerUpFactory
     generateProjectileSpeedUpPowerUp(): PowerUp
     generateProjectileSizeUpPowerUp(): PowerUp
     getObtainablePowerUpList(): PowerUp
-    }
+}
+%%
 ```
