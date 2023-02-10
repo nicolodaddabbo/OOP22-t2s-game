@@ -40,7 +40,7 @@ public class EntityStateImpl<I> implements EntityState<I> {
         if (this.currentCommand.isEmpty()) {
             return;
         }
-        this.currentCommand = this.moveset.get(input) == this.currentCommand.get() ? releaseCommandValue
+        this.currentCommand = this.moveset.containsKey(input) && this.moveset.get(input).equals(this.currentCommand.get()) ? releaseCommandValue
                 : this.currentCommand;
     }
 
