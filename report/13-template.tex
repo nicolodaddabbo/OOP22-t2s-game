@@ -551,6 +551,16 @@ In autonomia mi sono occupato di:
 \item Gestione degli eventi (Event ed EventFactory in t2sgame.game.logics e metodi notifyEvent e handleEvent in World)
 \end{itemize}
 
+\subsection*{Magnani Leonardo David Matteo}
+In autonomia mi sono occupato di:
+\begin{itemize}
+\item Le entità di gioco (Entity in t2sgame.game.ecs)
+\item Alcune componenti delle entità (DamageComponent e ShootComponent in t2sgame.game.ecs.impl)
+\item La fisica del gioco (PhysicsComponent in t2sgame.game.ecs.impl, Vector2D in  t2sgame.common)
+\item Le implemtazioni delle collisioni (BaseCollisionComponent e ProjectileCollisionComponent in t2sgame.game.ecs.impl, Circle e Rectangle in t2sgame.common.shapes)
+\item Uno stopwatch per la gestione del tempo trascorso (StopWatch in t2sgame.common)
+\end{itemize}
+
 \section{Note di sviluppo}
 
 \subsection*{Nicolò D'Addabbo}
@@ -566,12 +576,29 @@ Usate molto spesso in vari punti del progetto:
 	\item Permalink: \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/d1453f9e5f56d2cdfec21561311304a309e99ed9/src/main/java/it/unibo/t2sgame/input/impl/EntityStateImpl.java#L14}
 \end{itemize}
 
+\subsection*{Magnani Leonardo David Matteo}
+\begin{itemize}
+	\item Utilizzo di stream, optional, method reference e metodo generico  \\
+	Permalink: \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/48fe160af0c4cdbfbf7fe791b784f6f4ad7b185e/src/main/java/it/unibo/t2sgame/game/ecs/impl/EntityImpl.java#L46-L51}
+	\item Utilizzo di stream, optional, lamda e metodo generico \\
+	Permalink: \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/48fe160af0c4cdbfbf7fe791b784f6f4ad7b185e/src/main/java/it/unibo/t2sgame/game/ecs/impl/EntityImpl.java#L69-L71}
+\end{itemize}
+
 \chapter{Commenti finali}
 
 \section{Autovalutazione e lavori futuri}
 \subsection*{Nicolò D'Addabbo}
 Sono soddisfatto del nostro progetto, che è stato un ottimo esercizio di lavoro di gruppo. Abbiamo collaborato in maniera efficace grazie a una buona fase di analisi, che è stata fondamentale per individuare quali problemi risolvere e come affrontarli. Questo progetto mi ha permesso di sviluppare abilità che possono essere applicate a progetti futuri, come la gestione del codice in gruppo ed una buona organizzazione del lavoro.
 Ho lavorato alla parte Model e ho collaborato al Controller. Purtroppo non ho avuto la possibilità di approfondire JavaFX, che mi sarebbe interessato molto, poiché non ho avuto parti di View.
+
+\subsection*{Magnani Leonardo David Matteo}
+Sono soddisfatto del risultato finale considerando il tempo limitato a disposizione. 
+La buona analisi effettuata prima dello sviluppo ha permesso di creare una solida base per il progetto. 
+Nonostante alcune parti siano state riscritte durante la fase di sviluppo per migliorare il codice, l'architettura iniziale è rimasta intatta. 
+Tuttavia, a causa di impegni accademici e del tempo limitato, non ho avuto la possibilità di apportare miglioramenti a certe parti del mio lavoro. 
+Un'area di miglioramento potrebbe essere la gestione delle collisioni a cui ero molto interessato a fare efficientemente.
+Anche se questo progetto mi ha permesso di acquisire competenze organizzative e architetturali e di mettere alla prova le mie capacità come ingegnere, 
+personalmente ritengo che non sia il progetto giusto per me da portare avanti in futuro.
 
 \appendix
 \chapter{Guida utente}
