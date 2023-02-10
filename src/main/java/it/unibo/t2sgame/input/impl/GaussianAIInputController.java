@@ -38,7 +38,7 @@ public class GaussianAIInputController extends AbstractChasingAIInputController 
     protected void computeNextCommand() {
         super.addToCommandsQueue(entity -> {
             if (isTimeToChoose()) {
-                var closestAdeversary = super.findClosestAdeversary(entity, this.adversaryType);
+                final var closestAdeversary = super.findClosestAdeversary(entity, this.adversaryType);
                 closestAdeversary.ifPresent(a -> entity.notifyComponent(PhysicsComponent.class,
                         () -> generateGaussianRandomDirection(entity.getPosition(),
                                 closestAdeversary.get().getPosition(), STANDARD_DEVIATION)));
@@ -58,23 +58,23 @@ public class GaussianAIInputController extends AbstractChasingAIInputController 
     private Directions generateGaussianRandomDirection(final Vector2D currentEntityPosition, final Vector2D adversaryPosition,
             final double standardDeviation) {
         // Generate 2 random numbers, u1 and u2, from a uniform distribution between 0 and 1
-        var u1 = this.random.nextDouble();
-        var u2 = this.random.nextDouble();
+        final var u1 = this.random.nextDouble();
+        final var u2 = this.random.nextDouble();
         // This equation generate a STANDARD normally distributed random variable for the x-coordinate
-        var standardX = Math.sqrt(SCALE_FACTOR * Math.log(u1)) * Math.cos(TWO_PI * u2);
+        final var standardX = Math.sqrt(SCALE_FACTOR * Math.log(u1)) * Math.cos(TWO_PI * u2);
         // and this generate it for the y-coordinate
-        var standardY = Math.sqrt(SCALE_FACTOR * Math.log(u1)) * Math.sin(TWO_PI * u2);
+        final var standardY = Math.sqrt(SCALE_FACTOR * Math.log(u1)) * Math.sin(TWO_PI * u2);
         /*
          * This equation scale the standard normal random variable, using 
          * the player x-coordinate as the mean, creating a normal random variable 
          * centered on the adversary's x-coordinate.
          */
-        var randomX = adversaryPosition.getX() + standardDeviation * standardX;
+        final var randomX = adversaryPosition.getX() + standardDeviation * standardX;
         // And this is centered on the adversary's y-coordinate
-        var randomY = adversaryPosition.getY() + standardDeviation * standardY;
-        var dX = randomX - currentEntityPosition.getX();
-        var dY = randomY - currentEntityPosition.getY();
-        var angle = Math.toDegrees(Math.atan2(dY, dX));
+        final var randomY = adversaryPosition.getY() + standardDeviation * standardY;
+        final var dX = randomX - currentEntityPosition.getX();
+        final var dY = randomY - currentEntityPosition.getY();
+        final var angle = Math.toDegrees(Math.atan2(dY, dX));
         return super.findDirectionGivenAngle(angle);
     }
 
