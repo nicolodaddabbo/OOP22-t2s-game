@@ -41,7 +41,8 @@ class ShapeTest {
 
     @Test
     void testCircleIsIntersectingWithCircleDiagonally() {
-        final Shape circle = new Circle(new Vector2D(CIRCLE_CIRCLE_DIAGONAL_INTESECTION, CIRCLE_CIRCLE_DIAGONAL_INTESECTION),
+        final Shape circle = new Circle(
+                new Vector2D(CIRCLE_CIRCLE_DIAGONAL_INTESECTION, CIRCLE_CIRCLE_DIAGONAL_INTESECTION),
                 HALF_SIZE);
         assertTrue(this.isCircleIntersecting(circle));
     }
@@ -49,7 +50,7 @@ class ShapeTest {
     @Test
     void testCircleIsNotIntersectingWithCircleDiagonally() {
         final double exitIntersection = CIRCLE_CIRCLE_DIAGONAL_INTESECTION + 0.1;
-        Shape circle = new Circle(
+        final Shape circle = new Circle(
                 new Vector2D(exitIntersection, exitIntersection),
                 HALF_SIZE);
         assertFalse(this.isCircleIntersecting(circle));
@@ -81,7 +82,8 @@ class ShapeTest {
 
     @Test
     void testRectangleIsIntersectingWithRectangleDiagonally() {
-        final Shape rectangle = new Rectangle(new Vector2D(SAME_AXIS_INTERSECTION, SAME_AXIS_INTERSECTION), HALF_SIZE * 2,
+        final Shape rectangle = new Rectangle(new Vector2D(SAME_AXIS_INTERSECTION, SAME_AXIS_INTERSECTION),
+                HALF_SIZE * 2,
                 HALF_SIZE * 2);
         assertTrue(this.isRectangleIntersecting(rectangle));
     }
