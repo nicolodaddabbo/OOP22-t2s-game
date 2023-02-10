@@ -523,28 +523,32 @@ Il suo utilizzo è esemplificato in \Cref{img:observer}
 \chapter{Sviluppo}
 \section{Testing automatizzato}
 
-Il testing automatizzato è un requisito di qualunque progetto software che si rispetti, e consente di verificare che non vi siano regressioni nelle funzionalità a fronte di aggiornamenti.
-%
-Per quanto riguarda questo progetto è considerato sufficiente un test minimale, a patto che sia completamente automatico.
-%
-Test che richiedono l'intervento da parte dell'utente sono considerati \textit{negativamente} nel computo del punteggio finale.
-
-\subsection*{Elementi positivi}
-
+Per effettuare i test abbiamo utilizzato JUnit 5.
+\\I test che abbiamo effettuato sono:
 \begin{itemize}
- \item Si descrivono molto brevemente i componenti che si è deciso di sottoporre a test automatizzato.
- \item Si utilizzano suite specifiche (e.g. JUnit) per il testing automatico.
+	\item \textbf{ShapeTest}, questa classe controlla le intersezioni tra i differenti Shape, assicurandosi che funzionino come previsto.
+	\item \textbf{StopWatchTest}, questa classe verifica il funzionamento dello StopWatch nel caso in cui cerca di avviarlo quando già avviato oppure di fermarlo quando già fermato.
+	\item \textbf{Vector2DTest}, questa classe verifica che le operazioni di Vector2D siano esatte.
+	\item \textbf{GameEngineTest}, testati i getter del gameEngine, in modo tale da controllare che non ritornassero elementi nulli. E' stato controllato l'accesso ai metodi run e stop, in modo tale da verificare se venissero lanciate le giuste eccezioni quando il programmatore effettua errori di programmazione.
+	\item \textbf{MessageTest}, in questa classe viene testato la messaggistica tra le componenti. Di preciso ho testato la comunicazione e ricevimento dei messaggi del PhysicsComponent e CollisionComponent
+	\item \textbf{GameTest}, sono state testate le funzionalità basiche della classe Game, in particolare i vari getters, l'update e il metodo isOver(). Inoltre sono stati testati i metodi della factory di game, in modo da verificare che tali metodi ritornassero gli oggetti della classe Game con le caratteristiche volute
+	\item \textbf{StateTest}, si testa l'implementazione della logica e dello stato della partita, in particolare 
+        \begin{itemize}
+    	    \item L'incremento del round e il suo relativo get.
+            \item Controllo dello stato attuale della partita attraverso il metodo isOver. 
+            \item Controllo dello stato della wave del round corrente
+    	\end{itemize}
+	\item \textbf{EntityTest}: questa classe verifica che si ottengano i componenti giusti dall’entità quando richiesti.
+	\item \textbf{EventTest}, in questa classe vengono testati i vari tipi di eventi, controllando che vengano eseguiti dal World e non prima.
+	\item \textbf{HealthComponentTest}, si testa il funzionamento del componente HealthComponent controllando specificatamente cosa succede quando si riceve un danno minore della vita attuale e cosa succede se si riceve un danno che porterebbe la vita sotto lo zero.
+	\item \textbf{InputTest}, in questa classe viene testato l’input da testiera ec una delle AI.
+	\item \textbf{PowerUpTest}, si testa il corretto funzionamento di tutti i possibili power up.
+	\item \textbf{WaveTest}, in questa classe di test viene testato la corretta generazione di una wave controllando specificatamente la generazione di una wave basica e di una wave con boss, viene inoltre testato il la correttezza dell’aggiunta di un Entity alla wave.
+	\item \textbf{WorldTest}, sono state testate funzioni basi come l'aggiunta e rimozione di entità, il metodo set e get dell'oggetto  Wave all'interno del mondo. Inoltre sono stati testati i metodi della factory di world, in modo da verificare che tali metodo ritornassero world con le caratteristiche volute
 \end{itemize}
+Dal punto di vista della grafica non sono stati svolti test automatizzati visto che la totalità della renderizzazione grafica è stata affidata al componente Canvas di JavaFX e al suo GraphicContext, risultavano quindi veramente minime le funzionalità da testare. Inoltre ciò che doveva essere visibile alla grafica veniva prelevato dal controller e altri eventuali test sarebbero stati solo ripetizioni di test già effettuati.
 
-\subsection*{Elementi negativi}
-\begin{itemize}
- \item Non si realizza alcun test automatico.
- \item La non presenza di testing viene aggravata dall'adduzione di motivazioni non valide. Ad esempio, si scrive che l'interfaccia grafica non è testata automaticamente perché è \emph{impossibile} farlo\footnote{Testare in modo automatico le interfacce grafiche è possibile (si veda, come esempio, \url{https://github.com/TestFX/TestFX}), semplicemente nel corso non c'è modo e tempo di introdurvi questo livello di complessità. Il fatto che non vi sia stato insegnato come farlo non implica che sia impossibile!}.
- \item Si descrive un testing di tipo manuale in maniera prolissa.
- \item Si descrivono test effettuati manualmente che sarebbero potuti essere automatizzati, ad esempio scrivendo che si è usata l'applicazione manualmente.
- \item Si descrivono test non presenti nei sorgenti del progetto.
- \item I test, quando eseguiti, falliscono.
-\end{itemize}
+
 
 \section{Metodologia di lavoro}
 
