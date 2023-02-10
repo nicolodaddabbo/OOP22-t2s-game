@@ -14,7 +14,7 @@ import it.unibo.t2sgame.game.model.impl.WorldFactoryImpl;
 
 class WaveTest {
     private final WaveFactory waveFactory = new WaveFactoryImpl(new WorldFactoryImpl().createWorldWithOnePlayer());
-    private final static int ROUND = 10;
+    private static final int ROUND = 10;
 
     @Test
     void testBasicWaveSpawn() {

@@ -11,8 +11,8 @@ import it.unibo.t2sgame.core.entity.impl.EntityImpl;
 import it.unibo.t2sgame.game.components.HealthComponent;
 
 class HealthComponentTest {
-    private final static int STARTING_HEALTH = 3;
-    private final static int DAMAGE = 1;
+    private static final int STARTING_HEALTH = 3;
+    private static final int DAMAGE = 1;
 
     private Entity createBaseEntity() {
         return new EntityImpl(new Vector2D(0, 0), Type.PLAYER)
