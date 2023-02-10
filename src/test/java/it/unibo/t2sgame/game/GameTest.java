@@ -1,13 +1,15 @@
 package it.unibo.t2sgame.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import it.unibo.t2sgame.core.entity.api.Type;
-import it.unibo.t2sgame.game.logics.api.State;
-import it.unibo.t2sgame.game.model.api.World;
+import it.unibo.t2sgame.game.components.HealthComponent;
 
 class GameTest {
 
@@ -15,31 +17,21 @@ class GameTest {
 
     void testBasics(final Game g) {
         final var w = g.getWorld();
+        assertNotNull(g.getState());
         final var s = g.getState();
+        // Check that the the world getter from the world is a defency copy
+        assertNotEquals(w, g.getWorld());
         final var players = w.getPlayers();
         // Let update the game status
         g.update();
-        // 1 Round
-        testRound(w, s, 1);
-        g.update();
-        // 2 Round
-        testRound(w, s, 2);
-        g.update();
-        // 3 Round
-        testRound(w, s, 3);
-        g.update();
-        // Players has lost
-        w.removeEntities(players);
-        assertTrue(g.isOver());
-    }
-
-    void testRound(final World world, final State state, final int round) {
-        assertEquals(round, state.getRound());
-        world.getCurrentWave().ifPresent(wave -> {
-            world.removeEntities(wave.getEnemies());
-            wave.getEnemies().clear();
+        // Check if game has started
+        assertEquals(1, s.getRound());
+        assertFalse(g.isOver());
+        players.forEach(p -> {
+            p.notifyComponent(HealthComponent.class, () -> 100);
         });
-        assertTrue(state.isWaveOver(world.getCurrentWave()));
+        g.update();
+        assertTrue(g.isOver());
     }
 
     @Test
