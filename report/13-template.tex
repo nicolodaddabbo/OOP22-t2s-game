@@ -35,22 +35,22 @@ Con survival shoot ‘em up si intende un genere di videogioco nella quale l’o
 	\item Il gioco dovrà occuparsi di gestire la partita dell’utente all’interno della mappa di gioco di Time2Survive, rendendo più difficile la sopravvivenza del giocatore attraverso ondate di nemici di difficoltà crescente.
     All’interno della mappa, il giocatore potrà:
     \begin{itemize}
-        \item Sfruttare le proprie abilita’ di videogiocatore per sopravvivere alle numerose ondate dei nemici che si susseguiranno.
+        \item Sfruttare le proprie abilità di videogiocatore per sopravvivere alle numerose ondate dei nemici che si susseguiranno.
         \item Sfidare ondate che verranno generate al completamento della precedente. Le ondate terminano quando tutti i nemici sono stati eliminati.
         \item I nemici si potranno eliminare attraverso l'utilizzo di proiettili generati dal personaggio.
         \item La partita sarà conclusa alla morte virtuale del giocatore.
     \end{itemize}
 	\item Il giocatore si troverà all'interno di una stanza in cui verranno generate le ondate di nemici.
-	\item La difficoltà del gioco sarà incrementale e riguarderà sopratutto le ondate. Essa sarà manipolata attraverso 3 parametri:
+	\item La difficoltà delle ondate verrà manipolata attraverso tre parametri:
     \begin{itemize}
         \item Numero: numero dei nemici a schermo.
-        \item Resilienza: resistenza agli attacchi da parte del giocatore.
-        \item Forza: danno provocato dal nemico.
+        \item Tipo: i nemici avranno tipi diversi con caratteristiche uniche che renderanno l’esperienza di gioco più variabile.
+        \item Boss: dopo un certo numero di round verrà generata un ondata speciale formata da un Boss molto più potente rispetto ai soliti nemici.
     \end{itemize}
-	\item Il giocatore si potrà muovere nell’ambiente di gioco costituito da una singola stanza.
-    \item I nemici sono delle entità attive del gioco che cercano di eliminare il giocatore.
+	\item I nemici sono delle entità attive del gioco che cercano di eliminare il giocatore.
     Vengono controllati da una semplice AI (Artificial Intelligence). 
 	Per intelligenza artificiale si intende un software che conferisce a ogni nemico una strategia di movimento e di combattimento.
+	\item Il giocatore si potrà muovere nell’ambiente di gioco costituito da una singola stanza.
     \item Il giocatore dovrà essere in grado di capire lo stato della partita in ogni momento della suddetta visualizzando la propria vita. 
 	Il giocatore sarà inoltre in grado di visualizzare le proprie capacità essendo in grado di visualizzare il numero di ondate alle quali è sopravvissuto.
 \end{itemize}
@@ -58,7 +58,6 @@ Con survival shoot ‘em up si intende un genere di videogioco nella quale l’o
 \subsubsection{Requisiti Funzionali Opzionali}
 \begin{itemize}
 	\item Per aiutare il giocatore, saranno disponibili diversi potenziamenti che gli permetteranno di aumentare le proprie abilità.
-	\item Per rendere più vario la partita saranno presenti diversi tipi di nemici con caratteristiche uniche e diverse tra loro.
 \end{itemize}
 \subsection*{Requisiti non funzionali}
 \begin{itemize}
@@ -78,7 +77,7 @@ Per combattere questi nemici, il giocatore avrà la possibilità di sparare dei 
 che renderanno il più semplice sconfiggere tutti i nemici che gli si porranno avanti.
 Una volta sconfitta un’ondata viene aggiornato lo stato della partita incrementando il numero di round alla quale si è sopravvissuti 
 e generandone una nuova di maggiore difficoltà.
-All’inizio della partita all’avatar verranno assegnati dei proiettili di default e un determinato numero di punti vita.
+All’inizio della partita al giocatore verranno assegnati dei proiettili di default e un determinato numero di punti vita.
 Una volta subito un danno, a seconda della sua entità, verrà detratta una certa quantità dalla vita corrente, una volta persa tutta il gioco terminerà mostrando 
 al giocatore per quanto è sopravvissuto.
 Le difficoltà che il progetto si porta dietro sono:
@@ -100,20 +99,20 @@ Le difficoltà che il progetto si porta dietro sono:
 
 \chapter{Design}
 \section{Architettura}
-T2S è stato sviluppato adottando un pattern architetturale che mantenesse una simile struttura MVC, quindi con i suoi vantaggi, contaminandola però attraverso l’utilizzo del pattern Component.
+T2S è stato sviluppato adottando un pattern architetturale che mantenesse una simil struttura MVC, quindi con i suoi vantaggi, contaminandola però attraverso l’utilizzo del pattern Component.
 \\
-Il pattern Component permette a una singola entità di estendersi su domini multipli senza accorparli in unica classe.
+Il pattern Component permette a una singola entità di estendersi su domini multipli senza accorparli in un unica classe.
 \\
-Applicandolo al dominio dell’applicazione (Model), avremo che ogni entità risulta essere un entità di gioco denominata Entity.
-Tale Entity verrà adornato da dei Component, ognuno dei quali appartiene a un dominio particolare (Input, Fisica, Grafica, …), che è sarà responsabile dell’aggiornamento del dominio all’interno dell’Entity.
-Tuttavia, pur appartenendo a domini diversi, i diversi componenti potrebbero aver bisogno di comunicare tra di loro.
-Sfruttando come “container” l’Entity stesso è stato messo a disposizione ai Components un semplice ma funzionale sistema di messaggistica.
+Applicandolo al dominio dell’applicazione (Model), avremo che ogni elemento del gioco risulta essere un entità.
+Tale entità verrà adornata da dei componenti, ognuno dei quali appartiene a un dominio particolare (Input, Fisica, Grafica, …), che sarà responsabile dell’aggiornamento del dominio all’interno dell’Entity.
+Tuttavia, pur appartenendo a domini diversi, i componenti potrebbero aver bisogno di comunicare tra di loro.
+Sfruttando come “container” l'entità stesso è stato messo a disposizione ai componenti un semplice ma funzionale sistema di messaggistica.
 L’utilizzo di questi componenti porta ad importanti vantaggi:
 \begin{itemize}
 	\item \textbf{Stroncamento di un albero di ereditarietà troppo complesso e lungo}:
-	Per rappresentare entità con diversi comportamenti si utilizza la composizione di GameComponent che implementino quei comportamenti, senza nessun utilizzo dell’ereditarietà.
+	Per rappresentare entità con diversi comportamenti si utilizza la composizione di componenti che implementino quei comportamenti, senza nessun utilizzo dell’ereditarietà.
 	%
-	\item Eliminazione dei problemi legati all’ereditarietà multipla
+	\item \textbf{Eliminazione dei problemi legati all’ereditarietà multipla}
 	%
 	\item \textbf{Riduzione al minimo delle ripetizioni di codice} dovuto alla creazione di componenti altamente riutilizzabili
 \end{itemize}
@@ -121,19 +120,19 @@ Dal punto di vista del pattern architetturale Model-View-Controller, i rispettiv
 \begin{itemize}
 	\item \textbf{Model}:
 	Il ruolo del "Model" viene affidato all'insieme delle classi che sono contenute nella classe Game (inclusa).
-	Difatti, se per creare un gioco diverso da T2S basterebbe cambiare la parte di "Model" dell'architettura in questione, le parti da sostituire ricadono nell'insieme sopra citato.
+	Difatti, per creare un gioco diverso da T2S basterebbe cambiare la parte di "Model" dell'architettura in questione, le parti da sostituire ricadono nell'insieme sopra citato.
 	\item \textbf{Controller}:
 	Questo ruolo viene affidato all’interfaccia GameEngine, la quale ha il compito di gestire l’aggiornamento di ogni Entity, dei suoi componenti e della sua renderizzazione sulla View.
 	\item \textbf{View}:
 	Il ruolo della view viene demandato a delle interfacce ben connesse tra di loro: GameScene e Graphics.
 	L’interfaccia GameScene astrae il concetto di “Scena” di gioco
-	L’interfaccia Graphics ha il compito di saper “disegnare” le diverse entità con la 
+	\\L’interfaccia Graphics ha il compito di saper “disegnare” le diverse entità con la 
 	tecnologia grafica che si è scelto di utilizzare.
 \end{itemize}
 Dal diagramma delle classi, qui sotto fornito, è possibile notare un elemento di differenza rispetto a una classica architettura MVC: un componente di spicco, denominato GraphicsComponent, risulta avere dei riferimenti alla parte di view e di model, creando un collegamento che a prima vista potrebbe risultare problematico.
 La modularità di M.V.C. non viene però attaccata: volendo, come esempio, cambiare la tecnologia di sviluppo per quanto riguarda la grafica si modificherà esclusivamente la parte di View dell'applicazione, senza ripercussioni in nessun altro modulo del programma.
 L’ipotetico passaggio da JavaFX a Swing o ad altre tecnologie, dunque, non risulta essere problematico: 
-si dovranno sostituire le implementazioni di JavaFX delle interfacce Graphics, GameScenecon delle nuove implementazioni che utilizzino la nuova tecnologia.
+si dovranno sostituire le implementazioni di JavaFX delle interfacce Graphics, GameScene con delle nuove implementazioni che utilizzino la nuova tecnologia.
 	
 \begin{figure}[H]
 \centering{}
@@ -144,7 +143,7 @@ si dovranno sostituire le implementazioni di JavaFX delle interfacce Graphics, G
 
 \section{Design dettagliato}
 %
-\subsection*{Cecchini Andrea}
+\subsection*{Andrea Cecchini}
 %
 \subsubsection*{Separare il dominio del GameLoop da quello del GameEngine}
 %
@@ -158,7 +157,7 @@ si dovranno sostituire le implementazioni di JavaFX delle interfacce Graphics, G
 \paragraph*{Problema} Disacoppiare la logica della classe \textbf{GameLoop} dal logica della classe \textbf{GameEngine}, al fine di garantire il \textbf{Single Responsability Principle}.
 %
 \paragraph*{Soluzione} La classe GameEngine utilizza il pattern \textbf{Strategy} al fine di delegare alla classe \textbf{RunnableGameLoop} la gestione del dominio del GameLoop. 
-Quindi, alla classe GameEngine avrà la responsabilità di gestire solamente ciò che le compete, delegando il resto.
+Quindi, la classe GameEngine avrà la responsabilità di gestire solamente ciò che le compete, delegando il resto.
 %
 \subsubsection*{Decorazione della classe GameLoop}
 %
@@ -181,7 +180,7 @@ Aggiungere nuove feature risulta quindi essere un lavoro poco gradevole e prono 
 %
 \paragraph*{Soluzione} Utilizzare il pattern \textbf{Decorator}, nel quale il BaseGameLoop viene decorato con delle possibili implementazioni di decorazione, permette di risolvere tutti i problemi sopra presentati:
 \\
-In particolare il codice non risulta piu' essere accumulato in un punto specifico della classe BaseGameLoop e 
+In particolare il codice non risulta più essere accumulato in un punto specifico della classe BaseGameLoop e 
 l'aggiunta di nuove feature, riguardante i domini sopra citati, risulta essere estremamente facile, difatti basta aggiungere una nuova decorazione al game loop già sviluppato.
 \\
 Il codice risulta essere estremamente manutenibile, questo dovuto alla separazione di codice che il pattern Decorator offre.
@@ -210,11 +209,11 @@ I metodi template sono \texttt{processInput()}, \texttt{updateGame()}, \texttt{r
 	\label{img:strategy}
 	\end{figure}
 %
-\paragraph*{Problema} L'istanza della classe \textbf{Shape} ha bisogno di sapere l'implementazione della figura della quale sta verificando la possibili collisione, al fine di addattare i propri calcoli verificare se vi è stata o meno la collisione con quella figura. 
+\paragraph*{Problema} L'istanza della classe \textbf{Shape} ha bisogno di sapere l'implementazione della figura della quale sta verificando la possibile collisione, al fine di addattare i propri calcoli verificare se vi è stata o meno la collisione con quella figura. 
 %
 \paragraph*{Soluzione} La soluzione scelta rispetta l'implementazione del pattern \textbf{Visitor}.
 Tale implementazione suggerisce di delegare alla Shape \textbf{s} il controllo della collisione con la Shape \textbf{this}.
-Questa soluzione permette rende possibile aggiunta di nuove figure in modo facile, senza dover creare un costrutto switch o if-else al fine di controllare la reale implementazione della shape s.
+Questa soluzione rende possibile l'aggiunta di nuove figure in modo facile, senza dover creare un costrutto switch o if-else al fine di controllare la reale implementazione della shape s.
 %%
 
 \subsection*{Nicolò D'Addabbo}
@@ -340,7 +339,7 @@ Al prossimo update del Game, verrà chiamato il metodo handleEvents() del World,
 
 \paragraph{Problema} Esistono diversi tipi di Wave ognuna composta da nemici di vario tipo e numero.
 
-\paragraph{Soluzione} Inizialmente per risolvere questo problema volevo utilizzare il \textit{Prototype} pattern creando una singola istanze per ogni tipo di nemico (prototipi) che sarebbero state clonate quando ritenute necessarie, inizialmente l’implementazione mi sembrava appropriata per risolvere il problema, ma non avevo preso in considerazione un problema fondamentale del pattern, infatti il metodo clone() che applicava il pattern non creava mai una nuova istanza ma passava solamente un riferimento del prototipo su cui era stato chiamato; questo causava diversi problemi, usando questo pattern i nemici avrebbero avuto tutti un riferimento agli stessi componenti questo causava ad esempio la condivisione di danno ricevuto tra tutti i nemici che avevano clonato lo stesso prototipo.
+\paragraph{Soluzione} Inizialmente per risolvere questo problema volevo utilizzare il \textit{Prototype} pattern creando una singola istanza per ogni tipo di nemico (prototipi) che sarebbero state clonate quando ritenute necessarie, inizialmente l’implementazione mi sembrava appropriata per risolvere il problema, ma non avevo preso in considerazione un problema fondamentale, infatti il metodo clone() che applicava il pattern non creava mai una nuova istanza ma passava solamente un riferimento del prototipo su cui era stato chiamato; questo causava diversi problemi. Usando questo pattern i nemici avrebbero avuto tutti un riferimento agli stessi componenti, questo causava ad esempio la condivisione di danno ricevuto tra tutti i nemici che avevano clonato lo stesso prototipo.
 Ho capito quindi che sarebbe servito un pattern che creasse i diversi tipi di Wave formandole con istanze diverse di nemici; dopo un attenta ricerca la soluzione migliore mi è sembrata l’utilizzo di una \textit{Factory}. Così facendo mi sarei ritrovato nella condizione di poter creare un diverso tipo di wave con la sola chiamata di un metodo della \textit{Factory} senza incappare in errori di riferimenti comuni.
 
 \subsubsection{Gestione delle Window indipendentemente dall'architettura grafica scelta}
@@ -395,15 +394,15 @@ Per risolvere il problema dei diversi comportamenti ho invece usato il pattern S
 
 \paragraph{Problema} La classe \texttt{Entity} copre più domini rompendo il \textit{Single Responsability Principle}.
 Inoltre l'interfaccia \texttt{Entity} potrebbe avere numerose implementazioni in base al comportamento che li si vuole dare.
-L'utilizzare la ereditarietà comporterebbe la creazione di molte sottoclassi con la conseguenza di ripetizione di codice.
+L'utilizzare l'ereditarietà comporterebbe la creazione di molte sottoclassi con la conseguenza di ripetizione di codice.
 Inoltre utilizzare l'ereditarietà multipla potrebbe portare numerosi problemi, come Deadly Diamond.
 
 \paragraph{Soluzione} Il \textit{Component pattern} permette di creare dei componenti altamente riusabili e indipendenti.
 Utilizzando il \textit{Component pattern}, quindi favorendo la composizione rispetto alla ereditarietà, si riesce a scalare
 molto velocemente sul numero di entità.
-Per descrivere il comportamento generale dell'entità li si vengono assegnati i componenti desiderati.
-Dividendo il dominio e assegnando un dominio specifico ad un specifico componente viene rispettato il \textit{Single Responsability Principle}.
-Questo comporta un migliore manutenibilità dovuta all'assenza di ripetizione di codice.\\
+Per descrivere il comportamento generale dell'entità gli vengono assegnati i componenti desiderati.
+Dividendo il dominio e assegnandolo ad un specifico componente viene rispettato il \textit{Single Responsability Principle}.
+Questo comporta una migliore manutenibilità dovuta all'assenza di ripetizione di codice.\\
 NOTA: La progettazione alla soluzione del problema è stata fatta in collaborazione con Cecchini Andrea.
 
 \subsubsection{Comunicazione tra le componenti dell'entità}
@@ -489,7 +488,7 @@ Per effettuare i test abbiamo utilizzato JUnit 5.
 	\item \textbf{WaveTest}, in questa classe di test viene testato la corretta generazione di una wave controllando specificatamente la generazione di una wave basica e di una wave con boss, viene inoltre testato il la correttezza dell’aggiunta di un Entity alla wave.
 	\item \textbf{WorldTest}, sono state testate funzioni basi come l'aggiunta e rimozione di entità, il metodo set e get dell'oggetto  Wave all'interno del mondo. Inoltre sono stati testati i metodi della factory di world, in modo da verificare che tali metodo ritornassero world con le caratteristiche volute
 \end{itemize}
-Dal punto di vista della grafica non sono stati svolti test automatizzati visto che la totalità della renderizzazione grafica è stata affidata al componente Canvas di JavaFX e al suo GraphicContext, risultavano quindi veramente minime le funzionalità da testare. Inoltre ciò che doveva essere visibile alla grafica veniva prelevato dal controller e altri eventuali test sarebbero stati solo ripetizioni di test già effettuati.
+Dal punto di vista della grafica non sono stati svolti test automatizzati visto che la totalità della renderizzazione grafica è stata affidata al componente Canvas di JavaFX e al suo GraphicContext, risultavano quindi veramente minime le funzionalità da testare. Inoltre ciò che doveva essere visibile alla grafica veniva prelevato dal controller portando eventuali altri test a essere solo banali ripetizioni di test già effettuati.
 
 
 
@@ -610,7 +609,7 @@ Utilizzata per realizzare la parte di View
 \begin{itemize}
 	\item Utilizzo di stream, optional, method reference e metodo generico  \\
 	Permalink: \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/48fe160af0c4cdbfbf7fe791b784f6f4ad7b185e/src/main/java/it/unibo/t2sgame/game/ecs/impl/EntityImpl.java#L46-L51}
-	\item Utilizzo di stream, optional, lamda e metodo generico \\
+	\item Utilizzo di stream, optional, lambda e metodo generico \\
 	Permalink: \url{https://github.com/nicolodaddabbo/OOP22-t2s-game/blob/48fe160af0c4cdbfbf7fe791b784f6f4ad7b185e/src/main/java/it/unibo/t2sgame/game/ecs/impl/EntityImpl.java#L69-L71}
 \end{itemize}
 
@@ -618,13 +617,13 @@ Utilizzata per realizzare la parte di View
 
 \section{Autovalutazione e lavori futuri}
 \subsection*{Andrea Cecchini}
-Sono  contento dell'opportunità avuta nel realizzare questo progretto.
+Sono  contento dell'opportunità avuta nel realizzare questo progetto.
 \\
 Per quanto riguarda il lavoro in gruppo, sono molto soddisfatto del coordinamento che vi è stato.
 Lo scambio di opinioni e di idee è una delle caratteristiche fondamentali che rappresenta il nostro gruppo.
 \\
 Questo progetto mi ha dato la possibilità di sperimentare moltissimo sul scrivere codice "pulito" e "riusabile".
-Nonostante l'esperienza nello sviluppo di un gioco, sono abbastanza contento del risultato.
+Nonostante l'inesperienza nello sviluppo di un gioco, sono abbastanza contento del risultato.
 Ritengo comunque che ci siano parti da migliorare e come esercizio, una volta effettuata la consegna, avrò la possibilità di imparare ancora.
 
 \subsection*{Nicolò D'Addabbo}
@@ -668,4 +667,7 @@ I comandi di gioco sono i seguenti:
 
 \bibliographystyle{alpha}
 \bibliography{13-template}
+\begin{itemize}
+	\item Nella fase di analisi abbiamo utilizzato come spunto il git mostrato durante la lezione svolta dal professore A. Ricci. \url{https://github.com/pslab-unibo/oop-game-prog-patterns-2022}
+\end{itemize}
 \end{document}
