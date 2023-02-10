@@ -1,7 +1,7 @@
 package it.unibo.t2sgame.game.model.api;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Entity;
 import it.unibo.t2sgame.input.api.Directions;
 
 /**

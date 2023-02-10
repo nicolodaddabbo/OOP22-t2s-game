@@ -12,7 +12,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.core.entity.api.Type;
+import it.unibo.t2sgame.game.ecs.api.Type;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
 import it.unibo.t2sgame.game.model.api.World;
 import it.unibo.t2sgame.game.model.api.WorldFactory;

@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import it.unibo.t2sgame.core.components.api.Component;
-import it.unibo.t2sgame.core.components.impl.GraphicComponent;
-import it.unibo.t2sgame.core.components.impl.InputComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.game.Game;
+import it.unibo.t2sgame.game.ecs.api.Component;
+import it.unibo.t2sgame.game.ecs.impl.GraphicComponent;
+import it.unibo.t2sgame.game.ecs.impl.InputComponent;
 import it.unibo.t2sgame.input.impl.KeyboardInputController;
 import it.unibo.t2sgame.view.api.GameScene;
 import it.unibo.t2sgame.view.api.Graphic;

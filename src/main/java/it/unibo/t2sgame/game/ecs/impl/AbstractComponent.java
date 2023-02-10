@@ -1,6 +1,7 @@
-package it.unibo.t2sgame.core.components.api;
+package it.unibo.t2sgame.game.ecs.impl;
 
-import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Component;
+import it.unibo.t2sgame.game.ecs.api.Entity;
 
 /**
  * This abstract class factorized the common code between all components
@@ -13,16 +14,14 @@ public abstract class AbstractComponent implements Component {
     /**
      * {@inheritDoc}
      */
-    @Override
-    public Entity getEntity() {
+    protected Entity getEntity() {
         return this.entity;
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void setEntity(final Entity entity) {
+    protected void setEntity(final Entity entity) {
         this.entity = entity;
     }
 

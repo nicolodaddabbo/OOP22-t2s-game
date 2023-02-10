@@ -1,4 +1,4 @@
-package it.unibo.t2sgame.core.entity.api;
+package it.unibo.t2sgame.game.ecs.api;
 
 /**
  * This enum represents the types of the entities.

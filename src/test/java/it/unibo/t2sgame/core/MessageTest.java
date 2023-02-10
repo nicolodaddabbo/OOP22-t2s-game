@@ -8,13 +8,13 @@ import java.util.List;
 
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.common.shapes.Rectangle;
-import it.unibo.t2sgame.core.components.api.ComponentFactory;
-import it.unibo.t2sgame.core.components.impl.CollisionComponent;
-import it.unibo.t2sgame.core.components.impl.ComponentFactoryImpl;
-import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
-import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.core.entity.api.Type;
-import it.unibo.t2sgame.core.entity.impl.EntityImpl;
+import it.unibo.t2sgame.game.ecs.api.ComponentFactory;
+import it.unibo.t2sgame.game.ecs.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Type;
+import it.unibo.t2sgame.game.ecs.impl.CollisionComponent;
+import it.unibo.t2sgame.game.ecs.impl.ComponentFactoryImpl;
+import it.unibo.t2sgame.game.ecs.impl.EntityImpl;
+import it.unibo.t2sgame.game.ecs.impl.PhysicsComponent;
 import it.unibo.t2sgame.input.api.Directions;
 
 class MessageTest {

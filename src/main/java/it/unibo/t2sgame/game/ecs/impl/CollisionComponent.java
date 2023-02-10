@@ -1,13 +1,12 @@
-package it.unibo.t2sgame.core.components.impl;
+package it.unibo.t2sgame.game.ecs.impl;
 
 import java.util.List;
 
 import it.unibo.t2sgame.common.Shape;
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.core.components.api.AbstractComponent;
-import it.unibo.t2sgame.core.components.api.Message;
-import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.core.entity.api.Type;
+import it.unibo.t2sgame.game.ecs.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Message;
+import it.unibo.t2sgame.game.ecs.api.Type;
 
 /**
  * This class represents the collsion of the entity.
@@ -36,7 +35,7 @@ public abstract class CollisionComponent extends AbstractComponent {
      */
     @Override
     public <T> void receive(final Message<T> message) {
-        if (Vector2D.class.isInstance(message.getMessage())) {
+        if (message.getMessage() instanceof Vector2D) {
             this.receiveFromPhysicComponent(Vector2D.class.cast(message.getMessage()));
         }
     }

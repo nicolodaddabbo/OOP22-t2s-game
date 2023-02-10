@@ -1,13 +1,12 @@
-package it.unibo.t2sgame.core.entity.impl;
+package it.unibo.t2sgame.game.ecs.impl;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.core.components.api.Component;
-import it.unibo.t2sgame.core.components.api.Message;
-import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.core.entity.api.Type;
+import it.unibo.t2sgame.game.ecs.api.Component;
+import it.unibo.t2sgame.game.ecs.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Message;
+import it.unibo.t2sgame.game.ecs.api.Type;
 import it.unibo.t2sgame.game.model.api.World;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -37,7 +36,7 @@ public class EntityImpl implements Entity {
      */
     @Override
     public Set<Component> getComponents() {
-        return Collections.unmodifiableSet(this.components);
+        return new HashSet<>(this.components);
     }
 
     /**
@@ -57,7 +56,9 @@ public class EntityImpl implements Entity {
     @Override
     public Entity addComponent(final Component component) {
         this.components.add(component);
-        component.setEntity(this);
+        if (component instanceof AbstractComponent) {
+            ((AbstractComponent) component).setEntity(this);
+        }
         return this;
     }
 

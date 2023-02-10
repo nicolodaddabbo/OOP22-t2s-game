@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import it.unibo.t2sgame.game.components.HealthComponent;
+import it.unibo.t2sgame.game.ecs.impl.HealthComponent;
 import it.unibo.t2sgame.view.api.AbstractBaseScene;
 import it.unibo.t2sgame.view.api.AbstractGameScene;
 import it.unibo.t2sgame.view.api.Window;

@@ -2,8 +2,8 @@ package it.unibo.t2sgame.core.engine.impl;
 
 import java.util.function.Consumer;
 
-import it.unibo.t2sgame.core.components.api.Component;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
+import it.unibo.t2sgame.game.ecs.api.Component;
 
 /**
  * This class extends the base game loop implementation.

@@ -3,8 +3,8 @@ package it.unibo.t2sgame.core.engine.api;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.t2sgame.core.components.api.Component;
 import it.unibo.t2sgame.game.Game;
+import it.unibo.t2sgame.game.ecs.api.Component;
 import it.unibo.t2sgame.view.api.GameScene;
 import it.unibo.t2sgame.view.api.Graphic;
 

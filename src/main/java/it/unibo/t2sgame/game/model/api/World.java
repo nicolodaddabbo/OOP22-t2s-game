@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Entity;
 import it.unibo.t2sgame.game.logics.api.Event;
 import it.unibo.t2sgame.game.logics.api.GameMap;
 

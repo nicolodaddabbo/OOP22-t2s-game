@@ -1,8 +1,7 @@
-package it.unibo.t2sgame.game.components;
+package it.unibo.t2sgame.game.ecs.impl;
 
 import it.unibo.t2sgame.common.StopWatch;
-import it.unibo.t2sgame.core.components.api.AbstractComponent;
-import it.unibo.t2sgame.core.components.api.Message;
+import it.unibo.t2sgame.game.ecs.api.Message;
 
 /**
  * This class represents the ability to damage entities on collision.
@@ -25,11 +24,17 @@ public class DamageComponent extends AbstractComponent {
         this.cooldownSeconds = cooldownSeconds;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <T> void receive(final Message<T> message) {
 

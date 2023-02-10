@@ -3,10 +3,10 @@ package it.unibo.t2sgame.game.model.impl;
 import java.util.List;
 import java.util.function.Consumer;
 
-import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
-import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.game.components.HealthComponent;
-import it.unibo.t2sgame.game.components.ShootComponent;
+import it.unibo.t2sgame.game.ecs.api.Entity;
+import it.unibo.t2sgame.game.ecs.impl.HealthComponent;
+import it.unibo.t2sgame.game.ecs.impl.PhysicsComponent;
+import it.unibo.t2sgame.game.ecs.impl.ShootComponent;
 import it.unibo.t2sgame.game.model.api.PowerUp;
 import it.unibo.t2sgame.game.model.api.PowerUpFactory;
 /**

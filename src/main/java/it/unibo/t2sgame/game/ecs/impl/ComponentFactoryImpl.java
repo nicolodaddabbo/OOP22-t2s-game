@@ -1,18 +1,13 @@
-package it.unibo.t2sgame.core.components.impl;
+package it.unibo.t2sgame.game.ecs.impl;
 
 import java.util.List;
 import java.util.function.BiConsumer;
 
 import it.unibo.t2sgame.common.Shape;
-import it.unibo.t2sgame.core.components.api.Component;
-import it.unibo.t2sgame.core.components.api.ComponentFactory;
-import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.core.entity.api.Type;
-import it.unibo.t2sgame.game.components.BaseCollisionComponent;
-import it.unibo.t2sgame.game.components.DamageComponent;
-import it.unibo.t2sgame.game.components.HealthComponent;
-import it.unibo.t2sgame.game.components.ProjectileCollisionComponent;
-import it.unibo.t2sgame.game.components.ShootComponent;
+import it.unibo.t2sgame.game.ecs.api.Component;
+import it.unibo.t2sgame.game.ecs.api.ComponentFactory;
+import it.unibo.t2sgame.game.ecs.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Type;
 import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
 import it.unibo.t2sgame.view.api.Graphic;

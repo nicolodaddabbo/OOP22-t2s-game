@@ -3,8 +3,8 @@ package it.unibo.t2sgame.input.impl;
 import java.util.Random;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
-import it.unibo.t2sgame.core.entity.api.Type;
+import it.unibo.t2sgame.game.ecs.api.Type;
+import it.unibo.t2sgame.game.ecs.impl.PhysicsComponent;
 import it.unibo.t2sgame.input.api.AbstractChasingAIInputController;
 import it.unibo.t2sgame.input.api.Directions;
 

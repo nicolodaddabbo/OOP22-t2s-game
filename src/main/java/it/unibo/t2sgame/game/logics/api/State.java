@@ -3,7 +3,7 @@ package it.unibo.t2sgame.game.logics.api;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Entity;
 import it.unibo.t2sgame.game.model.api.Wave;
 import it.unibo.t2sgame.game.model.api.World;
 

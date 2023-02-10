@@ -1,5 +1,5 @@
 package it.unibo.t2sgame.view.api;
-import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Entity;
 
 /**
  * Interface that indicates how an Entity is drawn.

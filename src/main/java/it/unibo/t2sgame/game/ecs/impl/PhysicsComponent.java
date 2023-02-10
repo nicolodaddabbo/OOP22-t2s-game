@@ -1,8 +1,7 @@
-package it.unibo.t2sgame.core.components.impl;
+package it.unibo.t2sgame.game.ecs.impl;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.core.components.api.AbstractComponent;
-import it.unibo.t2sgame.core.components.api.Message;
+import it.unibo.t2sgame.game.ecs.api.Message;
 import it.unibo.t2sgame.input.api.Directions;
 
 /**
@@ -46,7 +45,7 @@ public class PhysicsComponent extends AbstractComponent {
      */
     @Override
     public <T> void receive(final Message<T> message) {
-        if (Directions.class.isInstance(message.getMessage())) {
+        if (message.getMessage() instanceof Directions) {
             this.receiveDirection(Directions.class.cast(message.getMessage()));
         }
     }

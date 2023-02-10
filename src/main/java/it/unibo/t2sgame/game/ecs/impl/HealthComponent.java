@@ -1,7 +1,6 @@
-package it.unibo.t2sgame.game.components;
+package it.unibo.t2sgame.game.ecs.impl;
 
-import it.unibo.t2sgame.core.components.api.AbstractComponent;
-import it.unibo.t2sgame.core.components.api.Message;
+import it.unibo.t2sgame.game.ecs.api.Message;
 import it.unibo.t2sgame.game.logics.api.EventFactory;
 import it.unibo.t2sgame.game.logics.impl.EventFactoryImpl;
 

@@ -1,6 +1,4 @@
-package it.unibo.t2sgame.core.components.api;
-
-import it.unibo.t2sgame.core.entity.api.Entity;
+package it.unibo.t2sgame.game.ecs.api;
 
 /**
  * This interface represents the component's contract of a entity.
@@ -23,18 +21,5 @@ public interface Component {
      * @param message the message to receive
      */
     <T> void receive(Message<T> message);
-
-    /**
-     * 
-     * @return the Entity linked to the component.
-     */
-    Entity getEntity();
-
-    /**
-     * Link the {@link entity} to the component.
-     * 
-     * @param entity the entity to be linked with the component
-     */
-    void setEntity(Entity entity);
 
 }

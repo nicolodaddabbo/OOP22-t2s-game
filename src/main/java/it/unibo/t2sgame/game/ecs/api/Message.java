@@ -1,4 +1,4 @@
-package it.unibo.t2sgame.core.components.api;
+package it.unibo.t2sgame.game.ecs.api;
 
 /**
  * This interface models a message container.

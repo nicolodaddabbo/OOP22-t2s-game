@@ -3,8 +3,8 @@ package it.unibo.t2sgame.view.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.unibo.t2sgame.core.components.impl.GraphicComponent;
-import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Entity;
+import it.unibo.t2sgame.game.ecs.impl.GraphicComponent;
 import it.unibo.t2sgame.view.api.Graphic;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

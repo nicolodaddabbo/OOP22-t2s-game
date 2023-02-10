@@ -6,14 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.t2sgame.core.components.impl.CollisionComponent;
-import it.unibo.t2sgame.core.components.impl.GraphicComponent;
-import it.unibo.t2sgame.core.components.impl.InputComponent;
-import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
 import it.unibo.t2sgame.core.engine.api.GameEngine;
 import it.unibo.t2sgame.core.engine.impl.GameEngineImpl;
 import it.unibo.t2sgame.game.GameFactory;
 import it.unibo.t2sgame.game.GameFactoryImpl;
+import it.unibo.t2sgame.game.ecs.impl.CollisionComponent;
+import it.unibo.t2sgame.game.ecs.impl.GraphicComponent;
+import it.unibo.t2sgame.game.ecs.impl.InputComponent;
+import it.unibo.t2sgame.game.ecs.impl.PhysicsComponent;
 
 class GameEngineTest {
 

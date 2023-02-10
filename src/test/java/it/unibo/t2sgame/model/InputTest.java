@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.core.components.api.ComponentFactory;
-import it.unibo.t2sgame.core.components.impl.ComponentFactoryImpl;
-import it.unibo.t2sgame.core.components.impl.InputComponent;
-import it.unibo.t2sgame.core.components.impl.PhysicsComponent;
-import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.core.entity.api.Type;
+import it.unibo.t2sgame.game.ecs.api.ComponentFactory;
+import it.unibo.t2sgame.game.ecs.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Type;
+import it.unibo.t2sgame.game.ecs.impl.ComponentFactoryImpl;
+import it.unibo.t2sgame.game.ecs.impl.InputComponent;
+import it.unibo.t2sgame.game.ecs.impl.PhysicsComponent;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
 import it.unibo.t2sgame.game.model.api.World;
 import it.unibo.t2sgame.game.model.api.WorldFactory;

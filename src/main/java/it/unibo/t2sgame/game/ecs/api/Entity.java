@@ -1,8 +1,6 @@
-package it.unibo.t2sgame.core.entity.api;
+package it.unibo.t2sgame.game.ecs.api;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.core.components.api.Component;
-import it.unibo.t2sgame.core.components.api.Message;
 import it.unibo.t2sgame.game.model.api.World;
 
 import java.util.Optional;

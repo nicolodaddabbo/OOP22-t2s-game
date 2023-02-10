@@ -1,10 +1,9 @@
-package it.unibo.t2sgame.core.components.api;
+package it.unibo.t2sgame.game.ecs.api;
 
 import java.util.List;
 
 import it.unibo.t2sgame.common.Shape;
-import it.unibo.t2sgame.core.components.impl.GraphicComponent;
-import it.unibo.t2sgame.core.entity.api.Type;
+import it.unibo.t2sgame.game.ecs.impl.GraphicComponent;
 import it.unibo.t2sgame.input.api.Directions;
 import it.unibo.t2sgame.input.api.InputController;
 

@@ -1,9 +1,8 @@
-package it.unibo.t2sgame.game.components;
+package it.unibo.t2sgame.game.ecs.impl;
 
 import it.unibo.t2sgame.common.StopWatch;
-import it.unibo.t2sgame.core.components.api.AbstractComponent;
-import it.unibo.t2sgame.core.components.api.Message;
-import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Message;
 import it.unibo.t2sgame.game.logics.impl.EventFactoryImpl;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
 import it.unibo.t2sgame.game.model.impl.EntityFactoryImpl;
@@ -50,7 +49,7 @@ public class ShootComponent extends AbstractComponent {
      */
     @Override
     public <T> void receive(final Message<T> message) {
-        if (Directions.class.isInstance(message.getMessage())) {
+        if (message.getMessage() instanceof Directions) {
             this.shoot(Directions.class.cast(message.getMessage()));
         }
     }

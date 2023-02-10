@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.t2sgame.common.Vector2D;
-import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.core.entity.api.Type;
-import it.unibo.t2sgame.core.entity.impl.EntityImpl;
-import it.unibo.t2sgame.game.components.HealthComponent;
+import it.unibo.t2sgame.game.ecs.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Type;
+import it.unibo.t2sgame.game.ecs.impl.EntityImpl;
+import it.unibo.t2sgame.game.ecs.impl.HealthComponent;
 
 class HealthComponentTest {
     private static final int STARTING_HEALTH = 3;

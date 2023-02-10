@@ -3,8 +3,8 @@ package it.unibo.t2sgame.input.api;
 import java.util.Optional;
 import java.util.Queue;
 
-import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.core.entity.api.Type;
+import it.unibo.t2sgame.game.ecs.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Type;
 
 /**
  * This abstract class represent an InutController for an AI that chase an

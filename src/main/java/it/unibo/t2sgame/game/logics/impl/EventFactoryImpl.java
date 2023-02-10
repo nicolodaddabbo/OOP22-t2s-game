@@ -1,6 +1,6 @@
 package it.unibo.t2sgame.game.logics.impl;
 
-import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Entity;
 import it.unibo.t2sgame.game.logics.api.Event;
 import it.unibo.t2sgame.game.logics.api.EventFactory;
 import it.unibo.t2sgame.game.model.api.PowerUp;

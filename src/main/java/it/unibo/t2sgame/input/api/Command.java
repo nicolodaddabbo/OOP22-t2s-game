@@ -1,6 +1,6 @@
 package it.unibo.t2sgame.input.api;
 
-import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Entity;
 
 /**
  * This functional interface represent a game Command.

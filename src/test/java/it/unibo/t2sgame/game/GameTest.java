@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.t2sgame.core.entity.api.Type;
-import it.unibo.t2sgame.game.components.HealthComponent;
+import it.unibo.t2sgame.game.ecs.api.Type;
+import it.unibo.t2sgame.game.ecs.impl.HealthComponent;
 
 class GameTest {
 

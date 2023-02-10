@@ -1,6 +1,6 @@
 package it.unibo.t2sgame.game.model.api;
 
-import it.unibo.t2sgame.core.entity.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Entity;
 /**
  * functional interface that represents a power up.
  */

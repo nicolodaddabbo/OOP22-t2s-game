@@ -9,8 +9,8 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import it.unibo.t2sgame.core.entity.api.Entity;
-import it.unibo.t2sgame.core.entity.api.Type;
+import it.unibo.t2sgame.game.ecs.api.Entity;
+import it.unibo.t2sgame.game.ecs.api.Type;
 import it.unibo.t2sgame.game.logics.api.Event;
 import it.unibo.t2sgame.game.logics.api.GameMap;
 import it.unibo.t2sgame.game.logics.impl.GameMapImpl;
