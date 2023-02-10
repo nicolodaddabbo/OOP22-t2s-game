@@ -12,27 +12,27 @@ import it.unibo.t2sgame.game.model.impl.EntityFactoryImpl;
 import it.unibo.t2sgame.game.model.impl.WaveFactoryImpl;
 import it.unibo.t2sgame.game.model.impl.WorldFactoryImpl;
 
-public class WaveTest {
-    private WaveFactory waveFactory = new WaveFactoryImpl(new WorldFactoryImpl().createWorldWithOnePlayer());
-    private int round = 10;
-    
+class WaveTest {
+    private final WaveFactory waveFactory = new WaveFactoryImpl(new WorldFactoryImpl().createWorldWithOnePlayer());
+    private final static int ROUND = 10;
+
     @Test
-    public void testBasicWaveSpawn(){
-        var wave = this.waveFactory.createBasicWave(this.round);
+    void testBasicWaveSpawn() {
+        final var wave = this.waveFactory.createBasicWave(ROUND);
         assertFalse(wave.getEnemies().isEmpty());
-        assertEquals(round / 2, wave.getEnemies().size());
+        assertEquals(ROUND / 2, wave.getEnemies().size());
     }
 
     @Test
-    public void testBossWaveSpawn(){
-        var wave = this.waveFactory.createBossWave(this.round);
+    void testBossWaveSpawn() {
+        final var wave = this.waveFactory.createBossWave(ROUND);
         assertFalse(wave.getEnemies().isEmpty());
-        assertEquals((Math.ceil((round / 2) / 2.0)) + 1, wave.getEnemies().size());
+        assertEquals(Math.ceil(ROUND / 4.0) + 1, wave.getEnemies().size());
     }
 
     @Test
-    public void testAddEntityToWave(){
-        var wave = this.waveFactory.createBasicWave(0);
+    void testAddEntityToWave() {
+        final var wave = this.waveFactory.createBasicWave(0);
         assertTrue(wave.getEnemies().isEmpty());
         wave.addEnemy(new EntityFactoryImpl().createBaseEnemy(new Vector2D(0, 0)));
         assertFalse(wave.getEnemies().isEmpty());

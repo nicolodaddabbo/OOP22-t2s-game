@@ -1,7 +1,6 @@
 package it.unibo.t2sgame.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,25 +10,26 @@ import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.core.entity.impl.EntityImpl;
 import it.unibo.t2sgame.game.components.HealthComponent;
 
-public class HealthComponentTest {
-    private int startingHealth = 3;
-    private int damage = 1;
+class HealthComponentTest {
+    private final static int STARTING_HEALTH = 3;
+    private final static int DAMAGE = 1;
+
     private Entity createBaseEntity() {
         return new EntityImpl(new Vector2D(0, 0), Type.PLAYER)
-            .addComponent(new HealthComponent(startingHealth));
+            .addComponent(new HealthComponent(STARTING_HEALTH));
     }
 
     @Test
-    public void testDamageReceived() {
-        var entity = createBaseEntity();
-        entity.notifyComponent(HealthComponent.class, () -> this.damage);
-        assertEquals(this.startingHealth - this.damage, entity.getComponent(HealthComponent.class).get().getHealth());
+    void testDamageReceived() {
+        final var entity = createBaseEntity();
+        entity.notifyComponent(HealthComponent.class, () -> DAMAGE);
+        assertEquals(STARTING_HEALTH - DAMAGE, entity.getComponent(HealthComponent.class).get().getHealth());
     }
 
     @Test
-    public void testBehaviourWhenDamageIsBiggerThanCurrentHealth(){
-        var entity = createBaseEntity();
-        entity.notifyComponent(HealthComponent.class, () -> this.startingHealth*2);
+    void testBehaviourWhenDamageIsBiggerThanCurrentHealth() {
+        final var entity = createBaseEntity();
+        entity.notifyComponent(HealthComponent.class, () -> STARTING_HEALTH * 2);
         assertEquals(0, entity.getComponent(HealthComponent.class).get().getHealth());
     }
 }
