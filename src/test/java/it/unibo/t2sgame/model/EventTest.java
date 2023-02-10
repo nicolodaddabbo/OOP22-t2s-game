@@ -37,7 +37,7 @@ class EventTest {
     private final Entity enemy = new EntityImpl(new Vector2D(0, 0), Type.ENEMY);
     private final PowerUpFactory powerUpFactory = new PowerUpFactoryImpl();
 
-    public EventTest() {
+    EventTest() {
         this.player = this.entityFactory.createPlayer(new Vector2D(0, 0));
         this.player.setWorld(this.world);
         this.world.addEntity(player);

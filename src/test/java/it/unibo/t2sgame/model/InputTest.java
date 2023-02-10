@@ -35,8 +35,8 @@ class InputTest {
     private final WorldFactory worldFactory = new WorldFactoryImpl();
     private final Entity player;
     private final Entity enemy;
-    
-    public InputTest() {
+
+    InputTest() {
         final World world = this.worldFactory.createWorldWithOnePlayer();
         this.player = world.getPlayers().get(0);
         this.enemy = this.entityFactory.createBaseEnemy(new Vector2D(0, 0));
