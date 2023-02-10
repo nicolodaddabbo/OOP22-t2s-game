@@ -33,7 +33,7 @@ class GameTest {
         assertTrue(g.isOver());
     }
 
-    void testRound(final World world, final State state, int round) {
+    void testRound(final World world, final State state, final int round) {
         assertEquals(round, state.getRound());
         world.getCurrentWave().ifPresent(wave -> {
             world.removeEntities(wave.getEnemies());

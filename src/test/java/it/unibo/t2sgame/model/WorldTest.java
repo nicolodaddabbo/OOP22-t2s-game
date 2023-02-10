@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import it.unibo.t2sgame.common.Vector2D;
 import it.unibo.t2sgame.core.entity.api.Type;
 import it.unibo.t2sgame.game.model.api.EntityFactory;
-import it.unibo.t2sgame.game.model.api.WaveFactory;
 import it.unibo.t2sgame.game.model.api.World;
 import it.unibo.t2sgame.game.model.api.WorldFactory;
 import it.unibo.t2sgame.game.model.impl.EntityFactoryImpl;
@@ -25,11 +24,10 @@ class WorldTest {
 
     private final WorldFactory worldFactory = new WorldFactoryImpl();
     private final EntityFactory entityFactory = new EntityFactoryImpl();
-    private WaveFactory waveFactory;
 
     void testBasics(final World w) {
-        this.waveFactory = new WaveFactoryImpl(w);
-        final var wave = this.waveFactory.createBasicWave(1);
+        final var waveFactory = new WaveFactoryImpl(w);
+        final var wave = waveFactory.createBasicWave(1);
         final var e = this.entityFactory.createBaseEnemy(new Vector2D(0, 0));
         // Adding one entity
         w.addEntity(e);
