@@ -3,6 +3,7 @@ package it.unibo.t2sgame.game.model.impl;
 import java.util.Random;
 
 final class Stats {
+    private static final Random RANDOM = new Random();
 
     private Stats() {
     }
@@ -65,7 +66,6 @@ final class Stats {
     }
 
     static final class WildEnemy {
-        private static final Random RANDOM = new Random();
         static final int HEALTH = 1;
         static final int DAMAGE = 1;
         static final double DAMAGE_COOLDOWN = 1.0;

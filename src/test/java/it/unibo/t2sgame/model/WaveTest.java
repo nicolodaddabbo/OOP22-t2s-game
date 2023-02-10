@@ -27,7 +27,8 @@ class WaveTest {
     void testBossWaveSpawn() {
         final var wave = this.waveFactory.createBossWave(ROUND);
         assertFalse(wave.getEnemies().isEmpty());
-        assertEquals(Math.ceil(ROUND / 4.0) + 1, wave.getEnemies().size());
+        final var expectedSize = Math.ceil(Integer.valueOf(ROUND) / 4.0) + 1;
+        assertEquals(expectedSize, wave.getEnemies().size());
     }
 
     @Test
