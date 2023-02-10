@@ -1,4 +1,4 @@
-package it.unibo.t2sgame.core.gameloop.api;
+package it.unibo.t2sgame.core.engine.impl;
 
 import it.unibo.t2sgame.core.engine.api.GameEngine;
 
@@ -9,7 +9,7 @@ import it.unibo.t2sgame.core.engine.api.GameEngine;
  * - Update the game time and status based on the input.
  * - Render what updated.
  */
-public interface GameLoop {
+interface GameLoop {
 
     /**
      * Processes all the InputComponents in the game.

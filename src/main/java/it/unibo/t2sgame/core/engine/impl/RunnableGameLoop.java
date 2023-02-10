@@ -1,9 +1,8 @@
-package it.unibo.t2sgame.core.gameloop.impl;
+package it.unibo.t2sgame.core.engine.impl;
 
 import java.util.Optional;
 
 import it.unibo.t2sgame.core.engine.api.GameEngine;
-import it.unibo.t2sgame.core.gameloop.api.GameLoop;
 import it.unibo.t2sgame.game.Game;
 import it.unibo.t2sgame.view.api.GameScene;
 
@@ -12,7 +11,7 @@ import it.unibo.t2sgame.view.api.GameScene;
  * The game loop logics and body is contained in the run method, decouplig the
  * domain of the game loop from the engine class.
  */
-public class RunnableGameLoop implements Runnable {
+class RunnableGameLoop implements Runnable {
     /* The engine which calls the runnable */
     private final GameEngine engine;
     /* The object delegated to process the various part of the game loop cycle */
@@ -22,7 +21,7 @@ public class RunnableGameLoop implements Runnable {
      * Create a runnable which runs a Game loop.
      * @param engine the engine which creates this runnable
      */
-    public RunnableGameLoop(final GameEngine engine) {
+    RunnableGameLoop(final GameEngine engine) {
         this.engine = engine;
         this.gameLoop = new FrequencyCounterGameLoop(
             // Locking the frequency 
