@@ -265,7 +265,7 @@ Per risolvere questo problema vengono usate delle \textit{Concurrent State Machi
 Come descritto nel libro "Game Programming Patterns" di Robert Nystrom: \textit{"Una coda memorizza una serie di notifiche o richieste in ordine FIFO (First-In First-Out). 
 Inviare una notifica aggiunge la richiesta alla coda e ritorna. Il "Request Processor" elabora quindi gli elementi nella coda in un secondo momento. 
 Le richieste possono essere gestite direttamente o inoltrate ad altri oggetti. Questo disaccoppia il mittente dal destinatario sia staticamente che nel tempo"}
-\footnote{\url{https://gameprogrammingpatterns.com/event-queue.html#the-pattern}}.
+\footnote{\url{https://gameprogrammingpatterns.com/event-queue.html\#the-pattern}}.
 \\
 Prendiamo come esempio l'evento \textit{onShoot}. La gestione degli eventi è analoga anche per \textit{onPowerUp} e \textit{onDeath}. Quando uno ShootComponent vuole generare un proiettile, chiama il metodo notifyEvent(Event) del \textit{Request Processor} World, 
 passandogli un evento come parametro. Questo evento viene aggiunto alla coda della Event Queue. Gli eventi possono essere generati tramite una \textit{Factory}.
