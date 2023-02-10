@@ -67,6 +67,6 @@ abstract class BaseGameLoop implements GameLoop {
      * @return the component updater whichs is delegated to update a group of
      *         component of the same type.
      */
-    abstract Consumer<Class<? extends Component>> getUpdater();
+    abstract protected Consumer<Class<? extends Component>> getUpdater();
 
 }

@@ -27,7 +27,7 @@ class SequencialGameLoop extends BaseGameLoop {
      * {@inheritDoc}
      */
     @Override
-    Consumer<Class<? extends Component>> getUpdater() {
+    protected Consumer<Class<? extends Component>> getUpdater() {
         return this::updateComponentBy;
     }
 
