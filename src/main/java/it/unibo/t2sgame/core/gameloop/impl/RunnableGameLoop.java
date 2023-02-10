@@ -30,7 +30,7 @@ public class RunnableGameLoop implements Runnable {
             // Synchronze the gameloop
             new SynchronizedGameLoop(
             // Use a concurrent updater when updating components.
-            new ConcurrentGameLoop(engine))));
+            new ConcurrentGameLoop(this.engine))));
     }
 
     /**
