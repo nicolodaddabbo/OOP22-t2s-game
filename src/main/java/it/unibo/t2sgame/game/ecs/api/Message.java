@@ -5,6 +5,7 @@ package it.unibo.t2sgame.game.ecs.api;
  * 
  * @param <T> the type of message
  */
+@FunctionalInterface
 public interface Message<T> {
     /**
      * 

@@ -22,3 +22,4 @@ class Move {
 class Shoot {
     +execute(Entity): void
 }
+```
