@@ -5,45 +5,49 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class StopWatchTest {
+class StopWatchTest {
 
+    private static final long NANO_DELTA = 100;
     private static final double NANO_TO_MILLIS = 1E6;
     private static final double NANO_TO_SECONDS = 1E9;
 
     @Test
     void testElapsedSeconds() {
         StopWatch stopWatch = new StopWatch();
-        double elapsed;
-        double seconds = 1;
+        double elapsed = 0.0;
+        final double seconds = 1;
         stopWatch.start();
-        while ((elapsed = stopWatch.getElapsedSeconds()) < seconds) {
-            /* Wait for the time to elapse */
+        /* Wait for the time to elapse */
+        while (elapsed < seconds) {
+            elapsed = stopWatch.getElapsedSeconds();
         }
-        assertEquals(seconds, elapsed, 100 / NANO_TO_SECONDS);
+        assertEquals(seconds, elapsed, NANO_DELTA / NANO_TO_SECONDS);
     }
 
     @Test
     void testElapsedMilliseconds() {
         StopWatch stopWatch = new StopWatch();
-        double elapsed;
-        double milliseconds = 500;
+        double elapsed = 0.0;
+        final double milliseconds = 500;
         stopWatch.start();
-        while ((elapsed = stopWatch.getElapsedMillis()) < milliseconds) {
-            /* Wait for the time to elapse */
+        /* Wait for the time to elapse */
+        while (elapsed < milliseconds) {
+            elapsed = stopWatch.getElapsedMillis();
         }
-        assertEquals(milliseconds, elapsed, 100 / NANO_TO_MILLIS);
+        assertEquals(milliseconds, elapsed, NANO_DELTA / NANO_TO_MILLIS);
     }
 
     @Test
     void testElapsedNanoseconds() {
         StopWatch stopWatch = new StopWatch();
-        long elapsed;
-        long nanoseconds = 500000;
+        long elapsed = 0;
+        final long nanoseconds = 500000;
         stopWatch.start();
-        while ((elapsed = stopWatch.getElapsedNanos()) < nanoseconds) {
-            /* Wait for the time to elapse */
+        /* Wait for the time to elapse */
+        while (elapsed < nanoseconds) {
+            elapsed = stopWatch.getElapsedNanos();
         }
-        assertEquals(nanoseconds, elapsed, 100);
+        assertEquals(nanoseconds, elapsed, NANO_DELTA);
     }
 
     @Test
