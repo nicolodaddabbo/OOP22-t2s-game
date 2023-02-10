@@ -97,4 +97,12 @@ public class Rectangle implements Shape {
                 Math.abs(this.center.getY() - rectangle.getCenter().getY()) < (this.height + rectangle.getHeight()) / 2;
     }
 
+    /**
+     * {@inheritDoc} 
+     */
+    @Override
+    public Shape copy() {
+        return new Rectangle(this.center, this.width, this.height);
+    }
+
 }
