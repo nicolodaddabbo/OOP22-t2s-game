@@ -182,6 +182,72 @@ Il metodo \textit{update} dell’Input Component chiama il metodo \textit{execut
 Inoltre, grazie allo \textit{Strategy pattern}, è possibile sviluppare un'intelligenza artificiale in modo semplice. Un'AI, infatti, non è altro che un \textit{InputController} che genera diversi \textit{Command} in base a un determinato algoritmo.
 \\
 
+\subsubsection{Gestione dei comandi di gioco}
+
+\begin{figure}[H]
+\centering{}
+\includegraphics[scale=0.75]{img/CommandsUML}
+\caption{Rappresentazione UML del pattern Command per la gestione dei comandi}
+\label{img:command}
+\end{figure}
+
+\paragraph{Problema} Rendere riutilizzabili i comandi di gioco, separando la responsabilità di eseguirli dall’oggetto che li registra.
+
+\paragraph{Soluzione} Il sistema di gestione dei comandi di gioco utilizza il \textit{Command pattern}. 
+Questo pattern consente di incapsulare una richiesta, nel nostro caso un comando di input, in un oggetto. 
+In questo modo il \textit{Command pattern} fornisce un livello di astrazione tra gli oggetti che triggerano azioni e quelli che le eseguono, 
+riducendo la dipendenza tra questi oggetti.
+La struttura del \textit{Command pattern} è composta da:
+\begin{itemize}
+\item \textbf{Command}: l'interfaccia che definisce l'operazione da eseguire. In questo caso rappresentato da \textit{Command}.
+\item \textbf{Concrete Command}: classe che implementa l'interfaccia Command e specifica la logica di esecuzione per una determinata richiesta. In questo caso rappresentato da \textit{Move} e \textit{Shoot}.
+\item \textbf{Receiver}: classe che contiene la logica vera e propria. I comandi gestiscono solo i dettagli di come una richiesta viene passata al \textit{receiver,} è infatti il \textit{receiver} che esegue il comando. In questo caso rappresentato dai diversi \textbf{Component}.
+\item \textbf{Invoker}: classe che inizializza la richiesta. In questo caso rappresentato da \textbf{InputController + InputComponent}.
+\end{itemize}
+Altri vantaggi dell’utilizzo del \textit{Command pattern} sono la flessibilità e la riutilizzabilità. Infatti rende più facile l’aggiunta di nuovi comandi, la modifica di quelli esistenti o anche l’annullamento di comandi già eseguiti.
+
+\subsubsection{Riuso di Input Controller}
+
+\begin{figure}[H]
+\centering{}
+\includegraphics[scale=0.75]{img/InputControllerTemplateMethodUML}
+\caption{Rappresentazione UML del pattern Template Method per il riuso di Input Controller}
+\label{img:inputControllerTemplateMethod}
+\end{figure}
+
+\paragraph{Problema} Rendere riutilizzabili i comandi di gioco, separando la responsabilità di eseguirli dall’oggetto che li registra.
+
+\paragraph{Soluzione} In \textit{AbstractInputController} viene data un’implementazione di default al metodo
+\textit{getCommandsQueue()}, da questa classe astratta si possono costruire Input Controller 
+come \textit{KeyboardInputController} che viene notificato ogni volta che un carattere da tastiera viene premuto
+o rilasciato. Dato che un AI Input Controller non viene notificato da nessuna periferica, 
+deve generare lui stesso i comandi da inserire nella \textit{commandsQueue}. 
+Dato che diverse AI differiscono solamente per il metodo di generazione di comandi, è stato utilizzato il \textit{Template Method pattern}. 
+Nella classe \textit{AbstractChasingAIInputController} viene fatto l’override del metodo \textit{getCommandsQueue()} rendendolo il \textit{metodo di template} che, 
+prima di ritornare la Commands Queue, chiama il metodo astratto \textit{computeNextCommand()}, 
+il quale aggiunge in coda un comando generato seguendo l’algoritmo della data AI.
+
+\subsubsection{Input Controller con molteplici stati}
+
+\begin{figure}[H]
+\centering{}
+\includegraphics[scale=0.75]{img/EntityStateUML}
+\caption{Rappresentazione UML del pattern State per la creazione di Input Controller con più FSM}
+\label{img:inputControllerStatePattern}
+\end{figure}
+
+\paragraph{Problema} Rendere riutilizzabili i comandi di gioco, separando la responsabilità di eseguirli dall’oggetto che li registra.
+
+\paragraph{Soluzione} Un player al momento presenta due \textit{macchine a stati finiti} (FSM): 
+\textit{moveState} e \textit{shotState}. Ad ogni momento c'è un numero finito di stati in cui \textit{moveState} può stare: UP, DOWN, LEFT, RIGHT e STAY. 
+Ad ognuno di questi stati corrisponde un comando (comportamento) diverso. \textit{moveState} può passare da uno stato ad un altro tramite regole dette \textit{transitions}, 
+in questo caso le \textit{transitions} sono definite da un \textit{moveset} dove ad ogni input da tastiera corrisponde un comando. 
+L'implementazione di questa FSM (e similmente anche per \textit{shotState}) è stata fatta utilizzando lo \textit{State pattern}, dove le implementazioni degli stati \textit{(Concrete States)} sono oggetti 
+della classe \textit{Move} inizializzata con \textit{Directions} differenti, mentre il \textit{Context} è rappresentato da un implementazione di \textit{EntityState}. 
+Grazie a questo pattern viene ridotta notevolmete la ripetizione di codice e semplificata l'aggiunta di ulteriori stati.
+L'azione "sparare" è rappresentabile in quattro stati: UP, DOWN, LEFT, RIGHT; corrispondenti alla direzione del proitettile. Se "sparare" venisse trattato nella stessa FSM in cui viene gestito il movimento, per poter eseguire queste due azioni contemporaneamente, dovremmo duplicare il numero di stati.
+Per risolvere questo problema vengono usate delle \textit{Concurrent State Machines}, ovvero due FSM che operano in maniera indipendente, in questo caso \textit{moveState} e \textit{shotState}.
+
 \subsection*{Fiumanò Luca Oskari}
 
 \subsubsection{Gestione delle Wave}
